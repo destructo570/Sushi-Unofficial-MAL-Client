@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">Sushi-MAL</string>
+    <string name="app_name">Sushi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="title_browse_anime">Browse Anime</string>
+    <string name="title_anime_schedule">Anime Schedule</string>
+    <string name="title_browse_manga">Browse Manga</string>
+    <string name="title_clubs">Clubs</string>
+    <string name="title_forum">Forum</string>
+    <string name="title_news">News/Articles</string>
+    <string name="title_promotion">Promotional Content</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_about_app">About App</string>
+    <string name="title_anime">ANIME</string>
+    <string name="title_manga">MANGA</string>
+    <string name="title_other">OTHER</string>
+    <string name="title_preferences">APP SETTINGS</string>
+
+
+
 </resources>

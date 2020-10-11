@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/animeFragment">
+
+    <fragment
+        android:id="@+id/animeFragment"
+        android:name="com.destructo.sushi_mal.ui.anime.AnimeFragment"
+        android:label="@string/title_browse_anime"
+        tools:layout="@layout/fragment_anime" />
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.destructo.sushi_mal.ui.animeSchedule.AnimeScheduleFragment"
+        android:label="@string/title_anime_schedule"
+        tools:layout="@layout/fragment_anime_schedule" />
+    <fragment
+        android:id="@+id/mangaFragment"
+        android:name="com.destructo.sushi_mal.ui.manga.MangaFragment"
+        android:label="@string/title_browse_manga"
+        tools:layout="@layout/fragment_manga" />
+    <fragment
+        android:id="@+id/clubFragment"
+        android:name="com.destructo.sushi_mal.ui.other.clubs.ClubFragment"
+        android:label="@string/title_clubs"
+        tools:layout="@layout/fragment_club" />
+    <fragment
+        android:id="@+id/forumFragment"
+        android:name="com.destructo.sushi_mal.ui.other.forums.forumFragment"
+        android:label="@string/title_forum"
+        tools:layout="@layout/fragment_forum" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.destructo.sushi_mal.ui.other.news.NewsFragment"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/promotionFragment"
+        android:name="com.destructo.sushi_mal.ui.other.promotional.PromotionFragment"
+        android:label="@string/title_promotion"
+        tools:layout="@layout/fragment_promotion" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.destructo.sushi_mal.ui.preferences.aboutApp.AboutFragment"
+        android:label="About App"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.destructo.sushi_mal.ui.preferences.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
