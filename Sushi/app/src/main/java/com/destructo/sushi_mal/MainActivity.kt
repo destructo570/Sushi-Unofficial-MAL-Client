@@ -10,7 +10,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.*
-import kotlinx.android.synthetic.main.layout_drawer.*
 
 class MainActivity : AppCompatActivity() {
 
