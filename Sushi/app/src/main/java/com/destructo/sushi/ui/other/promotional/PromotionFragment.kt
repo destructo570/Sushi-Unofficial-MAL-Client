@@ -1,17 +1,16 @@
-package com.destructo.sushi_mal.ui.animeSchedule
+package com.destructo.sushi.ui.other.promotional
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.destructo.sushi_mal.R
+import com.destructo.sushi.R
 
-class AnimeScheduleFragment : Fragment() {
+class PromotionFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -19,7 +18,7 @@ class AnimeScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_anime_schedule, container, false)
+        return inflater.inflate(R.layout.fragment_promotion, container, false)
     }
 
 }

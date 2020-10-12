@@ -1,4 +1,4 @@
-package com.destructo.sushi_mal
+package com.destructo.sushi
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

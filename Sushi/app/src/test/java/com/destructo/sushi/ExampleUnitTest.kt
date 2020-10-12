@@ -1,4 +1,4 @@
-package com.destructo.sushi_mal
+package com.destructo.sushi
 
 import org.junit.Test
 
