@@ -5,7 +5,42 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <!-- Text Appearance -->
+    <style name="TextAppearance.Sushi.H1" parent="@style/TextAppearance.MaterialComponents.Headline1">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">@dimen/text_size_h2</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Sushi.H2" parent="@style/TextAppearance.Sushi.H1">
+        <item name="android:textSize">@dimen/text_size_h3</item>
+    </style>
+
+    <style name="TextAppearance.Sushi.B1" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/text_size_b3</item>
+    </style>
+
+    <style name="TextAppearance.Sushi.B2" parent="TextAppearance.Sushi.B1">
+        <item name="android:fontFamily">@font/poppins_extra_bold</item>
+        <item name="android:textSize">@dimen/text_size_b1</item>
+    </style>
+
+    <!-- See More Text -->
+    <style name="TextAppearance.Sushi.B3" parent="TextAppearance.Sushi.B1">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">@dimen/text_size_b3</item>
+    </style>
+
+    <!-- App Drawer Style-->
+    <style name="NavigationStyle">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
 </resources>

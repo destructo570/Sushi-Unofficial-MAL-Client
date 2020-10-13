@@ -9,7 +9,20 @@
         android:id="@+id/animeFragment"
         android:name="com.destructo.sushi.ui.anime.AnimeFragment"
         android:label="@string/title_browse_anime"
-        tools:layout="@layout/fragment_anime" />
+        tools:layout="@layout/fragment_anime" >
+        <action
+            android:id="@+id/action_animeFragment_to_topAnimeFragment"
+            app:destination="@id/topAnimeFragment" />
+        <action
+            android:id="@+id/action_animeFragment_to_upcomingAnimeFragment"
+            app:destination="@id/upcomingAnimeFragment" />
+        <action
+            android:id="@+id/action_animeFragment_to_currentlyAiring"
+            app:destination="@id/currentlyAiring" />
+        <action
+            android:id="@+id/action_animeFragment_to_seasonalAnime"
+            app:destination="@id/seasonalAnime" />
+    </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.destructo.sushi.ui.animeSchedule.AnimeScheduleFragment"
@@ -43,11 +56,43 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.destructo.sushi.ui.preferences.aboutApp.AboutFragment"
-        android:label="About App"
+        android:label="@string/title_about_app"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.destructo.sushi.ui.preferences.settings.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/topAnimeFragment"
+        android:name="com.destructo.sushi.ui.anime.topAnime.TopAnimeFragment"
+        android:label="@string/title_top_anime"
+        tools:layout="@layout/fragment_top_anime">
+        <argument android:name="topAnime"
+            app:argType="com.destructo.sushi.model.top.TopAnime"/>
+    </fragment>
+    <fragment
+        android:id="@+id/upcomingAnimeFragment"
+        android:name="com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragment"
+        android:label="@string/title_upcoming_anime"
+        tools:layout="@layout/fragment_upcoming_anime">
+        <argument android:name="upcomingAnime"
+        app:argType="com.destructo.sushi.model.top.TopAnime"/>
+    </fragment>
+    <fragment
+        android:id="@+id/currentlyAiring"
+        android:name="com.destructo.sushi.ui.anime.currentlyAiring.CurrentlyAiring"
+        android:label="@string/title_currently_airing"
+        tools:layout="@layout/fragment_currently_airing" >
+        <argument android:name="currentlyAiring"
+            app:argType="com.destructo.sushi.model.top.TopAnime"/>
+    </fragment>
+    <fragment
+        android:id="@+id/seasonalAnime"
+        android:name="com.destructo.sushi.ui.anime.seasonalAnime.SeasonalAnime"
+        android:label="@string/title_seasonal_anime"
+        tools:layout="@layout/fragment_seasonal_anime" >
+        <argument android:name="seasonalAnime"
+            app:argType="com.destructo.sushi.model.season.Season"/>
+    </fragment>
 </navigation>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mangaEntity"
+            type="com.destructo.sushi.model.top.TopMangaEntity" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/item_card_corner_radius"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/list_manga_cover"
+                android:layout_width="@dimen/list_item_image_width"
+                android:layout_height="@dimen/list_item_image_height"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{mangaEntity.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:foreground="@drawable/list_item_gradient"
+                tools:src="@drawable/test_img"/>
+
+            <TextView
+                android:id="@+id/list_manga_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="@dimen/card_text_margin_normal"
+                android:text="@{mangaEntity.type}"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/list_manga_cover"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/fake_manga_type" />
+
+
+            <TextView
+                android:id="@+id/list_manga_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_text_margin_large"
+                android:layout_marginTop="@dimen/card_text_margin_normal"
+                animeTitle="@{mangaEntity.title}"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                app:layout_constraintBottom_toTopOf="@+id/list_anime_score"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_manga_cover"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                tools:text="@string/fake_manga_title" />
+
+            <ImageView
+                android:id="@+id/score_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="@dimen/card_text_margin_large"
+                android:layout_marginTop="@dimen/card_text_margin_small"
+                android:src="@drawable/ic_score_fill"
+                app:layout_constraintEnd_toStartOf="@+id/list_manga_score"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_manga_title" />
+
+            <TextView
+                android:id="@+id/list_manga_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_text_margin_normal"
+                android:layout_marginBottom="@dimen/card_text_margin_large"
+                android:text="@{mangaEntity.score.toString()}"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/score_icon"
+                app:layout_constraintTop_toBottomOf="@+id/list_manga_title"
+                tools:text="@string/fake_manga_score" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

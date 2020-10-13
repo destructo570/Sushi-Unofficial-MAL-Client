@@ -18,6 +18,21 @@
     <string name="title_other">OTHER</string>
     <string name="title_preferences">APP SETTINGS</string>
 
+    <!-- Anime Section Titles -->
+    <string name="title_top_anime">Top Anime</string>
+    <string name="title_currently_airing">Currently Airing</string>
+    <string name="title_upcoming_anime">Upcoming Anime</string>
+    <string name="title_seasonal_anime">Seasonal Anime</string>
+    <string name="see_all">See All</string>
+
+
+    <!-- Fake Test Data -->
+    <string name="fake_anime_title">Jujutsu Kaisen</string>
+    <string name="fake_anime_score">8.2</string>
+    <string name="fake_anime_type">TV</string>
+    <string name="fake_manga_title">Beserk</string>
+    <string name="fake_manga_score">9.2</string>
+    <string name="fake_manga_type">MANGA</string>
 
 
 </resources>
