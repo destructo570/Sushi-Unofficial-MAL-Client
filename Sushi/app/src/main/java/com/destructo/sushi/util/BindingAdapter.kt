@@ -4,9 +4,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
+import com.destructo.sushi.model.season.AnimeSubEntity
+import com.destructo.sushi.model.season.Season
+import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
+import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
+import com.destructo.sushi.ui.manga.MangaAdapter
 
 
 /**
@@ -32,7 +38,6 @@ fun TextView.setAnimeTitle(data:String?){
     }
 }
 
-
 @BindingAdapter("animeScore")
 fun TextView.setAnimeScore(data:String?){
 
@@ -41,6 +46,15 @@ fun TextView.setAnimeScore(data:String?){
     }else{
         text = data
     }
+}
+
+/**
+ * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
+ */
+@BindingAdapter("scheduleData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<AnimeSubEntity>?) {
+    val adapter = recyclerView.adapter as SeasonAnimeAdapter
+    adapter.submitList(data)
 }
 
 private fun formatTitleText(text:String): String{

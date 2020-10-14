@@ -1,5 +1,6 @@
 package com.destructo.sushi.network
 
+import com.destructo.sushi.model.schedule.Schedule
 import com.destructo.sushi.model.season.Season
 import com.destructo.sushi.model.top.TopAnime
 import com.destructo.sushi.model.top.TopManga
@@ -34,12 +35,16 @@ interface JikanApi {
         @Path("season") season: String,
     ): Deferred<Season>
 
-
-
     @GET("top/manga/{page}/{subtype}")
     fun getTopMangaAsync(
         @Path("page") page: String,
         @Path("subtype") subtype: String,
     ): Deferred<TopManga>
+
+
+    @GET("schedule/{weekday}")
+    fun getAnimeScheduleAsync(
+        @Path("weekday") weekday: String,
+    ): Deferred<Schedule>
 
 }

@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/scheduleFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.animeSchedule.AnimeScheduleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/scheduleFragment">
 
-</FrameLayout>
+        <Spinner
+            android:id="@+id/scheduleDaySpinner"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spinner_margin_normal"
+            android:layout_marginEnd="@dimen/spinner_margin_large"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small"
+            android:textAlignment="center"
+            android:background="@drawable/drawable_rectangle_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scheduleRecyclerMain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scheduleDaySpinner"
+            app:spanCount="3" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
