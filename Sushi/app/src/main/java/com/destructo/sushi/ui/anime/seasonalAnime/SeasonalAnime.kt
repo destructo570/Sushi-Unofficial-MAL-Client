@@ -13,6 +13,7 @@ import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragmentArgs
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeViewModel
@@ -25,7 +26,7 @@ class SeasonalAnime : Fragment() {
     private val seasonAnimeViewModel: SeasonalAnimeViewModel by viewModels()
 
     private lateinit var binding:FragmentSeasonalAnimeBinding
-    private lateinit var seasonAnimeArg: Season
+    private lateinit var seasonAnimeArg: SeasonalAnime
     private lateinit var seasonAdapter: SeasonAnimeAdapter
     private lateinit var seasonAnimeRecycler: RecyclerView
 
@@ -56,7 +57,7 @@ class SeasonalAnime : Fragment() {
 
         seasonAnimeViewModel.seasonalAnime.observe(viewLifecycleOwner){
             it?.let {seasonAnime->
-                seasonAdapter.submitList(seasonAnime.animeSubEntities)
+                seasonAdapter.submitList(seasonAnime.data)
                 seasonAnimeRecycler.apply{
                     adapter = seasonAdapter
                 }

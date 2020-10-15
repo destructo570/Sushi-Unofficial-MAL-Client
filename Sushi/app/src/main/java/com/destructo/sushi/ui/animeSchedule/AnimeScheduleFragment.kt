@@ -26,7 +26,7 @@ class AnimeScheduleFragment : Fragment(),AdapterView.OnItemSelectedListener{
     private val scheduleViewModel:ScheduleViewModel by viewModels()
     private lateinit var scheduleRecycler:RecyclerView
     private lateinit var binding:FragmentAnimeScheduleBinding
-    private lateinit var schedulePagerAdapter: SeasonAnimeAdapter
+    private lateinit var schedulePagerAdapter: ScheduleAdapter
     private lateinit var weekDaySpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,7 @@ class AnimeScheduleFragment : Fragment(),AdapterView.OnItemSelectedListener{
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        schedulePagerAdapter = SeasonAnimeAdapter()
+        schedulePagerAdapter = ScheduleAdapter()
 
         scheduleViewModel.animeSchedule.observe(viewLifecycleOwner){
             it?.let {animeSchedule->

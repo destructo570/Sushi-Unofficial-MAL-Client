@@ -93,6 +93,6 @@
         android:label="@string/title_seasonal_anime"
         tools:layout="@layout/fragment_seasonal_anime" >
         <argument android:name="seasonalAnime"
-            app:argType="com.destructo.sushi.model.jikan.season.Season"/>
+            app:argType="com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime"/>
     </fragment>
 </navigation>

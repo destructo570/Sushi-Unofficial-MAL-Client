@@ -14,6 +14,7 @@ import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
@@ -51,8 +52,7 @@ class AnimeFragment : Fragment() {
         animeViewModel.getTopAnime(null,"500")
         animeViewModel.getUpcomingAnime(null,"500")
         animeViewModel.getCurrentlyAiringAnime(null,"500")
-        animeViewModel.getSeasonalAnime("2020","fall")
-        animeViewModel.getMalAnimeRanking()
+        animeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
     }
 
     override fun onCreateView(
@@ -116,7 +116,7 @@ class AnimeFragment : Fragment() {
 
         animeViewModel.seasonalAnime.observe(viewLifecycleOwner){
             it?.let { seasonalAnime->
-                    seasonalAnimeAdapter.submitList(seasonalAnime.animeSubEntities)
+                    seasonalAnimeAdapter.submitList(seasonalAnime.data)
                     seasonalAnimeRecycler.apply {
                     adapter = seasonalAnimeAdapter}
                     seasonalAnimeMore.setOnClickListener {
@@ -124,13 +124,6 @@ class AnimeFragment : Fragment() {
                     }
             }
         }
-
-        animeViewModel.animeRanking.observe(viewLifecycleOwner){
-            it?.let { animeRanking->
-
-            }
-        }
-
 
 
 }
@@ -154,7 +147,7 @@ class AnimeFragment : Fragment() {
     }
 
 
-    private fun navigateToSeasonalAnime(seasonalAnime: Season){
+    private fun navigateToSeasonalAnime(seasonalAnime: SeasonalAnime){
         this.findNavController().navigate(
             AnimeFragmentDirections.actionAnimeFragmentToSeasonalAnime(seasonalAnime)
         )

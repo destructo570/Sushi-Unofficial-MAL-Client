@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 
 class SeasonalAnimeViewModel
     @ViewModelInject
@@ -16,12 +17,12 @@ class SeasonalAnimeViewModel
         savedStateHandle: SavedStateHandle,
     ): ViewModel() {
 
-    private val _seasonalAnime: MutableLiveData<Season> = MutableLiveData()
-    val seasonalAnime: LiveData<Season>
+    private val _seasonalAnime: MutableLiveData<SeasonalAnime> = MutableLiveData()
+    val seasonalAnime: LiveData<SeasonalAnime>
         get() = _seasonalAnime
 
 
-    fun insertSeasonAnime(seasonAnime: Season){
+    fun insertSeasonAnime(seasonAnime: SeasonalAnime){
         _seasonalAnime.value = seasonAnime
     }
 }

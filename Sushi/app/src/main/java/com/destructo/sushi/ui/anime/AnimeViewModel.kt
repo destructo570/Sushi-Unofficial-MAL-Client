@@ -7,6 +7,7 @@ import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
@@ -37,13 +38,9 @@ constructor(
         get() = _currentlyAiring
 
 
-    private val _seasonalAnime:MutableLiveData<Season> = MutableLiveData()
-    val seasonalAnime:LiveData<Season>
+    private val _seasonalAnime:MutableLiveData<SeasonalAnime> = MutableLiveData()
+    val seasonalAnime:LiveData<SeasonalAnime>
         get() = _seasonalAnime
-
-    private val _animeRanking:MutableLiveData<AnimeRanking> = MutableLiveData()
-    val animeRanking:LiveData<AnimeRanking>
-        get() = _animeRanking
 
 
     fun getTopAnime(offset:String?, limit:String?){
@@ -86,28 +83,17 @@ constructor(
     }
 
 
-    fun getSeasonalAnime(year:String,season:String){
+    fun getSeasonalAnime(year:String,season:String,sort:String?,
+                         limit:String?,offset:String?){
         viewModelScope.launch {
-            var getcurrentlyAiringDeferred = jikanApi.getSeasonalAnimeAsync(year,season)
+            var getcurrentlyAiringDeferred = malApi
+                .getSeasonalAnime(year,season,sort,limit,offset, ALL_ANIME_FIELDS)
             try {
                 val currentlyAiring = getcurrentlyAiringDeferred.await()
                 _seasonalAnime.value = currentlyAiring
             }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }
-        }
-    }
-
-    fun getMalAnimeRanking(){
-        viewModelScope.launch {
-//            var getcurrentlyAiringDeferred = malApi.getAnimeRanking("upcoming","500",null,
-//                ALL_ANIME_FIELDS)
-//            try {
-//                val getAnimeRanking = getcurrentlyAiringDeferred.await()
-//                _animeRanking.value = getAnimeRanking
-//            }catch (e:Exception){
-//                Timber.e("Error: %s", e.message)
-//            }
         }
     }
 

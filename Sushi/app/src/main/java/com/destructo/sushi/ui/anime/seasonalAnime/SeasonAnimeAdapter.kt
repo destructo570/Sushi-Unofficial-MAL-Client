@@ -9,15 +9,16 @@ import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
+import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
 
 
-class SeasonAnimeAdapter: ListAdapter<AnimeSubEntity, SeasonAnimeAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
+class SeasonAnimeAdapter: ListAdapter<SeasonAnimeData, SeasonAnimeAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
 
 
     class ViewHolder private constructor(val binding: ListItemSeasonAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeSubEntity: AnimeSubEntity){
-            binding.animeSubEntity = animeSubEntity
+        fun bind(seasonAnime: SeasonAnimeData){
+            binding.animeSubEntity = seasonAnime.anime
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
@@ -40,18 +41,16 @@ class SeasonAnimeAdapter: ListAdapter<AnimeSubEntity, SeasonAnimeAdapter.ViewHol
         holder.bind(animeSubEntity)
     }
 
-
 }
 
-class SeasonAnimeDiffUtil: DiffUtil.ItemCallback<AnimeSubEntity>() {
-    override fun areItemsTheSame(oldItem: AnimeSubEntity, newItem: AnimeSubEntity): Boolean {
-        return oldItem.url == newItem.url
-                && oldItem.title == newItem.title
+class SeasonAnimeDiffUtil: DiffUtil.ItemCallback<SeasonAnimeData>() {
+    override fun areItemsTheSame(oldItem: SeasonAnimeData, newItem: SeasonAnimeData): Boolean {
+        return oldItem.anime?.id == newItem.anime?.id
     }
 
-    override fun areContentsTheSame(oldItem: AnimeSubEntity, newItem: AnimeSubEntity): Boolean {
-        return oldItem.url == newItem.url
-                && oldItem.title == newItem.title
+    override fun areContentsTheSame(oldItem: SeasonAnimeData, newItem: SeasonAnimeData): Boolean {
+        return oldItem.anime?.id == newItem.anime?.id
+                && oldItem.anime?.title == newItem.anime?.title
     }
 
 }
