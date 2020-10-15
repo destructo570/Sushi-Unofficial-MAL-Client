@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 
 class CurrentlyAiringViewModel
     @ViewModelInject
@@ -15,12 +16,12 @@ class CurrentlyAiringViewModel
         savedStateHandle: SavedStateHandle,
     ):ViewModel() {
 
-    private val _currentlyAiring: MutableLiveData<TopAnime> = MutableLiveData()
-    val currentlyAiring: LiveData<TopAnime>
+    private val _currentlyAiring: MutableLiveData<AnimeRanking> = MutableLiveData()
+    val currentlyAiring: LiveData<AnimeRanking>
         get() = _currentlyAiring
 
 
-    fun insertUpcomingAnime(upcomingAnime: TopAnime){
+    fun insertUpcomingAnime(upcomingAnime: AnimeRanking){
         _currentlyAiring.value = upcomingAnime
     }
 }

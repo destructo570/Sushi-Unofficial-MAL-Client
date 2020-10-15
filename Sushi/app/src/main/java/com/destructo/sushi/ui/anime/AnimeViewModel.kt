@@ -32,8 +32,8 @@ constructor(
         get() = _upcomingAnime
 
 
-    private val _currentlyAiring:MutableLiveData<TopAnime> = MutableLiveData()
-    val currentlyAiring:LiveData<TopAnime>
+    private val _currentlyAiring:MutableLiveData<AnimeRanking> = MutableLiveData()
+    val currentlyAiring:LiveData<AnimeRanking>
         get() = _currentlyAiring
 
 
@@ -72,12 +72,13 @@ constructor(
         }
     }
 
-    fun getCurrentlyAiringAnime(page:String){
+    fun getCurrentlyAiringAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getcurrentlyAiringDeferred = jikanApi.getCurrentlyAiringsync(page)
+            var getAiringDeferred = malApi.getAnimeRanking("airing",limit,offset,
+                ALL_ANIME_FIELDS)
             try {
-                val currentlyAiring = getcurrentlyAiringDeferred.await()
-                _currentlyAiring.value = currentlyAiring
+                val getAnimeRanking = getAiringDeferred.await()
+                _currentlyAiring.value = getAnimeRanking
             }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }

@@ -38,7 +38,7 @@ class AnimeFragment : Fragment() {
 
     private lateinit var topAnimeAdapter:AnimeRankingAdapter
     private lateinit var upcomingAnimeAdapter:AnimeRankingAdapter
-    private lateinit var currentlyAiringAdapter:TopAnimeAdapter
+    private lateinit var currentlyAiringAdapter:AnimeRankingAdapter
     private lateinit var seasonalAnimeAdapter:SeasonAnimeAdapter
 
     private lateinit var topAnimeSeeMore:TextView
@@ -50,7 +50,7 @@ class AnimeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         animeViewModel.getTopAnime(null,"500")
         animeViewModel.getUpcomingAnime(null,"500")
-        animeViewModel.getCurrentlyAiringAnime("1")
+        animeViewModel.getCurrentlyAiringAnime(null,"500")
         animeViewModel.getSeasonalAnime("2020","fall")
         animeViewModel.getMalAnimeRanking()
     }
@@ -79,7 +79,7 @@ class AnimeFragment : Fragment() {
 
         topAnimeAdapter = AnimeRankingAdapter()
         upcomingAnimeAdapter = AnimeRankingAdapter()
-        currentlyAiringAdapter = TopAnimeAdapter()
+        currentlyAiringAdapter = AnimeRankingAdapter()
         seasonalAnimeAdapter = SeasonAnimeAdapter()
 
 
@@ -106,7 +106,7 @@ class AnimeFragment : Fragment() {
 
         animeViewModel.currentlyAiring.observe(viewLifecycleOwner){
              it?.let {currentlyAiring->
-                 currentlyAiringAdapter.submitList(currentlyAiring.topAnimeEntity)
+                 currentlyAiringAdapter.submitList(currentlyAiring.data)
                  currentAiringRecycler.adapter = currentlyAiringAdapter
                  currentlyAiringMore.setOnClickListener {
                      navigateToCurrentlyAiring(currentlyAiring)
@@ -147,7 +147,7 @@ class AnimeFragment : Fragment() {
     }
 
 
-    private fun navigateToCurrentlyAiring(currentlyAiring: TopAnime){
+    private fun navigateToCurrentlyAiring(currentlyAiring: AnimeRanking){
         this.findNavController().navigate(
             AnimeFragmentDirections.actionAnimeFragmentToCurrentlyAiring(currentlyAiring)
         )
