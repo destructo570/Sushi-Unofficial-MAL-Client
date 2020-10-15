@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,8 +23,8 @@ class TopAnimeFragment : Fragment() {
     private val topAnimeViewModel:TopAnimeViewModel by viewModels()
     private lateinit var topAnimeRecycler:RecyclerView
     private lateinit var binding:FragmentTopAnimeBinding
-    private lateinit var topAnimeArg: TopAnime
-    private lateinit var topAnimeAdapter: TopAnimeAdapter
+    private lateinit var topAnimeArg: AnimeRanking
+    private lateinit var topAnimeAdapter: AnimeRankingAdapter
 
 
     override fun onCreateView(
@@ -44,11 +46,11 @@ class TopAnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         topAnimeViewModel.insertTopAnime(topAnimeArg)
-        topAnimeAdapter = TopAnimeAdapter()
+        topAnimeAdapter = AnimeRankingAdapter()
 
         topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){
             it?.let {topAnime->
-                topAnimeAdapter.submitList(topAnime.topAnimeEntity)
+                topAnimeAdapter.submitList(topAnime.data)
                 topAnimeRecycler.apply{
                     adapter = topAnimeAdapter
                     }

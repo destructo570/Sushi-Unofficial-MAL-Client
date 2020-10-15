@@ -9,6 +9,7 @@ import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -22,8 +23,8 @@ constructor(
 ): ViewModel() {
 
 
-    private val _topAnimeList: MutableLiveData<TopAnime> = MutableLiveData()
-    val topAnimeList: LiveData<TopAnime>
+    private val _topAnimeList: MutableLiveData<AnimeRanking> = MutableLiveData()
+    val topAnimeList: LiveData<AnimeRanking>
         get() = _topAnimeList
 
     private val _upcomingAnime:MutableLiveData<AnimeRanking> = MutableLiveData()
@@ -45,12 +46,13 @@ constructor(
         get() = _animeRanking
 
 
-    fun getTopAnime(page:String, subtype:String){
+    fun getTopAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getTopAnimeDeferred = jikanApi.getTopAnimeAsync(page, subtype)
+            var getTopAnimeDeferred = malApi.getAnimeRanking("all",limit,offset,
+                ALL_ANIME_FIELDS)
             try {
-                val topAnimeList = getTopAnimeDeferred.await()
-                _topAnimeList.value = topAnimeList
+                val getAnimeRanking = getTopAnimeDeferred.await()
+                _topAnimeList.value = getAnimeRanking
             }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }

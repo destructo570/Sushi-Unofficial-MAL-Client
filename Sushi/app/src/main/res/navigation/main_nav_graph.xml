@@ -69,7 +69,7 @@
         android:label="@string/title_top_anime"
         tools:layout="@layout/fragment_top_anime">
         <argument android:name="topAnime"
-            app:argType="com.destructo.sushi.model.jikan.top.TopAnime"/>
+            app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
     </fragment>
     <fragment
         android:id="@+id/upcomingAnimeFragment"
