@@ -44,6 +44,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="@dimen/card_text_margin_normal"
                 android:text="@{animeSubEntity.type}"
+                android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
