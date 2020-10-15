@@ -15,13 +15,33 @@
             android:paddingEnd="@dimen/margin_small"
             >
 
+            <Spinner
+                android:id="@+id/mangaRankingSpinner"
+                android:layout_width="wrap_content"
+                android:minWidth="96dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spinner_margin_normal"
+                android:layout_marginEnd="@dimen/spinner_margin_large"
+                android:paddingTop="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_small"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:background="@drawable/drawable_rectangle_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mangaRecyclerMain"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/mangaRankingSpinner" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </layout>

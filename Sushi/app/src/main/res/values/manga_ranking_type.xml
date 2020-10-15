@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="manga_ranking_type">
+        <item>All</item>
+        <item>Manga</item>
+        <item>Novels</item>
+        <item>Oneshots</item>
+        <item>Doujin</item>
+        <item>Manhwa</item>
+        <item>Manhua</item>
+        <item>By Popularity</item>
+        <item>Favorite</item>
+    </string-array>
+</resources>
