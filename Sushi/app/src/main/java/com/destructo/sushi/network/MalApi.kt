@@ -1,6 +1,7 @@
 package com.destructo.sushi.network
 
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
 import com.destructo.sushi.model.mal.seasonalAnime.Season
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import kotlinx.coroutines.Deferred
@@ -12,7 +13,7 @@ interface MalApi {
 
 
     @GET("anime/ranking")
-    fun getAnimeRanking(
+    fun getAnimeRankingAsync(
         @Query("ranking_type") ranking_type:String,
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
@@ -21,7 +22,7 @@ interface MalApi {
     ): Deferred<AnimeRanking>
 
     @GET("anime/season/{year}/{season}")
-    fun getSeasonalAnime(
+    fun getSeasonalAnimeAsync(
         @Path("year") year:String,
         @Path("season") season:String,
         @Query("sort") sort:String?,
@@ -30,6 +31,16 @@ interface MalApi {
         @Query("fields") fields:String?
 
     ): Deferred<SeasonalAnime>
+
+
+    @GET("manga/ranking")
+    fun getMangaRankingAsync(
+        @Query("ranking_type") ranking_type:String?,
+        @Query("limit") limit:String?,
+        @Query("offset") offset:String?,
+        @Query("fields") fields:String?
+
+    ): Deferred<MangaRanking>
 
 
 

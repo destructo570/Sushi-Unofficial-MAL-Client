@@ -24,10 +24,9 @@ class MangaFragment : Fragment() {
     private lateinit var mangaRecycler:RecyclerView
     private lateinit var mangaAdapter:MangaAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mangaViewModel.getTopMangaList("1","")
+        mangaViewModel.getTopMangaList("all","500",null)
     }
 
     override fun onCreateView(
@@ -48,7 +47,7 @@ class MangaFragment : Fragment() {
 
         mangaViewModel.topManga.observe(viewLifecycleOwner){
             it?.let {topManga->
-                mangaAdapter.submitList(topManga.topMangaEntity)
+                mangaAdapter.submitList(topManga.data)
                 mangaRecycler.apply {
                     adapter = mangaAdapter
                 }

@@ -4,13 +4,10 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.destructo.sushi.ALL_ANIME_FIELDS
-import com.destructo.sushi.model.jikan.season.Season
-import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
-import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -45,7 +42,7 @@ constructor(
 
     fun getTopAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getTopAnimeDeferred = malApi.getAnimeRanking("all",limit,offset,
+            var getTopAnimeDeferred = malApi.getAnimeRankingAsync("all",limit,offset,
                 ALL_ANIME_FIELDS)
             try {
                 val getAnimeRanking = getTopAnimeDeferred.await()
@@ -58,7 +55,7 @@ constructor(
 
     fun getUpcomingAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getUpcomingDeferred = malApi.getAnimeRanking("upcoming",limit,offset,
+            var getUpcomingDeferred = malApi.getAnimeRankingAsync("upcoming",limit,offset,
                 ALL_ANIME_FIELDS)
             try {
                 val getAnimeRanking = getUpcomingDeferred.await()
@@ -71,7 +68,7 @@ constructor(
 
     fun getCurrentlyAiringAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getAiringDeferred = malApi.getAnimeRanking("airing",limit,offset,
+            var getAiringDeferred = malApi.getAnimeRankingAsync("airing",limit,offset,
                 ALL_ANIME_FIELDS)
             try {
                 val getAnimeRanking = getAiringDeferred.await()
@@ -87,7 +84,7 @@ constructor(
                          limit:String?,offset:String?){
         viewModelScope.launch {
             var getcurrentlyAiringDeferred = malApi
-                .getSeasonalAnime(year,season,sort,limit,offset, ALL_ANIME_FIELDS)
+                .getSeasonalAnimeAsync(year,season,sort,limit,offset, ALL_ANIME_FIELDS)
             try {
                 val currentlyAiring = getcurrentlyAiringDeferred.await()
                 _seasonalAnime.value = currentlyAiring

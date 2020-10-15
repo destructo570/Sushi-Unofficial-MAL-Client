@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mangaEntity"
-            type="com.destructo.sushi.model.jikan.top.TopMangaEntity" />
+            type="com.destructo.sushi.model.mal.manga.Manga" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -28,7 +28,7 @@
                 android:layout_width="@dimen/list_item_image_width"
                 android:layout_height="@dimen/list_item_image_height"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{mangaEntity.imageUrl}"
+                app:imageUrl="@{mangaEntity.mainPicture.medium}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="@dimen/card_text_margin_normal"
-                android:text="@{mangaEntity.type}"
+                android:text="@{mangaEntity.mediaType}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 android:textColor="@color/white"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/card_text_margin_normal"
                 android:layout_marginBottom="@dimen/card_text_margin_large"
-                android:text="@{mangaEntity.score.toString()}"
+                android:text="@{mangaEntity.mean.toString()}"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/score_icon"

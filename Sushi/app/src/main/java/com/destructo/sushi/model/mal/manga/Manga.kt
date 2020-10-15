@@ -1,11 +1,14 @@
 package com.destructo.sushi.model.mal.manga
 
 
+import android.os.Parcelable
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.common.Picture
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Manga(
     @Json(name = "alternative_titles")
     val alternativeTitles: AlternativeTitles?=null,
@@ -59,4 +62,4 @@ data class Manga(
     val title: String?=null,
     @Json(name = "updated_at")
     val updatedAt: String?=null
-)
+):Parcelable

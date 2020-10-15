@@ -10,9 +10,10 @@ import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.model.jikan.top.TopMangaEntity
+import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 
-class MangaAdapter:ListAdapter<TopMangaEntity, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
+class MangaAdapter:ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MangaAdapter.ViewHolder {
         return ViewHolder.from(parent)
@@ -24,8 +25,8 @@ class MangaAdapter:ListAdapter<TopMangaEntity, MangaAdapter.ViewHolder>(MangaDif
     }
 
     class ViewHolder(val binding: ListItemMangaBinding) :RecyclerView.ViewHolder(binding.root){
-        fun bind(mangaEntity: TopMangaEntity){
-            binding.mangaEntity = mangaEntity
+        fun bind(mangaEntity: MangaRankingData){
+            binding.mangaEntity = mangaEntity.manga
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
@@ -41,15 +42,15 @@ class MangaAdapter:ListAdapter<TopMangaEntity, MangaAdapter.ViewHolder>(MangaDif
 
 }
 
-class MangaDiffUtil:DiffUtil.ItemCallback<TopMangaEntity>(){
-    override fun areItemsTheSame(oldItem: TopMangaEntity, newItem: TopMangaEntity): Boolean {
-        return oldItem.malId == newItem.malId
-                && oldItem.title == newItem.title
+class MangaDiffUtil:DiffUtil.ItemCallback<MangaRankingData>(){
+    override fun areItemsTheSame(oldItem: MangaRankingData, newItem: MangaRankingData): Boolean {
+        return oldItem.manga?.id == newItem.manga?.id
+
     }
 
-    override fun areContentsTheSame(oldItem: TopMangaEntity, newItem: TopMangaEntity): Boolean {
-        return oldItem.malId == newItem.malId
-                && oldItem.title == newItem.title
+    override fun areContentsTheSame(oldItem: MangaRankingData, newItem: MangaRankingData): Boolean {
+        return oldItem.manga?.id == newItem.manga?.id
+                && oldItem.manga?.title == newItem.manga?.title
     }
 
 }
