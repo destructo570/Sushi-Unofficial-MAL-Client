@@ -1,9 +1,9 @@
 package com.destructo.sushi.network
 
-import com.destructo.sushi.model.schedule.Schedule
-import com.destructo.sushi.model.season.Season
-import com.destructo.sushi.model.top.TopAnime
-import com.destructo.sushi.model.top.TopManga
+import com.destructo.sushi.model.jikan.schedule.Schedule
+import com.destructo.sushi.model.jikan.season.Season
+import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.jikan.top.TopManga
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path

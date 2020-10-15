@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemMangaBinding
-import com.destructo.sushi.model.top.TopAnimeEntity
-import com.destructo.sushi.model.top.TopMangaEntity
+import com.destructo.sushi.model.jikan.top.TopAnimeEntity
+import com.destructo.sushi.model.jikan.top.TopMangaEntity
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 
 class MangaAdapter:ListAdapter<TopMangaEntity, MangaAdapter.ViewHolder>(MangaDiffUtil()) {

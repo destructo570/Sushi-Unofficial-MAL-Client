@@ -20,14 +20,6 @@ object JikanRetrofitModule {
 
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-    }
-
-    @Singleton
-    @Provides
     @JikanRetrofit
     fun provideJikanApiRetrofit(moshi: Moshi): Retrofit.Builder{
         return Retrofit.Builder()
@@ -46,7 +38,6 @@ object JikanRetrofitModule {
             .build()
             .create(JikanApi::class.java)
     }
-
 
 }
 

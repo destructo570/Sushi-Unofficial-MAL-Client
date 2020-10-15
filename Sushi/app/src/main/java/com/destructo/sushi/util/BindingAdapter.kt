@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
-import com.destructo.sushi.model.season.AnimeSubEntity
-import com.destructo.sushi.model.season.Season
+import com.destructo.sushi.model.jikan.season.AnimeSubEntity
+import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import com.destructo.sushi.ui.manga.MangaAdapter

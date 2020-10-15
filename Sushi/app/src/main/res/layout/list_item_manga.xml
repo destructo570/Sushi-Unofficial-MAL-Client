@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mangaEntity"
-            type="com.destructo.sushi.model.top.TopMangaEntity" />
+            type="com.destructo.sushi.model.jikan.top.TopMangaEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

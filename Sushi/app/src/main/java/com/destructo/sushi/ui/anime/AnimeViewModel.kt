@@ -3,9 +3,12 @@ package com.destructo.sushi.ui.anime
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.destructo.sushi.model.season.Season
-import com.destructo.sushi.model.top.TopAnime
+import com.destructo.sushi.ALL_ANIME_FIELDS
+import com.destructo.sushi.model.jikan.season.Season
+import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.network.JikanApi
+import com.destructo.sushi.network.MalApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -15,6 +18,7 @@ constructor(
     @Assisted
     private val savedStateHandle: SavedStateHandle,
     private val jikanApi: JikanApi,
+    private val malApi: MalApi
 ): ViewModel() {
 
 
@@ -22,8 +26,8 @@ constructor(
     val topAnimeList: LiveData<TopAnime>
         get() = _topAnimeList
 
-    private val _upcomingAnime:MutableLiveData<TopAnime> = MutableLiveData()
-    val upcomingAnime:LiveData<TopAnime>
+    private val _upcomingAnime:MutableLiveData<AnimeRanking> = MutableLiveData()
+    val upcomingAnime:LiveData<AnimeRanking>
         get() = _upcomingAnime
 
 
@@ -35,6 +39,11 @@ constructor(
     private val _seasonalAnime:MutableLiveData<Season> = MutableLiveData()
     val seasonalAnime:LiveData<Season>
         get() = _seasonalAnime
+
+    private val _animeRanking:MutableLiveData<AnimeRanking> = MutableLiveData()
+    val animeRanking:LiveData<AnimeRanking>
+        get() = _animeRanking
+
 
     fun getTopAnime(page:String, subtype:String){
         viewModelScope.launch {
@@ -48,12 +57,13 @@ constructor(
         }
     }
 
-    fun getUpcomingAnime(page:String){
+    fun getUpcomingAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getUpcomingAnimeDeferred = jikanApi.getUpcomingAnimeAsync(page)
+            var getUpcomingDeferred = malApi.getAnimeRanking("upcoming",limit,offset,
+                ALL_ANIME_FIELDS)
             try {
-                val upcomingAnime = getUpcomingAnimeDeferred.await()
-                _upcomingAnime.value = upcomingAnime
+                val getAnimeRanking = getUpcomingDeferred.await()
+                _upcomingAnime.value = getAnimeRanking
             }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }
@@ -82,6 +92,19 @@ constructor(
             }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }
+        }
+    }
+
+    fun getMalAnimeRanking(){
+        viewModelScope.launch {
+//            var getcurrentlyAiringDeferred = malApi.getAnimeRanking("upcoming","500",null,
+//                ALL_ANIME_FIELDS)
+//            try {
+//                val getAnimeRanking = getcurrentlyAiringDeferred.await()
+//                _animeRanking.value = getAnimeRanking
+//            }catch (e:Exception){
+//                Timber.e("Error: %s", e.message)
+//            }
         }
     }
 

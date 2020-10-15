@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.model.top.TopAnimeEntity
+import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.databinding.ListItemAnimeBinding
 
 class TopAnimeAdapter: ListAdapter<TopAnimeEntity, TopAnimeAdapter.ViewHolder>(TopAnimeDiffUtil()) {
@@ -14,7 +14,7 @@ class TopAnimeAdapter: ListAdapter<TopAnimeEntity, TopAnimeAdapter.ViewHolder>(T
     class ViewHolder private constructor(val binding: ListItemAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(animeEntity: TopAnimeEntity){
-            binding.animeEntity = animeEntity
+            //binding.animeEntity = animeEntity
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

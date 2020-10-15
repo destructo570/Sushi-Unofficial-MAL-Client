@@ -3,7 +3,7 @@ package com.destructo.sushi.ui.manga
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.destructo.sushi.model.top.TopManga
+import com.destructo.sushi.model.jikan.top.TopManga
 import com.destructo.sushi.network.JikanApi
 import kotlinx.coroutines.launch
 import timber.log.Timber

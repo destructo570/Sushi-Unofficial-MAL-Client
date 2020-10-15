@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
-import com.destructo.sushi.model.top.TopAnime
+import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
@@ -21,8 +23,8 @@ class UpcomingAnimeFragment : Fragment() {
     private val upcomingAnimeViewModel:UpcomingAnimeViewModel by viewModels()
 
     private lateinit var binding:FragmentUpcomingAnimeBinding
-    private lateinit var upcomingAnimeArg:TopAnime
-    private lateinit var upcomingAdapter:TopAnimeAdapter
+    private lateinit var upcomingAnimeArg: AnimeRanking
+    private lateinit var upcomingAdapter:AnimeRankingAdapter
     private lateinit var upcomingAnimeRecycler:RecyclerView
 
 
@@ -50,11 +52,11 @@ class UpcomingAnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         upcomingAnimeViewModel.insertUpcomingAnime(upcomingAnimeArg)
-        upcomingAdapter = TopAnimeAdapter()
+        upcomingAdapter = AnimeRankingAdapter()
 
         upcomingAnimeViewModel.upcomingAnime.observe(viewLifecycleOwner){
             it?.let {upcomingAnime->
-                upcomingAdapter.submitList(upcomingAnime.topAnimeEntity)
+                upcomingAdapter.submitList(upcomingAnime.data)
                 upcomingAnimeRecycler.apply{
                     adapter = upcomingAdapter
                 }

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
-import com.destructo.sushi.model.season.AnimeSubEntity
-import com.destructo.sushi.model.top.TopAnimeEntity
+import com.destructo.sushi.model.jikan.season.AnimeSubEntity
+import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 
 
 class SeasonAnimeAdapter: ListAdapter<AnimeSubEntity, SeasonAnimeAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {

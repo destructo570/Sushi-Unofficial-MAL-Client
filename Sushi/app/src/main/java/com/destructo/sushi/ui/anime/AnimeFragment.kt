@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.TopSubtype
-import com.destructo.sushi.model.season.Season
-import com.destructo.sushi.model.top.TopAnime
+import com.destructo.sushi.model.jikan.season.Season
+import com.destructo.sushi.model.jikan.top.TopAnime
+import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,7 @@ import kotlinx.android.synthetic.main.inc_seasonal_anime.view.*
 import kotlinx.android.synthetic.main.inc_top_anime.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeFragment : Fragment() {
@@ -34,7 +37,7 @@ class AnimeFragment : Fragment() {
     private lateinit var seasonalAnimeRecycler:RecyclerView
 
     private lateinit var topAnimeAdapter:TopAnimeAdapter
-    private lateinit var upcomingAnimeAdapter:TopAnimeAdapter
+    private lateinit var upcomingAnimeAdapter:AnimeRankingAdapter
     private lateinit var currentlyAiringAdapter:TopAnimeAdapter
     private lateinit var seasonalAnimeAdapter:SeasonAnimeAdapter
 
@@ -46,9 +49,10 @@ class AnimeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         animeViewModel.getTopAnime("1","")
-        animeViewModel.getUpcomingAnime("1")
+        animeViewModel.getUpcomingAnime(null,"500")
         animeViewModel.getCurrentlyAiringAnime("1")
         animeViewModel.getSeasonalAnime("2020","fall")
+        animeViewModel.getMalAnimeRanking()
     }
 
     override fun onCreateView(
@@ -74,7 +78,7 @@ class AnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         topAnimeAdapter = TopAnimeAdapter()
-        upcomingAnimeAdapter = TopAnimeAdapter()
+        upcomingAnimeAdapter = AnimeRankingAdapter()
         currentlyAiringAdapter = TopAnimeAdapter()
         seasonalAnimeAdapter = SeasonAnimeAdapter()
 
@@ -91,7 +95,7 @@ class AnimeFragment : Fragment() {
 
         animeViewModel.upcomingAnime.observe(viewLifecycleOwner) {
             it?.let { upcomingAnime ->
-                upcomingAnimeAdapter.submitList(upcomingAnime.topAnimeEntity)
+                upcomingAnimeAdapter.submitList(upcomingAnime.data)
                 upcomingAnimeRecycler.adapter = upcomingAnimeAdapter
                 upcomingAnimeSeeMore.setOnClickListener {
                     navigateToUpcomingAnime(upcomingAnime)
@@ -121,23 +125,29 @@ class AnimeFragment : Fragment() {
             }
         }
 
+        animeViewModel.animeRanking.observe(viewLifecycleOwner){
+            it?.let { animeRanking->
+
+            }
+        }
+
 
 
 }
-    private fun navigateToTopAnime(topAnime:TopAnime){
+    private fun navigateToTopAnime(topAnime: TopAnime){
         this.findNavController().navigate(
             AnimeFragmentDirections.actionAnimeFragmentToTopAnimeFragment(topAnime)
         )
     }
 
-    private fun navigateToUpcomingAnime(upcomingAnime:TopAnime){
+    private fun navigateToUpcomingAnime(upcomingAnime: AnimeRanking){
         this.findNavController().navigate(
             AnimeFragmentDirections.actionAnimeFragmentToUpcomingAnimeFragment(upcomingAnime)
         )
     }
 
 
-    private fun navigateToCurrentlyAiring(currentlyAiring:TopAnime){
+    private fun navigateToCurrentlyAiring(currentlyAiring: TopAnime){
         this.findNavController().navigate(
             AnimeFragmentDirections.actionAnimeFragmentToCurrentlyAiring(currentlyAiring)
         )

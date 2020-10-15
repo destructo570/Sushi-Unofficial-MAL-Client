@@ -69,7 +69,7 @@
         android:label="@string/title_top_anime"
         tools:layout="@layout/fragment_top_anime">
         <argument android:name="topAnime"
-            app:argType="com.destructo.sushi.model.top.TopAnime"/>
+            app:argType="com.destructo.sushi.model.jikan.top.TopAnime"/>
     </fragment>
     <fragment
         android:id="@+id/upcomingAnimeFragment"
@@ -77,7 +77,7 @@
         android:label="@string/title_upcoming_anime"
         tools:layout="@layout/fragment_upcoming_anime">
         <argument android:name="upcomingAnime"
-        app:argType="com.destructo.sushi.model.top.TopAnime"/>
+        app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
     </fragment>
     <fragment
         android:id="@+id/currentlyAiring"
@@ -85,7 +85,7 @@
         android:label="@string/title_currently_airing"
         tools:layout="@layout/fragment_currently_airing" >
         <argument android:name="currentlyAiring"
-            app:argType="com.destructo.sushi.model.top.TopAnime"/>
+            app:argType="com.destructo.sushi.model.jikan.top.TopAnime"/>
     </fragment>
     <fragment
         android:id="@+id/seasonalAnime"
@@ -93,6 +93,6 @@
         android:label="@string/title_seasonal_anime"
         tools:layout="@layout/fragment_seasonal_anime" >
         <argument android:name="seasonalAnime"
-            app:argType="com.destructo.sushi.model.season.Season"/>
+            app:argType="com.destructo.sushi.model.jikan.season.Season"/>
     </fragment>
 </navigation>

@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.destructo.sushi.model.top.TopAnime
+import com.destructo.sushi.model.jikan.top.TopAnime
 
 class CurrentlyAiringViewModel
     @ViewModelInject
@@ -20,7 +20,7 @@ class CurrentlyAiringViewModel
         get() = _currentlyAiring
 
 
-    fun insertUpcomingAnime(upcomingAnime:TopAnime){
+    fun insertUpcomingAnime(upcomingAnime: TopAnime){
         _currentlyAiring.value = upcomingAnime
     }
 }

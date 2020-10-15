@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
-import com.destructo.sushi.model.top.TopAnime
+import com.destructo.sushi.model.jikan.top.TopAnime
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class TopAnimeFragment : Fragment() {
     private val topAnimeViewModel:TopAnimeViewModel by viewModels()
     private lateinit var topAnimeRecycler:RecyclerView
     private lateinit var binding:FragmentTopAnimeBinding
-    private lateinit var topAnimeArg:TopAnime
+    private lateinit var topAnimeArg: TopAnime
     private lateinit var topAnimeAdapter: TopAnimeAdapter
 
 

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="animeSubEntity"
-            type="com.destructo.sushi.model.season.AnimeSubEntity" />
+            type="com.destructo.sushi.model.jikan.season.AnimeSubEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

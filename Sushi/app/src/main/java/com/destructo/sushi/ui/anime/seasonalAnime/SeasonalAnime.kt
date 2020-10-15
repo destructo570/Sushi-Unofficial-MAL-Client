@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
-import com.destructo.sushi.model.season.Season
-import com.destructo.sushi.model.top.TopAnime
+import com.destructo.sushi.model.jikan.season.Season
+import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragmentArgs
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeViewModel
