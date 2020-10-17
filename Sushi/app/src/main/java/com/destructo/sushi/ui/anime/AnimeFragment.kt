@@ -1,16 +1,15 @@
 package com.destructo.sushi.ui.anime
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.TopSubtype
+import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
@@ -48,11 +47,16 @@ class AnimeFragment : Fragment() {
     private lateinit var seasonalAnimeMore:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-        animeViewModel.getTopAnime(null,"500")
+        animeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")
         animeViewModel.getUpcomingAnime(null,"500")
         animeViewModel.getCurrentlyAiringAnime(null,"500")
         animeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreateView(

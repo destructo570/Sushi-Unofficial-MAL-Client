@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="anime_ranking_type">
+        <item>All</item>
+        <item>Airing</item>
+        <item>Upcoming</item>
+        <item>Tv</item>
+        <item>Ova</item>
+        <item>Movie</item>
+        <item>Special</item>
+        <item>By Popularity</item>
+        <item>Favorite</item>
+    </string-array>
+</resources>

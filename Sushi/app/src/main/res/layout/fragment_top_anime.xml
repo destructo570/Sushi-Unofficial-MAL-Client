@@ -13,13 +13,34 @@
         android:paddingEnd="@dimen/margin_small"
         tools:context="com.destructo.sushi.ui.anime.topAnime.TopAnimeFragment">
 
+        <Spinner
+            android:id="@+id/animeRankingSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spinner_margin_normal"
+            android:layout_marginEnd="@dimen/spinner_margin_large"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/drawable_rectangle_bg"
+            android:gravity="center"
+            android:minWidth="96dp"
+            android:paddingStart="4dp"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingEnd="4dp"
+            android:paddingBottom="@dimen/margin_small"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/topAnimeRecyclerMain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/topAnimeRecyclerMain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/animeRankingSpinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

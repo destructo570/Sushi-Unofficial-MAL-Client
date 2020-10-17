@@ -1,10 +1,8 @@
 package com.destructo.sushi.ui.anime.seasonalAnime
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,11 +16,13 @@ import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragmentArgs
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_seasonal_anime.view.*
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
+import timber.log.Timber
 
 @AndroidEntryPoint
-class SeasonalAnime : Fragment() {
+class SeasonalAnimeFragment : Fragment() {
     private val seasonAnimeViewModel: SeasonalAnimeViewModel by viewModels()
 
     private lateinit var binding:FragmentSeasonalAnimeBinding
@@ -32,6 +32,7 @@ class SeasonalAnime : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        seasonAnimeViewModel.getSeasonArchive()
     }
 
     override fun onCreateView(
@@ -43,7 +44,7 @@ class SeasonalAnime : Fragment() {
             lifecycleOwner  = viewLifecycleOwner
         }
 
-        seasonAnimeArg = SeasonalAnimeArgs.fromBundle(requireArguments()).seasonalAnime
+        seasonAnimeArg = SeasonalAnimeFragmentArgs.fromBundle(requireArguments()).seasonalAnime
         seasonAnimeRecycler = binding.root.seasonalAnimeRecyclerMain
         seasonAnimeRecycler.layoutManager = GridLayoutManager(context,3)
 
@@ -51,6 +52,7 @@ class SeasonalAnime : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
 
         seasonAnimeViewModel.insertSeasonAnime(seasonAnimeArg)
         seasonAdapter = SeasonAnimeAdapter()
@@ -63,5 +65,24 @@ class SeasonalAnime : Fragment() {
                 }
             }
         }
+
+        seasonAnimeViewModel.seasonArchive.observe(viewLifecycleOwner){
+            it?.let {seasonArchive->
+                Timber.e("Year: ${seasonArchive.archive?.get(45)?.year} Season: ${seasonArchive.archive?.get(45)?.seasons?.get(2)}")
+
+            }
+        }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.seasonal_menu, menu)
+
+
+    }
+
+    fun openSideSheet(){
+
+    }
+
     }

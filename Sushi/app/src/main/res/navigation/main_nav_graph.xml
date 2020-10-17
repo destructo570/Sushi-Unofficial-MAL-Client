@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/seasonalAnime"
-        android:name="com.destructo.sushi.ui.anime.seasonalAnime.SeasonalAnime"
+        android:name="com.destructo.sushi.ui.anime.seasonalAnime.SeasonalAnimeFragment"
         android:label="@string/title_seasonal_anime"
         tools:layout="@layout/fragment_seasonal_anime" >
         <argument android:name="seasonalAnime"

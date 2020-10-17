@@ -34,5 +34,7 @@
     <string name="fake_manga_score">9.2</string>
     <string name="fake_manga_type">MANGA</string>
 
+    <string name="menu_title_filter">Filter</string>
+    <string name="content_description_filter">Filter the list by year and seasons.</string>
 
 </resources>

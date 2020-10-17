@@ -2,6 +2,7 @@ package com.destructo.sushi.network
 
 import com.destructo.sushi.model.jikan.schedule.Schedule
 import com.destructo.sushi.model.jikan.season.Season
+import com.destructo.sushi.model.jikan.season.SeasonArchive
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.jikan.top.TopManga
 import kotlinx.coroutines.Deferred
@@ -24,7 +25,7 @@ interface JikanApi {
 
 
     @GET("top/anime/{page}/airing")
-    fun getCurrentlyAiringsync(
+    fun getCurrentlyAiringAsync(
         @Path("page") page: String,
     ): Deferred<TopAnime>
 
@@ -46,5 +47,12 @@ interface JikanApi {
     fun getAnimeScheduleAsync(
         @Path("weekday") weekday: String,
     ): Deferred<Schedule>
+
+
+    @GET("season/archive")
+    fun getSeasonArchiveAsync(
+    ): Deferred<SeasonArchive>
+
+
 
 }

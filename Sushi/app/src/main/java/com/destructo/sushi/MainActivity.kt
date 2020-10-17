@@ -2,6 +2,7 @@ package com.destructo.sushi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
@@ -9,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,14 +34,18 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar:Toolbar
 
-    private lateinit var navListener: NavController.OnDestinationChangedListener
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Browse Anime"
         setupDrawerLayout()
+
+
     }
+
+
 
     private fun setupDrawerLayout(){
         navigationView.setupWithNavController(navController)
