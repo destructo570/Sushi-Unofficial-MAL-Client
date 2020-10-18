@@ -50,6 +50,28 @@
     <string name="string_other">Other</string>
 
 
+    <string name="anime_ranking_all">All</string>
+    <string name="anime_ranking_airing">Airing</string>
+    <string name="anime_ranking_upcoming">Upcoming</string>
+    <string name="anime_ranking_tv">TV</string>
+    <string name="anime_ranking_ova">OVA</string>
+    <string name="anime_ranking_movie">Movie</string>
+    <string name="anime_ranking_special">Special</string>
+    <string name="anime_ranking_popularity">By Popularity</string>
+    <string name="anime_ranking_favorites">Favorites</string>
+
+    <string name="manga_ranking_all">All</string>
+    <string name="manga_ranking_manga">Manga</string>
+    <string name="manga_ranking_novels">Novels</string>
+    <string name="manga_ranking_oneshots">Oneshots</string>
+    <string name="manga_ranking_doujin">Doujin</string>
+    <string name="manga_ranking_manhwa">Manhwa</string>
+    <string name="manga_ranking_manhua">Manhua</string>
+    <string name="manga_ranking_popularity">Popularity</string>
+    <string name="manga_ranking_favorites">Favorites</string>
+
+
+
 
     <string name="content_description_filter">Filter the list by year and seasons.</string>
 

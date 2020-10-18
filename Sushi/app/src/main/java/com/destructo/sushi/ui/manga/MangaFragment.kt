@@ -69,15 +69,15 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            "All" -> {mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)}
-            "Manga" -> {mangaViewModel.getTopMangaList(MangaRankingType.MANGA.value,"500",null)}
-            "Novels" -> {mangaViewModel.getTopMangaList(MangaRankingType.NOVELS.value,"500",null)}
-            "Oneshots" -> {mangaViewModel.getTopMangaList(MangaRankingType.ONESHOTS.value,"500",null)}
-            "Doujin" -> {mangaViewModel.getTopMangaList(MangaRankingType.DOUJIN.value,"500",null)}
-            "Manhwa" -> {mangaViewModel.getTopMangaList(MangaRankingType.MANHWA.value,"500",null)}
-            "Manhua" -> {mangaViewModel.getTopMangaList(MangaRankingType.MANHUA.value,"500",null)}
-            "By Popularity" -> {mangaViewModel.getTopMangaList(MangaRankingType.BY_POPULARITY.value,"500",null)}
-            "Favorite" -> {mangaViewModel.getTopMangaList(MangaRankingType.FAVORITE.value,"500",null)}
+            getString(R.string.manga_ranking_all) -> {mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)}
+            getString(R.string.manga_ranking_manga) -> {mangaViewModel.getTopMangaList(MangaRankingType.MANGA.value,"500",null)}
+            getString(R.string.manga_ranking_novels) -> {mangaViewModel.getTopMangaList(MangaRankingType.NOVELS.value,"500",null)}
+            getString(R.string.manga_ranking_oneshots) -> {mangaViewModel.getTopMangaList(MangaRankingType.ONESHOTS.value,"500",null)}
+            getString(R.string.manga_ranking_doujin) -> {mangaViewModel.getTopMangaList(MangaRankingType.DOUJIN.value,"500",null)}
+            getString(R.string.manga_ranking_manhwa) -> {mangaViewModel.getTopMangaList(MangaRankingType.MANHWA.value,"500",null)}
+            getString(R.string.manga_ranking_manhua) -> {mangaViewModel.getTopMangaList(MangaRankingType.MANHUA.value,"500",null)}
+            getString(R.string.manga_ranking_popularity) -> {mangaViewModel.getTopMangaList(MangaRankingType.BY_POPULARITY.value,"500",null)}
+            getString(R.string.manga_ranking_favorites) -> {mangaViewModel.getTopMangaList(MangaRankingType.FAVORITE.value,"500",null)}
         }
     }
 

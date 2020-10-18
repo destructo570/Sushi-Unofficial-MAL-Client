@@ -167,8 +167,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun getSortType(selectedItem: String): String {
         var sortType = ""
         when(selectedItem){
-            season_sort_type_score.toString() -> { sortType = SCORE.value}
-            season_sort_type_numListUser.toString() -> { sortType = NUM_LIST_USER.value}
+            getString(season_sort_type_score) -> { sortType = SCORE.value}
+            getString(season_sort_type_numListUser) -> { sortType = NUM_LIST_USER.value}
         }
         return sortType
     }

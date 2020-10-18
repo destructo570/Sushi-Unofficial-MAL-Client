@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="manga_ranking_type">
-        <item>All</item>
-        <item>Manga</item>
-        <item>Novels</item>
-        <item>Oneshots</item>
-        <item>Doujin</item>
-        <item>Manhwa</item>
-        <item>Manhua</item>
-        <item>By Popularity</item>
-        <item>Favorite</item>
+        <item>@string/manga_ranking_all</item>
+        <item>@string/manga_ranking_manga</item>
+        <item>@string/manga_ranking_novels</item>
+        <item>@string/manga_ranking_oneshots</item>
+        <item>@string/manga_ranking_doujin</item>
+        <item>@string/manga_ranking_manhwa</item>
+        <item>@string/manga_ranking_manhua</item>
+        <item>@string/manga_ranking_popularity</item>
+        <item>@string/manga_ranking_favorites</item>
     </string-array>
 </resources>
