@@ -49,5 +49,14 @@
         <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
+    <!-- Spinner Style-->
+    <style name="SpinnerStyle">
+        <item name="android:background">@drawable/spinner_bg</item>
+        <item name="android:minWidth">@dimen/spinner_min_width</item>
+        <item name="android:minHeight">@dimen/spinner_min_height</item>
+        <item name="android:popupElevation">@dimen/spinner_popup_elevation</item>
+
+    </style>
+
 
 </resources>

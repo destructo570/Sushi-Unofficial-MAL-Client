@@ -27,10 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:background="@drawable/spinner_bg"
-            android:minWidth="@dimen/spinner_min_width"
-            android:minHeight="@dimen/spinner_min_height"
-            android:popupElevation="6dp"
+            style="@style/SpinnerStyle"
             android:scrollbars="none" />
 
         <TextView
@@ -47,10 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_small"
-            android:background="@drawable/spinner_bg"
-            android:minWidth="@dimen/spinner_min_width"
-            android:minHeight="@dimen/spinner_min_height"
-            android:popupElevation="@dimen/spinner_popup_elevation"
+            style="@style/SpinnerStyle"
             android:scrollbars="none" />
     </LinearLayout>
 
@@ -103,9 +97,7 @@
         android:layout_marginStart="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_normal"
-        android:background="@drawable/spinner_bg"
-        android:minHeight="@dimen/spinner_min_height"
-        android:popupElevation="@dimen/spinner_popup_elevation"
+        style="@style/SpinnerStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />

@@ -6,29 +6,37 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
-    <androidx.appcompat.widget.Toolbar
         android:layout_height="?actionBarSize"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBar"
+            >
+    <androidx.appcompat.widget.Toolbar
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
+        app:layout_scrollFlags="enterAlways|scroll"
         app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
         android:minHeight="?attr/actionBarSize"
-        >
+        />
 
-    </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/nav_host_fragemnt"
             app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_nav_graph"/>
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     <com.google.android.material.navigation.NavigationView
