@@ -43,6 +43,7 @@
     <dimen name="spinner_max_height">4dp</dimen>
     <dimen name="spinner_min_width">72dp</dimen>
     <dimen name="spinner_min_width_large">104dp</dimen>
+    <dimen name="spinner_min_width_xlarge">112dp</dimen>
     <dimen name="spinner_max_width">4dp</dimen>
     <dimen name="spinner_popup_elevation">6dp</dimen>
 
