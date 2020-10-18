@@ -39,6 +39,17 @@
     <string name="string_cancel">Cancel</string>
     <string name="string_sort_by">Sort By</string>
 
+    <string name="string_monday">Monday</string>
+    <string name="string_tuesday">Tuesday</string>
+    <string name="string_wednesday">Wednesday</string>
+    <string name="string_thursday">Thursday</string>
+    <string name="string_friday">Friday</string>
+    <string name="string_saturday">Saturday</string>
+    <string name="string_sunday">Sunday</string>
+    <string name="string_unknown">Unknown</string>
+    <string name="string_other">Other</string>
+
+
 
     <string name="content_description_filter">Filter the list by year and seasons.</string>
 

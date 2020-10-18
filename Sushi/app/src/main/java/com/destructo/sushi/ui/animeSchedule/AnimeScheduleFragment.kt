@@ -19,6 +19,7 @@ import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeScheduleFragment : Fragment(),AdapterView.OnItemSelectedListener{
@@ -69,19 +70,20 @@ class AnimeScheduleFragment : Fragment(),AdapterView.OnItemSelectedListener{
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
 
     when(parent?.getItemAtPosition(pos).toString()){
-            "Monday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.monday)}
-            "Tuesday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.tuesday)}
-            "Wednesday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.wednesday)}
-            "Thursday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.thursday)}
-            "Friday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.friday)}
-            "Saturday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.saturday)}
-            "Sunday" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.sunday)}
-            "Other" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.other)}
-            "Unknown" -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.unknown)}
+        getString(R.string.string_monday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.monday)}
+        getString(R.string.string_tuesday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.tuesday)}
+        getString(R.string.string_wednesday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.wednesday) }
+        getString(R.string.string_thursday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.thursday)}
+        getString(R.string.string_friday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.friday)}
+        getString(R.string.string_saturday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.saturday)}
+        getString(R.string.string_sunday) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.sunday)}
+        getString(R.string.string_other) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.other)}
+        getString(R.string.string_unknown) -> {schedulePagerAdapter.submitList(scheduleViewModel.animeSchedule.value?.unknown)}
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
+
 }
