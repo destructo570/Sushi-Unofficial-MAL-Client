@@ -3,13 +3,16 @@
     <!-- Common dimensions -->
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
-    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>
 
     <dimen name="text_size_h1">22sp</dimen>
     <dimen name="text_size_h2">20sp</dimen>
     <dimen name="text_size_h3">18sp</dimen>
+    <dimen name="text_size_h4">16sp</dimen>
+
 
     <dimen name="text_size_b1">16sp</dimen>
     <dimen name="text_size_b2">14sp</dimen>
@@ -36,6 +39,14 @@
     <dimen name="spinner_margin_large">16dp</dimen>
     <dimen name="spinner_margin_normal">8dp</dimen>
     <dimen name="spinner_marging_micro">4dp</dimen>
+    <dimen name="spinner_min_height">32dp</dimen>
+    <dimen name="spinner_max_height">4dp</dimen>
+    <dimen name="spinner_min_width">72dp</dimen>
+    <dimen name="spinner_max_width">4dp</dimen>
+    <dimen name="spinner_popup_elevation">6dp</dimen>
+
+
+
 
 
 

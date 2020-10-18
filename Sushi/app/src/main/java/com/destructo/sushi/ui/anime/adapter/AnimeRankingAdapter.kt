@@ -11,7 +11,6 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 
 class AnimeRankingAdapter: ListAdapter<AnimeRankingData, AnimeRankingAdapter.ViewHolder>(AnimeRankingDiffUtil()) {
 
-
     class ViewHolder private constructor(val binding: ListItemAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(animeEntity: AnimeRankingData){

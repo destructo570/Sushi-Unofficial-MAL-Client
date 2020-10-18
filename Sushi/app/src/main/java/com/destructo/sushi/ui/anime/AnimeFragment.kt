@@ -16,7 +16,6 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
-import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_seasonal_anime.view.*
@@ -90,7 +89,10 @@ class AnimeFragment : Fragment() {
         animeViewModel.topAnimeList.observe(viewLifecycleOwner) {
             it?.let { topAnime ->
                 topAnimeAdapter.submitList(topAnime.data)
-                topAnimeRecycler.adapter = topAnimeAdapter
+                topAnimeRecycler.apply{
+                    setHasFixedSize(true)
+                    adapter = topAnimeAdapter }
+
                 topAnimeSeeMore.setOnClickListener {
                     navigateToTopAnime(topAnime)
                 }
@@ -100,7 +102,10 @@ class AnimeFragment : Fragment() {
         animeViewModel.upcomingAnime.observe(viewLifecycleOwner) {
             it?.let { upcomingAnime ->
                 upcomingAnimeAdapter.submitList(upcomingAnime.data)
-                upcomingAnimeRecycler.adapter = upcomingAnimeAdapter
+                upcomingAnimeRecycler.apply{
+                    setHasFixedSize(true)
+                    adapter = upcomingAnimeAdapter}
+
                 upcomingAnimeSeeMore.setOnClickListener {
                     navigateToUpcomingAnime(upcomingAnime)
                 }
@@ -111,7 +116,9 @@ class AnimeFragment : Fragment() {
         animeViewModel.currentlyAiring.observe(viewLifecycleOwner){
              it?.let {currentlyAiring->
                  currentlyAiringAdapter.submitList(currentlyAiring.data)
-                 currentAiringRecycler.adapter = currentlyAiringAdapter
+                 currentAiringRecycler.apply{
+                     setHasFixedSize(true)
+                     adapter = currentlyAiringAdapter}
                  currentlyAiringMore.setOnClickListener {
                      navigateToCurrentlyAiring(currentlyAiring)
                     }
@@ -122,6 +129,7 @@ class AnimeFragment : Fragment() {
             it?.let { seasonalAnime->
                     seasonalAnimeAdapter.submitList(seasonalAnime.data)
                     seasonalAnimeRecycler.apply {
+                        setHasFixedSize(true)
                     adapter = seasonalAnimeAdapter}
                     seasonalAnimeMore.setOnClickListener {
                         navigateToSeasonalAnime(seasonalAnime)

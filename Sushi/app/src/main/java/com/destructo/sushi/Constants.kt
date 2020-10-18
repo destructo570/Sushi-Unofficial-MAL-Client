@@ -1,12 +1,11 @@
 package com.destructo.sushi
 
+
+//Jikan Constants
+
 const val BASE_JIKAN_URL = "https://api.jikan.moe/v3/"
 
-
-
-
-
-//MAL Related Stuff
+//MyAnimeList Constants
 
 const val BASE_MAL_AUTH_URL = "https://myanimelist.net/"
 const val BASE_MAL_API_URL = "https://api.myanimelist.net/v2/"

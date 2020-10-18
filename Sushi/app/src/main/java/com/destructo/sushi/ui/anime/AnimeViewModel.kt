@@ -42,7 +42,7 @@ constructor(
 
     fun getTopAnime(ranking_type:String,offset:String?, limit:String?){
         viewModelScope.launch {
-            var getTopAnimeDeferred = malApi.getAnimeRankingAsync(ranking_type,limit,offset,
+            val getTopAnimeDeferred = malApi.getAnimeRankingAsync(ranking_type,limit,offset,
                 ALL_ANIME_FIELDS)
             try {
                 val getAnimeRanking = getTopAnimeDeferred.await()
@@ -55,7 +55,7 @@ constructor(
 
     fun getUpcomingAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getUpcomingDeferred = malApi.getAnimeRankingAsync("upcoming",limit,offset,
+            val getUpcomingDeferred = malApi.getAnimeRankingAsync("upcoming",limit,offset,
                 ALL_ANIME_FIELDS)
             try {
                 val getAnimeRanking = getUpcomingDeferred.await()
@@ -68,7 +68,7 @@ constructor(
 
     fun getCurrentlyAiringAnime(offset:String?, limit:String?){
         viewModelScope.launch {
-            var getAiringDeferred = malApi.getAnimeRankingAsync("airing",limit,offset,
+            val getAiringDeferred = malApi.getAnimeRankingAsync("airing",limit,offset,
                 ALL_ANIME_FIELDS)
             try {
                 val getAnimeRanking = getAiringDeferred.await()
@@ -83,11 +83,11 @@ constructor(
     fun getSeasonalAnime(year:String,season:String,sort:String?,
                          limit:String?,offset:String?){
         viewModelScope.launch {
-            var getcurrentlyAiringDeferred = malApi
+            val getSeasonalDeferred = malApi
                 .getSeasonalAnimeAsync(year,season,sort,limit,offset, ALL_ANIME_FIELDS)
             try {
-                val currentlyAiring = getcurrentlyAiringDeferred.await()
-                _seasonalAnime.value = currentlyAiring
+                val seasonaAnime = getSeasonalDeferred.await()
+                _seasonalAnime.value = seasonaAnime
             }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }

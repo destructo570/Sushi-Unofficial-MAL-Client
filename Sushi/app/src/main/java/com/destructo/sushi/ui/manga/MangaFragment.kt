@@ -16,7 +16,6 @@ import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.databinding.FragmentMangaBinding
 import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.enum.mal.MangaRankingType
-import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

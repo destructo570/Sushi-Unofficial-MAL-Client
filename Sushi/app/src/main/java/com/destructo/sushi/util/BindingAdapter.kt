@@ -12,7 +12,6 @@ import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
-import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import com.destructo.sushi.ui.manga.MangaAdapter
 
 
@@ -49,9 +48,6 @@ fun TextView.setAnimeScore(data:String?){
     }
 }
 
-/**
- * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
- */
 @BindingAdapter("scheduleData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<SeasonAnimeData>?) {
     val adapter = recyclerView.adapter as SeasonAnimeAdapter

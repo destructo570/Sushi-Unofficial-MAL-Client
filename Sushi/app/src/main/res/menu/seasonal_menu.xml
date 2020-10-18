@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/filter_menu_id"
         android:icon="@drawable/ic_filter_3_line"
-        android:title="@string/menu_title_filter"
+        android:title="@string/string_filter"
         android:contentDescription="@string/content_description_filter"
         app:showAsAction="always" />
 

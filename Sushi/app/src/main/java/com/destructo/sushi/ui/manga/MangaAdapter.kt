@@ -11,7 +11,6 @@ import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.model.jikan.top.TopMangaEntity
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
-import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 
 class MangaAdapter:ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
 

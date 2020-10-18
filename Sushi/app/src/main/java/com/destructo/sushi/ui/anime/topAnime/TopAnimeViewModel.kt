@@ -33,7 +33,7 @@ constructor(
 
     fun getTopAnime(ranking_type:String,offset:String?, limit:String?){
         viewModelScope.launch {
-            var getTopAnimeDeferred = malApi.getAnimeRankingAsync(ranking_type,limit,offset,
+            val getTopAnimeDeferred = malApi.getAnimeRankingAsync(ranking_type,limit,offset,
                 ALL_ANIME_FIELDS
             )
             try {

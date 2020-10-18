@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android = "http://schemas.android.com/apk/res/android">
+
+    <item>
+        <layer-list>
+            <item>
+                <shape android:thickness="2dp">
+                    <gradient android:angle = "90" android:endColor = "@color/contentBackground" android:startColor = "@color/contentBackground" android:type = "linear"/>
+
+
+                    <corners android:radius = "8dp"/>
+
+                    <padding android:bottom = "3dp" android:left = "3dp" android:right = "3dp" android:top = "3dp"/>
+                </shape>
+            </item>
+
+            <item>
+                <rotate
+                    android:fromDegrees = "90"
+                    android:pivotX = "85%"
+                    android:pivotY = "50%"
+                    android:toDegrees = "90">
+                    <shape
+                        android:shape = "line"
+                        android:thickness="2dp"
+                        android:top = "1dp">
+                    </shape>
+                </rotate>
+            </item>
+            <item android:drawable="@drawable/ic_arrow_drop_down_fill"
+                android:gravity="center|right"/>
+        </layer-list>
+    </item>
+
+</selector>

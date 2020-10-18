@@ -19,6 +19,12 @@
         <item name="android:textSize">@dimen/text_size_h3</item>
     </style>
 
+    <style name="TextAppearance.Sushi.H3" parent="@style/TextAppearance.Sushi.H1">
+        <item name="android:textSize">@dimen/text_size_h4</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+    </style>
+
     <style name="TextAppearance.Sushi.B1" parent="@style/TextAppearance.MaterialComponents.Body1">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="fontFamily">@font/poppins_medium</item>
@@ -42,5 +48,6 @@
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="fontFamily">@font/poppins_medium</item>
     </style>
+
 
 </resources>

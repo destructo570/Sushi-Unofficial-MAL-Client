@@ -27,7 +27,7 @@ constructor(
 
     fun getTopMangaList(ranking_type:String,limit:String?,offset:String?){
         viewModelScope.launch{
-            var getTopMangaDeferred = malApi.getMangaRankingAsync(
+            val getTopMangaDeferred = malApi.getMangaRankingAsync(
                 ranking_type, limit, offset, ALL_MANGA_FIELDS)
         try {
             val topManga = getTopMangaDeferred.await()

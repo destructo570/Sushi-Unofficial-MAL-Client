@@ -17,7 +17,6 @@
         android:id="@+id/toolbar"
         app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
         android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
         >
 
     </androidx.appcompat.widget.Toolbar>
@@ -32,7 +31,6 @@
     </LinearLayout>
 
 
-
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,5 +39,16 @@
         android:theme="@style/NavigationStyle"
         app:menu="@menu/drawer_menu"
         android:fitsSystemWindows="true"/>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navigationView2"
+        android:layout_gravity="end"
+        app:headerLayout="@layout/seasonal_filter_options"
+        android:theme="@style/NavigationStyle"
+        android:fitsSystemWindows="true"/>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

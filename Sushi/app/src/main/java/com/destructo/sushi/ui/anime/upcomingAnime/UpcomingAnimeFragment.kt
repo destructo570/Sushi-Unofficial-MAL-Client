@@ -13,7 +13,6 @@ import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
-import com.destructo.sushi.ui.anime.topAnime.TopAnimeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 
@@ -58,6 +57,7 @@ class UpcomingAnimeFragment : Fragment() {
             it?.let {upcomingAnime->
                 upcomingAdapter.submitList(upcomingAnime.data)
                 upcomingAnimeRecycler.apply{
+                    setHasFixedSize(true)
                     adapter = upcomingAdapter
                 }
             }

@@ -34,7 +34,20 @@
     <string name="fake_manga_score">9.2</string>
     <string name="fake_manga_type">MANGA</string>
 
-    <string name="menu_title_filter">Filter</string>
+    <string name="string_filter">Filter</string>
+    <string name="string_apply_filter">Apply Filter</string>
+    <string name="string_cancel">Cancel</string>
+    <string name="string_sort_by">Sort By</string>
+
+
     <string name="content_description_filter">Filter the list by year and seasons.</string>
+
+    <!-- Seasonal Anime String -->
+    <string name="title_year">Year</string>
+    <string name="title_season">Season</string>
+
+    <string name="season_sort_type_score">Score</string>
+    <string name="season_sort_type_numListUser">Number Of List User</string>
+
 
 </resources>

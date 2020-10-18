@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.*
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -18,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private val navController by lazy {
         Navigation.findNavController(this, R.id.nav_host_fragemnt)
     }
+    private lateinit var navView2:NavigationView
+
     private val appBarConfig by lazy {
         AppBarConfiguration(
             setOf(R.id.animeFragment,
@@ -33,19 +38,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var toolbar:Toolbar
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navView2 = findViewById(R.id.navigationView2)
         toolbar = findViewById(R.id.toolbar)
+        drawerLayout = findViewById(R.id.drawer_layout)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Browse Anime"
         setupDrawerLayout()
-
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
     }
-
-
 
     private fun setupDrawerLayout(){
         navigationView.setupWithNavController(navController)
