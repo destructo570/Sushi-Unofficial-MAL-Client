@@ -1,4 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -55,6 +57,15 @@
         <item name="android:minWidth">@dimen/spinner_min_width</item>
         <item name="android:minHeight">@dimen/spinner_min_height</item>
         <item name="android:popupElevation">@dimen/spinner_popup_elevation</item>
+
+    </style>
+
+
+    <!-- Tab Layout Style-->
+    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabSelectedTextColor">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorHeight">4dp</item>
 
     </style>
 

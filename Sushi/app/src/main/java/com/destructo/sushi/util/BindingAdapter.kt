@@ -12,6 +12,7 @@ import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
+import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import com.destructo.sushi.ui.manga.MangaAdapter
 
 
@@ -53,6 +54,16 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<SeasonAnimeData>?) {
     val adapter = recyclerView.adapter as SeasonAnimeAdapter
     adapter.submitList(data)
 }
+
+@BindingAdapter("animeScheduleData")
+fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>?) {
+    recyclerView.setHasFixedSize(true)
+    val adapter = ScheduleAdapter()
+     recyclerView.adapter = adapter
+    adapter.submitList(data)
+}
+
+
 
 private fun formatTitleText(text:String): String{
     var title = if(text.length > 12) text.take( 12) else return text

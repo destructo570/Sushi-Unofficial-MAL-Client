@@ -7,39 +7,24 @@
     <data>
 
     </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/anime_schedule_tablayout"
+        android:layout_width="fill_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:tabMode="scrollable"
+        android:paddingBottom="4dp"
+        app:tabIndicator="@drawable/custom_tab_layout_indicator"
+        style="@style/TabLayoutStyle"
+        />
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/margin_small"
-        android:paddingEnd="@dimen/margin_small"
-        android:id="@+id/scheduleFragment">
+        android:id="@+id/anime_schedule_pager"/>
+</LinearLayout>
 
-        <Spinner
-            android:id="@+id/scheduleDaySpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spinner_margin_normal"
-            android:paddingTop="@dimen/margin_small"
-            android:paddingBottom="@dimen/margin_small"
-            style="@style/SpinnerStyle"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/scheduleRecyclerMain"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_small"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scheduleDaySpinner"
-            app:spanCount="3" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
