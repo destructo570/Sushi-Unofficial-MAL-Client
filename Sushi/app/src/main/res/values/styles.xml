@@ -38,6 +38,17 @@
         <item name="android:textSize">@dimen/text_size_b1</item>
     </style>
 
+    <style name="TextAppearance.Sushi.B4" parent="TextAppearance.Sushi.B1">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/text_size_b2</item>
+    </style>
+
+    <style name="TextAppearance.Sushi.ByLine1" parent="TextAppearance.Sushi.B1">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/text_size_b3</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
     <!-- See More Text -->
     <style name="TextAppearance.Sushi.B3" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_semibold</item>
@@ -68,6 +79,16 @@
         <item name="tabIndicatorHeight">4dp</item>
 
     </style>
+
+    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+    <style name="CollapsingTextAppearance.Inverse" >
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="ToolBarWithNavigationBack">
+        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
+    </style>
+
 
 
 </resources>

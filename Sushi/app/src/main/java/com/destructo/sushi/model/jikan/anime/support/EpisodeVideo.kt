@@ -11,5 +11,5 @@ data class EpisodeVideo(
     @Json(name = "title")
     val title: String?=null,
     @Json(name = "url")
-    val url: String?=null
+    val videoUrl: String?=null
 )

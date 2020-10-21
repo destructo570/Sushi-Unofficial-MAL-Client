@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.enum.mal.AnimeRankingType
@@ -15,6 +16,7 @@ import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
@@ -80,10 +82,18 @@ class AnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        topAnimeAdapter = AnimeRankingAdapter()
-        upcomingAnimeAdapter = AnimeRankingAdapter()
-        currentlyAiringAdapter = AnimeRankingAdapter()
-        seasonalAnimeAdapter = SeasonAnimeAdapter()
+        topAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
+            it?.let {  navigateToAnimeDetails(it) }
+        })
+        upcomingAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
+            it?.let {  navigateToAnimeDetails(it) }
+        })
+        currentlyAiringAdapter = AnimeRankingAdapter(AnimeDetailListener {
+            it?.let {  navigateToAnimeDetails(it) }
+        })
+        seasonalAnimeAdapter = SeasonAnimeAdapter(AnimeDetailListener {
+            it?.let {  navigateToAnimeDetails(it) }
+        })
 
 
         animeViewModel.topAnimeList.observe(viewLifecycleOwner) {
@@ -163,7 +173,15 @@ class AnimeFragment : Fragment() {
         this.findNavController().navigate(
             AnimeFragmentDirections.actionAnimeFragmentToSeasonalAnime(seasonalAnime)
         )
-    }}
+    }
+
+private fun navigateToAnimeDetails(animeMalId: Int){
+    this.findNavController().navigate(
+        AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailFragment(animeMalId)
+    )
+}
+
+}
 
 
 

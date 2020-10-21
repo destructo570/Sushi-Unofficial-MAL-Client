@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 
@@ -51,7 +54,9 @@ class UpcomingAnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         upcomingAnimeViewModel.insertUpcomingAnime(upcomingAnimeArg)
-        upcomingAdapter = AnimeRankingAdapter()
+        upcomingAdapter = AnimeRankingAdapter(AnimeDetailListener {
+            it?.let { navigateToAnimeDetails(it) }
+        })
 
         upcomingAnimeViewModel.upcomingAnime.observe(viewLifecycleOwner){
             it?.let {upcomingAnime->
@@ -63,5 +68,12 @@ class UpcomingAnimeFragment : Fragment() {
             }
         }
         }
+
+
+    private fun navigateToAnimeDetails(animeMalId: Int){
+        this.findNavController().navigate(
+            UpcomingAnimeFragmentDirections.actionUpcomingAnimeFragmentToAnimeDetailFragment(animeMalId)
+        )
+    }
 
     }

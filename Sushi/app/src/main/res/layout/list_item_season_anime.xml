@@ -7,6 +7,9 @@
         <variable
             name="animeSubEntity"
             type="com.destructo.sushi.model.mal.anime.Anime" />
+        <variable
+            name="animeListener"
+            type="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -14,6 +17,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/item_card_corner_radius"
         app:cardUseCompatPadding="true"
+        android:onClick="@{()->animeListener.onClick(animeSubEntity)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

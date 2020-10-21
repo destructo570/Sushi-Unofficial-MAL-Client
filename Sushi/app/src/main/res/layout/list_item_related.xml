@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="relatedAnime"
+            type="com.destructo.sushi.model.mal.anime.RelatedAnime" />
+
+        <variable
+            name="listener"
+            type="com.destructo.sushi.ui.anime.adapter.AnimeRecommListener" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> listener.onClick(relatedAnime.anime)}"
+        app:cardCornerRadius="@dimen/item_card_corner_radius"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/list_anime_cover"
+                android:layout_width="@dimen/list_item_image_width"
+                android:layout_height="@dimen/list_item_image_height"
+                android:foreground="@drawable/list_item_gradient"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{relatedAnime.anime.mainPicture.medium}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/test_img" />
+
+            <TextView
+                android:id="@+id/list_anime_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/card_text_margin_normal"
+                android:ellipsize="end"
+                android:maxEms="7"
+                android:text="@{relatedAnime.relationTypeFormatted}"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/fake_anime_type" />
+
+
+            <TextView
+                android:id="@+id/list_anime_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_text_margin_normal"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:ellipsize="end"
+                android:maxEms="6"
+                android:maxLines="2"
+                android:minLines="2"
+                android:text="@{relatedAnime.anime.title}"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_anime_cover"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                tools:text="@string/fake_anime_title" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

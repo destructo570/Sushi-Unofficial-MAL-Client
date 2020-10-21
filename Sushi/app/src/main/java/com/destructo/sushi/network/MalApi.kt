@@ -1,5 +1,6 @@
 package com.destructo.sushi.network
 
+import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
 import com.destructo.sushi.model.mal.seasonalAnime.Season
@@ -11,8 +12,14 @@ import retrofit2.http.Query
 
 interface MalApi {
 
-
+    @GET("anime/{Id}")
+    fun getAnimeByIdAsync(
+        @Path("Id") animeId:String,
+        @Query("fields") fields:String
+    ): Deferred<Anime>
     @GET("anime/ranking")
+
+
     fun getAnimeRankingAsync(
         @Query("ranking_type") ranking_type:String,
         @Query("limit") limit:String?,

@@ -1,5 +1,8 @@
 package com.destructo.sushi.network
 
+import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
+import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
+import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.jikan.schedule.Schedule
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.season.SeasonArchive
@@ -48,11 +51,25 @@ interface JikanApi {
         @Path("weekday") weekday: String,
     ): Deferred<Schedule>
 
-
     @GET("season/archive")
     fun getSeasonArchiveAsync(
     ): Deferred<SeasonArchive>
 
+    @GET("anime/{animeId}/characters_staff")
+    fun getCharacterAndStaffAsync(
+        @Path("animeId") animeId: String,
+        ): Deferred<AnimeCharacterAndStaff>
+
+    @GET("anime/{animeId}/videos")
+    fun getAnimeVideosAsync(
+        @Path("animeId") animeId: String,
+    ): Deferred<AnimeVideo>
+
+
+    @GET("anime/{animeId}/reviews")
+    fun getAnimeReviewsAsync(
+        @Path("animeId") animeId: String,
+    ): Deferred<AnimeReviews>
 
 
 }

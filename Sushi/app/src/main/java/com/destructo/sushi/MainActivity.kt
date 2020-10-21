@@ -3,6 +3,7 @@ package com.destructo.sushi
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -51,6 +52,14 @@ class MainActivity : AppCompatActivity() {
         setupDrawerLayout()
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id){
+                R.id.animeDetailFragment->{
+                    toolbar.visibility = View.GONE
+                }
+            }
+        }
+
     }
 
     private fun setupDrawerLayout(){
@@ -62,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         if(drawer_layout.isDrawerOpen(GravityCompat.START)){
             drawer_layout.closeDrawer(GravityCompat.START)
         }else{
+            toolbar.visibility = View.VISIBLE
             super.onBackPressed()
         }
     }

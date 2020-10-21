@@ -2,7 +2,7 @@ package com.destructo.sushi.model.jikan.anime.core
 
 
 import com.destructo.sushi.model.jikan.JikanEntity
-import com.destructo.jikanplay.model.common.Review
+import com.destructo.sushi.model.jikan.common.Review
 import com.squareup.moshi.Json
 
 data class AnimeReviews(

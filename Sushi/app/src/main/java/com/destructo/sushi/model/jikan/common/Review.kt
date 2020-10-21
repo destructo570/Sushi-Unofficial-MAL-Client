@@ -1,6 +1,7 @@
-package com.destructo.jikanplay.model.common
+package com.destructo.sushi.model.jikan.common
 
 
+import com.destructo.jikanplay.model.common.Reviewer
 import com.squareup.moshi.Json
 
 data class Review(

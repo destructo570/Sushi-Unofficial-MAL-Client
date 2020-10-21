@@ -10,15 +10,17 @@ import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 
 
-class SeasonAnimeAdapter: ListAdapter<SeasonAnimeData, SeasonAnimeAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
+class SeasonAnimeAdapter(private val animeDetailListener: AnimeDetailListener): ListAdapter<SeasonAnimeData, SeasonAnimeAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
 
 
     class ViewHolder private constructor(val binding: ListItemSeasonAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(seasonAnime: SeasonAnimeData){
+        fun bind(seasonAnime: SeasonAnimeData,listener: AnimeDetailListener){
             binding.animeSubEntity = seasonAnime.anime
+            binding.animeListener = listener
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
@@ -38,7 +40,7 @@ class SeasonAnimeAdapter: ListAdapter<SeasonAnimeData, SeasonAnimeAdapter.ViewHo
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
-        holder.bind(animeSubEntity)
+        holder.bind(animeSubEntity,animeDetailListener)
     }
 
 }

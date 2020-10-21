@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_animeFragment_to_seasonalAnime"
             app:destination="@id/seasonalAnime" />
+        <action
+            android:id="@+id/action_animeFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -70,6 +73,9 @@
         tools:layout="@layout/fragment_top_anime">
         <argument android:name="topAnime"
             app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
+        <action
+            android:id="@+id/action_topAnimeFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/upcomingAnimeFragment"
@@ -78,6 +84,9 @@
         tools:layout="@layout/fragment_upcoming_anime">
         <argument android:name="upcomingAnime"
         app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
+        <action
+            android:id="@+id/action_upcomingAnimeFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/currentlyAiring"
@@ -86,6 +95,9 @@
         tools:layout="@layout/fragment_currently_airing" >
         <argument android:name="currentlyAiring"
             app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
+        <action
+            android:id="@+id/action_currentlyAiring_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/seasonalAnime"
@@ -94,5 +106,20 @@
         tools:layout="@layout/fragment_seasonal_anime" >
         <argument android:name="seasonalAnime"
             app:argType="com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime"/>
+        <action
+            android:id="@+id/action_seasonalAnime_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animeDetailFragment"
+        android:name="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragment"
+        android:label="fragment_anime_detail"
+        tools:layout="@layout/fragment_anime_detail" >
+
+        <argument android:name="animeId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_animeDetailFragment_self"
+            app:destination="@id/animeDetailFragment" />
     </fragment>
 </navigation>

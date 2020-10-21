@@ -1,4 +1,4 @@
-package com.destructo.jikanplay.model.common
+package com.destructo.sushi.model.jikan.common
 
 
 import com.destructo.sushi.model.jikan.anime.support.VoiceActor

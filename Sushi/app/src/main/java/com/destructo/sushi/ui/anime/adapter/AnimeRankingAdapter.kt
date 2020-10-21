@@ -8,14 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 
-class AnimeRankingAdapter: ListAdapter<AnimeRankingData, AnimeRankingAdapter.ViewHolder>(AnimeRankingDiffUtil()) {
+class AnimeRankingAdapter(private val animeDetailListener: AnimeDetailListener) :
+    ListAdapter<AnimeRankingData, AnimeRankingAdapter.ViewHolder>(AnimeRankingDiffUtil()) {
 
-    class ViewHolder private constructor(val binding: ListItemAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemAnimeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeEntity: AnimeRankingData){
+        fun bind(animeEntity: AnimeRankingData, listener: AnimeDetailListener) {
             binding.animeEntity = animeEntity.anime
+            binding.animeListener = listener
         }
+
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -34,13 +39,13 @@ class AnimeRankingAdapter: ListAdapter<AnimeRankingData, AnimeRankingAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeEntity = getItem(position)
-        holder.bind(animeEntity)
+        holder.bind(animeEntity, animeDetailListener)
     }
 
 
 }
 
-class AnimeRankingDiffUtil: DiffUtil.ItemCallback<AnimeRankingData>() {
+class AnimeRankingDiffUtil : DiffUtil.ItemCallback<AnimeRankingData>() {
     override fun areItemsTheSame(oldItem: AnimeRankingData, newItem: AnimeRankingData): Boolean {
         return oldItem.anime?.id == newItem.anime?.id
     }

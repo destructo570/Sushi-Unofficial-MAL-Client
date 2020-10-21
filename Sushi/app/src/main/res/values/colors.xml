@@ -11,6 +11,8 @@
     <color name="white">#FFFFFF</color>
     <color name="contentBackground">#ECEFF1</color>
 
+    <color name="content_tint_dark">#BF000000</color>
+    <color name="content_tint_dark2">#8c000000</color>
 
 
 

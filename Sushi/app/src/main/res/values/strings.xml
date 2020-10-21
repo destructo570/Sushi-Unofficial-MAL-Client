@@ -60,6 +60,21 @@
     <string name="anime_ranking_popularity">By Popularity</string>
     <string name="anime_ranking_favorites">Favorites</string>
 
+
+    <string name="anime_detail_type">Type: </string>
+    <string name="anime_detail_status">Status: </string>
+    <string name="anime_detail_rating">Rating: </string>
+    <string name="anime_detail_episodes">Episodes: </string>
+    <string name="anime_detail_start_season">Start Season: </string>
+    <string name="anime_detail_score">Score: </string>
+    <string name="anime_detail_rewatching">Rewatching: </string>
+    <string name="anime_detail_ep_duration">Ep Duration: </string>
+
+
+    <string name="anime_detail_add_to_list">Add To List</string>
+
+
+
     <string name="manga_ranking_all">All</string>
     <string name="manga_ranking_manga">Manga</string>
     <string name="manga_ranking_novels">Novels</string>
@@ -77,8 +92,23 @@
     <string name="title_year">Year</string>
     <string name="title_season">Season</string>
 
+    <string name="title_synopsis">Synopsis</string>
+    <string name="title_characters">Characters</string>
+    <string name="title_genre">Genre</string>
+    <string name="title_my_list_status">My List Status</string>
+    <string name="title_staff">Staff</string>
+    <string name="title_reviews">Reviews</string>
+    <string name="title_related_anime">Related Anime</string>
+    <string name="title_recommendations">Recommendations</string>
+    <string name="title_videos">Videos</string>
+    <string name="title_details_and_stats">Details And Stats</string>
+    <string name="title_opening_and_ending">Opening anf Ending Songs</string>
+
+
+
     <string name="season_sort_type_score">Score</string>
     <string name="season_sort_type_numListUser">Number Of List User</string>
+    <string name="fake_anime_desc">In a world where demons feed on unsuspecting humans, fragments of the legendary and feared demon Ryoumen Sukuna were lost and scattered about. Should any demon consume Sukuna\'s body parts, the power they gain could destroy the world as we know it. Fortunately, there exists a mysterious school of Jujutsu Sorcerers who exist to protect the precarious existence of the living from the undead!  Yuuji Itadori is high schooler who spends his days visiting his bedridden grandfather. Although he looks like your average teenager, his immense physical strength is something to behold! Every sports club wants him to join, but Itadori would rather hang out with the school outcasts in the Occult Club. One day, the club manages to get their hands on a sealed cursed object, but little do they know the terror they\'ll unleash when they break the seal...  (Source: VIZ Media, edited)</string>
 
 
 </resources>

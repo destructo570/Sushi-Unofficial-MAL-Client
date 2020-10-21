@@ -27,4 +27,6 @@ constructor(
     fun insertUpcomingAnime(upcomingAnime: AnimeRanking){
         _upcomingAnime.value = upcomingAnime
     }
+
+
 }

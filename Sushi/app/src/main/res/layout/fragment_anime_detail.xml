@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="animeEntity"
+            type="com.destructo.sushi.model.mal.anime.Anime" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/anime_desc_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/anime_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/anime_collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/collapsing_toobar_height"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
+                app:contentScrim="?colorPrimary"
+                app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
+                app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
+                app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{animeEntity.title}">
+
+                <ImageView
+                    imageUrl="@{animeEntity.mainPicture.large}"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:foreground="@color/content_tint_dark"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test_img" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/anime_desc_toolbar"
+                    style="@style/ToolBarWithNavigationBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@null"
+                    app:layout_collapseMode="pin" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:behavior_overlapTop="78dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/anime_detail_cardview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardElevation="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_normal">
+
+                        <include
+                            android:id="@+id/anime_sub_desc"
+                            layout="@layout/inc_anime_detail_sub_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            bind:animeEntity="@{animeEntity}" />
+
+                        <include
+                            android:id="@+id/my_anime_status"
+                            layout="@layout/inc_my_anime_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc"
+                            bind:animeEntity="@{animeEntity}" />
+
+
+                        <TextView
+                            android:id="@+id/anime_synopsis_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:text="@string/title_synopsis"
+                            android:textAppearance="@style/TextAppearance.Sushi.H2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/my_anime_status" />
+
+                        <TextView
+                            android:id="@+id/anime_synopsis"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:text="@{animeEntity.synopsis}"
+                            android:textAppearance="@style/TextAppearance.Sushi.B4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_synopsis_title" />
+
+
+                        <TextView
+                            android:id="@+id/anime_genre_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:text="@string/title_genre"
+                            android:textAppearance="@style/TextAppearance.Sushi.H2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_synopsis" />
+
+                        <include
+                            android:id="@+id/anime_genre"
+                            layout="@layout/inc_my_anime_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_genre_title" />
+
+                        <include
+                            android:id="@+id/anime_videos"
+                            layout="@layout/inc_anime_videos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_genre" />
+
+                        <include
+                            android:id="@+id/anime_characters"
+                            layout="@layout/inc_characters_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_videos" />
+
+
+                        <include
+                            android:id="@+id/anime_staff"
+                            layout="@layout/inc_staff_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_characters" />
+
+
+                        <include
+                            android:id="@+id/anime_reviews"
+                            layout="@layout/inc_review_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_staff" />
+
+
+                        <include
+                            android:id="@+id/anime_related"
+                            layout="@layout/inc_related_anime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_reviews" />
+
+
+                        <include
+                            android:id="@+id/animne_recommended"
+                            layout="@layout/inc_recomms_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_related" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/anime_score_fab"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="16dp"
+            android:elevation="@dimen/default_card_elevation"
+            app:cardCornerRadius="200dp"
+            app:layout_anchor="@id/anime_detail_cardview"
+            app:layout_anchorGravity="top|right|end"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/anime_score_txt"
+                animeScore="@{animeEntity.mean.toString()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.Sushi.H2"
+                android:textColor="@color/white"
+                tools:text="8.0" />
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

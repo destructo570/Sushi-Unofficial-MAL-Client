@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
@@ -17,7 +18,10 @@ import com.destructo.sushi.R.string.season_sort_type_numListUser
 import com.destructo.sushi.R.string.season_sort_type_score
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
 import com.destructo.sushi.enum.mal.SeasonalSortType.*
+import com.destructo.sushi.model.jikan.anime.core.Anime
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_seasonal_anime.view.*
@@ -107,7 +111,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         setHasOptionsMenu(true)
 
         seasonAnimeViewModel.insertSeasonAnime(seasonAnimeArg)
-        seasonAdapter = SeasonAnimeAdapter()
+        seasonAdapter = SeasonAnimeAdapter(AnimeDetailListener {
+            it?.let {  navigateToAnimeDetails(it) }
+        })
 
         seasonAnimeViewModel.seasonalAnime.observe(viewLifecycleOwner){
             it?.let { seasonAnime->
@@ -174,7 +180,6 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -187,6 +192,12 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         seasonArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         seasonSpinner.adapter = seasonArrayAdapter
+    }
+
+    private fun navigateToAnimeDetails(animeMalId: Int){
+        this.findNavController().navigate(
+            SeasonalAnimeFragmentDirections.actionSeasonalAnimeToAnimeDetailFragment(animeMalId)
+        )
     }
 
 

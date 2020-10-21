@@ -3,6 +3,7 @@
     <!-- Common dimensions -->
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_micro">4dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_xlarge">32dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
@@ -32,8 +33,6 @@
     <!-- Card Layout Section-->
     <dimen name="card_padding_large">8dp</dimen>
     <dimen name="card_padding_normal">8dp</dimen>
-    <dimen name="card_padding_micro">4dp</dimen>
-
 
     <!-- Spinners-->
     <dimen name="spinner_margin_large">16dp</dimen>
@@ -46,6 +45,26 @@
     <dimen name="spinner_min_width_xlarge">112dp</dimen>
     <dimen name="spinner_max_width">4dp</dimen>
     <dimen name="spinner_popup_elevation">6dp</dimen>
+
+    <!-- Character Section-->
+    <dimen name="character_img_height">56dp</dimen>
+    <dimen name="character_img_width">56dp</dimen>
+    <dimen name="card_padding_micro">4dp</dimen>
+
+    <dimen name="default_corner_radius">8dp</dimen>
+    <dimen name="default_card_elevation">8dp</dimen>
+
+
+    <!-- Anime/Manga Detail Section-->
+    <dimen name="expanded_title_margin_bottom">94dp</dimen>
+    <dimen name="expanded_title_margin_end">100dp</dimen>
+    <dimen name="collapsing_toobar_height">300dp</dimen>
+
+    <dimen name="video_card_height">150dp</dimen>
+    <dimen name="review_card_width">300dp</dimen>
+    <dimen name="review_card_height">150dp</dimen>
+    <dimen name="reviewer_img_height">48dp</dimen>
+    <dimen name="review_img_width">48dp</dimen>
 
 
 

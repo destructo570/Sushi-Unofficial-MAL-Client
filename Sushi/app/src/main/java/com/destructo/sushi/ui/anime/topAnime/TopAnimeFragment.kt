@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,9 @@ import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,7 +63,9 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         topAnimeViewModel.insertTopAnime(topAnimeArg)
-        topAnimeAdapter = AnimeRankingAdapter()
+        topAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
+            it?.let { navigateToAnimeDetails(it) }
+        })
 
         topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){
             it?.let {topAnime->
@@ -88,7 +93,13 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
+    }
+
+
+    private fun navigateToAnimeDetails(animeMalId: Int){
+        this.findNavController().navigate(
+            TopAnimeFragmentDirections.actionTopAnimeFragmentToAnimeDetailFragment(animeMalId)
+        )
     }
 
 
