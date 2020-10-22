@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,8 @@ class UpcomingAnimeFragment : Fragment() {
     private lateinit var upcomingAnimeArg: AnimeRanking
     private lateinit var upcomingAdapter:AnimeRankingAdapter
     private lateinit var upcomingAnimeRecycler:RecyclerView
+    private lateinit var toolbar: Toolbar
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +51,14 @@ class UpcomingAnimeFragment : Fragment() {
         upcomingAnimeArg = UpcomingAnimeFragmentArgs.fromBundle(requireArguments()).upcomingAnime
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecyclerMain
         upcomingAnimeRecycler.layoutManager = GridLayoutManager(context,3)
+        toolbar = binding.toolbar
+
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
 
         upcomingAnimeViewModel.insertUpcomingAnime(upcomingAnimeArg)
         upcomingAdapter = AnimeRankingAdapter(AnimeDetailListener {
@@ -74,6 +81,12 @@ class UpcomingAnimeFragment : Fragment() {
         this.findNavController().navigate(
             UpcomingAnimeFragmentDirections.actionUpcomingAnimeFragmentToAnimeDetailFragment(animeMalId)
         )
+    }
+
+    private fun setupToolbar(){
+        toolbar.setNavigationOnClickListener {view->
+            view.findNavController().navigateUp()
+        }
     }
 
     }

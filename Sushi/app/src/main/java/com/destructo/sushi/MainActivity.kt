@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
     private lateinit var navView2:NavigationView
 
-    private val appBarConfig by lazy {
+     val appBarConfig by lazy {
         AppBarConfiguration(
             setOf(R.id.animeFragment,
                 R.id.scheduleFragment,
@@ -38,40 +38,34 @@ class MainActivity : AppCompatActivity() {
             ), drawer_layout)
     }
 
-    private lateinit var toolbar:Toolbar
     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navView2 = findViewById(R.id.navigationView2)
-        toolbar = findViewById(R.id.toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = "Browse Anime"
         setupDrawerLayout()
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id){
-                R.id.animeDetailFragment->{
-                    toolbar.visibility = View.GONE
-                }
-            }
+
         }
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController,appBarConfig)
+    }
+
     private fun setupDrawerLayout(){
         navigationView.setupWithNavController(navController)
-        toolbar.setupWithNavController( navController, appBarConfig)
     }
 
     override fun onBackPressed() {
         if(drawer_layout.isDrawerOpen(GravityCompat.START)){
             drawer_layout.closeDrawer(GravityCompat.START)
         }else{
-            toolbar.visibility = View.VISIBLE
             super.onBackPressed()
         }
     }

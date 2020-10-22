@@ -7,26 +7,6 @@
     android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:fitsSystemWindows="true">
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/appBar"
-            >
-    <androidx.appcompat.widget.Toolbar
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:id="@+id/toolbar"
-        app:layout_scrollFlags="enterAlways|scroll"
-        app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-        android:minHeight="?attr/actionBarSize"
-        />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <fragment
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
@@ -36,7 +16,6 @@
             app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_nav_graph"/>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     <com.google.android.material.navigation.NavigationView

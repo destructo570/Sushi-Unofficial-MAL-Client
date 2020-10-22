@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +23,7 @@ import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragmentArgs
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_currently_airing.view.*
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 
@@ -32,6 +36,7 @@ class CurrentlyAiring : Fragment() {
     private lateinit var currentlyAiringArg: AnimeRanking
     private lateinit var currentlyAiringAdapter: AnimeRankingAdapter
     private lateinit var currentlyAiringRecycler: RecyclerView
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +55,13 @@ class CurrentlyAiring : Fragment() {
         currentlyAiringArg = CurrentlyAiringArgs.fromBundle(requireArguments()).currentlyAiring
         currentlyAiringRecycler = binding.root.currentlyRecyclerMain
         currentlyAiringRecycler.layoutManager = GridLayoutManager(context,3)
+        toolbar = binding.toolbar
 
             return binding.root
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
 
         currentlyAiringViewModel.insertUpcomingAnime(currentlyAiringArg)
         currentlyAiringAdapter = AnimeRankingAdapter(AnimeDetailListener {
@@ -76,6 +83,12 @@ class CurrentlyAiring : Fragment() {
         this.findNavController().navigate(
             CurrentlyAiringDirections.actionCurrentlyAiringToAnimeDetailFragment(animeMalId)
         )
+    }
+
+    private fun setupToolbar(){
+        toolbar.setNavigationOnClickListener {view->
+            view.findNavController().navigateUp()
+        }
     }
 
     }

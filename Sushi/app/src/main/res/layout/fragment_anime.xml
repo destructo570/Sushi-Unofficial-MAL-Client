@@ -6,10 +6,23 @@
     <data>
 
     </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/anime_frag_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ToolBarWithNavigation"
+        app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
+        />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,16 +31,15 @@
         tools:context=".ui.anime.AnimeFragment">
 
 
-            <include
-                android:id="@+id/includeTop"
-                layout="@layout/inc_top_anime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/includeTop"
+            layout="@layout/inc_top_anime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/includeAiring"
@@ -64,4 +76,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/includeUpcoming" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+</LinearLayout>
 </layout>

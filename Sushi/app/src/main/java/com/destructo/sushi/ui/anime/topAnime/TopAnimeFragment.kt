@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,6 +36,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var topAnimeArg: AnimeRanking
     private lateinit var topAnimeAdapter: AnimeRankingAdapter
     private lateinit var animeRankingSpinner: Spinner
+    private lateinit var toolbar: Toolbar
 
 
 
@@ -53,6 +56,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             animeRankingSpinner.onItemSelectedListener = this
         } }
 
+        toolbar = binding.toolbar
         topAnimeRecycler = binding.topAnimeRecyclerMain
         topAnimeRecycler.layoutManager = GridLayoutManager(context,3)
         topAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
@@ -63,6 +67,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
 
         topAnimeViewModel.insertTopAnime(topAnimeArg)
         topAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
@@ -103,6 +108,13 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             TopAnimeFragmentDirections.actionTopAnimeFragmentToAnimeDetailFragment(animeMalId)
         )
     }
+
+    private fun setupToolbar(){
+        toolbar.setNavigationOnClickListener {
+                view-> view.findNavController().navigateUp()
+        }
+    }
+
 
 
 }

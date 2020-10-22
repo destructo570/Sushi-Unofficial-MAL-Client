@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
@@ -28,6 +30,9 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
     private lateinit var mangaAdapter:MangaAdapter
     private lateinit var mangaTypeSpinner:Spinner
 
+    private lateinit var toolbar: Toolbar
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
@@ -40,6 +45,9 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
         binding = FragmentMangaBinding.inflate(inflater,container,false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+
+        toolbar = binding.toolbar
+
         mangaTypeSpinner = binding.mangaRankingSpinner
         context?.let { ArrayAdapter.createFromResource(
             it,R.array.manga_ranking_type,android.R.layout.simple_spinner_item).also {adapter->
@@ -55,6 +63,7 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
         mangaAdapter = MangaAdapter()
 
         mangaViewModel.topManga.observe(viewLifecycleOwner){
@@ -85,5 +94,13 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
         mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
     }
 
+
+    private fun setupToolbar(){
+        toolbar.setNavigationOnClickListener {
+                view-> view.findNavController().navigateUp()
+        }
     }
+
+
+}
 

@@ -10,7 +10,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
@@ -20,6 +23,7 @@ import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_anime_schedule.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +42,8 @@ class AnimeScheduleFragment : Fragment(){
     private lateinit var scheduleTabMediator:TabLayoutMediator
     private lateinit var listOfAnimeSchedule:MutableList<List<AnimeSubEntity?>?>
 
+    private lateinit var toolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         scheduleViewModel.getAnimeSchdule("")
@@ -52,6 +58,7 @@ class AnimeScheduleFragment : Fragment(){
         }
         scheduleViewPager = binding.animeSchedulePager
         scheduleTabLayout = binding.animeScheduleTablayout
+        toolbar = binding.toolbar
 
         scheduleTabMediator = TabLayoutMediator(scheduleTabLayout, scheduleViewPager) { tab, position ->
             when(position){
@@ -71,6 +78,7 @@ class AnimeScheduleFragment : Fragment(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
         schedulePagerAdapter = SchedulePagerAdapter()
 
         scheduleViewModel.animeSchedule.observe(viewLifecycleOwner){
@@ -100,6 +108,12 @@ class AnimeScheduleFragment : Fragment(){
         scheduleViewPager.adapter = schedulePagerAdapter
         scheduleTabMediator.attach()
 
+    }
+
+    private fun setupToolbar(){
+        toolbar.setNavigationOnClickListener {
+            view-> view.findNavController().navigateUp()
+        }
     }
 
 }

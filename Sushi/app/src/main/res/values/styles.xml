@@ -85,8 +85,19 @@
         <item name="android:textSize">30sp</item>
     </style>
 
-    <style name="ToolBarWithNavigationBack">
-        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
+    <style name="ToolBarWithNavigationBack" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
+        <item name="navigationIcon">@drawable/ic_arrow_back_line</item>
+        <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
+
+    </style>
+
+    <style name="ToolBarWithNavigation" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
+        <item name="navigationIcon">@drawable/ic_menu_fill</item>
+        <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
+
+
     </style>
 
     <style name="PrimaryButtonStyle">

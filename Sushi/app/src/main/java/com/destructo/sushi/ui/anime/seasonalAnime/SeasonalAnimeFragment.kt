@@ -6,10 +6,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +47,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var seasonCancelButton: Button
     private lateinit var drawerLayout: DrawerLayout
 
+    private lateinit var toolbar: Toolbar
+
     private lateinit var seasonArchiveMap:MutableMap<String,List<String?>?>
     private var selectedYear:String="2021"
     private var selectedSeason:String="Winter"
@@ -72,6 +76,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         filterApplyButton = requireActivity().season_apply_filter_button
         seasonCancelButton = requireActivity().season_cancel_filter_button
         drawerLayout = requireActivity().drawer_layout
+
+        toolbar = binding.toolbar
 
         yearSpinner.onItemSelectedListener = this
         seasonSpinner.onItemSelectedListener = this
@@ -101,14 +107,12 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.filter_menu_id->{ drawerLayout.openDrawer(GravityCompat.END) }
-        }
+
         return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
+        setupToolbar()
 
         seasonAnimeViewModel.insertSeasonAnime(seasonAnimeArg)
         seasonAdapter = SeasonAnimeAdapter(AnimeDetailListener {
@@ -198,6 +202,22 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         this.findNavController().navigate(
             SeasonalAnimeFragmentDirections.actionSeasonalAnimeToAnimeDetailFragment(animeMalId)
         )
+    }
+
+    private fun setupToolbar(){
+        setHasOptionsMenu(true)
+        toolbar.title = getString(R.string.title_browse_anime)
+        toolbar.inflateMenu(R.menu.seasonal_menu)
+        toolbar.setNavigationOnClickListener {view->
+            view.findNavController().navigateUp()
+        }
+        toolbar.setOnMenuItemClickListener {item->
+            when(item.itemId){
+                R.id.filter_menu_id->{ drawerLayout.openDrawer(GravityCompat.END) }
+            }
+            false
+
+        }
     }
 
 
