@@ -89,6 +89,13 @@
         <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
     </style>
 
+    <style name="PrimaryButtonStyle">
+        <item name="android:background">@drawable/custom_button_primary</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+
+    </style>
+
 
 
 </resources>

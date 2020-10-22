@@ -46,6 +46,7 @@ fun TextView.setAnimeTitle(data: String?) {
 }
 
 
+
 @BindingAdapter("smallTitleFormatted")
 fun TextView.setCharacterTitle(data: String?) {
     data?.let {
