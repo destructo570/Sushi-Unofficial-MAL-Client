@@ -11,8 +11,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
+import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.anime.StartSeason
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -45,7 +48,6 @@ fun TextView.setAnimeTitle(data: String?) {
         text = formatTitleText(data)
     }
 }
-
 
 
 @BindingAdapter("smallTitleFormatted")

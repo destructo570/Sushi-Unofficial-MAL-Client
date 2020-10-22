@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,8 +29,11 @@ import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
 import com.destructo.sushi.ui.anime.adapter.*
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.inc_anime_detail_genre.view.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
@@ -51,6 +56,7 @@ class AnimeDetailFragment : Fragment() {
     private lateinit var coverView: ImageView
     private lateinit var scoreTextView: TextView
     private lateinit var toolbar: Toolbar
+    private lateinit var genreChipGroup:ChipGroup
 
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
@@ -90,6 +96,7 @@ class AnimeDetailFragment : Fragment() {
         }
         scoreCardView = binding.animeScoreFab
         scoreTextView = binding.animeScoreTxt
+        genreChipGroup = binding.root.genre_chip_group
 
         characterRecycler = binding.root.characterRecycler
         characterRecycler.setHasFixedSize(true)
@@ -150,6 +157,20 @@ class AnimeDetailFragment : Fragment() {
             relatedAdapter.submitList(animeEntity.relatedAnime)
             relatedRecycler.apply {
                 adapter = relatedAdapter
+
+                animeEntity.genres?.forEach { genre->
+                    genre?.let{
+                        val chip = Chip(context)
+                        chip.text = it.name
+                        chip.isClickable = false
+                        chip.chipBackgroundColor = AppCompatResources.getColorStateList(context,R.color.chip_bg_color)
+                        genreChipGroup.addView(chip)
+                    }
+
+
+                }
+
+
             }
 
 
