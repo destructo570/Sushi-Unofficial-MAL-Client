@@ -22,6 +22,7 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
+import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,6 +55,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         topAnimeRecycler = binding.topAnimeRecyclerMain
         topAnimeRecycler.layoutManager = GridLayoutManager(context,3)
+        topAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
         topAnimeArg = TopAnimeFragmentArgs.fromBundle(requireArguments()).topAnime
 

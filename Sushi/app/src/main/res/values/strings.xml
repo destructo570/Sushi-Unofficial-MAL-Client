@@ -74,7 +74,6 @@
     <string name="anime_detail_add_to_list">Add To List</string>
 
 
-
     <string name="manga_ranking_all">All</string>
     <string name="manga_ranking_manga">Manga</string>
     <string name="manga_ranking_novels">Novels</string>
@@ -103,6 +102,18 @@
     <string name="title_videos">Videos</string>
     <string name="title_details_and_stats">Details And Stats</string>
     <string name="title_opening_and_ending">Opening anf Ending Songs</string>
+
+
+    <!-- Character Section Titles -->
+    <string name="character_name">Name: </string>
+    <string name="character_name_kanji">Name(kanji): </string>
+    <string name="character_nick_names">Nick Names: </string>
+    <string name="character_member_fav">Member Favorite: </string>
+    <string name="character_about">About</string>
+    <string name="character_voice_actor">Voice Actors</string>
+    <string name="character_animeography">Animeography</string>
+    <string name="character_mangaography">Mangaography</string>
+
 
 
 

@@ -121,5 +121,18 @@
         <action
             android:id="@+id/action_animeDetailFragment_self"
             app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_animeDetailFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.destructo.sushi.ui.anime.characterDetails.CharacterFragment"
+        android:label="CharacterFragment" >
+        <argument android:name="characterId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_characterFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
     </fragment>
 </navigation>

@@ -19,6 +19,8 @@ class AnimeReviewListAdapter(private val animeReviewListener: AnimeReviewListene
         fun bind(review: Review, listener: AnimeReviewListener) {
             binding.review = review
             binding.reviewListener = listener
+            binding.executePendingBindings()
+
         }
 
         companion object {

@@ -16,6 +16,8 @@ class ScheduleAdapter: ListAdapter<AnimeSubEntity, ScheduleAdapter.ViewHolder>(S
 
         fun bind(animeSubEntity: AnimeSubEntity){
             binding.animeSubEntity = animeSubEntity
+            binding.executePendingBindings()
+
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

@@ -21,6 +21,8 @@ class SeasonAnimeAdapter(private val animeDetailListener: AnimeDetailListener): 
         fun bind(seasonAnime: SeasonAnimeData,listener: AnimeDetailListener){
             binding.animeSubEntity = seasonAnime.anime
             binding.animeListener = listener
+            binding.executePendingBindings()
+
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

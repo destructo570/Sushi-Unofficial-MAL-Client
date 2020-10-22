@@ -9,8 +9,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/margin_small"
-        android:paddingEnd="@dimen/margin_small"
         tools:context="com.destructo.sushi.ui.anime.topAnime.TopAnimeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,9 +22,10 @@
 
             <Spinner
                 android:id="@+id/animeRankingSpinner"
+                style="@style/SpinnerStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/SpinnerStyle"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:minWidth="@dimen/spinner_min_width_xlarge"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"

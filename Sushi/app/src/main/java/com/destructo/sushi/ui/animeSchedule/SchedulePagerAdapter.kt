@@ -27,6 +27,7 @@ class SchedulePagerAdapter:
 
         fun bind(animeList: List<AnimeSubEntity?>?){
             binding.listOfAnime = animeList
+            binding.executePendingBindings()
         }
 
         companion object {

@@ -19,6 +19,8 @@ class AnimeRelatedListAdapter(private val animeDetailListener: AnimeRecommListen
         fun bind(relatedAnime: RelatedAnime, listener: AnimeRecommListener) {
             binding.relatedAnime = relatedAnime
             binding.listener = listener
+            binding.executePendingBindings()
+
         }
 
         companion object {

@@ -1,5 +1,6 @@
 package com.destructo.sushi.util
 
+import android.text.format.DateUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -10,11 +11,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
-import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.anime.StartSeason
-import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
-import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
+import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
 import java.util.*
 
 
@@ -104,6 +107,34 @@ fun TextView.setAnimeScore(data: String?) {
     }
 }
 
+@BindingAdapter("characterNickName")
+fun TextView.formatCharacterNickName(data: List<String?>?) {
+
+    if (data != null ) {
+        val finalStr = StringBuilder()
+        data.forEach{ finalStr.append("$it ") }
+        text = finalStr
+    } else {
+        text = "Not Available"
+    }
+}
+
+
+@BindingAdapter("setDateAndTime")
+fun TextView.formatDateAndTime(data: String?) {
+
+    if (data != null ) {
+        val dtStart = "2020-07-05T09:27:37Z"
+        val dd="2020-10-05T14:00:00+00:00"
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
+        val date: Date = format.parse(dd)
+        Timber.e( "ISO 1801 date/time: $date")
+        text = "OKAY"
+    } else {
+        text = "Not Available"
+    }
+}
+
 @BindingAdapter("animeDescFormat")
 fun TextView.formatAnimeDescString(data: String?) {
     data?.let {
@@ -125,6 +156,8 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
     recyclerView.adapter = adapter
     adapter.submitList(data)
 }
+
+
 
 
 private fun formatTitleText(text: String): String {

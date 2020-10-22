@@ -19,6 +19,8 @@ class AnimeRankingAdapter(private val animeDetailListener: AnimeDetailListener) 
         fun bind(animeEntity: AnimeRankingData, listener: AnimeDetailListener) {
             binding.animeEntity = animeEntity.anime
             binding.animeListener = listener
+            binding.executePendingBindings()
+
         }
 
         companion object {

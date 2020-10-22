@@ -38,9 +38,6 @@ class AnimeScheduleFragment : Fragment(){
     private lateinit var scheduleTabMediator:TabLayoutMediator
     private lateinit var listOfAnimeSchedule:MutableList<List<AnimeSubEntity?>?>
 
-    private lateinit var uiJob:Job
-    private lateinit var uiScope:CoroutineScope
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         scheduleViewModel.getAnimeSchdule("")

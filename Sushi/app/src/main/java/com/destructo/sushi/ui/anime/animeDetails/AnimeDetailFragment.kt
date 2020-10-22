@@ -1,7 +1,9 @@
 package com.destructo.sushi.ui.anime.animeDetails
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
 import kotlinx.android.synthetic.main.inc_staff_list.view.*
 import timber.log.Timber
+
 
 @AndroidEntryPoint
 class AnimeDetailFragment : Fragment() {
@@ -55,11 +58,14 @@ class AnimeDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
-        animeDetailViewModel.getAnimeDetail(animeIdArg)
-        animeDetailViewModel.getAnimeCharacters(animeIdArg)
-        animeDetailViewModel.getAnimeVideos(animeIdArg)
-        animeDetailViewModel.getAnimeReviews(animeIdArg)
+        if (savedInstanceState == null) {
+            animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
+            animeDetailViewModel.getAnimeDetail(animeIdArg)
+            animeDetailViewModel.getAnimeCharacters(animeIdArg)
+            animeDetailViewModel.getAnimeVideos(animeIdArg)
+            animeDetailViewModel.getAnimeReviews(animeIdArg)
+        }
+
 
     }
 
@@ -94,9 +100,13 @@ class AnimeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
+            it?.let {
+                navigateToCharacterDetails(it)
 
+            }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
+
         })
         recommAdapter = AnimeRecommListAdapter(AnimeRecommListener {
             it?.let { navigateToAnimeDetails(it) }
@@ -105,7 +115,7 @@ class AnimeDetailFragment : Fragment() {
             it?.let { navigateToAnimeDetails(it) }
         })
         videoAdapter = AnimeVideoAdapter(AnimePromoListener {
-
+            it?.let { openVideoLink(it) }
         })
         reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
 
@@ -121,8 +131,6 @@ class AnimeDetailFragment : Fragment() {
             relatedRecycler.apply {
                 adapter = relatedAdapter
             }
-
-            Timber.e(animeEntity.myListStatus?.status)
 
             animeEntity.mainPicture?.medium?.let {
                 setScoreCardColor(it)
@@ -172,9 +180,6 @@ class AnimeDetailFragment : Fragment() {
                             scoreCardView.setCardBackgroundColor(color)
                         }
 
-//                        palette?.vibrantSwatch?.titleTextColor?.let { color ->
-//                            scoreTextView.setTextColor(color)
-//                        }
                     }
                 }
 
@@ -189,5 +194,19 @@ class AnimeDetailFragment : Fragment() {
         this.findNavController().navigate(
             AnimeDetailFragmentDirections.actionAnimeDetailFragmentSelf(animeMalId)
         )
+    }
+
+
+    private fun navigateToCharacterDetails(character: Int) {
+        this.findNavController().navigate(
+            AnimeDetailFragmentDirections.actionAnimeDetailFragmentToCharacterFragment(character)
+        )
+    }
+
+
+    private fun openVideoLink(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 }

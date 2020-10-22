@@ -19,6 +19,8 @@ class AnimeVideoAdapter(private val animePromoListener: AnimePromoListener) :
         fun bind(promoVideo: Promo, listener: AnimePromoListener) {
             binding.promoVideo = promoVideo
             binding.promoListener = listener
+            binding.executePendingBindings()
+
         }
 
         companion object {

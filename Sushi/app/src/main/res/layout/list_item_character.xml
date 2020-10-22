@@ -6,7 +6,7 @@
     <data>
         <variable
             name="character"
-            type="com.destructo.sushi.model.jikan.common.Character" />
+            type="com.destructo.sushi.model.jikan.character.Character" />
         <variable
             name="characterListener"
             type="com.destructo.sushi.ui.anime.adapter.AnimeCharacterListener" />
@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> characterListener.onClick(character)}"
+        android:onClick="@{() -> characterListener.onClick(character.malId)}"
         android:padding="4dp"
         >
 

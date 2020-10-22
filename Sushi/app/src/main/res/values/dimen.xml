@@ -66,6 +66,14 @@
     <dimen name="reviewer_img_height">48dp</dimen>
     <dimen name="review_img_width">48dp</dimen>
 
+    <dimen name="portrait_grid_view_span">3</dimen>
+    <dimen name="portrait_grid_view_spacing">25</dimen>
+
+    <dimen name="portrait_character_grid_view_span">3</dimen>
+    <dimen name="portrait_character_grid_view_spacing">25</dimen>
+
+
+
 
 
 

@@ -26,6 +26,7 @@ class MangaAdapter:ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaD
     class ViewHolder(val binding: ListItemMangaBinding) :RecyclerView.ViewHolder(binding.root){
         fun bind(mangaEntity: MangaRankingData){
             binding.mangaEntity = mangaEntity.manga
+            binding.executePendingBindings()
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

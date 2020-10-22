@@ -1,10 +1,12 @@
-package com.destructo.sushi.model.jikan.common
+package com.destructo.sushi.model.jikan.character
 
 
-import com.destructo.sushi.model.jikan.anime.support.VoiceActor
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
-data class Character(
+@Parcelize
+data class PersonEntity(
     @Json(name = "image_url")
     val imageUrl: String?=null,
     @Json(name = "mal_id")
@@ -14,7 +16,5 @@ data class Character(
     @Json(name = "role")
     val role: String?=null,
     @Json(name = "url")
-    val url: String?=null,
-    @Json(name = "voice_actors")
-    val voiceActors: List<VoiceActor?>?=null
-)
+    val url: String?=null
+):Parcelable

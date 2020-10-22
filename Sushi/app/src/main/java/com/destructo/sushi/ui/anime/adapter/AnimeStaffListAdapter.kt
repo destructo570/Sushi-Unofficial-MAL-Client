@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemCharacterBinding
 import com.destructo.sushi.databinding.ListItemStaffBinding
 import com.destructo.sushi.model.jikan.anime.support.Staff
-import com.destructo.sushi.model.jikan.common.Character
 
 
 class AnimeStaffListAdapter(private val animeStaffListener: AnimeStaffListener) :
@@ -20,6 +18,8 @@ class AnimeStaffListAdapter(private val animeStaffListener: AnimeStaffListener) 
         fun bind(staff: Staff, listener: AnimeStaffListener) {
             binding.staff = staff
             binding.staffListener = listener
+            binding.executePendingBindings()
+
         }
 
         companion object {

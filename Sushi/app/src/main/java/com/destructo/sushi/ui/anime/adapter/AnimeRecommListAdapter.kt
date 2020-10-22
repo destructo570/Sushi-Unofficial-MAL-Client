@@ -21,6 +21,8 @@ class AnimeRecommListAdapter(private val animeDetailListener: AnimeRecommListene
         fun bind(recomm: Recommendation, listener: AnimeRecommListener) {
             binding.recommendation = recomm
             binding.listener = listener
+            binding.executePendingBindings()
+
         }
 
         companion object {
