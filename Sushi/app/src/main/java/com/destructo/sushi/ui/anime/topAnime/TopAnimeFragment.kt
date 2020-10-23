@@ -16,6 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.Adapter.*
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
@@ -38,13 +41,19 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var animeRankingSpinner: Spinner
     private lateinit var toolbar: Toolbar
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(savedInstanceState == null){
+            topAnimeArg = TopAnimeFragmentArgs.fromBundle(requireArguments()).topAnime
+            topAnimeViewModel.insertTopAnime(topAnimeArg)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding  = FragmentTopAnimeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
@@ -61,15 +70,12 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         topAnimeRecycler.layoutManager = GridLayoutManager(context,3)
         topAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
-        topAnimeArg = TopAnimeFragmentArgs.fromBundle(requireArguments()).topAnime
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        topAnimeViewModel.insertTopAnime(topAnimeArg)
         topAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
             it?.let { navigateToAnimeDetails(it) }
         })
@@ -77,6 +83,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){
             it?.let {topAnime->
                 topAnimeAdapter.submitList(topAnime.data)
+                topAnimeAdapter.stateRestorationPolicy = PREVENT_WHEN_EMPTY
                 topAnimeRecycler.apply{
                     adapter = topAnimeAdapter
                     }

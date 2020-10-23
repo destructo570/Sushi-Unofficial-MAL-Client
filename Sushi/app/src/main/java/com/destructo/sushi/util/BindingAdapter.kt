@@ -29,7 +29,7 @@ import java.util.*
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgView.setImageDrawable(null)
+    //imgView.setImageDrawable(null)
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
