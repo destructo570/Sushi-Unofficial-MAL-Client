@@ -18,6 +18,7 @@ import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.databinding.FragmentMangaBinding
 import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.enum.mal.MangaRankingType
+import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,6 +59,7 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
 
         mangaRecycler = binding.mangaRecyclerMain
         mangaRecycler.layoutManager = GridLayoutManager(context, 3)
+        mangaRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
         return binding.root
     }

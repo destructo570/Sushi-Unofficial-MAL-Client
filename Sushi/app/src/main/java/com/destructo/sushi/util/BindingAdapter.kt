@@ -156,6 +156,7 @@ fun TextView.formatAnimeDescString(data: String?) {
 @BindingAdapter("animeScheduleData")
 fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>?) {
     recyclerView.setHasFixedSize(true)
+    recyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
     val adapter = ScheduleAdapter()
     recyclerView.adapter = adapter
     adapter.submitList(data)

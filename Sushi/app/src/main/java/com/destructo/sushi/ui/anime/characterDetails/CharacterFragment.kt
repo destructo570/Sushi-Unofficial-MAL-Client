@@ -25,8 +25,7 @@ class CharacterFragment() : Fragment() {
     private var characterArg: Int = 0
     private lateinit var characterTabMediator:TabLayoutMediator
 
-
-    val characterViewModel: CharacterViewModel by viewModels()
+    private val characterViewModel: CharacterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

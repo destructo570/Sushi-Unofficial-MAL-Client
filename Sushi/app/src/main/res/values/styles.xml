@@ -49,6 +49,11 @@
         <item name="android:textColor">@color/textColorSecondary</item>
     </style>
 
+    <style name="TextAppearance.Sushi.ByLine2" parent="TextAppearance.Sushi.B1">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/text_size_b3</item>
+    </style>
+
     <!-- See More Text -->
     <style name="TextAppearance.Sushi.B3" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_semibold</item>

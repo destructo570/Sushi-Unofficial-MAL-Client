@@ -163,6 +163,7 @@ class AnimeDetailFragment : Fragment() {
                         val chip = Chip(context)
                         chip.text = it.name
                         chip.isClickable = false
+                        chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
                         chip.chipBackgroundColor = AppCompatResources.getColorStateList(context,R.color.chip_bg_color)
                         genreChipGroup.addView(chip)
                     }
@@ -220,6 +221,9 @@ class AnimeDetailFragment : Fragment() {
                     Palette.from(resource).generate { palette: Palette? ->
                         palette?.vibrantSwatch?.rgb?.let { color ->
                             scoreCardView.setCardBackgroundColor(color)
+                        }
+                        palette?.vibrantSwatch?.titleTextColor?.let {
+                            scoreTextView.setTextColor(it)
                         }
 
                     }

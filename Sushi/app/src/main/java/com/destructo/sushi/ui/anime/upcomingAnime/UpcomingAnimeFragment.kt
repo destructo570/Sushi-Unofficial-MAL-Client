@@ -18,6 +18,7 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
+import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 
@@ -51,6 +52,7 @@ class UpcomingAnimeFragment : Fragment() {
         upcomingAnimeArg = UpcomingAnimeFragmentArgs.fromBundle(requireArguments()).upcomingAnime
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecyclerMain
         upcomingAnimeRecycler.layoutManager = GridLayoutManager(context,3)
+        upcomingAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
         toolbar = binding.toolbar
 
 

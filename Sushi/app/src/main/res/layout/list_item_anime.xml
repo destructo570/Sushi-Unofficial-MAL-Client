@@ -14,10 +14,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/item_card_corner_radius"
-        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +30,7 @@
 
             <ImageView
                 android:id="@+id/list_anime_cover"
-                android:layout_width="@dimen/list_item_image_width"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/list_item_image_height"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
@@ -59,13 +58,17 @@
 
             <TextView
                 android:id="@+id/list_anime_title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/card_text_margin_large"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/card_text_margin_normal"
-                animeTitle="@{animeEntity.title}"
+                android:layout_marginEnd="8dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="@{animeEntity.title}"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBottom_toTopOf="@+id/list_anime_score"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintVertical_chainStyle="spread_inside"

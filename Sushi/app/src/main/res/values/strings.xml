@@ -20,6 +20,7 @@
 
     <!-- Anime Section Titles -->
     <string name="title_top_anime">Top Anime</string>
+    <string name="title_top_manga">Top Manga</string>
     <string name="title_currently_airing">Currently Airing</string>
     <string name="title_upcoming_anime">Upcoming Anime</string>
     <string name="title_seasonal_anime">Seasonal Anime</string>

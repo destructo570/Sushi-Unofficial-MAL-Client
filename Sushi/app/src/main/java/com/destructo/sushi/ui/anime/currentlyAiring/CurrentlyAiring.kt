@@ -22,6 +22,7 @@ import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragmentArgs
 import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeViewModel
+import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_currently_airing.view.*
@@ -54,6 +55,7 @@ class CurrentlyAiring : Fragment() {
 
         currentlyAiringArg = CurrentlyAiringArgs.fromBundle(requireArguments()).currentlyAiring
         currentlyAiringRecycler = binding.root.currentlyRecyclerMain
+        currentlyAiringRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
         currentlyAiringRecycler.layoutManager = GridLayoutManager(context,3)
         toolbar = binding.toolbar
 

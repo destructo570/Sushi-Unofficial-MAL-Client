@@ -24,7 +24,9 @@ import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
+import com.destructo.sushi.ui.anime.adapter.AnimeHomeAdapter
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
+import com.destructo.sushi.ui.anime.adapter.SeasonAnimeHomeAdapter
 import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.google.android.material.navigation.NavigationView
@@ -49,10 +51,10 @@ class AnimeFragment : Fragment() {
     private lateinit var currentAiringRecycler:RecyclerView
     private lateinit var seasonalAnimeRecycler:RecyclerView
 
-    private lateinit var topAnimeAdapter:AnimeRankingAdapter
-    private lateinit var upcomingAnimeAdapter:AnimeRankingAdapter
-    private lateinit var currentlyAiringAdapter:AnimeRankingAdapter
-    private lateinit var seasonalAnimeAdapter:SeasonAnimeAdapter
+    private lateinit var topAnimeAdapter:AnimeHomeAdapter
+    private lateinit var upcomingAnimeAdapter:AnimeHomeAdapter
+    private lateinit var currentlyAiringAdapter:AnimeHomeAdapter
+    private lateinit var seasonalAnimeAdapter: SeasonAnimeHomeAdapter
 
     private lateinit var topAnimeSeeMore:TextView
     private lateinit var upcomingAnimeSeeMore:TextView
@@ -61,13 +63,9 @@ class AnimeFragment : Fragment() {
 
     private lateinit var toolbar:Toolbar
 
-
-    lateinit var mActivity : FragmentActivity
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        activity?.let { mActivity = it }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,7 +100,6 @@ class AnimeFragment : Fragment() {
         currentlyAiringMore = binding.root.currentlyAiringMore
         seasonalAnimeMore = binding.root.seasonalAnimeMore
 
-
         return binding.root
     }
 
@@ -110,16 +107,16 @@ class AnimeFragment : Fragment() {
 
         setupToolbar()
 
-        topAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
+        topAnimeAdapter = AnimeHomeAdapter(AnimeDetailListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
-        upcomingAnimeAdapter = AnimeRankingAdapter(AnimeDetailListener {
+        upcomingAnimeAdapter = AnimeHomeAdapter(AnimeDetailListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
-        currentlyAiringAdapter = AnimeRankingAdapter(AnimeDetailListener {
+        currentlyAiringAdapter = AnimeHomeAdapter(AnimeDetailListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
-        seasonalAnimeAdapter = SeasonAnimeAdapter(AnimeDetailListener {
+        seasonalAnimeAdapter = SeasonAnimeHomeAdapter(AnimeDetailListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
 

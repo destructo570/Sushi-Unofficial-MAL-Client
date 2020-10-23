@@ -24,6 +24,7 @@ import com.destructo.sushi.model.jikan.anime.core.Anime
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
+import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_seasonal_anime.view.*
@@ -85,6 +86,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         seasonAnimeArg = SeasonalAnimeFragmentArgs.fromBundle(requireArguments()).seasonalAnime
         seasonAnimeRecycler = binding.root.seasonalAnimeRecyclerMain
         seasonAnimeRecycler.layoutManager = GridLayoutManager(context, 3)
+        seasonAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
         context?.let { ArrayAdapter.createFromResource(
             it,R.array.season_sort_type,android.R.layout.simple_spinner_item).also {adapter->
