@@ -42,6 +42,7 @@
                     style="@style/SpinnerStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spinner_margin_normal"
                     android:minWidth="@dimen/spinner_min_width_large"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
