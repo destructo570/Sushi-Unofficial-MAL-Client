@@ -24,6 +24,7 @@
             android:id="@+id/staffMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:background="@drawable/drawable_rectangle_bg"
             android:text="@string/see_all"
             android:paddingStart="@dimen/card_padding_normal"
