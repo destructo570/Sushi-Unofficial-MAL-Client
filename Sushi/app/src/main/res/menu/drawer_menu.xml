@@ -32,7 +32,7 @@
     </item>
 
 
-    <item android:title="@string/title_preferences">
+    <item android:title="@string/title_other">
         <menu>
             <group android:checkableBehavior="single">
 
@@ -56,7 +56,7 @@
         </menu>
 
     </item>
-    <item android:title="@string/title_settings">
+    <item android:title="@string/title_preferences">
         <menu>
             <group android:checkableBehavior="single">
 
