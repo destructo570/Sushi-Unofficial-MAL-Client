@@ -90,17 +90,24 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             bind:animeEntity="@{animeEntity}" />
-
-                        <include
+                        <LinearLayout
                             android:id="@+id/my_anime_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc"
+                            >
+                        <include
                             layout="@layout/inc_my_anime_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_normal"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc"
                             bind:animeEntity="@{animeEntity}" />
+                        </LinearLayout>
+
 
 
                         <TextView

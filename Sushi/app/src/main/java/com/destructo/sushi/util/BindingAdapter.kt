@@ -85,6 +85,16 @@ fun TextView.setReviewOverview(data: Review?) {
 }
 
 
+@BindingAdapter("formatAnimeRank")
+fun TextView.setAnimeRank(data: Anime?) {
+    data?.rank?.let {rank->
+        val formattedText = "#${rank}"
+        text = formattedText
+    }
+}
+
+
+
 @BindingAdapter("formatIsReWatching")
 fun TextView.setIsReWatching(data: Boolean?) {
     data?.let {
