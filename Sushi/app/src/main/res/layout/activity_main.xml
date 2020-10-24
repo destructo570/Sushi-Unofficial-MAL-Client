@@ -23,8 +23,9 @@
         android:layout_height="match_parent"
         android:id="@+id/navigationView"
         android:layout_gravity="start"
-        android:theme="@style/NavigationStyle"
+        app:itemTextAppearance="@style/NavigationStyle"
         app:menu="@menu/drawer_menu"
+        style="@style/Widget.Custom.NavigationView"
         android:fitsSystemWindows="true"/>
 
 
@@ -34,7 +35,7 @@
         android:id="@+id/navigationView2"
         android:layout_gravity="end"
         app:headerLayout="@layout/seasonal_filter_options"
-        android:theme="@style/NavigationStyle"
+        app:itemTextAppearance="@style/NavigationStyle"
         android:fitsSystemWindows="true"/>
 
 

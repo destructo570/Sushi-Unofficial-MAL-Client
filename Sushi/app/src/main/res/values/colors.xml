@@ -14,6 +14,10 @@
     <color name="content_tint_dark">#BF000000</color>
     <color name="content_tint_dark2">#8c000000</color>
 
+    <color name="colorMenuSelected">#2603DAC5</color>
+    <color name="colorMenuPressed">#269e9e9e</color>
+    <color name="colorMenuTextSelected">#00897b</color>
+
 
 
 </resources>

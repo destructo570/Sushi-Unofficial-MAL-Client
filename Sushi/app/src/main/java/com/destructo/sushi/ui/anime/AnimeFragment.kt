@@ -63,10 +63,6 @@ class AnimeFragment : Fragment() {
 
     private lateinit var toolbar:Toolbar
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -75,10 +71,6 @@ class AnimeFragment : Fragment() {
         animeViewModel.getUpcomingAnime(null,"500")
         animeViewModel.getCurrentlyAiringAnime(null,"500")
         animeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreateView(
@@ -200,7 +192,7 @@ class AnimeFragment : Fragment() {
         )
     }
 
-private fun navigateToAnimeDetails(animeMalId: Int){
+    private fun navigateToAnimeDetails(animeMalId: Int){
     this.findNavController().navigate(
         AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailFragment(animeMalId)
     )

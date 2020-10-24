@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         Navigation.findNavController(this, R.id.nav_host_fragemnt)
     }
     private lateinit var navView2:NavigationView
+    private lateinit var navView:NavigationView
 
      val appBarConfig by lazy {
         AppBarConfiguration(
@@ -43,8 +44,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navView = findViewById(R.id.navigationView)
         navView2 = findViewById(R.id.navigationView2)
         drawerLayout = findViewById(R.id.drawer_layout)
+        navView.setCheckedItem(R.id.animeFragment)
         setupDrawerLayout()
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 

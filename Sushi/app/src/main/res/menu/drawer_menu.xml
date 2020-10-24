@@ -1,61 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
     <item android:title="@string/title_anime">
-    <menu>
-        <item
-            android:id="@+id/animeFragment"
-            android:icon="@drawable/ic_anime_line"
-            android:title="@string/title_browse_anime" />
-        <item
-            android:id="@+id/scheduleFragment"
-            android:icon="@drawable/ic_schedule_line"
-            android:title="@string/title_anime_schedule" />
-    </menu>
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/animeFragment"
+                    android:icon="@drawable/ic_anime_line"
+                    android:title="@string/title_browse_anime" />
+                <item
+                    android:id="@+id/scheduleFragment"
+                    android:icon="@drawable/ic_schedule_line"
+                    android:title="@string/title_anime_schedule" />
+
+            </group>
+        </menu>
+
     </item>
+
     <item android:title="@string/title_manga">
         <menu>
-        <item
-            android:id="@+id/mangaFragment"
-            android:icon="@drawable/ic_manga_line"
-            android:title="@string/title_browse_manga" />
-        </menu>
-    </item>
-    <item android:title="@string/title_other">
-        <menu>
-            <item
-                android:id="@+id/clubFragment"
-                android:icon="@drawable/ic_club_line"
-                android:title="@string/title_clubs" />
-            <item
-                android:id="@+id/forumFragment"
-                android:icon="@drawable/ic_forum_line"
-                android:title="@string/title_forum" />
-            <item
-                android:id="@+id/newsFragment"
-                android:icon="@drawable/ic_news_line"
-                android:title="@string/title_news" />
-            <item
-                android:id="@+id/promotionFragment"
-                android:icon="@drawable/ic_promotional_line"
-                android:title="@string/title_promotion" />
-        </menu>
-    </item>
-    <group android:checkableBehavior="single">
-        <item android:title="@string/title_preferences">
-        <menu>
-        <item
-            android:id="@+id/settingsFragment"
-            android:icon="@drawable/ic_settings_line"
-            android:title="@string/title_settings" />
-            <item
-                android:id="@+id/aboutFragment"
-                android:icon="@drawable/ic_information_line"
-                android:title="@string/title_about_app" />
-        </menu>
-        </item>
-    </group>
+            <group android:checkableBehavior="single">
 
+                <item
+                    android:id="@+id/mangaFragment"
+                    android:icon="@drawable/ic_manga_line"
+                    android:title="@string/title_browse_manga" />
+            </group>
+        </menu>
+
+    </item>
+
+
+    <item android:title="@string/title_preferences">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/clubFragment"
+                    android:icon="@drawable/ic_club_line"
+                    android:title="@string/title_clubs" />
+                <item
+                    android:id="@+id/forumFragment"
+                    android:icon="@drawable/ic_forum_line"
+                    android:title="@string/title_forum" />
+                <item
+                    android:id="@+id/newsFragment"
+                    android:icon="@drawable/ic_news_line"
+                    android:title="@string/title_news" />
+                <item
+                    android:id="@+id/promotionFragment"
+                    android:icon="@drawable/ic_promotional_line"
+                    android:title="@string/title_promotion" />
+            </group>
+        </menu>
+
+    </item>
+    <item android:title="@string/title_settings">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/settingsFragment"
+                    android:icon="@drawable/ic_settings_line"
+                    android:title="@string/title_settings" />
+                <item
+                    android:id="@+id/aboutFragment"
+                    android:icon="@drawable/ic_information_line"
+                    android:title="@string/title_about_app" />
+            </group>
+        </menu>
+
+    </item>
 </menu>
+
