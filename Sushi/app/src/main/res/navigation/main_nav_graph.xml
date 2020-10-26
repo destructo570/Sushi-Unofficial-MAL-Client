@@ -35,7 +35,11 @@
         android:id="@+id/mangaFragment"
         android:name="com.destructo.sushi.ui.manga.MangaFragment"
         android:label="@string/title_browse_manga"
-        tools:layout="@layout/fragment_manga" />
+        tools:layout="@layout/fragment_manga" >
+        <action
+            android:id="@+id/action_mangaFragment_to_mangaDetailsFragment"
+            app:destination="@id/mangaDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/clubFragment"
         android:name="com.destructo.sushi.ui.other.clubs.ClubFragment"
@@ -135,4 +139,25 @@
             android:id="@+id/action_characterFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mangaDetailsFragment"
+        android:name="com.destructo.sushi.ui.manga.mangaDetails.MangaDetailsFragment"
+        android:label="fragment_manga_details"
+        tools:layout="@layout/fragment_manga_details" >
+        <argument android:name="mangaId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_mangaDetailsFragment_self"
+            app:destination="@id/mangaDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAnimeListFragment"
+        android:name="com.destructo.sushi.ui.user.animeList.MyAnimeListFragment"
+        android:label="fragment_my_anime_list"
+        tools:layout="@layout/fragment_my_anime_list" />
+    <fragment
+        android:id="@+id/myMangaListFragment"
+        android:name="com.destructo.sushi.ui.user.mangaList.MyMangaListFragment"
+        android:label="fragment_my_manga_list"
+        tools:layout="@layout/fragment_my_manga_list" />
 </navigation>

@@ -27,13 +27,16 @@ class MainActivity : AppCompatActivity() {
 
      val appBarConfig by lazy {
         AppBarConfiguration(
-            setOf(R.id.animeFragment,
+            setOf(
+                R.id.myAnimeListFragment,
+                R.id.myMangaListFragment,
+                R.id.animeFragment,
                 R.id.scheduleFragment,
                 R.id.mangaFragment,
-                R.id.clubFragment,
-                R.id.forumFragment,
-                R.id.newsFragment,
-                R.id.promotionFragment,
+                //R.id.clubFragment,
+                //R.id.forumFragment,
+                //R.id.newsFragment,
+                //R.id.promotionFragment,
                 R.id.settingsFragment,
                 R.id.aboutFragment
             ), drawer_layout)

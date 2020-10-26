@@ -4,6 +4,8 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.jikan.character.Character
+import com.destructo.sushi.model.jikan.manga.MangaReview
+import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.jikan.schedule.Schedule
 import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.season.SeasonArchive
@@ -73,10 +75,22 @@ interface JikanApi {
     ): Deferred<AnimeReviews>
 
 
+    @GET("manga/{mangaId}/reviews")
+    fun getMangaReviewsAsync(
+        @Path("mangaId") mangaId: String,
+    ): Deferred<MangaReview>
+
+
     @GET("character/{characterId}")
     fun getCharacterDetailsAsync(
         @Path("characterId") characterId: String,
     ): Deferred<Character>
+
+
+    @GET("manga/{mangaId}/characters")
+    fun getMangaCharactersAsync(
+        @Path("mangaId") mangaId: String,
+    ): Deferred<MangaCharacter>
 
 
 }

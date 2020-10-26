@@ -11,8 +11,9 @@ import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.model.jikan.top.TopMangaEntity
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
+import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 
-class MangaAdapter:ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
+class MangaAdapter(private val mangaDetailListener:MangaDetailListener):ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MangaAdapter.ViewHolder {
         return ViewHolder.from(parent)
@@ -20,12 +21,13 @@ class MangaAdapter:ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaD
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mangaEntity = getItem(position)
-        holder.bind(mangaEntity)
+        holder.bind(mangaEntity,mangaDetailListener)
     }
 
     class ViewHolder(val binding: ListItemMangaBinding) :RecyclerView.ViewHolder(binding.root){
-        fun bind(mangaEntity: MangaRankingData){
+        fun bind(mangaEntity: MangaRankingData,mangaDetailListener:MangaDetailListener){
             binding.mangaEntity = mangaEntity.manga
+            binding.mangaListener = mangaDetailListener
             binding.executePendingBindings()
         }
         companion object {

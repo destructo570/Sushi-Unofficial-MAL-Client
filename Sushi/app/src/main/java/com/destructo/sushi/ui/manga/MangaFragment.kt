@@ -11,6 +11,7 @@ import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
@@ -18,6 +19,8 @@ import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.databinding.FragmentMangaBinding
 import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.enum.mal.MangaRankingType
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
+import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,7 +69,9 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
-        mangaAdapter = MangaAdapter()
+        mangaAdapter = MangaAdapter(MangaDetailListener {
+            it?.let {  navigateToMangaDetails(it) }
+        })
 
         mangaViewModel.topManga.observe(viewLifecycleOwner){
             it?.let {topManga->
@@ -96,6 +101,11 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
         mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
     }
 
+    private fun navigateToMangaDetails(mangaMalId: Int){
+        this.findNavController().navigate(
+            MangaFragmentDirections.actionMangaFragmentToMangaDetailsFragment(mangaMalId)
+        )
+    }
 
     private fun setupToolbar(){
         toolbar.setNavigationOnClickListener {

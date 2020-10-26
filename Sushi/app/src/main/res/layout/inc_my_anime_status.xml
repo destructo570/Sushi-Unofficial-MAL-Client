@@ -99,7 +99,7 @@
 
         <TextView
             android:id="@+id/textView22"
-            formatIsReWatching="@{animeEntity.myListStatus.isRewatching()}"
+            formatBoolean="@{animeEntity.myListStatus.isRewatching()}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"

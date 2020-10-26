@@ -1,0 +1,57 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.destructo.sushi.ui.user.animeList.MyAnimeListFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/ToolBarWithNavigationBack"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:title="@string/title_my_anime_list"
+                app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/my_anime_list_tablayout"
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:tabMode="scrollable"
+                app:layout_collapseMode="pin"
+                android:paddingBottom="4dp"
+                app:tabIndicator="@drawable/custom_tab_layout_indicator"
+                style="@style/TabLayoutStyle"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/my_anime_list_pager"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_anime_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

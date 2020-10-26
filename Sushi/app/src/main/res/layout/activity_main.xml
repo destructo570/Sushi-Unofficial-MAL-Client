@@ -24,6 +24,7 @@
         android:id="@+id/navigationView"
         android:layout_gravity="start"
         app:itemTextAppearance="@style/NavigationStyle"
+        app:headerLayout="@layout/profile_header_layout"
         app:menu="@menu/drawer_menu"
         style="@style/Widget.Custom.NavigationView"
         android:fitsSystemWindows="true"/>

@@ -31,10 +31,10 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.inc_anime_detail_genre.view.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
+import kotlinx.android.synthetic.main.inc_genre_list.view.*
 import kotlinx.android.synthetic.main.inc_my_anime_status.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
@@ -96,6 +96,7 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
         }
         scoreCardView = binding.animeScoreFab
         scoreTextView = binding.animeScoreTxt
+        coverView = binding.root.anime_desc_cover_img
         genreChipGroup = binding.root.genre_chip_group
         myListStatus = binding.myAnimeStatus
 
@@ -121,19 +122,14 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
 
         }
 
-        coverView = binding.root.anime_desc_cover_img
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
         characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
-            it?.let {
-                navigateToCharacterDetails(it)
-
-            }
+            it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
 
@@ -155,7 +151,6 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
             binding.animeEntity = animeEntity
 
             if(animeEntity.myListStatus!=null) myListStatus.visibility = View.VISIBLE
-
 
             recommAdapter.submitList(animeEntity.recommendations)
             recommRecycler.apply {
@@ -188,7 +183,6 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
                     staffAdapter.submitList(it.staff)
 
                     characterRecycler.adapter = characterAdapter
-
                     staffRecycler.adapter = staffAdapter
 
                 }

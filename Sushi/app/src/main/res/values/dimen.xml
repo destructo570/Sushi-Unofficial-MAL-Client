@@ -72,6 +72,18 @@
     <dimen name="portrait_character_grid_view_span">3</dimen>
     <dimen name="portrait_character_grid_view_spacing">25</dimen>
 
+    <dimen name="header_profile_img_width">72dp</dimen>
+    <dimen name="header_profile_img_height">72dp</dimen>
+    <dimen name="profile_img_width">56dp</dimen>
+    <dimen name="profile_img_height">56dp</dimen>
+
+    <dimen name="recycler_margin_start">4dp</dimen>
+    <dimen name="recycler_margin_end">4dp</dimen>
+    <dimen name="recycler_margin_top">4dp</dimen>
+    <dimen name="recycler_margin_bottom">4dp</dimen>
+
+
+
 
 
 

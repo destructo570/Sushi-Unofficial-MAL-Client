@@ -94,16 +94,16 @@ class AnimeScheduleFragment : Fragment(){
                         animeSchedule.sunday,
                         animeSchedule.other,
                         animeSchedule.unknown,)
-                setupViewPager()
+                setupViewPager(listOfAnimeSchedule)
 
             }
         }
     }
 
 
-    private fun setupViewPager(){
+    private fun setupViewPager(listOfAnime:MutableList<List<AnimeSubEntity?>?>){
 
-        schedulePagerAdapter.submitList(listOfAnimeSchedule)
+        schedulePagerAdapter.submitList(listOfAnime)
         scheduleViewPager.offscreenPageLimit = 9
         scheduleViewPager.adapter = schedulePagerAdapter
         scheduleTabMediator.attach()

@@ -4,6 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <string name="title_my_anime_list">My Anime List</string>
+    <string name="title_my_manga_list">My Manga List</string>
     <string name="title_browse_anime">Browse Anime</string>
     <string name="title_anime_schedule">Anime Schedule</string>
     <string name="title_browse_manga">Browse Manga</string>
@@ -72,6 +74,18 @@
     <string name="anime_detail_ep_duration">Ep Duration: </string>
 
 
+    <string name="manga_detail_type">Type: </string>
+    <string name="manga_detail_status">Status: </string>
+    <string name="manga_detail_rating">Rating: </string>
+    <string name="manga_detail_chapters">Chapters: </string>
+    <string name="manga_detail_volumes">Volumes: </string>
+    <string name="manga_detail_start_season">Start Date: </string>
+    <string name="manga_detail_score">Score: </string>
+    <string name="manga_detail_rereading">Rereading: </string>
+    <string name="manga_detail_chap_read">Chapters: </string>
+    <string name="manga_detail_volume_read">Volumes: </string>
+
+
     <string name="anime_detail_add_to_list">Add To List</string>
 
 
@@ -99,10 +113,25 @@
     <string name="title_staff">Staff</string>
     <string name="title_reviews">Reviews</string>
     <string name="title_related_anime">Related Anime</string>
+    <string name="title_related_manga">Related Manga</string>
     <string name="title_recommendations">Recommendations</string>
     <string name="title_videos">Videos</string>
     <string name="title_details_and_stats">Details And Stats</string>
     <string name="title_opening_and_ending">Opening anf Ending Songs</string>
+
+    <string name="anime_list_tab_all">All</string>
+    <string name="anime_list_tab_watching">Watching</string>
+    <string name="anime_list_tab_completed">Completed</string>
+    <string name="anime_list_tab_onhold">On Hold</string>
+    <string name="anime_list_tab_dropped">Dropped</string>
+    <string name="anime_list_tab_ptw">Plan To Watch</string>
+
+    <string name="manga_list_tab_all">All</string>
+    <string name="manga_list_tab_reading">Reading</string>
+    <string name="manga_list_tab_completed">Completed</string>
+    <string name="manga_list_tab_onhold">On Hold</string>
+    <string name="manga_list_tab_dropped">Dropped</string>
+    <string name="anime_list_tab_ptr">Plan To Read</string>
 
 
     <!-- Character Section Titles -->
@@ -114,8 +143,6 @@
     <string name="character_voice_actor">Voice Actors</string>
     <string name="character_animeography">Animeography</string>
     <string name="character_mangaography">Mangaography</string>
-
-
 
 
     <string name="season_sort_type_score">Score</string>

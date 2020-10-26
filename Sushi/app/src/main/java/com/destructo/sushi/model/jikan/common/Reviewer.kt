@@ -6,8 +6,6 @@ import com.squareup.moshi.Json
 data class Reviewer(
     @Json(name = "episodes_seen")
     val episodesSeen: Int?=null,
-    @Json(name = "chapters_read")
-    val chaptersRead: Int?=null,
     @Json(name = "image_url")
     val imageUrl: String?=null,
     @Json(name = "scores")

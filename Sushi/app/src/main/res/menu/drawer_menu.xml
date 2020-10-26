@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/myAnimeListFragment"
+        android:title="@string/title_my_anime_list" />
+    <item
+        android:id="@+id/myMangaListFragment"
+        android:title="@string/title_my_manga_list" />
+    </group>
+
     <item android:title="@string/title_anime">
         <menu>
             <group android:checkableBehavior="single">
@@ -32,30 +41,30 @@
     </item>
 
 
-    <item android:title="@string/title_other">
-        <menu>
-            <group android:checkableBehavior="single">
+<!--    <item android:title="@string/title_other">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
 
-                <item
-                    android:id="@+id/clubFragment"
-                    android:icon="@drawable/ic_club_line"
-                    android:title="@string/title_clubs" />
-                <item
-                    android:id="@+id/forumFragment"
-                    android:icon="@drawable/ic_forum_line"
-                    android:title="@string/title_forum" />
-                <item
-                    android:id="@+id/newsFragment"
-                    android:icon="@drawable/ic_news_line"
-                    android:title="@string/title_news" />
-                <item
-                    android:id="@+id/promotionFragment"
-                    android:icon="@drawable/ic_promotional_line"
-                    android:title="@string/title_promotion" />
-            </group>
-        </menu>
+<!--                <item-->
+<!--                    android:id="@+id/clubFragment"-->
+<!--                    android:icon="@drawable/ic_club_line"-->
+<!--                    android:title="@string/title_clubs" />-->
+<!--                <item-->
+<!--                    android:id="@+id/forumFragment"-->
+<!--                    android:icon="@drawable/ic_forum_line"-->
+<!--                    android:title="@string/title_forum" />-->
+<!--                <item-->
+<!--                    android:id="@+id/newsFragment"-->
+<!--                    android:icon="@drawable/ic_news_line"-->
+<!--                    android:title="@string/title_news" />-->
+<!--                <item-->
+<!--                    android:id="@+id/promotionFragment"-->
+<!--                    android:icon="@drawable/ic_promotional_line"-->
+<!--                    android:title="@string/title_promotion" />-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
 
-    </item>
     <item android:title="@string/title_preferences">
         <menu>
             <group android:checkableBehavior="single">

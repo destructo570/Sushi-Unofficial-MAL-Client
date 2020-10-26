@@ -10,10 +10,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
 import com.destructo.sushi.model.jikan.common.Review
+import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.anime.StartSeason
+import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
+import com.destructo.sushi.ui.user.animeList.UserAnimeListAdapter
+import com.destructo.sushi.ui.user.animeList.UserAnimePagerAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import timber.log.Timber
@@ -84,6 +88,15 @@ fun TextView.setReviewOverview(data: Review?) {
     }
 }
 
+@BindingAdapter("formatReviewOverview")
+fun TextView.setReviewOverview(data: ReviewEntity?) {
+    data?.let {
+        val formattedText = "Overall score: ${data.reviewer?.scores?.overall} " +
+                "• ${data.reviewer?.chaptersRead} Chapters Read"
+        text = formattedText
+    }
+}
+
 
 @BindingAdapter("formatAnimeRank")
 fun TextView.setAnimeRank(data: Anime?) {
@@ -95,16 +108,25 @@ fun TextView.setAnimeRank(data: Anime?) {
 
 
 
-@BindingAdapter("formatIsReWatching")
-fun TextView.setIsReWatching(data: Boolean?) {
+@BindingAdapter("formatBoolean")
+fun TextView.covertBoolToString(data: Boolean?) {
     data?.let {
         text = if (data) "Yes" else "No"
     }
+
 }
 
 
 @BindingAdapter("formatReviewHelpful")
 fun TextView.setReviewHelpful(data: Review?) {
+    data?.let {
+        val formattedText = "${data.helpfulCount} People found this helpful"
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatReviewHelpful")
+fun TextView.setReviewHelpful(data: ReviewEntity?) {
     data?.let {
         val formattedText = "${data.helpfulCount} People found this helpful"
         text = formattedText
@@ -171,6 +193,17 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
     recyclerView.adapter = adapter
     adapter.submitList(data)
 }
+
+
+@BindingAdapter("userAnimeData")
+fun bindUserAnimeRecycler(recyclerView: RecyclerView, data: List<UserAnimeData?>?) {
+    recyclerView.setHasFixedSize(true)
+    recyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
+    val adapter = UserAnimeListAdapter()
+    recyclerView.adapter = adapter
+    adapter.submitList(data)
+}
+
 
 
 

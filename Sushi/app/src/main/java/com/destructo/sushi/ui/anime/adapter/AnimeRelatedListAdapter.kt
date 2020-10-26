@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemRecommBinding
-import com.destructo.sushi.databinding.ListItemRelatedBinding
+import com.destructo.sushi.databinding.ListItemRelatedAnimeBinding
 import com.destructo.sushi.model.mal.anime.Recommendation
 import com.destructo.sushi.model.mal.anime.RelatedAnime
 
 class AnimeRelatedListAdapter(private val animeDetailListener: AnimeRecommListener) :
     ListAdapter<RelatedAnime, AnimeRelatedListAdapter.ViewHolder>(AnimeRelatedAnimeDiffUtil()) {
 
-    class ViewHolder private constructor(val binding: ListItemRelatedBinding) :
+    class ViewHolder private constructor(val binding: ListItemRelatedAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(relatedAnime: RelatedAnime, listener: AnimeRecommListener) {
@@ -26,7 +26,7 @@ class AnimeRelatedListAdapter(private val animeDetailListener: AnimeRecommListen
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemRelatedBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemRelatedAnimeBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )

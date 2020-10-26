@@ -146,11 +146,10 @@
 
                         <include
                             android:id="@+id/anime_genre"
-                            layout="@layout/inc_anime_detail_genre"
+                            layout="@layout/inc_genre_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_small"
-                            
                             android:layout_marginBottom="@dimen/margin_normal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
