@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_seasonal_anime.view.*
 import kotlinx.android.synthetic.main.inc_top_anime.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeFragment : Fragment() {
@@ -54,10 +55,13 @@ class AnimeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-        animeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")
-        animeViewModel.getUpcomingAnime(null,"500")
-        animeViewModel.getCurrentlyAiringAnime(null,"500")
-        animeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
+        if(savedInstanceState == null){
+            animeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")
+            animeViewModel.getUpcomingAnime(null,"500")
+            animeViewModel.getCurrentlyAiringAnime(null,"500")
+            animeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
+        }
+
     }
 
     override fun onCreateView(

@@ -54,6 +54,12 @@
         <item name="android:textSize">@dimen/text_size_b2</item>
     </style>
 
+    <style name="TextAppearance.Sushi.B5" parent="TextAppearance.Sushi.B4">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/text_size_b2</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="TextAppearance.Sushi.ByLine1" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">@dimen/text_size_b3</item>
@@ -91,6 +97,9 @@
     <!-- Tab Layout Style-->
     <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabSelectedTextColor">@color/colorPrimaryDark</item>
+        <item name="tabTextColor">@color/textColorSecondary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Sushi.B5</item>
         <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
         <item name="tabIndicatorHeight">4dp</item>
 

@@ -30,10 +30,13 @@ class UpcomingAnimeFragment : Fragment() {
     private lateinit var upcomingAnimeRecycler:RecyclerView
     private lateinit var toolbar: Toolbar
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(savedInstanceState == null){
+            upcomingAnimeArg = UpcomingAnimeFragmentArgs
+                .fromBundle(requireArguments()).upcomingAnime
+        }
 
     }
 
@@ -42,11 +45,11 @@ class UpcomingAnimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentUpcomingAnimeBinding.inflate(inflater, container, false).apply {
+        binding = FragmentUpcomingAnimeBinding
+            .inflate(inflater, container, false).apply {
             lifecycleOwner  = viewLifecycleOwner
         }
 
-        upcomingAnimeArg = UpcomingAnimeFragmentArgs.fromBundle(requireArguments()).upcomingAnime
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecyclerMain
         upcomingAnimeRecycler.layoutManager = GridLayoutManager(context,3)
         upcomingAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
@@ -78,7 +81,8 @@ class UpcomingAnimeFragment : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
-            UpcomingAnimeFragmentDirections.actionUpcomingAnimeFragmentToAnimeDetailFragment(animeMalId)
+            UpcomingAnimeFragmentDirections
+                .actionUpcomingAnimeFragmentToAnimeDetailFragment(animeMalId)
         )
     }
 

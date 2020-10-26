@@ -46,7 +46,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@{animeEntity.mediaType}"
                 android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textAppearance="@style/TextAppearance.Sushi.B4"
                 android:textColor="@color/textColorPrimary"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover"
                 app:layout_constraintTop_toBottomOf="@+id/list_anime_title"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textAppearance="@style/TextAppearance.Sushi.B4"
                 android:text="@string/anime_detail_status"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover" />
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textAppearance="@style/TextAppearance.Sushi.B4"
                 android:text="Plan To Watch"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/textView38" />

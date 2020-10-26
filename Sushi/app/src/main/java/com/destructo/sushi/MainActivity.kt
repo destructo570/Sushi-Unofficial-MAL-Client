@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView2:NavigationView
     private lateinit var navView:NavigationView
 
-     val appBarConfig by lazy {
+     private val appBarConfig by lazy {
         AppBarConfiguration(
             setOf(
                 R.id.myAnimeListFragment,

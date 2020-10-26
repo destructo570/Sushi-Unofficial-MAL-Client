@@ -40,7 +40,8 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
+        if(savedInstanceState == null){
+            mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)}
     }
 
     override fun onCreateView(

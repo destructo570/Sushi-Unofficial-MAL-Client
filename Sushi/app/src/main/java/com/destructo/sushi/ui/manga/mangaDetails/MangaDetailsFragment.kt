@@ -165,10 +165,6 @@ class MangaDetailsFragment : Fragment() {
             reviewRecycler.adapter = reviewAdapter
         }
 
-
-
-
-
     }
 
     private fun setScoreCardColor(imgUrl: String) {

@@ -57,7 +57,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        seasonAnimeViewModel.getSeasonArchive()
+        if(savedInstanceState == null) {
+            seasonAnimeViewModel.getSeasonArchive()
+        }
 
     }
 
