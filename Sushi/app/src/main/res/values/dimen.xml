@@ -9,9 +9,9 @@
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>
 
-    <dimen name="text_size_h1">22sp</dimen>
-    <dimen name="text_size_h2">20sp</dimen>
-    <dimen name="text_size_h3">18sp</dimen>
+    <dimen name="text_size_h1">20sp</dimen>
+    <dimen name="text_size_h2">18sp</dimen>
+    <dimen name="text_size_h3">16sp</dimen>
     <dimen name="text_size_h4">16sp</dimen>
 
 

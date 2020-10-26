@@ -24,16 +24,16 @@
     <style name="TextAppearance.Sushi.H1" parent="@style/TextAppearance.MaterialComponents.Headline1">
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:textSize">@dimen/text_size_h2</item>
+        <item name="android:textSize">@dimen/text_size_h1</item>
         <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="TextAppearance.Sushi.H2" parent="@style/TextAppearance.Sushi.H1">
-        <item name="android:textSize">@dimen/text_size_h3</item>
+        <item name="android:textSize">@dimen/text_size_h2</item>
     </style>
 
     <style name="TextAppearance.Sushi.H3" parent="@style/TextAppearance.Sushi.H1">
-        <item name="android:textSize">@dimen/text_size_h4</item>
+        <item name="android:textSize">@dimen/text_size_h3</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="fontFamily">@font/poppins_medium</item>
     </style>
