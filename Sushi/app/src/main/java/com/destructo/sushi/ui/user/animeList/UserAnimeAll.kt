@@ -26,7 +26,6 @@ class UserAnimeAll : Fragment() {
             userAnimeViewModel.getUserAnimeList(null)
         }
 
-
     }
 
     override fun onCreateView(

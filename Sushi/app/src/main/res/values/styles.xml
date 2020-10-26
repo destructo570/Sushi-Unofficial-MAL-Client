@@ -104,6 +104,8 @@
     <style name="ToolBarWithNavigationBack" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="navigationIcon">@drawable/ic_arrow_back_line</item>
         <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:background">@color/white</item>
         <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
 
     </style>

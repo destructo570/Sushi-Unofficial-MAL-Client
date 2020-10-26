@@ -50,12 +50,33 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.navigationView)
         navView2 = findViewById(R.id.navigationView2)
         drawerLayout = findViewById(R.id.drawer_layout)
-        navView.setCheckedItem(R.id.animeFragment)
         setupDrawerLayout()
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id){
+                R.id.myAnimeListFragment->{
+                    navView.setCheckedItem(R.id.animeFragment)
+                }
+                R.id.myMangaListFragment->{
+                    navView.setCheckedItem(R.id.myMangaListFragment)
+                }
+                R.id.animeFragment->{
+                    navView.setCheckedItem(R.id.animeFragment)
+                }
+                R.id.scheduleFragment->{
+                    navView.setCheckedItem(R.id.scheduleFragment)
+                }
+                R.id.mangaFragment->
+                    navView.setCheckedItem(R.id.mangaFragment)
 
+                R.id.settingsFragment->{
+                    navView.setCheckedItem(R.id.settingsFragment)
+                }
+                R.id.aboutFragment->{        
+                    navView.setCheckedItem(R.id.aboutFragment)
+                }
+            }
         }
 
     }

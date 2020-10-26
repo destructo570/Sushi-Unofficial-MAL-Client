@@ -28,7 +28,6 @@ class MyAnimeListFragment : Fragment() {
     private lateinit var myAnimeListTabLayout: TabLayout
     private lateinit var myAnimeListTabMediator: TabLayoutMediator
     private lateinit var toolbar: Toolbar
-    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,6 @@ class MyAnimeListFragment : Fragment() {
 
         myAnimeListViewPager = binding.myAnimeListPager
         myAnimeListTabLayout = binding.myAnimeListTablayout
-        drawerLayout = requireActivity().drawer_layout
         toolbar = binding.toolbar
 
         myAnimeListTabMediator =
@@ -100,7 +98,7 @@ class MyAnimeListFragment : Fragment() {
     private fun setupToolbar() {
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+            activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
     }
 }

@@ -31,6 +31,12 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.inc_characters_list.view.*
+import kotlinx.android.synthetic.main.inc_genre_list.view.*
+import kotlinx.android.synthetic.main.inc_manga_sub_desc.view.*
+import kotlinx.android.synthetic.main.inc_recomms_list.view.*
+import kotlinx.android.synthetic.main.inc_related_manga.view.*
+import kotlinx.android.synthetic.main.inc_review_list.view.*
 
 @AndroidEntryPoint
 class MangaDetailsFragment : Fragment() {

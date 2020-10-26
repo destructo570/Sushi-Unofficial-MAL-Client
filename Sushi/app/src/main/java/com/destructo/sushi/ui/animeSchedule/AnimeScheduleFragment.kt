@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -43,10 +44,16 @@ class AnimeScheduleFragment : Fragment(){
     private lateinit var listOfAnimeSchedule:MutableList<List<AnimeSubEntity?>?>
 
     private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        scheduleViewModel.getAnimeSchdule("")
+        if(savedInstanceState == null){
+            scheduleViewModel.getAnimeSchdule("")
+            drawerLayout = requireActivity().drawer_layout
+        }
+
     }
 
     override fun onCreateView(
@@ -111,8 +118,9 @@ class AnimeScheduleFragment : Fragment(){
     }
 
     private fun setupToolbar(){
+        toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
-            view-> view.findNavController().navigateUp()
+            activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
     }
 

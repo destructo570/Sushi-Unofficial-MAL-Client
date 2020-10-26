@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
@@ -33,7 +35,6 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
     private lateinit var mangaRecycler:RecyclerView
     private lateinit var mangaAdapter:MangaAdapter
     private lateinit var mangaTypeSpinner:Spinner
-
     private lateinit var toolbar: Toolbar
 
 
@@ -108,8 +109,9 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
     }
 
     private fun setupToolbar(){
+        toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
-                view-> view.findNavController().navigateUp()
+            activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
     }
 

@@ -5,9 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import com.destructo.sushi.R
+import com.destructo.sushi.databinding.FragmentMyMangaListBinding
+import com.destructo.sushi.databinding.FragmentSettingsBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class SettingsFragment : Fragment() {
+
+    private lateinit var binding: FragmentSettingsBinding
+    private lateinit var toolbar: Toolbar
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -16,8 +26,22 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater,container,false).apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+        toolbar = binding.toolbar
+
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
+        toolbar.setNavigationOnClickListener {
+            activity?.drawer_layout?.openDrawer(GravityCompat.START)
+        }
+    }
 }
