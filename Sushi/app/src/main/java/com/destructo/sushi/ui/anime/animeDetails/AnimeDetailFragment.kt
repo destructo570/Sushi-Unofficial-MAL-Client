@@ -13,7 +13,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -25,6 +24,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
 import com.destructo.sushi.ui.anime.adapter.*
+import com.destructo.sushi.ui.anime.listener.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
@@ -35,12 +35,10 @@ import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
-import kotlinx.android.synthetic.main.inc_my_anime_status.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
 import kotlinx.android.synthetic.main.inc_staff_list.view.*
-import timber.log.Timber
 
 private const val PERCENTAGE_TO_ANIMATE_AVATAR = 50
 
@@ -134,10 +132,10 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
 
         })
-        recommAdapter = AnimeRecommListAdapter(AnimeRecommListener {
+        recommAdapter = AnimeRecommListAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        relatedAdapter = AnimeRelatedListAdapter(AnimeRecommListener {
+        relatedAdapter = AnimeRelatedListAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         videoAdapter = AnimeVideoAdapter(AnimePromoListener {

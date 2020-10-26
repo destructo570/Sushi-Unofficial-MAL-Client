@@ -33,7 +33,6 @@ import java.util.*
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    //imgView.setImageDrawable(null)
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
@@ -203,10 +202,6 @@ fun bindUserAnimeRecycler(recyclerView: RecyclerView, data: List<UserAnimeData?>
     recyclerView.adapter = adapter
     adapter.submitList(data)
 }
-
-
-
-
 
 private fun formatTitleText(text: String): String {
     var title = if (text.length > 12) text.take(12) else return text

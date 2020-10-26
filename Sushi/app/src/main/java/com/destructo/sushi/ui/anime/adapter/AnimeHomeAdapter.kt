@@ -5,18 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemAnimeHomeBinding
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
-class AnimeHomeAdapter (private val animeDetailListener: AnimeDetailListener) :
+class AnimeHomeAdapter (private val animeIdListener: AnimeIdListener) :
     ListAdapter<AnimeRankingData, AnimeHomeAdapter.ViewHolder>(AnimeHomeDiffUtil()) {
 
     class ViewHolder private constructor(val binding: ListItemAnimeHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeEntity: AnimeRankingData, listener: AnimeDetailListener) {
+        fun bind(animeEntity: AnimeRankingData, listener: AnimeIdListener) {
             binding.animeEntity = animeEntity.anime
             binding.animeListener = listener
             binding.executePendingBindings()
@@ -41,7 +40,7 @@ class AnimeHomeAdapter (private val animeDetailListener: AnimeDetailListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeEntity = getItem(position)
-        holder.bind(animeEntity, animeDetailListener)
+        holder.bind(animeEntity, animeIdListener)
     }
 
 

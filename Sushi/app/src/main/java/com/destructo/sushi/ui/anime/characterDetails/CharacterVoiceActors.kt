@@ -21,17 +21,13 @@ class CharacterVoiceActors(
     private val characterViewModel: CharacterViewModel
             by viewModels(ownerProducer = {requireParentFragment()})
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding =
-            FragmentCharacterVoiceActorsBinding.inflate(inflater, container, false).apply {
+            FragmentCharacterVoiceActorsBinding
+                .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemMangaCharacterBinding
 import com.destructo.sushi.model.jikan.manga.character.Character
+import com.destructo.sushi.ui.manga.listener.MangaCharacterListener
 
 
 class MangaCharacterAdapter(private val mangaCharacterListener: MangaCharacterListener) :
@@ -39,8 +40,8 @@ class MangaCharacterAdapter(private val mangaCharacterListener: MangaCharacterLi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val animeEntity = getItem(position)
-        holder.bind(animeEntity, mangaCharacterListener)
+        val mangaEntity = getItem(position)
+        holder.bind(mangaEntity, mangaCharacterListener)
     }
 
 

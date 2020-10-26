@@ -5,22 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemRecommBinding
-import com.destructo.sushi.model.mal.anime.AnimeBasic
 import com.destructo.sushi.model.mal.anime.Recommendation
-import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
-class AnimeRecommListAdapter(private val animeDetailListener: AnimeRecommListener) :
+class AnimeRecommListAdapter(private val animeIdListener: AnimeIdListener) :
     ListAdapter<Recommendation, AnimeRecommListAdapter.ViewHolder>(AnimeRecommDiffUtil()) {
 
     class ViewHolder private constructor(val binding: ListItemRecommBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recomm: Recommendation, listener: AnimeRecommListener) {
-            binding.recommendation = recomm
-            binding.listener = listener
+        fun bind(recomm: Recommendation) {
+            binding.listItemTitle.text = recomm.anime?.title
+            binding.listItemRecomms.text = recomm.numRecommendations.toString()
+            binding.coverUrl = recomm.anime?.mainPicture?.medium
             binding.executePendingBindings()
 
         }
@@ -43,7 +41,12 @@ class AnimeRecommListAdapter(private val animeDetailListener: AnimeRecommListene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeEntity = getItem(position)
-        holder.bind(animeEntity, animeDetailListener)
+        holder.bind(animeEntity)
+        holder.itemView.setOnClickListener {
+            animeEntity.anime?.id?.let { malId ->
+                animeIdListener.onClick(malId)
+            }
+        }
     }
 
 

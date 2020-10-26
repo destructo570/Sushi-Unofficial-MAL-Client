@@ -19,11 +19,10 @@ import com.destructo.sushi.R
 import com.destructo.sushi.R.string.season_sort_type_numListUser
 import com.destructo.sushi.R.string.season_sort_type_score
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
-import com.destructo.sushi.enum.mal.SeasonalSortType.*
-import com.destructo.sushi.model.jikan.anime.core.Anime
+import com.destructo.sushi.enum.mal.SeasonalSortType.NUM_LIST_USER
+import com.destructo.sushi.enum.mal.SeasonalSortType.SCORE
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -108,16 +107,11 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return binding.root
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
         seasonAnimeViewModel.insertSeasonAnime(seasonAnimeArg)
-        seasonAdapter = SeasonAnimeAdapter(AnimeDetailListener {
+        seasonAdapter = SeasonAnimeAdapter(AnimeIdListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
 

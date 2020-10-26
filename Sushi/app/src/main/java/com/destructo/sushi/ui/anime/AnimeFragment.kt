@@ -1,44 +1,31 @@
 package com.destructo.sushi.ui.anime
 
-import android.content.Context
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.MainActivity
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeBinding
-import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.enum.mal.AnimeRankingType
-import com.destructo.sushi.model.jikan.season.Season
-import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.ui.anime.adapter.AnimeHomeAdapter
-import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.adapter.SeasonAnimeHomeAdapter
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
-import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
-import com.google.android.material.navigation.NavigationView
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_seasonal_anime.view.*
 import kotlinx.android.synthetic.main.inc_top_anime.view.*
-import kotlinx.android.synthetic.main.inc_upcoming_anime.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeFragment : Fragment() {
@@ -99,16 +86,16 @@ class AnimeFragment : Fragment() {
 
         setupToolbar()
 
-        topAnimeAdapter = AnimeHomeAdapter(AnimeDetailListener {
+        topAnimeAdapter = AnimeHomeAdapter(AnimeIdListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
-        upcomingAnimeAdapter = AnimeHomeAdapter(AnimeDetailListener {
+        upcomingAnimeAdapter = AnimeHomeAdapter(AnimeIdListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
-        currentlyAiringAdapter = AnimeHomeAdapter(AnimeDetailListener {
+        currentlyAiringAdapter = AnimeHomeAdapter(AnimeIdListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
-        seasonalAnimeAdapter = SeasonAnimeHomeAdapter(AnimeDetailListener {
+        seasonalAnimeAdapter = SeasonAnimeHomeAdapter(AnimeIdListener {
             it?.let {  navigateToAnimeDetails(it) }
         })
 

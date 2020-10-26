@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.manga.adapter
+package com.destructo.sushi.ui.manga.listener
 
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.MangaReview

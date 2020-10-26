@@ -2,23 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
-            name="relatedManga"
-            type="com.destructo.sushi.model.mal.manga.RelatedManga" />
-
-        <variable
-            name="listener"
-            type="com.destructo.sushi.ui.manga.adapter.MangaRecommListener" />
-
+            name="coverUrl"
+            type="String" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> listener.onClick(relatedManga.manga)}"
         app:cardCornerRadius="@dimen/item_card_corner_radius"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,23 +26,23 @@
                 android:id="@+id/list_anime_cover"
                 android:layout_width="@dimen/list_item_image_width"
                 android:layout_height="@dimen/list_item_image_height"
+                imageUrl="@{coverUrl}"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{relatedManga.manga.mainPicture.medium}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/test_img" />
 
             <TextView
-                android:id="@+id/list_anime_type"
+                android:id="@+id/relation_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/card_text_margin_normal"
                 android:ellipsize="end"
                 android:maxEms="7"
-                android:text="@{relatedManga.relationTypeFormatted}"
+                android:text=""
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 android:textColor="@color/white"
@@ -60,7 +52,7 @@
 
 
             <TextView
-                android:id="@+id/list_anime_title"
+                android:id="@+id/item_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -71,7 +63,7 @@
                 android:maxEms="6"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="@{relatedManga.manga.title}"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

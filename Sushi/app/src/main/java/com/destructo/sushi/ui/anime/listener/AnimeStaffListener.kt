@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.anime.adapter
+package com.destructo.sushi.ui.anime.listener
 
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.anime.support.Staff

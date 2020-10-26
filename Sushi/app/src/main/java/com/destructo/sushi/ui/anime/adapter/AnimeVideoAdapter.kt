@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemStaffBinding
 import com.destructo.sushi.databinding.ListItemVideoBinding
 import com.destructo.sushi.model.jikan.anime.support.Promo
-import com.destructo.sushi.model.jikan.anime.support.Staff
+import com.destructo.sushi.ui.anime.listener.AnimePromoListener
 
 class AnimeVideoAdapter(private val animePromoListener: AnimePromoListener) :
     ListAdapter<Promo, AnimeVideoAdapter.ViewHolder>(AnimeVideoDiffUtil()) {

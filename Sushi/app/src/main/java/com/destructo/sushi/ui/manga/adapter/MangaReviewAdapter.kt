@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemMangaBinding
-import com.destructo.sushi.databinding.ListItemReviewBinding
 import com.destructo.sushi.databinding.ListItemReviewMangaBinding
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
+import com.destructo.sushi.ui.manga.listener.MangaReviewListener
 
 
 class MangaReviewAdapter(private val animeReviewListener: MangaReviewListener) :

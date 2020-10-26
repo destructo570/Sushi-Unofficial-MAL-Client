@@ -42,7 +42,6 @@ class PersonAdapter(private val personListener: PersonListener) :
         holder.bind(person, personListener)
     }
 
-
 }
 
 class PersonEntityDiffUtil : DiffUtil.ItemCallback<PersonEntity>() {

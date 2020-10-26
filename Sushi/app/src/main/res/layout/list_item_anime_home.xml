@@ -9,7 +9,7 @@
             type="com.destructo.sushi.model.mal.anime.Anime" />
         <variable
             name="animeListener"
-            type="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener" />
+            type="com.destructo.sushi.ui.anime.listener.AnimeIdListener" />
 
     </data>
 
@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> animeListener.onClick(animeEntity)}"
+        android:onClick="@{() -> animeListener.onClick(animeEntity.id)}"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

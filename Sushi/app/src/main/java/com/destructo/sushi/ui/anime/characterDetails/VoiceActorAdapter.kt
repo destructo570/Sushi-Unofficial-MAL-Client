@@ -40,7 +40,6 @@ class VoiceActorAdapter :
         holder.bind(person)
     }
 
-
 }
 
 class VoiceActorDiffUtil : DiffUtil.ItemCallback<VoiceActor>() {

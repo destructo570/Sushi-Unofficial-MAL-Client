@@ -28,7 +28,8 @@ class CharacterAnimeography : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding =
-            FragmentCharacterAnimeographyBinding.inflate(inflater, container, false).apply {
+            FragmentCharacterAnimeographyBinding
+                .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
 

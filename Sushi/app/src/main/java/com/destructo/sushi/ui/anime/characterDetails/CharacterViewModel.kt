@@ -16,7 +16,7 @@ constructor(
     val jikanApi: JikanApi
 ) : ViewModel() {
 
-    val _character: MutableLiveData<Character> = MutableLiveData()
+    private val _character: MutableLiveData<Character> = MutableLiveData()
     val character: LiveData<Character>
         get() = _character
 

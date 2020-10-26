@@ -6,17 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemAnimeHomeBinding
-import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
-import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
-class SeasonAnimeHomeAdapter (private val animeDetailListener: AnimeDetailListener): ListAdapter<SeasonAnimeData, SeasonAnimeHomeAdapter.ViewHolder>( SeasonAnimeHomeDiffUtil()) {
+class SeasonAnimeHomeAdapter (private val animeIdListener: AnimeIdListener):
+    ListAdapter<SeasonAnimeData, SeasonAnimeHomeAdapter.ViewHolder>( SeasonAnimeHomeDiffUtil()) {
 
 
     class ViewHolder private constructor(val binding: ListItemAnimeHomeBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(seasonAnime: SeasonAnimeData, listener: AnimeDetailListener){
+        fun bind(seasonAnime: SeasonAnimeData, listener: AnimeIdListener){
             binding.animeEntity = seasonAnime.anime
             binding.animeListener = listener
             binding.executePendingBindings()
@@ -40,7 +39,7 @@ class SeasonAnimeHomeAdapter (private val animeDetailListener: AnimeDetailListen
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
-        holder.bind(animeSubEntity,animeDetailListener)
+        holder.bind(animeSubEntity,animeIdListener)
     }
 
 }

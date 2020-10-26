@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -21,27 +20,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
 import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
-import com.destructo.sushi.ui.anime.adapter.AnimeCharacterListAdapter
-import com.destructo.sushi.ui.anime.adapter.AnimeRecommListAdapter
-import com.destructo.sushi.ui.anime.adapter.AnimeStaffListAdapter
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragmentArgs
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragmentDirections
 import com.destructo.sushi.ui.manga.adapter.*
+import com.destructo.sushi.ui.manga.listener.MangaCharacterListener
+import com.destructo.sushi.ui.manga.listener.MangaIdListener
+import com.destructo.sushi.ui.manga.listener.MangaReviewListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_character_voice_actors.view.*
-import kotlinx.android.synthetic.main.inc_characters_list.view.*
-import kotlinx.android.synthetic.main.inc_genre_list.view.*
-import kotlinx.android.synthetic.main.inc_manga_sub_desc.view.*
-import kotlinx.android.synthetic.main.inc_recomms_list.view.*
-import kotlinx.android.synthetic.main.inc_related_manga.view.*
-import kotlinx.android.synthetic.main.inc_review_list.view.*
 
 @AndroidEntryPoint
 class MangaDetailsFragment : Fragment() {
@@ -117,11 +106,11 @@ class MangaDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        recommAdapter = MangaRecommListAdapter(MangaRecommListener {
+        recommAdapter = MangaRecommListAdapter(MangaIdListener {
             it?.let { navigateToMangaDetails(it) }
         })
 
-        relatedAdapter = MangaRelatedListAdapter(MangaRecommListener {
+        relatedAdapter = MangaRelatedListAdapter(MangaIdListener {
             it?.let { navigateToMangaDetails(it) }
         })
 

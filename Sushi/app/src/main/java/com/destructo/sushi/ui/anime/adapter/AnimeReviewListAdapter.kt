@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemReviewBinding
-import com.destructo.sushi.databinding.ListItemVideoBinding
-import com.destructo.sushi.model.jikan.anime.support.Promo
+import com.destructo.sushi.databinding.ListItemReviewAnimeBinding
 import com.destructo.sushi.model.jikan.common.Review
+import com.destructo.sushi.ui.anime.listener.AnimeReviewListener
 
 class AnimeReviewListAdapter(private val animeReviewListener: AnimeReviewListener) :
     ListAdapter<Review, AnimeReviewListAdapter.ViewHolder>(AnimeReviewDiffUtil()) {
 
-    class ViewHolder private constructor(val binding: ListItemReviewBinding) :
+    class ViewHolder private constructor(val binding: ListItemReviewAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(review: Review, listener: AnimeReviewListener) {
@@ -26,7 +25,7 @@ class AnimeReviewListAdapter(private val animeReviewListener: AnimeReviewListene
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemReviewBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemReviewAnimeBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )

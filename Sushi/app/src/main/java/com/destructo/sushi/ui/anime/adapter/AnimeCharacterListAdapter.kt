@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.model.jikan.character.Character
-import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemCharacterBinding
+import com.destructo.sushi.ui.anime.listener.AnimeCharacterListener
 
 class AnimeCharacterListAdapter(private val animeCharacterListener: AnimeCharacterListener) :
     ListAdapter<Character, AnimeCharacterListAdapter.ViewHolder>(AnimeCharacterDiffUtil()) {

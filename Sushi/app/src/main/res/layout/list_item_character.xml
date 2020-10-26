@@ -9,7 +9,7 @@
             type="com.destructo.sushi.model.jikan.character.Character" />
         <variable
             name="characterListener"
-            type="com.destructo.sushi.ui.anime.adapter.AnimeCharacterListener" />
+            type="com.destructo.sushi.ui.anime.listener.AnimeCharacterListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

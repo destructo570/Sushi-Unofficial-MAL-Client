@@ -34,7 +34,6 @@ class CharacterFragment() : Fragment() {
             characterViewModel.getCharacterDetails(characterArg)
         }
 
-
     }
 
     override fun onCreateView(
@@ -75,21 +74,15 @@ class CharacterFragment() : Fragment() {
             binding.characterEntity = character
             val about = character.about as String
 
-            val fragmentList = arrayListOf<Fragment>(
+            val fragmentList = arrayListOf(
                 CharacterAbout.newInstance(about),
                 CharacterVoiceActors(),
                 CharacterAnimeography(),
                 CharacterMangaography()
             )
-
-
             setupViewPager(fragmentList)
         }
-
-
     }
-
-
 
     private fun setupViewPager(fragmentList:ArrayList<Fragment>){
         characterPagerAdapter = CharacterPagerAdapter(

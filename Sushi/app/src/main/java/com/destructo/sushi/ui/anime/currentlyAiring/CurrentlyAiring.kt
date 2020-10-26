@@ -1,32 +1,23 @@
 package com.destructo.sushi.ui.anime.currentlyAiring
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCurrentlyAiringBinding
-import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
-import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
-import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailListener
-import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragmentArgs
-import com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeViewModel
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_currently_airing.view.*
-import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 
 @AndroidEntryPoint
 class CurrentlyAiring : Fragment() {
@@ -49,7 +40,8 @@ class CurrentlyAiring : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentCurrentlyAiringBinding.inflate(inflater, container, false).apply {
+        binding = FragmentCurrentlyAiringBinding
+            .inflate(inflater, container, false).apply {
             lifecycleOwner  = viewLifecycleOwner
         }
 
@@ -66,7 +58,7 @@ class CurrentlyAiring : Fragment() {
         setupToolbar()
 
         currentlyAiringViewModel.insertUpcomingAnime(currentlyAiringArg)
-        currentlyAiringAdapter = AnimeRankingAdapter(AnimeDetailListener {
+        currentlyAiringAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
 

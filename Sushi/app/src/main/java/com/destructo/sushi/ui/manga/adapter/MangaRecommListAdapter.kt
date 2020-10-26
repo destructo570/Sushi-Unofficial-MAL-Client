@@ -6,18 +6,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemRecommBinding
-import com.destructo.sushi.databinding.ListItemRecommMangaBinding
 import com.destructo.sushi.model.mal.manga.Recommendation
+import com.destructo.sushi.ui.manga.listener.MangaIdListener
 
-class MangaRecommListAdapter(private val mangaDetailListener: MangaRecommListener) :
+class MangaRecommListAdapter(private val mangaIdListener: MangaIdListener) :
     ListAdapter<Recommendation, MangaRecommListAdapter.ViewHolder>(MangaRecommDiffUtil()) {
 
-    class ViewHolder private constructor(val binding: ListItemRecommMangaBinding) :
+    class ViewHolder private constructor(val binding: ListItemRecommBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recomm: Recommendation, listener: MangaRecommListener) {
-            binding.recommendation = recomm
-            binding.listener = listener
+        fun bind(recomm: Recommendation) {
+            binding.listItemTitle.text = recomm.manga?.title
+            binding.listItemRecomms.text = recomm.numRecommendations.toString()
+            binding.coverUrl = recomm.manga?.mainPicture?.medium
             binding.executePendingBindings()
 
         }
@@ -25,7 +26,7 @@ class MangaRecommListAdapter(private val mangaDetailListener: MangaRecommListene
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemRecommMangaBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemRecommBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(
                     binding
                 )
@@ -39,8 +40,13 @@ class MangaRecommListAdapter(private val mangaDetailListener: MangaRecommListene
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val animeEntity = getItem(position)
-        holder.bind(animeEntity, mangaDetailListener)
+        val mangaEntity = getItem(position)
+        holder.bind(mangaEntity)
+        holder.itemView.setOnClickListener{
+            mangaEntity.manga?.id?.let {
+                    malId -> mangaIdListener.onClick(malId)
+            }
+        }
     }
 
 

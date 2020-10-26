@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemStaffBinding
 import com.destructo.sushi.model.jikan.anime.support.Staff
+import com.destructo.sushi.ui.anime.listener.AnimeStaffListener
 
 
 class AnimeStaffListAdapter(private val animeStaffListener: AnimeStaffListener) :
