@@ -98,6 +98,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/list_manga_title"
                 tools:text="@string/fake_manga_score" />
 
+            <TextView
+                android:id="@+id/textView41"
+                formatMangaRank="@{mangaEntity.rank}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/list_manga_cover"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="#142" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

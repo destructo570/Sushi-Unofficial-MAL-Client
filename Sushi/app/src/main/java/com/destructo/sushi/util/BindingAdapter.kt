@@ -99,12 +99,22 @@ fun TextView.setReviewOverview(data: ReviewEntity?) {
 
 
 @BindingAdapter("formatAnimeRank")
-fun TextView.setAnimeRank(data: Anime?) {
-    data?.rank?.let {rank->
+fun TextView.setAnimeRank(data: Int?) {
+    data?.let {rank->
         val formattedText = "#${rank}"
         text = formattedText
     }
 }
+
+
+@BindingAdapter("formatMangaRank")
+fun TextView.setMangaRank(data: Int?) {
+    data?.let {rank->
+        val formattedText = "#${rank}"
+        text = formattedText
+    }
+}
+
 
 
 
