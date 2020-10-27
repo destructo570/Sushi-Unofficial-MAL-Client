@@ -25,7 +25,6 @@ class CurrentlyAiring : Fragment() {
     private val currentlyAiringViewModel: CurrentlyAiringViewModel by viewModels()
 
     private lateinit var binding: FragmentCurrentlyAiringBinding
-    private lateinit var currentlyAiringArg: AnimeRanking
     private lateinit var currentlyAiringAdapter: AnimeRankingAdapter
     private lateinit var currentlyAiringRecycler: RecyclerView
     private lateinit var toolbar: Toolbar
