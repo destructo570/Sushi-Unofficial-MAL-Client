@@ -30,7 +30,6 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val topAnimeViewModel:TopAnimeViewModel by viewModels()
     private lateinit var topAnimeRecycler:RecyclerView
     private lateinit var binding:FragmentTopAnimeBinding
-    private lateinit var topAnimeArg: AnimeRanking
     private lateinit var topAnimeAdapter: AnimeRankingAdapter
     private lateinit var animeRankingSpinner: Spinner
     private lateinit var toolbar: Toolbar
@@ -38,8 +37,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            topAnimeArg = TopAnimeFragmentArgs.fromBundle(requireArguments()).topAnime
-            topAnimeViewModel.insertTopAnime(topAnimeArg)
+            topAnimeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")
         }
     }
 

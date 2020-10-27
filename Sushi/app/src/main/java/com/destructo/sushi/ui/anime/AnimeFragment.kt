@@ -112,7 +112,7 @@ class AnimeFragment : Fragment() {
                     adapter = topAnimeAdapter }
 
                 topAnimeSeeMore.setOnClickListener {
-                    navigateToTopAnime(topAnime)
+                    navigateToTopAnime()
                 }
             }
         }
@@ -157,9 +157,9 @@ class AnimeFragment : Fragment() {
 
 
 }
-    private fun navigateToTopAnime(topAnime: AnimeRanking){
+    private fun navigateToTopAnime(){
         this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToTopAnimeFragment(topAnime)
+            AnimeFragmentDirections.actionAnimeFragmentToTopAnimeFragment()
         )
     }
 
