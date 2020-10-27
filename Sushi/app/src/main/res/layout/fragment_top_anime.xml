@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:layout_collapseMode="pin"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

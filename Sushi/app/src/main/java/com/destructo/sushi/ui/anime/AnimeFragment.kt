@@ -56,10 +56,10 @@ class AnimeFragment : Fragment() {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            animeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")
-            animeViewModel.getUpcomingAnime(null,"500")
-            animeViewModel.getCurrentlyAiringAnime(null,"500")
-            animeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
+            animeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"25")
+            animeViewModel.getUpcomingAnime(null,"25")
+            animeViewModel.getCurrentlyAiringAnime(null,"25")
+            animeViewModel.getSeasonalAnime("2020","fall",null,"25",null)
         }
 
     }
