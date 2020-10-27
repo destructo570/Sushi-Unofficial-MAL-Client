@@ -25,12 +25,6 @@ constructor(
     val topAnimeList: LiveData<AnimeRanking>
         get() = _topAnimeList
 
-
-    fun insertTopAnime(topAnime: AnimeRanking){
-        _topAnimeList.value = topAnime
-    }
-
-
     fun getTopAnime(ranking_type:String,offset:String?, limit:String?){
         viewModelScope.launch {
             val getTopAnimeDeferred = malApi.getAnimeRankingAsync(ranking_type,limit,offset,
