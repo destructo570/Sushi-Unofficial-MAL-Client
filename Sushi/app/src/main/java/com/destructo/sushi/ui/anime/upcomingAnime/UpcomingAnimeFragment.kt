@@ -34,8 +34,7 @@ class UpcomingAnimeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         if(savedInstanceState == null){
-            upcomingAnimeArg = UpcomingAnimeFragmentArgs
-                .fromBundle(requireArguments()).upcomingAnime
+           upcomingAnimeViewModel.getUpcomingAnime(null,"500")
         }
 
     }
@@ -51,8 +50,12 @@ class UpcomingAnimeFragment : Fragment() {
         }
 
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecyclerMain
-        upcomingAnimeRecycler.layoutManager = GridLayoutManager(context,3)
-        upcomingAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
+        upcomingAnimeRecycler.apply {
+            layoutManager = GridLayoutManager(context,3)
+            setHasFixedSize(true)
+            addItemDecoration(GridSpacingItemDeco(3,25,true))
+        }
+
         toolbar = binding.toolbar
 
 
@@ -62,7 +65,6 @@ class UpcomingAnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        upcomingAnimeViewModel.insertUpcomingAnime(upcomingAnimeArg)
         upcomingAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
@@ -71,7 +73,6 @@ class UpcomingAnimeFragment : Fragment() {
             it?.let {upcomingAnime->
                 upcomingAdapter.submitList(upcomingAnime.data)
                 upcomingAnimeRecycler.apply{
-                    setHasFixedSize(true)
                     adapter = upcomingAdapter
                 }
             }

@@ -84,8 +84,6 @@
         android:name="com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragment"
         android:label="@string/title_upcoming_anime"
         tools:layout="@layout/fragment_upcoming_anime">
-        <argument android:name="upcomingAnime"
-        app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
         <action
             android:id="@+id/action_upcomingAnimeFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />

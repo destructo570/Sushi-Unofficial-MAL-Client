@@ -125,7 +125,7 @@ class AnimeFragment : Fragment() {
                     adapter = upcomingAnimeAdapter}
 
                 upcomingAnimeSeeMore.setOnClickListener {
-                    navigateToUpcomingAnime(upcomingAnime)
+                    navigateToUpcomingAnime()
                 }
             }
         }
@@ -163,9 +163,9 @@ class AnimeFragment : Fragment() {
         )
     }
 
-    private fun navigateToUpcomingAnime(upcomingAnime: AnimeRanking){
+    private fun navigateToUpcomingAnime(){
         this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToUpcomingAnimeFragment(upcomingAnime)
+            AnimeFragmentDirections.actionAnimeFragmentToUpcomingAnimeFragment()
         )
     }
 
