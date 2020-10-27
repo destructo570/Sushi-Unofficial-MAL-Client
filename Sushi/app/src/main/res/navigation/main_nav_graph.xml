@@ -93,8 +93,6 @@
         android:name="com.destructo.sushi.ui.anime.currentlyAiring.CurrentlyAiring"
         android:label="@string/title_currently_airing"
         tools:layout="@layout/fragment_currently_airing" >
-        <argument android:name="currentlyAiring"
-            app:argType="com.destructo.sushi.model.mal.animeRanking.AnimeRanking"/>
         <action
             android:id="@+id/action_currentlyAiring_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />

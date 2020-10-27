@@ -138,7 +138,7 @@ class AnimeFragment : Fragment() {
                      setHasFixedSize(true)
                      adapter = currentlyAiringAdapter}
                  currentlyAiringMore.setOnClickListener {
-                     navigateToCurrentlyAiring(currentlyAiring)
+                     navigateToCurrentlyAiring()
                     }
                 }
         }
@@ -170,9 +170,9 @@ class AnimeFragment : Fragment() {
     }
 
 
-    private fun navigateToCurrentlyAiring(currentlyAiring: AnimeRanking){
+    private fun navigateToCurrentlyAiring(){
         this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToCurrentlyAiring(currentlyAiring)
+            AnimeFragmentDirections.actionAnimeFragmentToCurrentlyAiring()
         )
     }
 

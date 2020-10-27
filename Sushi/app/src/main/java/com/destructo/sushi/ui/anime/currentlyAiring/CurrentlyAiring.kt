@@ -32,6 +32,9 @@ class CurrentlyAiring : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(savedInstanceState == null){
+            currentlyAiringViewModel.getCurrentlyAiringAnime(null,"500")
+        }
 
     }
 
@@ -45,10 +48,12 @@ class CurrentlyAiring : Fragment() {
             lifecycleOwner  = viewLifecycleOwner
         }
 
-        currentlyAiringArg = CurrentlyAiringArgs.fromBundle(requireArguments()).currentlyAiring
         currentlyAiringRecycler = binding.root.currentlyRecyclerMain
-        currentlyAiringRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
-        currentlyAiringRecycler.layoutManager = GridLayoutManager(context,3)
+        currentlyAiringRecycler.apply {
+            setHasFixedSize(true)
+            addItemDecoration(GridSpacingItemDeco(3,25,true))
+            layoutManager = GridLayoutManager(context,3)
+        }
         toolbar = binding.toolbar
 
             return binding.root
@@ -57,7 +62,6 @@ class CurrentlyAiring : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        currentlyAiringViewModel.insertUpcomingAnime(currentlyAiringArg)
         currentlyAiringAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
