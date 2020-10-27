@@ -28,7 +28,7 @@
             android:id="@+id/toolbar"
             app:layout_scrollFlags="scroll|enterAlways"
             style="@style/ToolBarWithNavigationBack"
-            app:title="@string/title_anime_schedule"
+            app:title="@string/title_character_details"
             app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
             />
         <com.google.android.material.appbar.CollapsingToolbarLayout

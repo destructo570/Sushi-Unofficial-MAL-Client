@@ -2,6 +2,7 @@ package com.destructo.sushi.util
 
 import android.text.format.DateUtils
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -142,6 +143,67 @@ fun TextView.setAnimeScore(data: String?) {
     }
 }
 
+
+@BindingAdapter(value = ["watchedEp", "totalEp"])
+fun setAnimeProgress(progressBar: ProgressBar,watchedEp: Int?, totalEp:Int?) {
+
+    if (watchedEp != null && totalEp!=null) {
+        progressBar.max = totalEp
+        progressBar.progress = watchedEp
+    }
+}
+
+@BindingAdapter(value = ["readCh", "totalCh"])
+fun setMangaProgress(progressBar: ProgressBar,readCh: Int?, totalCh:Int?) {
+
+    if (readCh != null && totalCh!=null) {
+        progressBar.max = totalCh
+        progressBar.progress = readCh
+    }
+}
+
+
+
+@BindingAdapter(value = ["watched", "total"])
+fun setAnimeEpisodes(textView: TextView,watched: String?, total:String?) {
+
+    if (watched == null || watched == " " || watched.isEmpty()) {
+        textView.text = "N/A"
+    } else {
+        total?.let{totalEp->
+            val finalStr = "Ep: $watched/$totalEp"
+            textView.text = finalStr
+        }
+    }
+}
+
+
+@BindingAdapter(value = ["chapter", "total"])
+fun setMangaChapter(textView: TextView,chapter: String?, total:String?) {
+
+    if (chapter == null || chapter == " " || chapter.isEmpty()) {
+        textView.text = "N/A"
+    } else {
+        total?.let{totalEp->
+            val finalStr = "Ch: $chapter/$totalEp"
+            textView.text = finalStr
+        }
+    }
+}
+
+@BindingAdapter(value = ["volume", "total"])
+fun setMangaVolume(textView: TextView,volume: String?, total:String?) {
+
+    if (volume == null || volume == " " || volume.isEmpty()) {
+        textView.text = "N/A"
+    } else {
+        total?.let{totalEp->
+            val finalStr = "Vol: $volume/$totalEp"
+            textView.text = finalStr
+        }
+    }
+}
+
 @BindingAdapter("characterNickName")
 fun TextView.formatCharacterNickName(data: List<String?>?) {
 
@@ -154,21 +216,6 @@ fun TextView.formatCharacterNickName(data: List<String?>?) {
     }
 }
 
-
-@BindingAdapter("setDateAndTime")
-fun TextView.formatDateAndTime(data: String?) {
-
-    if (data != null ) {
-        val dtStart = "2020-07-05T09:27:37Z"
-        val dd="2020-10-05T14:00:00+00:00"
-        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm")
-        val date: Date = format.parse(dd)
-        Timber.e( "ISO 1801 date/time: $date")
-        text = "OKAY"
-    } else {
-        text = "Not Available"
-    }
-}
 
 @BindingAdapter("animeDescFormat")
 fun TextView.formatAnimeDescString(data: String?) {

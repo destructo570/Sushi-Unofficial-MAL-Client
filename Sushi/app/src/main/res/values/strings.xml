@@ -118,6 +118,8 @@
     <string name="title_videos">Videos</string>
     <string name="title_details_and_stats">Details And Stats</string>
     <string name="title_opening_and_ending">Opening anf Ending Songs</string>
+    <string name="title_character_details">Character Details</string>
+
 
     <string name="anime_list_tab_all">All</string>
     <string name="anime_list_tab_watching">Watching</string>
@@ -131,7 +133,7 @@
     <string name="manga_list_tab_completed">Completed</string>
     <string name="manga_list_tab_onhold">On Hold</string>
     <string name="manga_list_tab_dropped">Dropped</string>
-    <string name="anime_list_tab_ptr">Plan To Read</string>
+    <string name="manga_list_tab_ptr">Plan To Read</string>
 
 
     <!-- Character Section Titles -->

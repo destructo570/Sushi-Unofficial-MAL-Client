@@ -1,23 +1,17 @@
 package com.destructo.sushi.network
 
-import android.content.Context
-import android.util.Log
-import com.destructo.sushi.DEBUG_ACCESS_TOKEN
+import android.widget.Toast
 import okhttp3.Interceptor
 import okhttp3.Response
 import timber.log.Timber
 
-class MalAuthInterceptor(
-): Interceptor {
+class JikanRateLimitInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val requestBuilder = chain.request().newBuilder()
-            requestBuilder.addHeader("Authorization","Bearer $DEBUG_ACCESS_TOKEN")
-
-        var response = chain.proceed(requestBuilder.build())
+        var response = chain.proceed(chain.request())
 
         if(!response.isSuccessful && response.code == 429){
             try {
-                Timber.e("You are being rate limited by MAL, Retrying in 3 seconds.")
+                Timber.e("You are being rate limited by Jikan, Retrying in 3 seconds.")
                 Thread.sleep(3000L)
             }catch (e:InterruptedException){
 
@@ -26,7 +20,6 @@ class MalAuthInterceptor(
             }
             response = chain.proceed(chain.request())
         }
-
         return response
     }
 }

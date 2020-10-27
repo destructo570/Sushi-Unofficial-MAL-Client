@@ -22,6 +22,7 @@ class UserAnimeListAdapter :
 
         fun bind(animeEntity: UserAnimeData) {
             binding.animeEntity = animeEntity.anime
+            binding.animeListStatus = animeEntity.animeListStatus
             binding.executePendingBindings()
 
         }

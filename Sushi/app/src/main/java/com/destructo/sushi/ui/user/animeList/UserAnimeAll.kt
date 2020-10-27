@@ -47,6 +47,7 @@ class UserAnimeAll : Fragment() {
         allAnimeAdapter = UserAnimeListAdapter()
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) { userAnime ->
             allAnimeAdapter.submitList(userAnime.data)
+
             allAnimeRecycler.adapter = allAnimeAdapter
         }
     }

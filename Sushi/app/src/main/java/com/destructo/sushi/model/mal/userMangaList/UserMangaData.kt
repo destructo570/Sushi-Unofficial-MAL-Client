@@ -2,12 +2,11 @@ package com.destructo.sushi.model.mal.userMangaList
 
 
 import com.destructo.sushi.model.mal.manga.Manga
-import com.destructo.sushi.model.mal.userMangaList.ListStatus
 import com.squareup.moshi.Json
 
-data class UserAnimeData(
+data class UserMangaData(
     @Json(name = "list_status")
-    val listStatus: ListStatus?=null,
+    val mangaListStatus: MangaListStatus?=null,
     @Json(name = "node")
     val manga: Manga?=null
 )

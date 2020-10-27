@@ -3,7 +3,7 @@ package com.destructo.sushi.model.mal.userMangaList
 
 import com.squareup.moshi.Json
 
-data class ListStatus(
+data class MangaListStatus(
     @Json(name = "is_rereading")
     val isRereading: Boolean?=null,
     @Json(name = "num_chapters_read")

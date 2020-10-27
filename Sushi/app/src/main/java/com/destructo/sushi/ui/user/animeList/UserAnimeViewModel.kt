@@ -3,6 +3,7 @@ package com.destructo.sushi.ui.user.animeList
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.enum.mal.UserAnimeSort
 import com.destructo.sushi.enum.mal.UserAnimeSort.*
 import com.destructo.sushi.enum.mal.UserAnimeStatus
@@ -50,7 +51,7 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", "100",
                 status, ANIME_TITLE.value, ""
-            )
+                , ALL_ANIME_FIELDS)
             try {
                 val userAnimeList = getUserAnimeDeferred.await()
                 _userAnimeList.value = userAnimeList
@@ -65,7 +66,7 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", "100",
                 ON_HOLD.value, ANIME_TITLE.value, ""
-            )
+                , ALL_ANIME_FIELDS)
             try {
                 val userAnimeList = getUserAnimeDeferred.await()
                 _userAnimeListOnHold.value = userAnimeList
@@ -80,7 +81,7 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", "100",
                 COMPLETED.value, ANIME_TITLE.value, ""
-            )
+                , ALL_ANIME_FIELDS)
             try {
                 val userAnimeList = getUserAnimeDeferred.await()
                 _userAnimeListCompleted.value = userAnimeList
@@ -95,7 +96,7 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", "100",
                 WATCHING.value, ANIME_TITLE.value, ""
-            )
+                , ALL_ANIME_FIELDS)
             try {
                 val userAnimeList = getUserAnimeDeferred.await()
                 _userAnimeListWatching.value = userAnimeList
@@ -110,7 +111,7 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", "100",
                 DROPPED.value, ANIME_TITLE.value, ""
-            )
+                , ALL_ANIME_FIELDS)
             try {
                 val userAnimeList = getUserAnimeDeferred.await()
                 _userAnimeListDropped.value = userAnimeList
@@ -125,6 +126,7 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", "100",
                 PLAN_TO_WATCH.value, ANIME_TITLE.value, ""
+                , ALL_ANIME_FIELDS
             )
             try {
                 val userAnimeList = getUserAnimeDeferred.await()

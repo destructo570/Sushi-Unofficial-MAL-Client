@@ -33,7 +33,8 @@ object MalRetrofitModule {
 
     @Singleton
     @Provides
-    fun provideInterceptor():OkHttpClient{
+    @MalInterceptor
+    fun provideMalInterceptor():OkHttpClient{
         return OkHttpClient.Builder()
             .addInterceptor(MalAuthInterceptor())
             .build()
@@ -42,7 +43,8 @@ object MalRetrofitModule {
     @Singleton
     @Provides
     @MalRetrofit
-    fun provideMalApiRetrofit(moshi: Moshi, okHttpClient: OkHttpClient): Retrofit.Builder{
+    fun provideMalApiRetrofit(moshi: Moshi,
+                              @MalInterceptor okHttpClient: OkHttpClient): Retrofit.Builder{
         return Retrofit.Builder()
             .baseUrl(BASE_MAL_API_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -67,3 +69,7 @@ object MalRetrofitModule {
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class MalRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class MalInterceptor

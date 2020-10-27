@@ -3,7 +3,7 @@ package com.destructo.sushi.model.mal.userAnimeList
 
 import com.squareup.moshi.Json
 
-data class ListStatus(
+data class AnimeListStatus(
     @Json(name = "is_rewatching")
     val isRewatching: Boolean?=null,
     @Json(name = "num_episodes_watched")

@@ -65,6 +65,7 @@ interface MalApi {
         @Query("status") status:String?,
         @Query("sort") sort:String?,
         @Query("offset") offset:String,
+        @Query("fields") fields:String,
 
         ): Deferred<UserAnimeList>
 
@@ -76,6 +77,7 @@ interface MalApi {
         @Query("status") status:String?,
         @Query("sort") sort:String?,
         @Query("offset") offset:String,
+        @Query("fields") fields:String,
 
         ): Deferred<UserMangaList>
 

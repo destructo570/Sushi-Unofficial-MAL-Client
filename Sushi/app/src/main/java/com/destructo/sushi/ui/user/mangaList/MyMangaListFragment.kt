@@ -7,16 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
 import com.destructo.sushi.databinding.FragmentMyMangaListBinding
+import com.destructo.sushi.ui.user.animeList.*
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MyMangaListFragment : Fragment() {
 
     private lateinit var binding: FragmentMyMangaListBinding
     private lateinit var toolbar: Toolbar
+
+    private lateinit var myMangaListPagerAdapter: UserMangaPagerAdapter
+    private lateinit var myMangaListViewPager: ViewPager2
+    private lateinit var myMangaListTabLayout: TabLayout
+    private lateinit var myMangaListTabMediator: TabLayoutMediator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +41,55 @@ class MyMangaListFragment : Fragment() {
         binding = FragmentMyMangaListBinding.inflate(inflater,container,false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+
+        myMangaListViewPager = binding.myMangaListPager
+        myMangaListTabLayout = binding.myMangaListTablayout
         toolbar = binding.toolbar
+
+
+        myMangaListTabMediator =
+            TabLayoutMediator(myMangaListTabLayout, myMangaListViewPager) { tab, position ->
+                when (position) {
+                    0 -> {
+                        tab.text = getString(R.string.manga_list_tab_all)
+                    }
+                    1 -> {
+                        tab.text = getString(R.string.manga_list_tab_reading)
+                    }
+                    2 -> {
+                        tab.text = getString(R.string.manga_list_tab_completed)
+                    }
+                    3 -> {
+                        tab.text = getString(R.string.manga_list_tab_onhold)
+                    }
+                    4 -> {
+                        tab.text = getString(R.string.manga_list_tab_dropped)
+                    }
+                    5 -> {
+                        tab.text = getString(R.string.manga_list_tab_ptr)
+                    }
+                }
+            }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
+
+        val fragmentList = arrayListOf(
+            UserMangaAll(),
+            UserMangaReading(),
+            UserMangaCompleted(),
+            UserMangaOnHold(),
+            UserMangaDropped(),
+            UserMangaPlanToRead()
+        )
+
+        myMangaListPagerAdapter =
+            UserMangaPagerAdapter(fragmentList, childFragmentManager, lifecycle)
+        myMangaListViewPager.adapter = myMangaListPagerAdapter
+        myMangaListTabMediator.attach()
 
     }
 
