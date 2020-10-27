@@ -37,7 +37,6 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val seasonAnimeViewModel: SeasonalAnimeViewModel by viewModels()
 
     private lateinit var binding:FragmentSeasonalAnimeBinding
-    private lateinit var seasonAnimeArg: SeasonalAnime
     private lateinit var seasonAdapter: SeasonAnimeAdapter
     private lateinit var seasonAnimeRecycler: RecyclerView
     private lateinit var yearSpinner:Spinner
@@ -58,6 +57,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null) {
+            seasonAnimeViewModel.getSeasonalAnime("2020","fall",null,"100",null)
             seasonAnimeViewModel.getSeasonArchive()
         }
 
@@ -84,10 +84,12 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         yearSpinner.onItemSelectedListener = this
         seasonSpinner.onItemSelectedListener = this
 
-        seasonAnimeArg = SeasonalAnimeFragmentArgs.fromBundle(requireArguments()).seasonalAnime
         seasonAnimeRecycler = binding.root.seasonalAnimeRecyclerMain
-        seasonAnimeRecycler.layoutManager = GridLayoutManager(context, 3)
-        seasonAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
+        seasonAnimeRecycler.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(context, 3)
+            addItemDecoration(GridSpacingItemDeco(3,25,true))
+        }
 
         context?.let { ArrayAdapter.createFromResource(
             it,R.array.season_sort_type,android.R.layout.simple_spinner_item).also {adapter->
@@ -112,7 +114,6 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        seasonAnimeViewModel.insertSeasonAnime(seasonAnimeArg)
         seasonAdapter = SeasonAnimeAdapter(AnimeIdListener {
             it?.let {  navigateToAnimeDetails(it) }
         })

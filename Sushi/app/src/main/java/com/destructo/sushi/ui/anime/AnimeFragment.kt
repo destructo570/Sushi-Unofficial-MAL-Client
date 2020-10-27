@@ -150,7 +150,7 @@ class AnimeFragment : Fragment() {
                         setHasFixedSize(true)
                     adapter = seasonalAnimeAdapter}
                     seasonalAnimeMore.setOnClickListener {
-                        navigateToSeasonalAnime(seasonalAnime)
+                        navigateToSeasonalAnime()
                     }
             }
         }
@@ -177,9 +177,9 @@ class AnimeFragment : Fragment() {
     }
 
 
-    private fun navigateToSeasonalAnime(seasonalAnime: SeasonalAnime){
+    private fun navigateToSeasonalAnime(){
         this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToSeasonalAnime(seasonalAnime)
+            AnimeFragmentDirections.actionAnimeFragmentToSeasonalAnime()
         )
     }
 

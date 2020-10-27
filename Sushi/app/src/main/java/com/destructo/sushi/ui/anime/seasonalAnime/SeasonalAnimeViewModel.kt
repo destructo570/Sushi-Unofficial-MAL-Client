@@ -56,7 +56,4 @@ class SeasonalAnimeViewModel
         }
     }
 
-    fun insertSeasonAnime(seasonAnime: SeasonalAnime){
-        _seasonalAnime.value = seasonAnime
-    }
 }
