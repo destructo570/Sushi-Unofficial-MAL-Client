@@ -18,8 +18,7 @@
             android:id="@+id/imageView"
             android:layout_width="133dp"
             android:layout_height="0dp"
-            android:elevation="0dp"
-            app:cardCornerRadius="@dimen/default_corner_radius"
+            style="@style/Widget.Sushi.ItemCardView"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +41,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/anime_detail_type"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +52,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/anime_detail_status"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -64,7 +63,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/manga_detail_chapters"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -75,7 +74,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/manga_detail_volumes"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -86,7 +85,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/manga_detail_start_season"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -98,7 +97,7 @@
             android:layout_marginTop="@dimen/margin_micro"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/anime_detail_add_to_list"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:icon="@drawable/ic_add_fill"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -110,7 +109,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:text="@{mangaEntity.mediaType}"
             android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintStart_toEndOf="@+id/textView" />
 
@@ -120,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
             app:layout_constraintStart_toEndOf="@+id/textView2" />
 
@@ -130,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:text="@{mangaEntity.numChapters.toString()}"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4" />
 
@@ -140,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:text="@{mangaEntity.numVolumes.toString()}"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
             app:layout_constraintStart_toEndOf="@+id/textView6" />
 
@@ -151,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:text="@{mangaEntity.startDate}"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/textView8" />
 

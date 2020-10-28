@@ -15,9 +15,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
+        android:layout_width="@dimen/video_card_width"
+        android:layout_height="@dimen/video_card_height"
+        style="@style/Widget.Sushi.ItemCardView"
         app:cardUseCompatPadding="true"
         android:onClick="@{() -> promoListener.onClick(promoVideo)}"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,13 +27,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="match_parent">
 
 
             <ImageView
                 imageUrl="@{promoVideo.imageUrl}"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/video_card_height"
+                android:layout_height="match_parent"
                 android:foreground="@color/content_tint_dark2"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_img"
@@ -44,11 +44,11 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="@dimen/video_card_icon_size"
+                android:layout_height="@dimen/video_card_icon_size"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginStart="@dimen/video_card_margin_normal"
+                android:layout_marginBottom="@dimen/video_card_margin_normal"
                 android:src="@drawable/ic_youplay_fill"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,18 +56,17 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginStart="@dimen/video_card_margin_normal"
+                android:layout_marginEnd="@dimen/video_card_margin_normal"
+                android:layout_marginBottom="@dimen/video_card_margin_normal"
                 android:ellipsize="end"
-                android:maxEms="7"
-                android:maxLines="1"
                 android:singleLine="true"
                 android:text="@{promoVideo.title}"
                 android:textAppearance="@style/TextAppearance.Sushi.H2"
-                android:textColor="@color/white"
+                android:textColor="@color/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

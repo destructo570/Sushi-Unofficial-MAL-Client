@@ -17,9 +17,8 @@
             android:id="@+id/imageView"
             android:layout_width="133dp"
             android:layout_height="0dp"
-            android:elevation="0dp"
             app:cardUseCompatPadding="true"
-            app:cardCornerRadius="@dimen/default_corner_radius"
+            style="@style/Widget.Sushi.ItemCardView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,7 +40,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="4dp"
             android:text="@string/anime_detail_type"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +51,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="4dp"
             android:text="@string/anime_detail_status"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -63,7 +62,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/anime_detail_rating"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -74,7 +73,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="4dp"
             android:text="@string/anime_detail_episodes"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -85,7 +84,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="4dp"
             android:text="@string/anime_detail_start_season"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -97,7 +96,7 @@
             android:layout_marginTop="4dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/anime_detail_add_to_list"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:icon="@drawable/ic_add_fill"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/anime_desc_episode_duration" />
@@ -109,7 +108,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:text="@{animeEntity.mediaType}"
             android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintStart_toEndOf="@+id/textView" />
 
@@ -119,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
             app:layout_constraintStart_toEndOf="@+id/textView2" />
 
@@ -129,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4" />
 
@@ -139,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:text="@{animeEntity.numEpisodes.toString()}"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
             app:layout_constraintStart_toEndOf="@+id/textView6" />
 
@@ -150,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             formatStartSeason="@{animeEntity.startSeason}"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/textView8" />
 
@@ -161,7 +160,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="4dp"
             android:text="@string/anime_detail_ep_duration"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -171,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:textAppearance="@style/TextAppearance.Sushi.B4"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/anime_desc_episode_duration"
             app:layout_constraintStart_toEndOf="@+id/anime_desc_episode_duration" />
     </androidx.constraintlayout.widget.ConstraintLayout>

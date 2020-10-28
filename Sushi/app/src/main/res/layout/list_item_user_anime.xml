@@ -12,27 +12,26 @@
         <variable
             name="animeListStatus"
             type="com.destructo.sushi.model.mal.userAnimeList.AnimeListStatus" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/list_item_image_height"
-        app:cardCornerRadius="@dimen/item_card_corner_radius"
+        android:layout_height="@dimen/item_card_image_height"
+        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/user_card_margin_small"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/list_item_image_height">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/list_anime_cover"
-                android:layout_width="@dimen/list_item_image_width"
+                android:layout_width="@dimen/user_card_image_width"
                 android:layout_height="0dp"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
@@ -47,11 +46,11 @@
                 android:id="@+id/list_anime_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:layout_marginTop="@dimen/user_card_margin_small"
                 android:text="@{animeEntity.mediaType}"
                 android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 android:textColor="@color/textColorPrimary"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover"
                 app:layout_constraintTop_toBottomOf="@+id/list_anime_title"
@@ -59,10 +58,10 @@
 
             <ImageView
                 android:id="@+id/score_icon"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="@dimen/user_icon_size_small"
+                android:layout_height="@dimen/user_icon_size_small"
+                android:layout_marginStart="@dimen/user_icon_margin_normal"
+                android:layout_marginBottom="@dimen/user_icon_margin_normal"
                 android:src="@drawable/ic_score_fill"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover" />
@@ -72,8 +71,8 @@
                 animeScore="@{animeEntity.myListStatus.score.toString()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="@dimen/user_card_margin_small"
+                android:layout_marginBottom="@dimen/user_card_margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/score_icon"
@@ -85,9 +84,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                android:textColor="@color/white"
+                android:layout_marginEnd="@dimen/user_card_margin_normal"
+                android:layout_marginBottom="@dimen/user_card_margin_small"
+                android:textColor="@color/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -95,13 +94,13 @@
                 android:id="@+id/list_anime_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:layout_marginTop="@dimen/item_card_text_margin_small"
+                android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{animeEntity.title}"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover"
                 app:layout_constraintTop_toTopOf="parent"
@@ -112,9 +111,9 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:layout_marginEnd="@dimen/user_card_margin_normal"
+                android:layout_marginBottom="@dimen/user_card_margin_normal"
                 app:watchedEp="@{animeEntity.myListStatus.numEpisodesWatched}"
                 app:totalEp="@{animeEntity.numEpisodes}"
                 app:layout_constraintBottom_toTopOf="@+id/list_anime_score"
@@ -125,10 +124,10 @@
                 android:id="@+id/addEpisodeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="@dimen/user_card_margin_small"
+                android:layout_marginBottom="@dimen/user_card_margin_small"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:tint="@color/white"
+                android:tint="@color/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add_fill" />
@@ -138,8 +137,8 @@
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginStart="@dimen/user_icon_margin_normal"
+                android:layout_marginBottom="@dimen/user_icon_margin_small"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_score"
                 app:srcCompat="@drawable/ic_film_line" />
@@ -148,7 +147,7 @@
                 android:id="@+id/textView37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/user_card_margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBaseline_toBaselineOf="@+id/list_anime_score"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -160,8 +159,8 @@
                 android:id="@+id/textView38"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 android:text="@string/anime_detail_status"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover" />
@@ -170,8 +169,8 @@
                 android:id="@+id/textView39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 animeDescFormat="@{animeEntity.myListStatus.status}"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/textView38" />

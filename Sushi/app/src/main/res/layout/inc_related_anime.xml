@@ -25,13 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            android:background="@drawable/drawable_rectangle_bg"
             android:text="@string/see_all"
-            android:paddingStart="@dimen/card_padding_normal"
-            android:paddingEnd="@dimen/card_padding_normal"
-            android:paddingTop="@dimen/card_padding_micro"
-            android:paddingBottom="@dimen/card_padding_micro"
-            android:textAppearance="@style/TextAppearance.Sushi.B3"
+            style="@style/Widget.Sushi.SeeMoreText"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent" />
 

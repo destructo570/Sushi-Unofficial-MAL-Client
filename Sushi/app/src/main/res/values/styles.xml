@@ -13,12 +13,15 @@
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
     </style>
 
-
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
         <item name="itemIconTint">?attr/colorNavigationItem</item>
         <item name="itemTextColor">?attr/colorNavigationItem</item>
         <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
-
+    </style>
+    <!-- App Drawer Style-->
+    <style name="NavigationStyle">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="fontFamily">@font/poppins_medium</item>
     </style>
 
     <!-- Text Appearance -->
@@ -50,12 +53,12 @@
         <item name="android:textSize">@dimen/text_size_b1</item>
     </style>
 
-    <style name="TextAppearance.Sushi.B4" parent="TextAppearance.Sushi.B1">
+    <style name="TextAppearance.Sushi.B3" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">@dimen/text_size_b2</item>
     </style>
 
-    <style name="TextAppearance.Sushi.B5" parent="TextAppearance.Sushi.B4">
+    <style name="TextAppearance.Sushi.B4" parent="TextAppearance.Sushi.B3">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">@dimen/text_size_b2</item>
         <item name="android:textAllCaps">true</item>
@@ -72,70 +75,63 @@
         <item name="android:textSize">@dimen/text_size_b3</item>
     </style>
 
-    <!-- See More Text -->
-    <style name="TextAppearance.Sushi.B3" parent="TextAppearance.Sushi.B1">
+    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+    <style name="CollapsingTextAppearance.Inverse" >
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- See More -->
+    <style name="Widget.Sushi.SeeMoreText" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">@dimen/text_size_b3</item>
+        <item name="android:paddingStart">@dimen/see_more_padding_normal</item>
+        <item name="android:paddingEnd">@dimen/see_more_padding_normal</item>
+        <item name="android:paddingTop">@dimen/see_more_padding_small</item>
+        <item name="android:paddingBottom">@dimen/see_more_padding_small</item>
+        <item name="android:background">@drawable/drawable_rectangle_bg</item>
     </style>
 
-    <!-- App Drawer Style-->
-    <style name="NavigationStyle">
-        <item name="android:fontFamily">@font/poppins_semibold</item>
-        <item name="fontFamily">@font/poppins_medium</item>
-    </style>
-
-    <!-- Spinner Style-->
+    <!-- Spinner -->
     <style name="SpinnerStyle">
         <item name="android:background">@drawable/spinner_bg</item>
         <item name="android:minWidth">@dimen/spinner_min_width</item>
         <item name="android:minHeight">@dimen/spinner_min_height</item>
         <item name="android:popupElevation">@dimen/spinner_popup_elevation</item>
-
     </style>
 
-
-    <!-- Tab Layout Style-->
+    <!-- Tab Layout -->
     <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabSelectedTextColor">@color/colorPrimaryDark</item>
         <item name="tabTextColor">@color/textColorSecondary</item>
         <item name="android:textSize">20sp</item>
-        <item name="tabTextAppearance">@style/TextAppearance.Sushi.B5</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Sushi.B4</item>
         <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
         <item name="tabIndicatorHeight">4dp</item>
 
-    </style>
-
-    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
-    <style name="CollapsingTextAppearance.Inverse" >
-        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="ToolBarWithNavigationBack" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="navigationIcon">@drawable/ic_arrow_back_line</item>
         <item name="titleTextColor">@color/colorPrimaryDark</item>
         <item name="android:elevation">0dp</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
-
     </style>
 
     <style name="ToolBarWithNavigation" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="navigationIcon">@drawable/ic_menu_fill</item>
-        <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="titleTextColor">@color/textColorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
-    </style>
-
-    <style name="PrimaryButtonStyle">
-        <item name="android:background">@drawable/custom_button_primary</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
-
     </style>
 
     <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_bg_color</item>
-
+    </style>
+    <!-- Info -->
+    <style name="Widget.Sushi.ItemCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/default_corner_radius</item>
+        <item name="cardElevation">@dimen/default_card_elevation</item>
     </style>
 
 

@@ -14,7 +14,7 @@
         android:layout_marginStart="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="8dp"
-        android:elevation="@dimen/default_card_elevation"
+        style="@style/Widget.Sushi.ItemCardView"
         app:cardCornerRadius="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="@dimen/header_profile_img_width"
-            android:layout_height="@dimen/header_profile_img_height"
+            android:layout_width="@dimen/header_profile_img_size"
+            android:layout_height="@dimen/header_profile_img_size"
             android:scaleType="centerCrop"
             android:src="@drawable/test_img" />
 
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.Sushi.B4"
+        android:textAppearance="@style/TextAppearance.Sushi.B3"
         android:text="yagamilight570"
         app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
         app:layout_constraintTop_toTopOf="parent" />

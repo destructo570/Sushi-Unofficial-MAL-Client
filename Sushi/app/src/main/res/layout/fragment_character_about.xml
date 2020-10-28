@@ -23,7 +23,7 @@
                 android:id="@+id/character_about_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 tools:text="@string/hello_blank_fragment" />
         </androidx.core.widget.NestedScrollView>
 

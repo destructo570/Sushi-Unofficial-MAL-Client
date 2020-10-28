@@ -72,7 +72,7 @@
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="4dp"
                     android:text="@string/character_name"
-                    android:textAppearance="@style/TextAppearance.Sushi.B4"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,7 +83,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="16dp"
                 android:text="@{characterEntity.name}"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView15" />
@@ -95,7 +95,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="4dp"
                 android:text="@string/character_name_kanji"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
@@ -106,7 +106,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="16dp"
                 android:text="@{characterEntity.nameKanji}"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView25"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView25" />
@@ -118,7 +118,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="4dp"
                 android:text="@string/character_nick_names"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView27"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView27" />
@@ -141,7 +141,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="4dp"
                 android:text="@string/character_member_fav"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -152,7 +152,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="16dp"
                 android:text="@{characterEntity.memberFavorites.toString()}"
-                android:textAppearance="@style/TextAppearance.Sushi.B4"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView29"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView29" />

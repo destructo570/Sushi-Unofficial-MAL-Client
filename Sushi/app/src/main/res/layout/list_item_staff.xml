@@ -23,8 +23,7 @@
             android:id="@+id/imageView"
             android:layout_width="@dimen/character_img_width"
             android:layout_height="@dimen/character_img_height"
-            android:elevation="0dp"
-            app:cardCornerRadius="@dimen/default_corner_radius"
+            style="@style/Widget.Sushi.ItemCardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
