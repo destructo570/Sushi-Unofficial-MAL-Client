@@ -40,7 +40,13 @@ class UserAnimePlanToWatch : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ptwAnimeAdapter = UserAnimeListAdapter()
+        ptwAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+            val episodes = anime?.myListStatus?.numEpisodesWatched
+            val animeId = anime?.id
+            if (episodes != null && animeId != null){
+                userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
+            }
+        })
         userAnimeViewModel.userAnimeListPlanToWatch.observe(viewLifecycleOwner){userAnime->
             ptwAnimeAdapter.submitList(userAnime.data)
             ptwAnimeRecycler.adapter = ptwAnimeAdapter

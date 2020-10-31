@@ -43,7 +43,13 @@ class UserAnimeDropped : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        droppedAnimeAdapter = UserAnimeListAdapter()
+        droppedAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+            val episodes = anime?.myListStatus?.numEpisodesWatched
+            val animeId = anime?.id
+            if (episodes != null && animeId != null){
+                userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
+            }
+        })
         userAnimeViewModel.userAnimeListDropped.observe(viewLifecycleOwner) { userAnime ->
             droppedAnimeAdapter.submitList(userAnime.data)
             droppedAnimeRecycler.adapter = droppedAnimeAdapter

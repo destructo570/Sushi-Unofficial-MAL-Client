@@ -41,7 +41,13 @@ class UserAnimeCompleted : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        completedAnimeAdapter = UserAnimeListAdapter()
+        completedAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+            val episodes = anime?.myListStatus?.numEpisodesWatched
+            val animeId = anime?.id
+            if (episodes != null && animeId != null){
+                userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
+            }
+        })
         userAnimeViewModel.userAnimeListCompleted.observe(viewLifecycleOwner) { userAnime ->
             completedAnimeAdapter.submitList(userAnime.data)
             completedAnimeRecycler.adapter = completedAnimeAdapter

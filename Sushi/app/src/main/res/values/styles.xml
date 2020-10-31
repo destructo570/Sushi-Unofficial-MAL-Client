@@ -128,12 +128,11 @@
     <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_bg_color</item>
     </style>
+
     <!-- Info -->
     <style name="Widget.Sushi.ItemCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">@dimen/default_corner_radius</item>
         <item name="cardElevation">@dimen/default_card_elevation</item>
     </style>
-
-
 
 </resources>

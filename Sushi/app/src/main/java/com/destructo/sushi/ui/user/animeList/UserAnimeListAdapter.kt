@@ -13,16 +13,17 @@ import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 
-class UserAnimeListAdapter :
+class UserAnimeListAdapter(private val addEpisodeListener: AddEpisodeListener) :
     ListAdapter<UserAnimeData, UserAnimeListAdapter.ViewHolder>(UserAnimeDiffUtil()) {
 
 
     class ViewHolder private constructor(val binding: ListItemUserAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeEntity: UserAnimeData) {
+        fun bind(animeEntity: UserAnimeData,addEpisodeListener: AddEpisodeListener) {
             binding.animeEntity = animeEntity.anime
             binding.animeListStatus = animeEntity.animeListStatus
+            binding.episodeListener = addEpisodeListener
             binding.executePendingBindings()
 
         }
@@ -43,7 +44,7 @@ class UserAnimeListAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
-        holder.bind(animeSubEntity)
+        holder.bind(animeSubEntity,addEpisodeListener)
     }
 
 

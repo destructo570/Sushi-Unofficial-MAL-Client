@@ -7,6 +7,8 @@ import com.destructo.sushi.ALL_MANGA_FIELDS
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.enum.mal.UserMangaStatus
+import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
+import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.MalApi
 import kotlinx.coroutines.launch
@@ -42,6 +44,10 @@ constructor(
     private val _userMangaListDropped: MutableLiveData<UserMangaList> = MutableLiveData()
     val userMangaListDropped: LiveData<UserMangaList>
         get() = _userMangaListDropped
+
+    private val _userMangaStatus: MutableLiveData<UpdateUserManga> = MutableLiveData()
+    val userMangaStatus: LiveData<UpdateUserManga>
+        get() = _userMangaStatus
 
 
     fun getUserMangaList(status: String?) {
@@ -129,6 +135,23 @@ constructor(
                 val userMangaList = getUserMangaDeferred.await()
                 _userMangaListPlanToRead.value = userMangaList
             } catch (e: Exception) {
+                Timber.e("Error: %s", e.message)
+            }
+        }
+    }
+
+
+    fun addChapterManga(mangaId:String,numberOfCh:Int?){
+        viewModelScope.launch {
+            val addChapterDeferred = malApi.updateUserManga(mangaId,
+                null,null,null,null,
+                numberOfCh,null,null,
+                null,null,null)
+
+            try {
+                val mangaStatus = addChapterDeferred.await()
+                _userMangaStatus.value = mangaStatus
+            }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }
         }

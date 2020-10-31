@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
+import com.destructo.sushi.ui.user.animeList.AddEpisodeListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +44,13 @@ class UserMangaCompleted  : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        allMangaAdapter = UserMangaListAdapter()
+        allMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
+            val chapters = manga?.myListStatus?.numChaptersRead
+            val animeId = manga?.id
+            if (chapters != null && animeId != null){
+                userMangaViewModel.addChapterManga(animeId.toString(),chapters+1)
+            }
+        })
         userMangaViewModel.userMangaListCompleted.observe(viewLifecycleOwner) { userManga ->
             allMangaAdapter.submitList(userManga.data)
             allMangaRecycler.adapter = allMangaAdapter

@@ -6,12 +6,12 @@ import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
 import com.destructo.sushi.model.mal.seasonalAnime.Season
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
+import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
+import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MalApi {
 
@@ -81,6 +81,45 @@ interface MalApi {
 
         ): Deferred<UserMangaList>
 
+    @FormUrlEncoded
+    @PATCH("anime/{anime_id}/my_list_status")
+    fun updateUserAnime(
+        @Path("anime_id") anime_id:String,
+        @Field("status") status:String?,
+        @Field("is_rewatching") is_rewatching:Boolean?,
+        @Field("score") score:Int?,
+        @Field("num_watched_episodes") num_watched_episodes:Int?,
+        @Field("priority") priority:Int?,
+        @Field("num_times_rewatched") num_times_rewatched:Int?,
+        @Field("rewatch_value") rewatch_value:Int?,
+        @Field("tags") tags:String?,
+        @Field("comments") comments:String?
+    ): Deferred<UpdateUserAnime>
 
+    @FormUrlEncoded
+    @PATCH("manga/{manga_id}/my_list_status")
+    fun updateUserManga(
+        @Path("manga_id") manga_id:String,
+        @Field("status") status:String?,
+        @Field("is_rereading") is_rereading:Boolean?,
+        @Field("score") score:Int?,
+        @Field("num_volumes_read") num_volumes_read:Int?,
+        @Field("num_chapters_read") num_chapters_read:Int?,
+        @Field("priority") priority:Int?,
+        @Field("num_times_reread") num_times_reread:Int?,
+        @Field("reread_value") reread_value:Int?,
+        @Field("tags") tags:String?,
+        @Field("comments") comments:String?
+    ): Deferred<UpdateUserManga>
+
+    @DELETE("anime/{anime_id}/my_list_status")
+    fun deleteAnimeFromList(
+        @Path("anime_id") anime_id:String
+    ):Deferred<Unit>
+
+    @DELETE("manga/{manga_id}/my_list_status")
+    fun deleteMangaFromList(
+        @Path("manga_id") manga_id:String
+    ):Deferred<Unit>
 
 }

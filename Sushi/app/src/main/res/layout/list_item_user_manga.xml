@@ -10,6 +10,9 @@
         <variable
             name="mangaListStatus"
             type="com.destructo.sushi.model.mal.userMangaList.MangaListStatus" />
+        <variable
+            name="chapterListener"
+            type="com.destructo.sushi.ui.user.mangaList.AddChapterListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -49,7 +52,7 @@
                 android:text="@{mangaEntity.mediaType}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                android:textColor="@color/textColorPrimary"
+                android:textColor="@color/textColorSecondary"
                 app:layout_constraintStart_toEndOf="@+id/list_manga_cover"
                 app:layout_constraintTop_toBottomOf="@+id/list_manga_title"
                 tools:text="@string/fake_anime_type" />
@@ -106,17 +109,24 @@
                 app:layout_constraintEnd_toStartOf="@+id/addEpisodeButton"
                 app:layout_constraintStart_toEndOf="@+id/list_manga_cover" />
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/addEpisodeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_width="@dimen/add_button_height"
+                android:layout_height="@dimen/add_button_width"
+                android:onClick="@{() -> chapterListener.onClick(mangaEntity)}"
+                android:layout_marginEnd="@dimen/user_card_margin_normal"
+                android:layout_marginBottom="@dimen/user_card_margin_normal"
+                android:insetLeft="@dimen/add_button_inset"
+                android:insetTop="@dimen/add_button_inset"
+                android:insetRight="@dimen/add_button_inset"
+                android:insetBottom="@dimen/add_button_inset"
+                app:elevation="@dimen/add_button_elevation"
+                app:iconPadding="@dimen/add_button_icon_padding"
+                app:iconGravity="textStart"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:tint="@color/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_fill" />
+                app:icon="@drawable/ic_add_fill" />
 
 
             <ImageView

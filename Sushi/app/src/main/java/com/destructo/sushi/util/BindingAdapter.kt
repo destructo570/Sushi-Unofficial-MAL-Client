@@ -115,9 +115,6 @@ fun TextView.setMangaRank(data: Int?) {
     }
 }
 
-
-
-
 @BindingAdapter("formatBoolean")
 fun TextView.covertBoolToString(data: Boolean?) {
     data?.let {
@@ -125,7 +122,6 @@ fun TextView.covertBoolToString(data: Boolean?) {
     }
 
 }
-
 
 @BindingAdapter("formatReviewHelpful")
 fun TextView.setReviewHelpful(data: Review?) {
@@ -153,6 +149,13 @@ fun TextView.setAnimeScore(data: String?) {
     }
 }
 
+@BindingAdapter("userAnimeSubtitle")
+fun TextView.setUserAnimeSubtitle(data: Anime?) {
+    if (data != null) {
+        val finalStr = "${data.mediaType}, ${startSeasonFormatter(data.startSeason)} "
+        text = finalStr
+    }
+}
 
 @BindingAdapter(value = ["watchedEp", "totalEp"])
 fun setAnimeProgress(progressBar: ProgressBar,watchedEp: Int?, totalEp:Int?) {
@@ -171,8 +174,6 @@ fun setMangaProgress(progressBar: ProgressBar,readCh: Int?, totalCh:Int?) {
         progressBar.progress = readCh
     }
 }
-
-
 
 @BindingAdapter(value = ["watched", "total"])
 fun setAnimeEpisodes(textView: TextView,watched: String?, total:String?) {
@@ -250,15 +251,6 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
     adapter.submitList(data)
 }
 
-
-@BindingAdapter("userAnimeData")
-fun bindUserAnimeRecycler(recyclerView: RecyclerView, data: List<UserAnimeData?>?) {
-    recyclerView.setHasFixedSize(true)
-    recyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
-    val adapter = UserAnimeListAdapter()
-    recyclerView.adapter = adapter
-    adapter.submitList(data)
-}
 
 private fun formatTitleText(text: String): String {
     var title = if (text.length > 12) text.take(12) else return text

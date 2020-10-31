@@ -107,4 +107,11 @@
     <dimen name="recycler_margin_top">4dp</dimen>
     <dimen name="recycler_margin_bottom">4dp</dimen>
 
+    <!-- Add Episode/Chapter/Volume Button-->
+    <dimen name="add_button_height">36dp</dimen>
+    <dimen name="add_button_width">36dp</dimen>
+    <dimen name="add_button_elevation">0dp</dimen>
+    <dimen name="add_button_icon_padding">0dp</dimen>
+    <dimen name="add_button_inset">0dp</dimen>
+
 </resources>

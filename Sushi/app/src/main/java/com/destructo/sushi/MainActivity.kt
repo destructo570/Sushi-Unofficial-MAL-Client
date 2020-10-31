@@ -1,27 +1,25 @@
 package com.destructo.sushi
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.*
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val navController by lazy {
-        Navigation.findNavController(this, R.id.nav_host_fragemnt)
-    }
+    private lateinit var navHostFragment:NavHostFragment
+    private lateinit var navController:NavController
+
     private lateinit var navView2:NavigationView
     private lateinit var navView:NavigationView
 
@@ -47,6 +45,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragemnt) as NavHostFragment
+        navController = navHostFragment.navController
+
+
         navView = findViewById(R.id.navigationView)
         navView2 = findViewById(R.id.navigationView2)
         drawerLayout = findViewById(R.id.drawer_layout)

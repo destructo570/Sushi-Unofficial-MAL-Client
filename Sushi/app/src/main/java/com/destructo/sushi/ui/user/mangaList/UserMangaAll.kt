@@ -43,10 +43,20 @@ class UserMangaAll : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        allMangaAdapter = UserMangaListAdapter()
+        allMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
+            val chapters = manga?.myListStatus?.numChaptersRead
+            val animeId = manga?.id
+            if (chapters != null && animeId != null){
+                userMangaViewModel.addChapterManga(animeId.toString(),chapters+1)
+            }
+        })
+        allMangaRecycler.adapter = allMangaAdapter
+
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) { userManga ->
             allMangaAdapter.submitList(userManga.data)
-            allMangaRecycler.adapter = allMangaAdapter
+        }
+
+        userMangaViewModel.userMangaStatus.observe(viewLifecycleOwner){updateManga->
         }
     }
 }

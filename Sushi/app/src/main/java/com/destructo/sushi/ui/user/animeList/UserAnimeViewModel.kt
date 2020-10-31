@@ -8,6 +8,7 @@ import com.destructo.sushi.enum.mal.UserAnimeSort
 import com.destructo.sushi.enum.mal.UserAnimeSort.*
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
+import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.MalApi
 import kotlinx.coroutines.launch
@@ -44,6 +45,10 @@ constructor(
     private val _userAnimeListDropped: MutableLiveData<UserAnimeList> = MutableLiveData()
     val userAnimeListDropped: LiveData<UserAnimeList>
         get() = _userAnimeListDropped
+
+    private val _userAnimeStatus: MutableLiveData<UpdateUserAnime> = MutableLiveData()
+    val userAnimeStatus: LiveData<UpdateUserAnime>
+        get() = _userAnimeStatus
 
 
     fun getUserAnimeList(status: String?) {
@@ -132,6 +137,21 @@ constructor(
                 val userAnimeList = getUserAnimeDeferred.await()
                 _userAnimeListPlanToWatch.value = userAnimeList
             } catch (e: Exception) {
+                Timber.e("Error: %s", e.message)
+            }
+        }
+    }
+
+    fun addEpisodeAnime(animeId:String,numberOfEp:Int?){
+        viewModelScope.launch {
+            val addEpisodeDeferred = malApi.updateUserAnime(animeId,
+                null,null,null,numberOfEp,
+                null,null,null,null,null)
+
+            try {
+                val animeStatus = addEpisodeDeferred.await()
+                _userAnimeStatus.value = animeStatus
+            }catch (e:Exception){
                 Timber.e("Error: %s", e.message)
             }
         }

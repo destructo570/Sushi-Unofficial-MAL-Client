@@ -43,7 +43,13 @@ class UserAnimeOnHold : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        onHoldAnimeAdapter = UserAnimeListAdapter()
+        onHoldAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+            val episodes = anime?.myListStatus?.numEpisodesWatched
+            val animeId = anime?.id
+            if (episodes != null && animeId != null){
+                userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
+            }
+        })
         userAnimeViewModel.userAnimeListOnHold.observe(viewLifecycleOwner) { userAnime ->
             onHoldAnimeAdapter.submitList(userAnime.data)
             onHoldAnimeRecycler.adapter = onHoldAnimeAdapter
