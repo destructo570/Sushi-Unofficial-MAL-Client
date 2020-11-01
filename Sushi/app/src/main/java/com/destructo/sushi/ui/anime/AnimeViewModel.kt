@@ -8,6 +8,8 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.network.Resource
+import com.destructo.sushi.ui.anime.upcomingAnime.AnimeRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -20,81 +22,39 @@ constructor(
     private val malApi: MalApi
 ): ViewModel() {
 
+    private val animeRepo = AnimeRepository(malApi)
 
-    private val _topAnimeList: MutableLiveData<AnimeRanking> = MutableLiveData()
-    val topAnimeList: LiveData<AnimeRanking>
-        get() = _topAnimeList
+    private var _seasonalAnime:MutableLiveData<Resource<SeasonalAnime>> = MutableLiveData()
+    val seasonalAnime:LiveData<Resource<SeasonalAnime>>
+        get() = _seasonalAnime
 
-    private val _upcomingAnime:MutableLiveData<AnimeRanking> = MutableLiveData()
-    val upcomingAnime:LiveData<AnimeRanking>
+    private var _topAnime:MutableLiveData<Resource<AnimeRanking>> = MutableLiveData()
+    val topAnime:MutableLiveData<Resource<AnimeRanking>>
+        get() = _topAnime
+
+    private var _upcomingAnime:MutableLiveData<Resource<AnimeRanking>> = MutableLiveData()
+    val upcomingAnime:MutableLiveData<Resource<AnimeRanking>>
         get() = _upcomingAnime
 
-
-    private val _currentlyAiring:MutableLiveData<AnimeRanking> = MutableLiveData()
-    val currentlyAiring:LiveData<AnimeRanking>
+    private var _currentlyAiring:MutableLiveData<Resource<AnimeRanking>> = MutableLiveData()
+    val currentlyAiring:MutableLiveData<Resource<AnimeRanking>>
         get() = _currentlyAiring
 
 
-    private val _seasonalAnime:MutableLiveData<SeasonalAnime> = MutableLiveData()
-    val seasonalAnime:LiveData<SeasonalAnime>
-        get() = _seasonalAnime
-
-
-    fun getTopAnime(ranking_type:String,offset:String?, limit:String?){
-        viewModelScope.launch {
-            val getTopAnimeDeferred = malApi.getAnimeRankingAsync(ranking_type,limit,offset,
-                ALL_ANIME_FIELDS)
-            try {
-                val getAnimeRanking = getTopAnimeDeferred.await()
-                _topAnimeList.value = getAnimeRanking
-            }catch (e:Exception){
-                Timber.e("Error: %s", e.message)
-            }
-        }
+    fun getTopAnime(ranking_type:String,offset:String?, limit:String?) {
+        _topAnime = animeRepo.getTopAnime(ranking_type, offset, limit)
     }
 
-    fun getUpcomingAnime(offset:String?, limit:String?){
-        viewModelScope.launch {
-            val getUpcomingDeferred = malApi.getAnimeRankingAsync("upcoming",limit,offset,
-                ALL_ANIME_FIELDS)
-            try {
-                val getAnimeRanking = getUpcomingDeferred.await()
-                _upcomingAnime.value = getAnimeRanking
-            }catch (e:Exception){
-                Timber.e("Error: %s", e.message)
-            }
-        }
+    fun getUpcomingAnime(ranking_type:String,offset:String?, limit:String?) {
+        _upcomingAnime = animeRepo.getTopAnime(ranking_type, offset, limit)
     }
 
-    fun getCurrentlyAiringAnime(offset:String?, limit:String?){
-        viewModelScope.launch {
-            val getAiringDeferred = malApi.getAnimeRankingAsync("airing",limit,offset,
-                ALL_ANIME_FIELDS)
-            try {
-                val getAnimeRanking = getAiringDeferred.await()
-                _currentlyAiring.value = getAnimeRanking
-            }catch (e:Exception){
-                Timber.e("Error: %s", e.message)
-            }
-        }
+    fun getCurrentlyAiringAnime(ranking_type:String,offset:String?, limit:String?) {
+        _currentlyAiring = animeRepo.getTopAnime(ranking_type, offset, limit)
     }
-
 
     fun getSeasonalAnime(year:String,season:String,sort:String?,
                          limit:String?,offset:String?){
-        viewModelScope.launch {
-            val getSeasonalDeferred = malApi
-                .getSeasonalAnimeAsync(year,season,sort,limit,offset, ALL_ANIME_FIELDS)
-            try {
-                val seasonaAnime = getSeasonalDeferred.await()
-                _seasonalAnime.value = seasonaAnime
-            }catch (e:Exception){
-                Timber.e("Error: %s", e.message)
-            }
-        }
+        _seasonalAnime = animeRepo.getSeasonalAnime(year, season, sort, limit, offset)
     }
-
-
-
-
 }

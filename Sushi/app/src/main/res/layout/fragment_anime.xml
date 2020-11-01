@@ -12,42 +12,46 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/anime_frag_toolbar"
+        style="@style/ToolBarWithNavigation"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:id="@+id/anime_frag_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/ToolBarWithNavigation"
-        app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-        />
+        app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/animeFragment"
-        tools:context=".ui.anime.AnimeFragment">
 
-
-        <include
-            android:id="@+id/includeTop"
-            layout="@layout/inc_top_anime"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/animeFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            tools:context=".ui.anime.AnimeFragment">
+
+
+            <include
+                android:id="@+id/includeTop"
+                layout="@layout/inc_top_anime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/includeAiring"
                 layout="@layout/inc_currently_airing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginBottom="7dp"
+                app:layout_constraintBottom_toTopOf="@+id/includeUpcoming"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/includeTop" />
@@ -56,9 +60,10 @@
                 android:id="@+id/includeUpcoming"
                 layout="@layout/inc_upcoming_anime"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/includSeasonale"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/includeAiring" />
@@ -68,13 +73,13 @@
                 android:id="@+id/includSeasonale"
                 layout="@layout/inc_seasonal_anime"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/includeUpcoming" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
 </layout>
