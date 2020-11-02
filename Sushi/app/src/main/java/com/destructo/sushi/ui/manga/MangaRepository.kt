@@ -17,11 +17,11 @@ class MangaRepository
 @Inject
 constructor(private val malApi: MalApi){
 
-    fun getTopManga(ranking_type:String,limit:String?,offset:String?)
-            : MutableLiveData<Resource<MangaRanking>>{
+    var topManga: MutableLiveData<Resource<MangaRanking>> = MutableLiveData()
 
-        val result = MutableLiveData<Resource<MangaRanking>>()
-        result.value = Resource.loading(null)
+    fun getTopManga(ranking_type:String,limit:String?,offset:String?) {
+
+        topManga.value = Resource.loading(null)
 
         GlobalScope.launch {
             val getTopMangaDeferred =
@@ -29,15 +29,14 @@ constructor(private val malApi: MalApi){
                 try {
                     val mangaRanking = getTopMangaDeferred.await()
                     withContext(Dispatchers.Main){
-                        result.value = Resource.success(mangaRanking)
+                        topManga.value = Resource.success(mangaRanking)
                     }
                 }catch (e:Exception){
                     withContext(Dispatchers.Main){
-                        result.value = Resource.error(e.message ?: "", null)
+                        topManga.value = Resource.error(e.message ?: "", null)
                     }
                 }
 
         }
-        return result
     }
 }

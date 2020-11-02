@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
+class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val mangaViewModel:MangaViewModel by viewModels()
 
@@ -40,7 +40,6 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
     private lateinit var mangaTypeSpinner:Spinner
     private lateinit var toolbar: Toolbar
     private lateinit var mangaProgressBar: ProgressBar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,22 +82,20 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
         mangaViewModel.topManga.observe(viewLifecycleOwner){resource->
             when (resource.status){
                 Status.LOADING ->{
+                    mangaRecycler.visibility = View.INVISIBLE
                     mangaProgressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS ->{
+                    mangaRecycler.visibility = View.VISIBLE
                     mangaProgressBar.visibility = View.GONE
                     resource?.data?.let {topManga->
                         mangaAdapter.submitList(topManga.data)
-                        mangaRecycler.apply {
-                            adapter = mangaAdapter
-                        }
+                        mangaRecycler.adapter = mangaAdapter
                     }
                 }
                 Status.ERROR ->{Timber.e("Error: %s", resource.message)}
             }
         }
-
-
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {

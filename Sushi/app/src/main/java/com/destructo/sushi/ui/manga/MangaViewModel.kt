@@ -21,11 +21,9 @@ constructor(
 
     ) : ViewModel() {
 
-    private var _topManga: MutableLiveData<Resource<MangaRanking>> = MutableLiveData()
-    val topManga: LiveData<Resource<MangaRanking>>
-        get() = _topManga
+    val topManga: LiveData<Resource<MangaRanking>> = mangaRepo.topManga
 
     fun getTopMangaList(ranking_type: String, limit: String?, offset: String?) {
-        _topManga = mangaRepo.getTopManga(ranking_type, limit, offset)
+        mangaRepo.getTopManga(ranking_type, limit, offset)
     }
 }
