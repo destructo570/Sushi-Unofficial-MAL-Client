@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -20,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeScheduleBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.seasonalAnime.SeasonAnimeAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -45,12 +43,13 @@ class AnimeScheduleFragment : Fragment(){
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var animeScheduleProgress:ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            scheduleViewModel.getAnimeSchdule("")
+            scheduleViewModel.getAnimeSchedule("")
             drawerLayout = requireActivity().drawer_layout
         }
 
@@ -66,6 +65,7 @@ class AnimeScheduleFragment : Fragment(){
         scheduleViewPager = binding.animeSchedulePager
         scheduleTabLayout = binding.animeScheduleTablayout
         toolbar = binding.toolbar
+        animeScheduleProgress = binding.animeScheduleProgress
 
         scheduleTabMediator = TabLayoutMediator(scheduleTabLayout, scheduleViewPager) { tab, position ->
             when(position){
@@ -88,21 +88,31 @@ class AnimeScheduleFragment : Fragment(){
         setupToolbar()
         schedulePagerAdapter = SchedulePagerAdapter()
 
-        scheduleViewModel.animeSchedule.observe(viewLifecycleOwner){
-            it?.let {animeSchedule->
-                listOfAnimeSchedule =
-                    mutableListOf(
-                        animeSchedule.monday,
-                        animeSchedule.tuesday,
-                        animeSchedule.wednesday,
-                        animeSchedule.thursday,
-                        animeSchedule.friday,
-                        animeSchedule.saturday,
-                        animeSchedule.sunday,
-                        animeSchedule.other,
-                        animeSchedule.unknown,)
-                setupViewPager(listOfAnimeSchedule)
+        scheduleViewModel.animeSchedule.observe(viewLifecycleOwner){resource->
 
+            when(resource.status){
+
+                Status.LOADING->{animeScheduleProgress.visibility = View.VISIBLE}
+                Status.SUCCESS->{
+                    animeScheduleProgress.visibility = View.GONE
+                    resource?.data?.let {animeSchedule->
+                        listOfAnimeSchedule =
+                            mutableListOf(
+                                animeSchedule.monday,
+                                animeSchedule.tuesday,
+                                animeSchedule.wednesday,
+                                animeSchedule.thursday,
+                                animeSchedule.friday,
+                                animeSchedule.saturday,
+                                animeSchedule.sunday,
+                                animeSchedule.other,
+                                animeSchedule.unknown,)
+                        setupViewPager(listOfAnimeSchedule)
+
+                    }
+                }
+                Status.ERROR->{Timber.e("Error: %s", resource.message)
+                }
             }
         }
     }

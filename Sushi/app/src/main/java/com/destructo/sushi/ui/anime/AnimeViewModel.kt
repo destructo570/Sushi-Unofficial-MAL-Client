@@ -3,26 +3,19 @@ package com.destructo.sushi.ui.anime
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
-import com.destructo.sushi.ui.anime.upcomingAnime.AnimeRepository
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class AnimeViewModel
 @ViewModelInject
 constructor(
     @Assisted
     private val savedStateHandle: SavedStateHandle,
-    private val jikanApi: JikanApi,
-    private val malApi: MalApi
+    private val animeRepo:AnimeRepository
 ): ViewModel() {
-
-    private val animeRepo = AnimeRepository(malApi)
 
     private var _seasonalAnime:MutableLiveData<Resource<SeasonalAnime>> = MutableLiveData()
     val seasonalAnime:LiveData<Resource<SeasonalAnime>>
