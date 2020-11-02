@@ -21,11 +21,9 @@ constructor(
     private val topAnimeRepo: TopAnimeRepository,
 ):ViewModel(){
 
-    private var _topAnimeList: MutableLiveData<Resource<AnimeRanking>> = MutableLiveData()
-    val topAnimeList: LiveData<Resource<AnimeRanking>>
-        get() = _topAnimeList
+    val topAnimeList: LiveData<Resource<AnimeRanking>> = topAnimeRepo.topAnimeListOva
 
     fun getTopAnime(ranking_type:String,offset:String?, limit:String?){
-            _topAnimeList = topAnimeRepo.getTopAnime(ranking_type,offset,limit)
+        topAnimeRepo.getTopAnime(ranking_type,offset,limit)
     }
 }

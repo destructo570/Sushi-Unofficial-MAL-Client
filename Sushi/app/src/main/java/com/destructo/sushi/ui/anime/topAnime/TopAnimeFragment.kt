@@ -78,35 +78,38 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         topAnimeAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        topAnimeRecycler.adapter = topAnimeAdapter
+
         topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){resource->
-            Timber.e("CHANGES...")
-            when(resource.status){
-                Status.LOADING ->{topAnimeProgress.visibility = View.VISIBLE}
+            when(resource?.status){
+                Status.LOADING ->{
+                    topAnimeProgress.visibility = View.VISIBLE
+                    topAnimeRecycler.visibility = View.INVISIBLE
+                }
                 Status.SUCCESS ->{
                     topAnimeProgress.visibility = View.GONE
+                    topAnimeRecycler.visibility = View.VISIBLE
                     resource.data?.let {topAnime->
                         topAnimeAdapter.submitList(topAnime.data)
+                        topAnimeRecycler.adapter = topAnimeAdapter
                     }
                 }
-                Status.ERROR->{Timber.e("Error: %s", resource.message)}
+                Status.ERROR->{
+                    Timber.e("Error: %s", resource.message)}
             }
-
         }
+
         }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.anime_ranking_all) -> { topAnimeViewModel.getTopAnime(ALL.value,null,"500")}
+            getString(R.string.anime_ranking_all) -> { topAnimeViewModel.getTopAnime(ALL.value,null,"500") }
             getString(R.string.anime_ranking_airing)-> { topAnimeViewModel.getTopAnime(AIRING.value,null,"500")}
-            getString(R.string.anime_ranking_upcoming) -> {
-                topAnimeViewModel.getTopAnime(UPCOMING.value,null,"500")}
+            getString(R.string.anime_ranking_upcoming) -> { topAnimeViewModel.getTopAnime(UPCOMING.value,null,"500")}
             getString(R.string.anime_ranking_tv) -> { topAnimeViewModel.getTopAnime(TV.value,null,"500")}
             getString(R.string.anime_ranking_ova) -> { topAnimeViewModel.getTopAnime(OVA.value,null,"500")}
             getString(R.string.anime_ranking_movie) -> { topAnimeViewModel.getTopAnime(MOVIE.value,null,"500")}
             getString(R.string.anime_ranking_special) -> { topAnimeViewModel.getTopAnime(SPECIAL.value,null,"500")}
-            getString(R.string.anime_ranking_popularity) -> { topAnimeViewModel.getTopAnime(
-                BY_POPULARITY.value,null,"500")}
+            getString(R.string.anime_ranking_popularity) -> { topAnimeViewModel.getTopAnime(BY_POPULARITY.value,null,"500")}
             getString(R.string.anime_ranking_favorites) -> { topAnimeViewModel.getTopAnime(FAVORITE.value,null,"500")}
 
         }
