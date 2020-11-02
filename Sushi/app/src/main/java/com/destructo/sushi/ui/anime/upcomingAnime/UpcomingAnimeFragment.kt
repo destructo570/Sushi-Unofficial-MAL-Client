@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,11 +14,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class UpcomingAnimeFragment : Fragment() {
@@ -25,10 +28,10 @@ class UpcomingAnimeFragment : Fragment() {
     private val upcomingAnimeViewModel:UpcomingAnimeViewModel by viewModels()
 
     private lateinit var binding:FragmentUpcomingAnimeBinding
-    private lateinit var upcomingAnimeArg: AnimeRanking
     private lateinit var upcomingAdapter:AnimeRankingAdapter
     private lateinit var upcomingAnimeRecycler:RecyclerView
     private lateinit var toolbar: Toolbar
+    private lateinit var upcomingAnimeProgress:ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,7 @@ class UpcomingAnimeFragment : Fragment() {
         }
 
         toolbar = binding.toolbar
+        upcomingAnimeProgress = binding.upcomingAnimeProgressbar
 
 
         return binding.root
@@ -70,14 +74,27 @@ class UpcomingAnimeFragment : Fragment() {
         })
 
         upcomingAnimeViewModel.upcomingAnime.observe(viewLifecycleOwner){
-            it?.let {upcomingAnime->
-                upcomingAdapter.submitList(upcomingAnime.data)
-                upcomingAnimeRecycler.apply{
-                    adapter = upcomingAdapter
+                resource->
+
+            when(resource.status){
+
+                Status.LOADING->{
+                    upcomingAnimeProgress.visibility = View.VISIBLE
                 }
+                Status.SUCCESS->{
+                    upcomingAnimeProgress.visibility = View.GONE
+                    resource.data?.let {currentlyAiring->
+                        upcomingAdapter.submitList(currentlyAiring.data)
+                        upcomingAnimeRecycler.adapter = upcomingAdapter
+                    }
+                }
+                Status.ERROR->{
+                    Timber.e("Error: %s", resource.message)
+                }
+
             }
         }
-        }
+    }
 
 
     private fun navigateToAnimeDetails(animeMalId: Int){

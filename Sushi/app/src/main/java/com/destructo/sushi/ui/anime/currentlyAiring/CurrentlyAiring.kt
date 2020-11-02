@@ -91,8 +91,6 @@ class CurrentlyAiring : Fragment() {
                 }
 
             }
-
-
         }
     }
 

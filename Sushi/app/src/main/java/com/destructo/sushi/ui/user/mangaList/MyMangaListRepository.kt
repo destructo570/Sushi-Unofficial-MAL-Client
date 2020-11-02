@@ -60,7 +60,6 @@ constructor(private val malApi: MalApi){
             else ->{
                 getUserMangaList(mangaStatus, userMangaListAll)
             }
-
         }
     }
 

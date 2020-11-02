@@ -8,6 +8,7 @@ import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.network.Resource
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -16,28 +17,14 @@ class UpcomingAnimeViewModel
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
-    val jikanApi: JikanApi,
-    val malApi: MalApi
+    private val upcomingAnimeRepo: UpcomingAnimeRepository
 )
     :ViewModel() {
 
-    private val _upcomingAnime:MutableLiveData<AnimeRanking> = MutableLiveData()
-    val upcomingAnime:LiveData<AnimeRanking>
-        get() = _upcomingAnime
-
+    val upcomingAnime:LiveData<Resource<AnimeRanking>> = upcomingAnimeRepo.upcomingAnime
 
     fun getUpcomingAnime(offset:String?, limit:String?){
-        viewModelScope.launch {
-            val getUpcomingDeferred = malApi.getAnimeRankingAsync("upcoming",limit,offset,
-                ALL_ANIME_FIELDS
-            )
-            try {
-                val getAnimeRanking = getUpcomingDeferred.await()
-                _upcomingAnime.value = getAnimeRanking
-            }catch (e:Exception){
-                Timber.e("Error: %s", e.message)
-            }
-        }
+        upcomingAnimeRepo.getUpcomingAnime(offset, limit)
     }
 
 }
