@@ -18,14 +18,11 @@ constructor(
     private val scheduleRepo: ScheduleRepository
 )
     :ViewModel() {
-
-    private var _animeSchedule: MutableLiveData<Resource<Schedule>> = MutableLiveData()
-    val animeSchedule:LiveData<Resource<Schedule>>
-        get() = _animeSchedule
+    val animeSchedule:LiveData<Resource<Schedule>> = scheduleRepo.animeSchedule
 
 
     fun getAnimeSchedule(weekDay:String){
-        _animeSchedule = scheduleRepo.getAnimeSchedule(weekDay)
+        scheduleRepo.getAnimeSchedule(weekDay)
     }
 
 

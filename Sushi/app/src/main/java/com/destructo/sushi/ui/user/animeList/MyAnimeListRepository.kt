@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.user.animeList
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.enum.mal.UserAnimeSort
@@ -19,10 +20,49 @@ class MyAnimeListRepository
 @Inject
 constructor(private val malApi: MalApi){
 
-    fun getUserAnimeList(animeStatus:String?)
-            :MutableLiveData<Resource<UserAnimeList>>{
-        val result = MutableLiveData<Resource<UserAnimeList>>()
-        result.value = Resource.loading(null)
+    var userAnimeListAll: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+
+    var userAnimeListWatching: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+
+    var userAnimeListCompleted: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+
+    var userAnimeListPlanToWatch: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+
+    var userAnimeListOnHold: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+
+    var userAnimeListDropped: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+
+    var userAnimeStatus: MutableLiveData<Resource<UpdateUserAnime>> = MutableLiveData()
+
+    fun getUserAnime(animeStatus:String?){
+        when(animeStatus){
+            UserAnimeStatus.COMPLETED.value ->{
+                 getUserAnimeList(animeStatus, userAnimeListCompleted)
+            }
+            UserAnimeStatus.WATCHING.value ->{
+                 getUserAnimeList(animeStatus, userAnimeListWatching)
+            }
+            UserAnimeStatus.ON_HOLD.value ->{
+                 getUserAnimeList(animeStatus, userAnimeListOnHold)
+            }
+            UserAnimeStatus.PLAN_TO_WATCH.value ->{
+                 getUserAnimeList(animeStatus, userAnimeListPlanToWatch)
+            }
+            UserAnimeStatus.DROPPED.value ->{
+                 getUserAnimeList(animeStatus, userAnimeListDropped)
+            }
+            else ->{
+                 getUserAnimeList(animeStatus, userAnimeListAll)
+            }
+
+        }
+    }
+
+    private fun getUserAnimeList(
+        animeStatus:String?,
+        animeList:MutableLiveData<Resource<UserAnimeList>>
+    ) {
+        animeList.value = Resource.loading(null)
 
         GlobalScope.launch {
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
@@ -31,20 +71,17 @@ constructor(private val malApi: MalApi){
             try {
                 val userAnime = getUserAnimeDeferred.await()
                 withContext(Dispatchers.Main){
-                    result.value = Resource.success(userAnime)
+                    animeList.value = Resource.success(userAnime)
                 }
             }catch (e:Exception){
                 withContext(Dispatchers.Main){
-                    result.value = Resource.error(e.message ?: "", null)}
+                    animeList.value = Resource.error(e.message ?: "", null)}
             }
         }
-        return  result
     }
 
-    fun addEpisode(animeId:String,numberOfEp:Int?)
-    :MutableLiveData<Resource<UpdateUserAnime>>{
-        val result = MutableLiveData<Resource<UpdateUserAnime>>()
-        result.value = Resource.loading(null)
+    fun addEpisode(animeId:String,numberOfEp:Int?) {
+        userAnimeStatus.value = Resource.loading(null)
 
         GlobalScope.launch {
             val addEpisodeDeferred = malApi.updateUserAnime(animeId,
@@ -53,13 +90,12 @@ constructor(private val malApi: MalApi){
             try {
                 val animeStatus = addEpisodeDeferred.await()
                 withContext(Dispatchers.Main){
-                    result.value = Resource.success(animeStatus)
+                    userAnimeStatus.value = Resource.success(animeStatus)
                 }
             }catch (e:Exception){
                 withContext(Dispatchers.Main){
-                    result.value = Resource.error(e.message ?: "", null)}
+                    userAnimeStatus.value = Resource.error(e.message ?: "", null)}
             }
         }
-        return result
     }
 }

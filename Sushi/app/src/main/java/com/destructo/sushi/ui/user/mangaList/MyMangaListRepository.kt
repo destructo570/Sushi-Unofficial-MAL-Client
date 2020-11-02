@@ -1,9 +1,11 @@
 package com.destructo.sushi.ui.user.mangaList
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.ALL_MANGA_FIELDS
 import com.destructo.sushi.enum.mal.UserAnimeSort
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
@@ -23,10 +25,49 @@ class MyMangaListRepository
 @Inject
 constructor(private val malApi: MalApi){
 
-    fun getUserMangaList(mangaStatus:String?)
-            : MutableLiveData<Resource<UserMangaList>> {
-        val result = MutableLiveData<Resource<UserMangaList>>()
-        result.value = Resource.loading(null)
+     var userMangaListAll: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+
+     var userMangaListReading: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+
+     var userMangaListCompleted: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+
+     var userMangaListPlanToRead: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+
+     var userMangaListOnHold: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+
+     var userMangaListDropped: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+
+     var userMangaStatus: MutableLiveData<Resource<UpdateUserManga>> = MutableLiveData()
+
+
+    fun getUserManga(mangaStatus:String?){
+        when(mangaStatus){
+            UserMangaStatus.COMPLETED.value ->{
+                getUserMangaList(mangaStatus, userMangaListCompleted)
+            }
+            UserMangaStatus.READING.value ->{
+                getUserMangaList(mangaStatus, userMangaListReading)
+            }
+            UserMangaStatus.ON_HOLD.value ->{
+                getUserMangaList(mangaStatus, userMangaListOnHold)
+            }
+            UserMangaStatus.PLAN_TO_READ.value ->{
+                getUserMangaList(mangaStatus, userMangaListPlanToRead)
+            }
+            UserMangaStatus.DROPPED.value ->{
+                getUserMangaList(mangaStatus, userMangaListDropped)
+            }
+            else ->{
+                getUserMangaList(mangaStatus, userMangaListAll)
+            }
+
+        }
+    }
+
+    fun getUserMangaList(mangaStatus:String?,
+                         mangaList: MutableLiveData<Resource<UserMangaList>>) {
+
+        mangaList.value = Resource.loading(null)
 
         GlobalScope.launch {
             val getUserMangaDeferred = malApi.getUserMangaListAsync(
@@ -36,20 +77,17 @@ constructor(private val malApi: MalApi){
             try {
                 val userManga = getUserMangaDeferred.await()
                 withContext(Dispatchers.Main){
-                    result.value = Resource.success(userManga)
+                    mangaList.value = Resource.success(userManga)
                 }
             }catch (e: Exception){
                 withContext(Dispatchers.Main){
-                    result.value = Resource.error(e.message ?: "", null)}
+                    mangaList.value = Resource.error(e.message ?: "", null)}
             }
         }
-        return  result
     }
 
-    fun addChapter(mangaId:String,numberOfCh:Int?)
-            : MutableLiveData<Resource<UpdateUserManga>> {
-        val result = MutableLiveData<Resource<UpdateUserManga>>()
-        result.value = Resource.loading(null)
+    fun addChapter(mangaId:String,numberOfCh:Int?){
+        userMangaStatus.value = Resource.loading(null)
 
         GlobalScope.launch {
             val addChapterDeferred = malApi.updateUserManga(mangaId,
@@ -59,13 +97,12 @@ constructor(private val malApi: MalApi){
             try {
                 val mangaStatus = addChapterDeferred.await()
                 withContext(Dispatchers.Main){
-                    result.value = Resource.success(mangaStatus)
+                    userMangaStatus.value = Resource.success(mangaStatus)
                 }
             }catch (e: Exception){
                 withContext(Dispatchers.Main){
-                    result.value = Resource.error(e.message ?: "", null)}
+                    userMangaStatus.value = Resource.error(e.message ?: "", null)}
             }
         }
-        return result
     }
 }

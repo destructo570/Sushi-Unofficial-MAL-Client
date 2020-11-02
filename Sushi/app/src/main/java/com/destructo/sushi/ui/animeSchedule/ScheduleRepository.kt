@@ -16,23 +16,23 @@ class ScheduleRepository
 @Inject
 constructor(private val jikanApi: JikanApi){
 
-    fun getAnimeSchedule(weekDay: String): MutableLiveData<Resource<Schedule>>{
-        val result = MutableLiveData<Resource<Schedule>>()
-        result.value = Resource.loading(null)
+    var animeSchedule: MutableLiveData<Resource<Schedule>> = MutableLiveData()
+
+    fun getAnimeSchedule(weekDay: String){
+        animeSchedule.value = Resource.loading(null)
 
         GlobalScope.launch {
             val getAnimeScheduleDeferred = jikanApi.getAnimeScheduleAsync(weekDay)
             try {
-                val animeSchedule = getAnimeScheduleDeferred.await()
+                val animeScheduleList = getAnimeScheduleDeferred.await()
                 withContext(Dispatchers.Main){
-                    result.value = Resource.success(animeSchedule)
+                    animeSchedule.value = Resource.success(animeScheduleList)
                 }
             }catch (e:Exception){
                 withContext(Dispatchers.Main){
-                    result.value = Resource.error(e.message ?: "", null)
+                    animeSchedule.value = Resource.error(e.message ?: "", null)
                 }
             }
         }
-        return result
     }
 }

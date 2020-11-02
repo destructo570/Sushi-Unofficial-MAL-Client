@@ -45,14 +45,12 @@ class AnimeScheduleFragment : Fragment(){
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var animeScheduleProgress:ProgressBar
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
             scheduleViewModel.getAnimeSchedule("")
             drawerLayout = requireActivity().drawer_layout
         }
-
     }
 
     override fun onCreateView(
@@ -92,7 +90,9 @@ class AnimeScheduleFragment : Fragment(){
 
             when(resource.status){
 
-                Status.LOADING->{animeScheduleProgress.visibility = View.VISIBLE}
+                Status.LOADING->{
+                    animeScheduleProgress.visibility = View.VISIBLE
+                }
                 Status.SUCCESS->{
                     animeScheduleProgress.visibility = View.GONE
                     resource?.data?.let {animeSchedule->
