@@ -19,8 +19,8 @@ class UserAnimeAll : Fragment() {
     private lateinit var binding: FragmentUserAnimeListBinding
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels(ownerProducer = { requireParentFragment() })
-    private lateinit var allAnimeAdapter: UserAnimeListAdapter
-    private lateinit var allAnimeRecycler: RecyclerView
+    private lateinit var userAnimeAdapter: UserAnimeListAdapter
+    private lateinit var userAnimeRecycler: RecyclerView
     private lateinit var userAnimeProgressbar: ProgressBar
 
 
@@ -41,15 +41,15 @@ class UserAnimeAll : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        allAnimeRecycler = binding.userAnimeRecycler
-        allAnimeRecycler.setHasFixedSize(true)
+        userAnimeRecycler = binding.userAnimeRecycler
+        userAnimeRecycler.setHasFixedSize(true)
         userAnimeProgressbar = binding.userAnimeListProgressbar
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        allAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+        userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
             val episodes = anime?.myListStatus?.numEpisodesWatched
             val animeId = anime?.id
             if (episodes != null && animeId != null){
@@ -61,8 +61,8 @@ class UserAnimeAll : Fragment() {
                 Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
                 Status.SUCCESS ->{
                     userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.let{allAnimeAdapter.submitList(it.data)
-                    allAnimeRecycler.adapter = allAnimeAdapter}
+                    resource.data?.let{userAnimeAdapter.submitList(it.data)
+                        userAnimeRecycler.adapter = userAnimeAdapter}
                 }
                 Status.ERROR ->{Timber.e("Error: %s", resource.message)}
             }

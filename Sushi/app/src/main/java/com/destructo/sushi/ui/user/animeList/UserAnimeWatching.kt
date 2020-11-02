@@ -18,8 +18,8 @@ class UserAnimeWatching : Fragment() {
     private lateinit var binding: FragmentUserAnimeListBinding
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels(ownerProducer = { requireParentFragment() })
-    private lateinit var watchingAnimeAdapter: UserAnimeListAdapter
-    private lateinit var watchingAnimeRecycler: RecyclerView
+    private lateinit var userAnimeAdapter: UserAnimeListAdapter
+    private lateinit var userAnimeRecycler: RecyclerView
     private lateinit var userAnimeProgressbar:ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +39,8 @@ class UserAnimeWatching : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        watchingAnimeRecycler = binding.userAnimeRecycler
-        watchingAnimeRecycler.setHasFixedSize(true)
+        userAnimeRecycler = binding.userAnimeRecycler
+        userAnimeRecycler.setHasFixedSize(true)
         userAnimeProgressbar = binding.userAnimeListProgressbar
 
 
@@ -48,7 +48,7 @@ class UserAnimeWatching : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        watchingAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+        userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
             val episodes = anime?.myListStatus?.numEpisodesWatched
             val animeId = anime?.id
             if (episodes != null && animeId != null){
@@ -60,8 +60,8 @@ class UserAnimeWatching : Fragment() {
                 Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
                 Status.SUCCESS ->{
                     userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.let{watchingAnimeAdapter.submitList(it.data)
-                        watchingAnimeRecycler.adapter = watchingAnimeAdapter}
+                    resource.data?.let{userAnimeAdapter.submitList(it.data)
+                        userAnimeRecycler.adapter = userAnimeAdapter}
                 }
                 Status.ERROR ->{Timber.e("Error: %s", resource.message)}
             }

@@ -18,8 +18,8 @@ class UserAnimePlanToWatch : Fragment() {
     private lateinit var binding: FragmentUserAnimeListBinding
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels(ownerProducer = {requireParentFragment()})
-    private lateinit var ptwAnimeAdapter:UserAnimeListAdapter
-    private lateinit var ptwAnimeRecycler: RecyclerView
+    private lateinit var userAnimeAdapter:UserAnimeListAdapter
+    private lateinit var userAnimeRecycler: RecyclerView
     private lateinit var userAnimeProgressbar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,15 +38,15 @@ class UserAnimePlanToWatch : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        ptwAnimeRecycler = binding.userAnimeRecycler
-        ptwAnimeRecycler.setHasFixedSize(true)
+        userAnimeRecycler = binding.userAnimeRecycler
+        userAnimeRecycler.setHasFixedSize(true)
         userAnimeProgressbar = binding.userAnimeListProgressbar
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ptwAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+        userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
             val episodes = anime?.myListStatus?.numEpisodesWatched
             val animeId = anime?.id
             if (episodes != null && animeId != null){
@@ -58,8 +58,8 @@ class UserAnimePlanToWatch : Fragment() {
                 Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
                 Status.SUCCESS ->{
                     userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.let{ptwAnimeAdapter.submitList(it.data)
-                        ptwAnimeRecycler.adapter = ptwAnimeAdapter}
+                    resource.data?.let{userAnimeAdapter.submitList(it.data)
+                        userAnimeRecycler.adapter = userAnimeAdapter}
                 }
                 Status.ERROR ->{Timber.e("Error: %s", resource.message)}
             }
