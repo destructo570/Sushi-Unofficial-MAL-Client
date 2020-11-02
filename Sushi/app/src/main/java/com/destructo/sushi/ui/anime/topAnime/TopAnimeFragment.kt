@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ProgressBar
 import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -18,11 +19,14 @@ import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
+import com.destructo.sushi.enum.mal.AnimeRankingType.*
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -33,11 +37,12 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var topAnimeAdapter: AnimeRankingAdapter
     private lateinit var animeRankingSpinner: Spinner
     private lateinit var toolbar: Toolbar
+    private lateinit var topAnimeProgress: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            topAnimeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")
+            topAnimeViewModel.getTopAnime(ALL.value,null,"500")
         }
     }
 
@@ -62,6 +67,8 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         topAnimeRecycler.layoutManager = GridLayoutManager(context,3)
         topAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
+        topAnimeProgress = binding.topAnimeProgressbar
+
         return binding.root
     }
 
@@ -71,29 +78,36 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         topAnimeAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-
-        topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){
-            it?.let {topAnime->
-                topAnimeAdapter.submitList(topAnime.data)
-                topAnimeAdapter.stateRestorationPolicy = PREVENT_WHEN_EMPTY
-                topAnimeRecycler.apply{
-                    adapter = topAnimeAdapter
+        topAnimeRecycler.adapter = topAnimeAdapter
+        topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){resource->
+            Timber.e("CHANGES...")
+            when(resource.status){
+                Status.LOADING ->{topAnimeProgress.visibility = View.VISIBLE}
+                Status.SUCCESS ->{
+                    topAnimeProgress.visibility = View.GONE
+                    resource.data?.let {topAnime->
+                        topAnimeAdapter.submitList(topAnime.data)
                     }
                 }
+                Status.ERROR->{Timber.e("Error: %s", resource.message)}
             }
+
+        }
         }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.anime_ranking_all) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.ALL.value,null,"500")}
-            getString(R.string.anime_ranking_airing)-> { topAnimeViewModel.getTopAnime(AnimeRankingType.AIRING.value,null,"500")}
-            getString(R.string.anime_ranking_upcoming) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.UPCOMING.value,null,"500")}
-            getString(R.string.anime_ranking_tv) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.TV.value,null,"500")}
-            getString(R.string.anime_ranking_ova) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.OVA.value,null,"500")}
-            getString(R.string.anime_ranking_movie) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.MOVIE.value,null,"500")}
-            getString(R.string.anime_ranking_special) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.SPECIAL.value,null,"500")}
-            getString(R.string.anime_ranking_popularity) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.BY_POPULARITY.value,null,"500")}
-            getString(R.string.anime_ranking_favorites) -> { topAnimeViewModel.getTopAnime(AnimeRankingType.FAVORITE.value,null,"500")}
+            getString(R.string.anime_ranking_all) -> { topAnimeViewModel.getTopAnime(ALL.value,null,"500")}
+            getString(R.string.anime_ranking_airing)-> { topAnimeViewModel.getTopAnime(AIRING.value,null,"500")}
+            getString(R.string.anime_ranking_upcoming) -> {
+                topAnimeViewModel.getTopAnime(UPCOMING.value,null,"500")}
+            getString(R.string.anime_ranking_tv) -> { topAnimeViewModel.getTopAnime(TV.value,null,"500")}
+            getString(R.string.anime_ranking_ova) -> { topAnimeViewModel.getTopAnime(OVA.value,null,"500")}
+            getString(R.string.anime_ranking_movie) -> { topAnimeViewModel.getTopAnime(MOVIE.value,null,"500")}
+            getString(R.string.anime_ranking_special) -> { topAnimeViewModel.getTopAnime(SPECIAL.value,null,"500")}
+            getString(R.string.anime_ranking_popularity) -> { topAnimeViewModel.getTopAnime(
+                BY_POPULARITY.value,null,"500")}
+            getString(R.string.anime_ranking_favorites) -> { topAnimeViewModel.getTopAnime(FAVORITE.value,null,"500")}
 
         }
     }
