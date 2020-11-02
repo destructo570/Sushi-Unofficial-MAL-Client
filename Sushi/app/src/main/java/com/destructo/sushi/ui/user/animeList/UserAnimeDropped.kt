@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
+import com.destructo.sushi.enum.mal.UserAnimeStatus
+import com.destructo.sushi.network.Status
 import timber.log.Timber
 
 class UserAnimeDropped : Fragment() {
@@ -17,11 +20,12 @@ class UserAnimeDropped : Fragment() {
             by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var droppedAnimeAdapter: UserAnimeListAdapter
     private lateinit var droppedAnimeRecycler: RecyclerView
+    private lateinit var userAnimeProgressbar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeListDropped()
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
         }
 
     }
@@ -37,6 +41,8 @@ class UserAnimeDropped : Fragment() {
 
         droppedAnimeRecycler = binding.userAnimeRecycler
         droppedAnimeRecycler.setHasFixedSize(true)
+        userAnimeProgressbar = binding.userAnimeListProgressbar
+
 
         return binding.root
     }
@@ -50,9 +56,16 @@ class UserAnimeDropped : Fragment() {
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
         })
-        userAnimeViewModel.userAnimeListDropped.observe(viewLifecycleOwner) { userAnime ->
-            droppedAnimeAdapter.submitList(userAnime.data)
-            droppedAnimeRecycler.adapter = droppedAnimeAdapter
+        userAnimeViewModel.userAnimeListDropped.observe(viewLifecycleOwner) { resource ->
+            when(resource.status){
+                Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
+                Status.SUCCESS ->{
+                    userAnimeProgressbar.visibility = View.GONE
+                    resource.data?.let{droppedAnimeAdapter.submitList(it.data)
+                        droppedAnimeRecycler.adapter = droppedAnimeAdapter}
+                }
+                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+            }
         }
     }
 

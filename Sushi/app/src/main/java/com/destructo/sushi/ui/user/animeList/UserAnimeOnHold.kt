@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
+import com.destructo.sushi.enum.mal.UserAnimeStatus
+import com.destructo.sushi.network.Status
 import timber.log.Timber
 
 class UserAnimeOnHold : Fragment() {
@@ -17,11 +20,12 @@ class UserAnimeOnHold : Fragment() {
             by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var onHoldAnimeAdapter: UserAnimeListAdapter
     private lateinit var onHoldAnimeRecycler: RecyclerView
+    private lateinit var userAnimeProgressbar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeListOnHold()
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
         }
 
     }
@@ -37,6 +41,8 @@ class UserAnimeOnHold : Fragment() {
 
         onHoldAnimeRecycler = binding.userAnimeRecycler
         onHoldAnimeRecycler.setHasFixedSize(true)
+        userAnimeProgressbar = binding.userAnimeListProgressbar
+
 
         return binding.root
     }
@@ -50,9 +56,16 @@ class UserAnimeOnHold : Fragment() {
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
         })
-        userAnimeViewModel.userAnimeListOnHold.observe(viewLifecycleOwner) { userAnime ->
-            onHoldAnimeAdapter.submitList(userAnime.data)
-            onHoldAnimeRecycler.adapter = onHoldAnimeAdapter
+        userAnimeViewModel.userAnimeListOnHold.observe(viewLifecycleOwner) { resource ->
+            when(resource.status){
+                Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
+                Status.SUCCESS ->{
+                    userAnimeProgressbar.visibility = View.GONE
+                    resource.data?.let{onHoldAnimeAdapter.submitList(it.data)
+                        onHoldAnimeRecycler.adapter = onHoldAnimeAdapter}
+                }
+                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+            }
         }
     }
 

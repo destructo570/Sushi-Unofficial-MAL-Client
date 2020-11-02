@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
+import com.destructo.sushi.enum.mal.UserAnimeStatus
+import com.destructo.sushi.network.Status
 import timber.log.Timber
 
 class UserAnimePlanToWatch : Fragment() {
@@ -17,11 +20,12 @@ class UserAnimePlanToWatch : Fragment() {
             by viewModels(ownerProducer = {requireParentFragment()})
     private lateinit var ptwAnimeAdapter:UserAnimeListAdapter
     private lateinit var ptwAnimeRecycler: RecyclerView
+    private lateinit var userAnimeProgressbar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null) {
-            userAnimeViewModel.getUserAnimeListPtw()
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
         }
     }
 
@@ -36,6 +40,8 @@ class UserAnimePlanToWatch : Fragment() {
 
         ptwAnimeRecycler = binding.userAnimeRecycler
         ptwAnimeRecycler.setHasFixedSize(true)
+        userAnimeProgressbar = binding.userAnimeListProgressbar
+
         return binding.root
     }
 
@@ -47,9 +53,16 @@ class UserAnimePlanToWatch : Fragment() {
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
         })
-        userAnimeViewModel.userAnimeListPlanToWatch.observe(viewLifecycleOwner){userAnime->
-            ptwAnimeAdapter.submitList(userAnime.data)
-            ptwAnimeRecycler.adapter = ptwAnimeAdapter
+        userAnimeViewModel.userAnimeListPlanToWatch.observe(viewLifecycleOwner){resource ->
+            when(resource.status){
+                Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
+                Status.SUCCESS ->{
+                    userAnimeProgressbar.visibility = View.GONE
+                    resource.data?.let{ptwAnimeAdapter.submitList(it.data)
+                        ptwAnimeRecycler.adapter = ptwAnimeAdapter}
+                }
+                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+            }
         }
 
 
