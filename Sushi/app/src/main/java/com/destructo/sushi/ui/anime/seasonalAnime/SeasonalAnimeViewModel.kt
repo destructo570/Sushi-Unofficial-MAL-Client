@@ -10,6 +10,7 @@ import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.network.Resource
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -18,42 +19,22 @@ class SeasonalAnimeViewModel
     constructor(
         @Assisted
         savedStateHandle: SavedStateHandle,
-        val jikanApi:JikanApi,
-        val malApi: MalApi
+        private val seasonalAnimeRepo:SeasonalAnimeRepository
     ): ViewModel() {
 
-    private val _seasonalAnime: MutableLiveData<SeasonalAnime> = MutableLiveData()
-    val seasonalAnime: LiveData<SeasonalAnime>
-        get() = _seasonalAnime
+    val seasonalAnime: LiveData<Resource<SeasonalAnime>> = seasonalAnimeRepo.seasonalAnime
 
-    private val _seasonArchive: MutableLiveData<SeasonArchive> = MutableLiveData()
-    val seasonArchive: LiveData<SeasonArchive>
-        get() = _seasonArchive
+    val seasonArchive: LiveData<Resource<SeasonArchive>> = seasonalAnimeRepo.seasonArchive
 
 
     fun getSeasonArchive(){
-        viewModelScope.launch {
-            val getSeasonArchiveDeferred = jikanApi.getSeasonArchiveAsync()
-            try {
-                val seasonArchiveEntity = getSeasonArchiveDeferred.await()
-                _seasonArchive.value = seasonArchiveEntity
-            }catch (e:Exception){}
-        }
+        seasonalAnimeRepo.getSeasonArchive()
     }
 
 
     fun getSeasonalAnime(year:String,season:String,sort:String?,
                          limit:String?,offset:String?){
-        viewModelScope.launch {
-            val getSeasonalDeferred = malApi
-                .getSeasonalAnimeAsync(year,season,sort,limit,offset, ALL_ANIME_FIELDS)
-            try {
-                val seasonalAnime = getSeasonalDeferred.await()
-                _seasonalAnime.value = seasonalAnime
-            }catch (e:Exception){
-                Timber.e("Error: %s", e.message)
-            }
-        }
+        seasonalAnimeRepo.getSeasonalAnime(year, season, sort, limit, offset)
     }
 
 }
