@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ProgressBar
 import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -20,11 +21,13 @@ import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.databinding.FragmentMangaBinding
 import com.destructo.sushi.enum.TopSubtype
 import com.destructo.sushi.enum.mal.MangaRankingType
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
@@ -36,6 +39,7 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
     private lateinit var mangaAdapter:MangaAdapter
     private lateinit var mangaTypeSpinner:Spinner
     private lateinit var toolbar: Toolbar
+    private lateinit var mangaProgressBar: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +57,7 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
         }
 
         toolbar = binding.toolbar
+        mangaProgressBar = binding.mangaProgressbar
 
         mangaTypeSpinner = binding.mangaRankingSpinner
         context?.let { ArrayAdapter.createFromResource(
@@ -75,14 +80,25 @@ class MangaFragment : Fragment(),AdapterView.OnItemSelectedListener {
             it?.let {  navigateToMangaDetails(it) }
         })
 
-        mangaViewModel.topManga.observe(viewLifecycleOwner){
-            it?.let {topManga->
-                mangaAdapter.submitList(topManga.data)
-                mangaRecycler.apply {
-                    adapter = mangaAdapter
+        mangaViewModel.topManga.observe(viewLifecycleOwner){resource->
+            when (resource.status){
+                Status.LOADING ->{
+                    mangaProgressBar.visibility = View.VISIBLE
                 }
+                Status.SUCCESS ->{
+                    mangaProgressBar.visibility = View.GONE
+                    resource?.data?.let {topManga->
+                        mangaAdapter.submitList(topManga.data)
+                        mangaRecycler.apply {
+                            adapter = mangaAdapter
+                        }
+                    }
+                }
+                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
             }
         }
+
+
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
