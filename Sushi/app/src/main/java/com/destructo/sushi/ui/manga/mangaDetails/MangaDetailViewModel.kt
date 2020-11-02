@@ -9,6 +9,7 @@ import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.network.Resource
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
@@ -19,67 +20,27 @@ class MangaDetailViewModel
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
-    val jikanApi: JikanApi,
-    val malApi: MalApi
+    private val mangaDetailsRepo: MangaDetailsRepository
+
 ) : ViewModel() {
 
-    private val _mangaDetail: MutableLiveData<Manga> = MutableLiveData()
-    val mangaDetail: LiveData<Manga>
-        get() = _mangaDetail
+    val mangaDetail: LiveData<Resource<Manga>> = mangaDetailsRepo.mangaDetail
 
-    private val _mangaCharacter: MutableLiveData<MangaCharacter> = MutableLiveData()
-    val mangaCharacter: LiveData<MangaCharacter>
-        get() = _mangaCharacter
+    val mangaCharacter: LiveData<Resource<MangaCharacter>> = mangaDetailsRepo.mangaCharacter
 
-    private val _mangaReview: MutableLiveData<MangaReview> = MutableLiveData()
-    val mangaReview: LiveData<MangaReview>
-        get() = _mangaReview
+    val mangaReview: LiveData<Resource<MangaReview>> = mangaDetailsRepo.mangaReview
 
 
     fun getMangaDetail(malId: Int) {
-        viewModelScope.launch {
-            val mangaId: String = malId.toString()
-            val getmangaByIdDeferred = malApi.getMangaByIdAsync(mangaId, ALL_MANGA_FIELDS)
-            try {
-                val mangaDetails = getmangaByIdDeferred.await()
-                _mangaDetail.value = mangaDetails
-
-            } catch (e: Exception) {
-                Timber.e("Error: %s", e.message)
-            }
-
-        }
+        mangaDetailsRepo.getMangaDetail(malId)
     }
 
     fun getMangaCharacters(malId: Int) {
-        viewModelScope.launch {
-            val mangaId: String = malId.toString()
-            val getMangaCharactersDeferred = jikanApi.getMangaCharactersAsync(mangaId)
-            try {
-                val mangaCharacter = getMangaCharactersDeferred.await()
-                _mangaCharacter.value = mangaCharacter
-
-            } catch (e: Exception) {
-                Timber.e("Error: %s", e.message)
-            }
-
-        }
+        mangaDetailsRepo.getMangaCharacters(malId)
     }
 
-
     fun getMangaReviews(malId: Int) {
-        viewModelScope.launch {
-            val mangaId: String = malId.toString()
-            val getMangaReviewsDeferred = jikanApi.getMangaReviewsAsync(mangaId)
-            try {
-                val mangaReviews = getMangaReviewsDeferred.await()
-                _mangaReview.value = mangaReviews
-
-            } catch (e: Exception) {
-                Timber.e("Error: %s", e.message)
-            }
-
-        }
+        mangaDetailsRepo.getMangaReviews(malId)
     }
 
 

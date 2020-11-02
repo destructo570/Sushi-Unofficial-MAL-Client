@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.adapter.*
 import com.destructo.sushi.ui.manga.listener.MangaCharacterListener
 import com.destructo.sushi.ui.manga.listener.MangaIdListener
@@ -42,9 +43,9 @@ import kotlinx.android.synthetic.main.inc_review_list.view.*
 class MangaDetailsFragment : Fragment() {
 
 
-    private val mangaDetailViewModel:MangaDetailViewModel by viewModels()
-    private lateinit var binding:FragmentMangaDetailsBinding
-    private var mangaIdArg:Int=0
+    private val mangaDetailViewModel: MangaDetailViewModel by viewModels()
+    private lateinit var binding: FragmentMangaDetailsBinding
+    private var mangaIdArg: Int = 0
 
     private lateinit var toolbar: Toolbar
     private lateinit var appBar: AppBarLayout
@@ -128,43 +129,78 @@ class MangaDetailsFragment : Fragment() {
 
         })
 
-        mangaDetailViewModel.mangaDetail.observe(viewLifecycleOwner){manga->
-            binding.mangaEntity = manga
+        mangaDetailViewModel.mangaDetail.observe(viewLifecycleOwner) { resource ->
 
-            manga.mainPicture?.medium?.let {
-                setScoreCardColor(it)
+            when (resource.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let { manga ->
+                        binding.mangaEntity = manga
+
+                        manga.mainPicture?.medium?.let {
+                            setScoreCardColor(it)
+                        }
+
+                        manga.genres?.forEach { genre ->
+                            genre?.let {
+                                val chip = Chip(context)
+                                chip.text = it.name
+                                chip.isClickable = false
+                                chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
+                                chip.chipBackgroundColor =
+                                    context?.let { it1 ->
+                                        AppCompatResources.getColorStateList(
+                                            it1,
+                                            R.color.chip_bg_color
+                                        )
+                                    }
+                                genreChipGroup.addView(chip)
+                            }
+                        }
+
+                        recommAdapter.submitList(manga.recommendations)
+                        relatedAdapter.submitList(manga.relatedManga)
+                        recommRecycler.adapter = recommAdapter
+                        relatedRecycler.adapter = relatedAdapter
+                    }
+                }
+                Status.ERROR -> {
+                }
             }
+        }
 
-            manga.genres?.forEach { genre ->
-                genre?.let {
-                    val chip = Chip(context)
-                    chip.text = it.name
-                    chip.isClickable = false
-                    chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-                    chip.chipBackgroundColor =
-                        context?.let { it1 -> AppCompatResources.getColorStateList(it1, R.color.chip_bg_color) }
-                    genreChipGroup.addView(chip)
+        mangaDetailViewModel.mangaCharacter.observe(viewLifecycleOwner) { resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let { characters ->
+                        characterAdapter.submitList(characters.characters)
+                        characterRecycler.adapter = characterAdapter
+                    }
+                }
+                Status.ERROR -> {
                 }
             }
 
-            recommAdapter.submitList(manga.recommendations)
-            relatedAdapter.submitList(manga.relatedManga)
-            recommRecycler.adapter = recommAdapter
-            relatedRecycler.adapter = relatedAdapter
+            mangaDetailViewModel.mangaReview.observe(viewLifecycleOwner) { resource ->
 
+                when (resource.status) {
+                    Status.LOADING -> {
+                    }
+                    Status.SUCCESS -> {
+                        resource.data?.let { mangaReview ->
+                            reviewAdapter.submitList(mangaReview.reviews)
+                            reviewRecycler.adapter = reviewAdapter
+                        }
+                    }
+                    Status.ERROR -> {
+                    }
+                }
+            }
         }
-
-
-        mangaDetailViewModel.mangaCharacter.observe(viewLifecycleOwner){characters->
-            characterAdapter.submitList(characters.characters)
-            characterRecycler.adapter = characterAdapter
-        }
-
-        mangaDetailViewModel.mangaReview.observe(viewLifecycleOwner){mangaReview->
-            reviewAdapter.submitList(mangaReview.reviews)
-            reviewRecycler.adapter = reviewAdapter
-        }
-
     }
 
     private fun setScoreCardColor(imgUrl: String) {
