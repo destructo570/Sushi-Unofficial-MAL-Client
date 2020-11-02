@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -23,6 +25,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.adapter.*
 import com.destructo.sushi.ui.anime.listener.*
 import com.google.android.material.appbar.AppBarLayout
@@ -39,11 +42,10 @@ import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
 import kotlinx.android.synthetic.main.inc_staff_list.view.*
-
-private const val PERCENTAGE_TO_ANIMATE_AVATAR = 50
+import timber.log.Timber
 
 @AndroidEntryPoint
-class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
+class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private lateinit var binding: FragmentAnimeDetailBinding
     private var animeIdArg: Int = 0
@@ -52,10 +54,10 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
     private lateinit var coverView: ImageView
     private lateinit var scoreTextView: TextView
     private lateinit var toolbar: Toolbar
-    private lateinit var appBar:AppBarLayout
-    private lateinit var collapToolbar:CollapsingToolbarLayout
+    private lateinit var appBar: AppBarLayout
+    private lateinit var collapToolbar: CollapsingToolbarLayout
     private lateinit var genreChipGroup: ChipGroup
-    private lateinit var myListStatus:LinearLayout
+    private lateinit var myListStatus: LinearLayout
 
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
@@ -79,10 +81,7 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
             animeDetailViewModel.getAnimeCharacters(animeIdArg)
             animeDetailViewModel.getAnimeVideos(animeIdArg)
             animeDetailViewModel.getAnimeReviews(animeIdArg)
-
         }
-
-
     }
 
     override fun onCreateView(
@@ -120,7 +119,6 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
 
         }
 
-
         return binding.root
     }
 
@@ -145,63 +143,110 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
 
         })
 
-        animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { animeEntity ->
-            binding.animeEntity = animeEntity
+        animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
 
-            if(animeEntity.myListStatus!=null) myListStatus.visibility = View.VISIBLE
+            when (resources.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resources.data?.let { animeEntity ->
+                        binding.animeEntity = animeEntity
 
-            recommAdapter.submitList(animeEntity.recommendations)
-            recommRecycler.apply {
-                adapter = recommAdapter
-            }
-            relatedAdapter.submitList(animeEntity.relatedAnime)
-            relatedRecycler.apply {
-                adapter = relatedAdapter
+                        if (animeEntity.myListStatus != null) myListStatus.visibility = View.VISIBLE
+                        recommAdapter.submitList(animeEntity.recommendations)
+                        recommRecycler.apply {
+                            adapter = recommAdapter
+                        }
+                        relatedAdapter.submitList(animeEntity.relatedAnime)
+                        relatedRecycler.apply {
+                            adapter = relatedAdapter
 
-                animeEntity.genres?.forEach { genre ->
-                    genre?.let {
-                        val chip = Chip(context)
-                        chip.text = it.name
-                        chip.isClickable = false
-                        chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-                        chip.chipBackgroundColor =
-                            AppCompatResources.getColorStateList(context, R.color.chip_bg_color)
-                        genreChipGroup.addView(chip)
+                            animeEntity.genres?.forEach { genre ->
+                                genre?.let {
+                                    val chip = Chip(context)
+                                    chip.text = it.name
+                                    chip.isClickable = false
+                                    chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
+                                    chip.chipBackgroundColor =
+                                        AppCompatResources.getColorStateList(
+                                            context,
+                                            R.color.chip_bg_color
+                                        )
+                                    genreChipGroup.addView(chip)
+                                }
+                            }
+                        }
+
+                        animeEntity.mainPicture?.medium?.let {
+                            setScoreCardColor(it)
+                        }
+
                     }
                 }
-            }
-
-
-            animeEntity.mainPicture?.medium?.let {
-                setScoreCardColor(it)
-            }
-            animeDetailViewModel.animeCharacterAndStaff.observe(viewLifecycleOwner) { characters ->
-                characters?.let {
-                    characterAdapter.submitList(it.characters)
-                    staffAdapter.submitList(it.staff)
-
-                    characterRecycler.adapter = characterAdapter
-                    staffRecycler.adapter = staffAdapter
-
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resources.message)
                 }
             }
-
-            animeDetailViewModel.animeVideosAndEpisodes.observe(viewLifecycleOwner) {
-                it?.let { animeVideo ->
-                    videoAdapter.submitList(animeVideo.promo)
-                    videoRecycler.adapter = videoAdapter
-                }
-            }
-
-            animeDetailViewModel.animeReview.observe(viewLifecycleOwner) {
-                it?.let { animeReviews ->
-                    reviewAdapter.submitList(animeReviews.reviews)
-                    reviewRecycler.adapter = reviewAdapter
-                }
-            }
-
 
         }
+        animeDetailViewModel.animeCharacterAndStaff.observe(viewLifecycleOwner) { resources ->
+            when (resources.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resources.data?.let {
+                        characterAdapter.submitList(it.characters)
+                        staffAdapter.submitList(it.staff)
+
+                        characterRecycler.adapter = characterAdapter
+                        staffRecycler.adapter = staffAdapter
+
+                    }
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resources.message)
+                }
+            }
+
+        }
+
+        animeDetailViewModel.animeVideosAndEpisodes.observe(viewLifecycleOwner) { resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let { animeVideo ->
+                        videoAdapter.submitList(animeVideo.promo)
+                        videoRecycler.adapter = videoAdapter
+                    }
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
+            }
+
+        }
+
+
+        animeDetailViewModel.animeReview.observe(viewLifecycleOwner) {resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let { animeReviews ->
+                        reviewAdapter.submitList(animeReviews.reviews)
+                        reviewRecycler.adapter = reviewAdapter
+                    }
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
+
+            }
+        }
+
     }
 
     private fun setScoreCardColor(imgUrl: String) {
@@ -244,7 +289,6 @@ class AnimeDetailFragment : Fragment(),AppBarLayout.OnOffsetChangedListener {
             AnimeDetailFragmentDirections.actionAnimeDetailFragmentToCharacterFragment(character)
         )
     }
-
 
     private fun openVideoLink(url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
