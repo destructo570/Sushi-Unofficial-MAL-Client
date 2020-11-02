@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
+import com.destructo.sushi.enum.mal.UserMangaStatus
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.user.animeList.AddEpisodeListener
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class UserMangaCompleted  : Fragment() {
@@ -17,13 +21,15 @@ class UserMangaCompleted  : Fragment() {
     private lateinit var binding: FragmentUserMangaListBinding
     private val userMangaViewModel: UserMangaViewModel
             by viewModels(ownerProducer = { requireParentFragment() })
-    private lateinit var allMangaAdapter: UserMangaListAdapter
-    private lateinit var allMangaRecycler: RecyclerView
+    private lateinit var userMangaAdapter: UserMangaListAdapter
+    private lateinit var userMangaRecycler: RecyclerView
+    private lateinit var userMangaProgress: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userMangaViewModel.getUserMangaListCompleted()
+            userMangaViewModel.getUserMangaList(UserMangaStatus.COMPLETED.value)
         }
 
     }
@@ -37,23 +43,35 @@ class UserMangaCompleted  : Fragment() {
                 lifecycleOwner = viewLifecycleOwner
             }
 
-        allMangaRecycler = binding.userMangaRecycler
-        allMangaRecycler.setHasFixedSize(true)
+        userMangaRecycler = binding.userMangaRecycler
+        userMangaRecycler.setHasFixedSize(true)
+        userMangaProgress = binding.userMangaListProgressbar
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        allMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
+        userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
             val chapters = manga?.myListStatus?.numChaptersRead
-            val animeId = manga?.id
-            if (chapters != null && animeId != null){
-                userMangaViewModel.addChapterManga(animeId.toString(),chapters+1)
+            val mangaId = manga?.id
+            if (chapters != null && mangaId != null){
+                userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
             }
         })
-        userMangaViewModel.userMangaListCompleted.observe(viewLifecycleOwner) { userManga ->
-            allMangaAdapter.submitList(userManga.data)
-            allMangaRecycler.adapter = allMangaAdapter
+        userMangaRecycler.adapter = userMangaAdapter
+
+        userMangaViewModel.userMangaListCompleted.observe(viewLifecycleOwner) { resource ->
+            when(resource.status){
+                Status.LOADING ->{userMangaProgress.visibility = View.VISIBLE}
+                Status.SUCCESS ->{
+                    userMangaProgress.visibility = View.GONE
+                    resource.data?.let{
+                        userMangaAdapter.submitList(it.data)
+                    }
+                }
+                Status.ERROR ->{
+                    Timber.e("Error: %s", resource.message)}
+            }
         }
     }
 }
