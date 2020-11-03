@@ -34,7 +34,7 @@ data class Anime(
     @Json(name = "media_type")
     val mediaType: String?=null,
     @Json(name = "my_list_status")
-    val myListStatus: MyListStatus?=null,
+    val myAnimeListStatus: MyAnimeListStatus?=null,
     @Json(name = "nsfw")
     val nsfw: String?=null,
     @Json(name = "num_episodes")

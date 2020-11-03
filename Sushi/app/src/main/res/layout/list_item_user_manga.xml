@@ -69,7 +69,7 @@
 
             <TextView
                 android:id="@+id/list_manga_score"
-                animeScore="@{mangaEntity.myListStatus.score.toString()}"
+                animeScore="@{mangaEntity.myMangaListStatus.score.toString()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_small"
@@ -103,7 +103,7 @@
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_normal"
-                app:readCh="@{mangaEntity.myListStatus.numChaptersRead}"
+                app:readCh="@{mangaEntity.myMangaListStatus.numChaptersRead}"
                 app:totalCh="@{mangaEntity.numChapters}"
                 app:layout_constraintBottom_toTopOf="@+id/list_manga_score"
                 app:layout_constraintEnd_toStartOf="@+id/addEpisodeButton"
@@ -158,7 +158,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView37"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
                 app:total="@{mangaEntity.numVolumes.toString()}"
-                app:volume="@{mangaEntity.myListStatus.numVolumesRead.toString()}"
+                app:volume="@{mangaEntity.myMangaListStatus.numVolumesRead.toString()}"
                 tools:text="Vol: 12/24" />
 
             <TextView
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
-                app:chapter="@{mangaEntity.myListStatus.numChaptersRead.toString()}"
+                app:chapter="@{mangaEntity.myMangaListStatus.numChaptersRead.toString()}"
                 app:layout_constraintBaseline_toBaselineOf="@+id/list_manga_score"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:total="@{mangaEntity.numChapters.toString()}"
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                animeDescFormat="@{mangaEntity.myListStatus.status}"
+                animeDescFormat="@{mangaEntity.myMangaListStatus.status}"
                 app:layout_constraintBottom_toTopOf="@+id/mangaProgress"
                 app:layout_constraintStart_toEndOf="@+id/textView38" />
 

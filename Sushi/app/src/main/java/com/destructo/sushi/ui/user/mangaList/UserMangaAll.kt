@@ -48,7 +48,7 @@ class UserMangaAll : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
-            val chapters = manga?.myListStatus?.numChaptersRead
+            val chapters = manga?.myMangaListStatus?.numChaptersRead
             val mangaId = manga?.id
             if (chapters != null && mangaId != null){
                 userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)

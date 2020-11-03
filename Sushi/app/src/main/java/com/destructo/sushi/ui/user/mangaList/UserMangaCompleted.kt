@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.user.animeList.AddEpisodeListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -52,7 +51,7 @@ class UserMangaCompleted  : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
-            val chapters = manga?.myListStatus?.numChaptersRead
+            val chapters = manga?.myMangaListStatus?.numChaptersRead
             val mangaId = manga?.id
             if (chapters != null && mangaId != null){
                 userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)

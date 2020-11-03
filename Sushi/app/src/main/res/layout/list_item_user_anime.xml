@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/list_anime_score"
-                animeScore="@{animeEntity.myListStatus.score.toString()}"
+                animeScore="@{animeEntity.myAnimeListStatus.score.toString()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_small"
@@ -117,7 +117,7 @@
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_normal"
-                app:watchedEp="@{animeEntity.myListStatus.numEpisodesWatched}"
+                app:watchedEp="@{animeEntity.myAnimeListStatus.numEpisodesWatched}"
                 app:totalEp="@{animeEntity.numEpisodes}"
                 app:layout_constraintBottom_toTopOf="@+id/list_anime_score"
                 app:layout_constraintEnd_toStartOf="@+id/addEpisodeButton"
@@ -162,7 +162,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/list_anime_score"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:total="@{animeEntity.numEpisodes.toString()}"
-                app:watched="@{animeEntity.myListStatus.numEpisodesWatched.toString()}"
+                app:watched="@{animeEntity.myAnimeListStatus.numEpisodesWatched.toString()}"
                 tools:text="Ep: 12/24" />
 
             <TextView
@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                animeDescFormat="@{animeEntity.myListStatus.status}"
+                animeDescFormat="@{animeEntity.myAnimeListStatus.status}"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/textView38" />
 

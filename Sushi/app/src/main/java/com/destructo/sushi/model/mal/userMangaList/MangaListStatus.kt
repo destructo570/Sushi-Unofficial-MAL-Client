@@ -15,5 +15,15 @@ data class MangaListStatus(
     @Json(name = "status")
     val status: String?=null,
     @Json(name = "updated_at")
-    val updatedAt: String?=null
+    val updatedAt: String?=null,
+    @Json(name = "priority")
+    val priority: Int?=null,
+    @Json(name = "num_times_reread")
+    val num_times_reread: Int?=null,
+    @Json(name = "reread_value")
+    val reread_value: Int?=null,
+    @Json(name = "tags")
+    val tags: String?=null,
+    @Json(name = "comments")
+    val comments: String?=null
 )

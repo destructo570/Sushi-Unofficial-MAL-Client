@@ -8,6 +8,8 @@ import com.destructo.sushi.BASIC_MANGA_FIELDS
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
+import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
+import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -29,6 +31,9 @@ constructor(
     var mangaCharacter: MutableLiveData<Resource<MangaCharacter>> = MutableLiveData()
 
     var mangaReview: MutableLiveData<Resource<MangaReview>> = MutableLiveData()
+
+    var userMangaStatus: MutableLiveData<Resource<UpdateUserManga>> = MutableLiveData()
+
 
     fun getMangaDetail(malId: Int) {
         mangaDetail.value = Resource.loading(null)
@@ -91,5 +96,27 @@ constructor(
     }
 
 
+    fun updateUserMangaList(animeId:String,status:String?=null,
+                       is_rereading:Boolean?=null,score:Int?=null,
+                       num_volumes_read:Int?=null,num_chapters_read:Int?=null,priority:Int?=null,
+                       num_times_reread:Int?=null, reread_value:Int?=null,
+                       tags:List<String>?=null,comments:String?=null) {
+        userMangaStatus.value = Resource.loading(null)
+
+        GlobalScope.launch {
+            val addEpisodeDeferred = malApi.updateUserManga(animeId,
+                status,is_rereading,score,num_volumes_read,num_chapters_read,
+                priority,num_times_reread,reread_value,tags,comments)
+            try {
+                val mangaStatus = addEpisodeDeferred.await()
+                withContext(Dispatchers.Main){
+                    userMangaStatus.value = Resource.success(mangaStatus)
+                }
+            }catch (e: java.lang.Exception){
+                withContext(Dispatchers.Main){
+                    userMangaStatus.value = Resource.error(e.message ?: "", null)}
+            }
+        }
+    }
 
 }

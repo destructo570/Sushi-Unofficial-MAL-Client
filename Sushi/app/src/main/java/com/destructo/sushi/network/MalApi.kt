@@ -92,7 +92,7 @@ interface MalApi {
         @Field("priority") priority:Int?,
         @Field("num_times_rewatched") num_times_rewatched:Int?,
         @Field("rewatch_value") rewatch_value:Int?,
-        @Field("tags") tags:String?,
+        @Field("tags") tags:List<String>?,
         @Field("comments") comments:String?
     ): Deferred<UpdateUserAnime>
 
@@ -108,7 +108,7 @@ interface MalApi {
         @Field("priority") priority:Int?,
         @Field("num_times_reread") num_times_reread:Int?,
         @Field("reread_value") reread_value:Int?,
-        @Field("tags") tags:String?,
+        @Field("tags") tags:List<String>?,
         @Field("comments") comments:String?
     ): Deferred<UpdateUserManga>
 

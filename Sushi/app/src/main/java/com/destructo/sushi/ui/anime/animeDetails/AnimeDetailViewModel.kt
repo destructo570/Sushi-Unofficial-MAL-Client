@@ -3,17 +3,12 @@ package com.destructo.sushi.ui.anime.animeDetails
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.mal.anime.Anime
-import com.destructo.sushi.network.JikanApi
-import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.network.Resource
-import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.lang.Exception
 
 class AnimeDetailViewModel
 @ViewModelInject
@@ -31,6 +26,9 @@ constructor(
 
     val animeReview: LiveData<Resource<AnimeReviews>> = animeDetailsRepo.animeReview
 
+    val userAnimeStatus: LiveData<Resource<UpdateUserAnime>> = animeDetailsRepo.userAnimeStatus
+
+
     fun getAnimeDetail(malId: Int) {
         animeDetailsRepo.getAnimeDetail(malId)
     }
@@ -45,6 +43,17 @@ constructor(
 
     fun getAnimeReviews(malId: Int) {
         animeDetailsRepo.getAnimeReviews(malId)
+    }
+
+    fun updateUserAnimeStatus(animeId:String,status:String?=null,
+                              is_rewatching:Boolean?=null,score:Int?=null,
+                              num_watched_episodes:Int?=null,priority:Int?=null,
+                              num_times_rewatched:Int?=null, rewatch_value:Int?=null,
+                              tags:List<String>?=null,comments:String?=null){
+
+        animeDetailsRepo.updateAnimeUserList(animeId, status,is_rewatching,score,num_watched_episodes,
+                              priority,num_times_rewatched,rewatch_value,tags,comments)
+
     }
 
 }

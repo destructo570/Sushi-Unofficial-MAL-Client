@@ -22,8 +22,6 @@ constructor(
     val malApi: MalApi
 ) {
 
-
-
     fun getTopAnime(
         ranking_type: String,
         offset: String?,
@@ -80,6 +78,8 @@ constructor(
         }
         return result
     }
+
+
 
 
 }

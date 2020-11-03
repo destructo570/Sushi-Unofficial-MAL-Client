@@ -8,13 +8,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -25,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
+import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.adapter.*
 import com.destructo.sushi.ui.anime.listener.*
@@ -43,6 +40,11 @@ import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
 import kotlinx.android.synthetic.main.inc_staff_list.view.*
 import timber.log.Timber
+import java.util.*
+
+private const val ANIME_IN_USER_LIST = 1
+private const val ANIME_NOT_IN_USER_LIST = 0
+private const val USER_ANIME_LIST_DEFAULT = -1
 
 @AndroidEntryPoint
 class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
@@ -58,6 +60,8 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private lateinit var collapToolbar: CollapsingToolbarLayout
     private lateinit var genreChipGroup: ChipGroup
     private lateinit var myListStatus: LinearLayout
+    private lateinit var addToListButton:Button
+    private var isInUserList:Int = USER_ANIME_LIST_DEFAULT
 
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
@@ -96,6 +100,7 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         coverView = binding.root.anime_desc_cover_img
         genreChipGroup = binding.root.genre_chip_group
         myListStatus = binding.myAnimeStatus
+        addToListButton = binding.root.add_anime_to_list
 
         characterRecycler = binding.root.characterRecycler
         characterRecycler.setHasFixedSize(true)
@@ -118,6 +123,24 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             view.findNavController().navigateUp()
 
         }
+
+        addToListButton.setOnClickListener {
+
+            when(isInUserList){
+                USER_ANIME_LIST_DEFAULT->{
+                    Timber.e("DO nothing case...")
+                }
+                ANIME_IN_USER_LIST->{
+                    Timber.e("Open Modal Dialog")
+                }
+                ANIME_NOT_IN_USER_LIST->{
+                    Timber.e("Adding to list...")
+                    animeDetailViewModel.updateUserAnimeStatus(animeId = animeIdArg.toString())
+                }
+            }
+
+        }
+
 
         return binding.root
     }
@@ -143,6 +166,7 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         })
 
+
         animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
 
             when (resources.status) {
@@ -152,34 +176,21 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     resources.data?.let { animeEntity ->
                         binding.animeEntity = animeEntity
 
-                        if (animeEntity.myListStatus != null) myListStatus.visibility = View.VISIBLE
+                        if (animeEntity.myAnimeListStatus != null) {
+                            myListStatus.visibility = View.VISIBLE
+                            isInUserList = ANIME_IN_USER_LIST
+                        }else {
+                            isInUserList = ANIME_NOT_IN_USER_LIST
+                        }
+
                         recommAdapter.submitList(animeEntity.recommendations)
-                        recommRecycler.apply {
-                            adapter = recommAdapter
-                        }
                         relatedAdapter.submitList(animeEntity.relatedAnime)
-                        relatedRecycler.apply {
-                            adapter = relatedAdapter
+                        recommRecycler.adapter = recommAdapter
+                        relatedRecycler.adapter = relatedAdapter
 
-                            animeEntity.genres?.forEach { genre ->
-                                genre?.let {
-                                    val chip = Chip(context)
-                                    chip.text = it.name
-                                    chip.isClickable = false
-                                    chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-                                    chip.chipBackgroundColor =
-                                        AppCompatResources.getColorStateList(
-                                            context,
-                                            R.color.chip_bg_color
-                                        )
-                                    genreChipGroup.addView(chip)
-                                }
-                            }
-                        }
+                        animeEntity.genres?.let { setGenreChips(it) }
 
-                        animeEntity.mainPicture?.medium?.let {
-                            setScoreCardColor(it)
-                        }
+                        animeEntity.mainPicture?.medium?.let { setScoreCardColor(it) }
 
                     }
                 }
@@ -195,9 +206,9 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 }
                 Status.SUCCESS -> {
                     resources.data?.let {
+
                         characterAdapter.submitList(it.characters)
                         staffAdapter.submitList(it.staff)
-
                         characterRecycler.adapter = characterAdapter
                         staffRecycler.adapter = staffAdapter
 
@@ -229,7 +240,7 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         }
 
 
-        animeDetailViewModel.animeReview.observe(viewLifecycleOwner) {resource ->
+        animeDetailViewModel.animeReview.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
                 Status.LOADING -> {
@@ -247,6 +258,44 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             }
         }
 
+        animeDetailViewModel.userAnimeStatus.observe(viewLifecycleOwner){resource->
+            when(resource.status){
+                Status.LOADING->{}
+                Status.SUCCESS->{
+                    Toast.makeText(context,"Added to list",Toast.LENGTH_SHORT).show()
+                    isInUserList = ANIME_IN_USER_LIST
+                    resource.data?.let {animeStatus->
+                        addToListButton.text = titleCaseString(animeStatus.status.toString())
+                        addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
+                    }
+                }
+                Status.ERROR->{
+                    Toast.makeText(context,"Failed to add",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
+    private fun setGenreChips(genreList: List<Genre?>) {
+
+        genreList.forEach { genre ->
+            genre?.let {
+                val chip = Chip(context)
+                chip.text = it.name
+                chip.isClickable = false
+                chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
+
+                chip.chipBackgroundColor =
+                    context?.let { it1 ->
+                        AppCompatResources.getColorStateList(
+                            it1,
+                            R.color.chip_bg_color
+                        )
+                    }
+                genreChipGroup.addView(chip)
+            }
+        }
     }
 
     private fun setScoreCardColor(imgUrl: String) {
@@ -298,5 +347,15 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
 
+    }
+
+    private fun titleCaseString(data: String):String{
+        val str = data.replace("_", " ", true)
+        val words = str.split(" ")
+        var finalString = ""
+        words.forEach {
+            finalString += it.capitalize(Locale.ROOT) + " "
+        }
+        return finalString
     }
 }

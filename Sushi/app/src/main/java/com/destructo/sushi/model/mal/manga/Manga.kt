@@ -2,7 +2,6 @@ package com.destructo.sushi.model.mal.manga
 
 
 import android.os.Parcelable
-import com.destructo.sushi.model.mal.manga.MyListStatus
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.common.Picture
@@ -30,7 +29,7 @@ data class Manga(
     @Json(name = "media_type")
     val mediaType: String?=null,
     @Json(name = "my_list_status")
-    val myListStatus: MyListStatus?=null,
+    val myMangaListStatus: MyMangaListStatus?=null,
     @Json(name = "nsfw")
     val nsfw: String?=null,
     @Json(name = "num_chapters")

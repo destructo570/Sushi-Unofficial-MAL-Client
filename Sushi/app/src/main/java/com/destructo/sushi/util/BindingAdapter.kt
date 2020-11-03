@@ -1,6 +1,5 @@
 package com.destructo.sushi.util
 
-import android.text.format.DateUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -14,18 +13,10 @@ import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.mal.anime.Anime
+import com.destructo.sushi.model.mal.anime.MyAnimeListStatus
 import com.destructo.sushi.model.mal.anime.StartSeason
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
+import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
-import com.destructo.sushi.ui.user.animeList.UserAnimeListAdapter
-import com.destructo.sushi.ui.user.animeList.UserAnimePagerAdapter
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAccessor
 import java.util.*
 
 
@@ -46,13 +37,25 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-@BindingAdapter("animeTitle")
-fun TextView.setAnimeTitle(data: String?) {
+@BindingAdapter("animeButtonState")
+fun TextView.setAnimeButtonState(data: MyAnimeListStatus?) {
     data?.let {
-        text = formatTitleText(data)
+        data.status?.let {
+            text = toTitleCase(data.status.toString())
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
+        }
     }
 }
 
+@BindingAdapter("mangaButtonState")
+fun TextView.setMangaButtonState(data: MyMangaListStatus?) {
+    data?.let {
+        data.status?.let {
+            text = toTitleCase(data.status.toString())
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
+        }
+    }
+}
 
 @BindingAdapter("smallTitleFormatted")
 fun TextView.setCharacterTitle(data: String?) {
@@ -227,18 +230,10 @@ fun TextView.formatCharacterNickName(data: List<String?>?) {
     }
 }
 
-
 @BindingAdapter("animeDescFormat")
 fun TextView.formatAnimeDescString(data: String?) {
     data?.let {
-        val str = data.replace("_", " ", true)
-        val words = str.split(" ")
-        var newStr = ""
-        words.forEach {
-            newStr += it.capitalize(Locale.ROOT) + " "
-        }
-
-        text = newStr
+        text = toTitleCase(data)
     }
 }
 
@@ -250,19 +245,6 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
     recyclerView.adapter = adapter
     adapter.submitList(data)
 }
-
-
-private fun formatTitleText(text: String): String {
-    var title = if (text.length > 12) text.take(12) else return text
-
-    if (title.takeLast(1) == " ") {
-        title = "${title.take(11)}..."
-    } else {
-        title = "$title..."
-    }
-    return title
-}
-
 
 private fun formatSmallTitleText(text: String): String {
     var title = if (text.length > 7) text.take(7) else return text
@@ -298,4 +280,14 @@ private fun startSeasonFormatter(data: StartSeason?): String {
     }
 
     return result
+}
+
+private fun toTitleCase(data: String):String{
+    val str = data.replace("_", " ", true)
+    val words = str.split(" ")
+    var finalString = ""
+    words.forEach {
+        finalString += it.capitalize(Locale.ROOT) + " "
+    }
+    return finalString
 }

@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
@@ -21,6 +19,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
+import com.destructo.sushi.enum.mal.UserMangaStatus
+import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.adapter.*
 import com.destructo.sushi.ui.manga.listener.MangaCharacterListener
@@ -32,16 +32,22 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_manga_details.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
 import kotlinx.android.synthetic.main.inc_manga_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_manga.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
+import timber.log.Timber
+import java.util.*
+
+private const val MANGA_IN_USER_LIST = 1
+private const val MANGA_NOT_IN_USER_LIST = 0
+private const val USER_MANGA_LIST_DEFAULT = -1
 
 @AndroidEntryPoint
 class MangaDetailsFragment : Fragment() {
-
 
     private val mangaDetailViewModel: MangaDetailViewModel by viewModels()
     private lateinit var binding: FragmentMangaDetailsBinding
@@ -55,6 +61,8 @@ class MangaDetailsFragment : Fragment() {
     private lateinit var scoreTextView: TextView
     private lateinit var genreChipGroup: ChipGroup
     private lateinit var myListStatus: LinearLayout
+    private lateinit var addToListButton:Button
+    private var isInUserList:Int = USER_MANGA_LIST_DEFAULT
 
     private lateinit var characterAdapter: MangaCharacterAdapter
     private lateinit var relatedAdapter: MangaRelatedListAdapter
@@ -93,7 +101,8 @@ class MangaDetailsFragment : Fragment() {
         reviewRecycler = binding.root.reviewsRecycler
         relatedRecycler = binding.root.relatedMangaRecycler
         recommRecycler = binding.root.recommRecycler
-
+        myListStatus = binding.root.my_manga_status
+        addToListButton = binding.root.add_manga_to_list
 
         toolbar = binding.mangaDescToolbar
         appBar = binding.mangaAppBar
@@ -105,6 +114,24 @@ class MangaDetailsFragment : Fragment() {
 
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
+
+        }
+
+        addToListButton.setOnClickListener {
+
+            when(isInUserList){
+                USER_MANGA_LIST_DEFAULT ->{
+                    Timber.e("DO nothing case...")
+                }
+                MANGA_IN_USER_LIST ->{
+                    Timber.e("Open Modal Dialog")
+                }
+                MANGA_NOT_IN_USER_LIST ->{
+                    Timber.e("Adding to list...")
+                    mangaDetailViewModel.updateUserMangaStatus(
+                        mangaId = mangaIdArg.toString(), status = UserMangaStatus.READING.value)
+                }
+            }
 
         }
 
@@ -129,6 +156,7 @@ class MangaDetailsFragment : Fragment() {
 
         })
 
+
         mangaDetailViewModel.mangaDetail.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
@@ -138,31 +166,24 @@ class MangaDetailsFragment : Fragment() {
                     resource.data?.let { manga ->
                         binding.mangaEntity = manga
 
+                        if (manga.myMangaListStatus != null) {
+                            myListStatus.visibility = View.VISIBLE
+                            isInUserList = MANGA_IN_USER_LIST
+                        }else {
+                            isInUserList = MANGA_NOT_IN_USER_LIST
+                        }
+
                         manga.mainPicture?.medium?.let {
                             setScoreCardColor(it)
                         }
 
-                        manga.genres?.forEach { genre ->
-                            genre?.let {
-                                val chip = Chip(context)
-                                chip.text = it.name
-                                chip.isClickable = false
-                                chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-                                chip.chipBackgroundColor =
-                                    context?.let { it1 ->
-                                        AppCompatResources.getColorStateList(
-                                            it1,
-                                            R.color.chip_bg_color
-                                        )
-                                    }
-                                genreChipGroup.addView(chip)
-                            }
-                        }
+                        manga.genres?.let { setGenreChips(it) }
 
                         recommAdapter.submitList(manga.recommendations)
                         relatedAdapter.submitList(manga.relatedManga)
                         recommRecycler.adapter = recommAdapter
                         relatedRecycler.adapter = relatedAdapter
+
                     }
                 }
                 Status.ERROR -> {
@@ -184,21 +205,59 @@ class MangaDetailsFragment : Fragment() {
                 Status.ERROR -> {
                 }
             }
+        }
 
-            mangaDetailViewModel.mangaReview.observe(viewLifecycleOwner) { resource ->
+        mangaDetailViewModel.mangaReview.observe(viewLifecycleOwner) { resource ->
 
-                when (resource.status) {
-                    Status.LOADING -> {
-                    }
-                    Status.SUCCESS -> {
-                        resource.data?.let { mangaReview ->
-                            reviewAdapter.submitList(mangaReview.reviews)
-                            reviewRecycler.adapter = reviewAdapter
-                        }
-                    }
-                    Status.ERROR -> {
+            when (resource.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let { mangaReview ->
+                        reviewAdapter.submitList(mangaReview.reviews)
+                        reviewRecycler.adapter = reviewAdapter
                     }
                 }
+                Status.ERROR -> {
+                }
+            }
+        }
+
+        mangaDetailViewModel.userMangaStatus.observe(viewLifecycleOwner){resource->
+            when(resource.status){
+                Status.LOADING->{}
+                Status.SUCCESS->{
+                    Toast.makeText(context,"Added to list", Toast.LENGTH_SHORT).show()
+                    isInUserList = MANGA_IN_USER_LIST
+                    resource.data?.let {mangaStatus->
+                        addToListButton.text = titleCaseString(mangaStatus.status.toString())
+                        addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
+                    }
+                }
+                Status.ERROR->{
+                    Toast.makeText(context,"Failed to add", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setGenreChips(genreList: List<Genre?>) {
+
+        genreList.forEach { genre ->
+            genre?.let {
+                val chip = Chip(context)
+                chip.text = it.name
+                chip.isClickable = false
+                chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
+
+                chip.chipBackgroundColor =
+                    context?.let { it1 ->
+                        AppCompatResources.getColorStateList(
+                            it1,
+                            R.color.chip_bg_color
+                        )
+                    }
+                genreChipGroup.addView(chip)
             }
         }
     }
@@ -235,6 +294,16 @@ class MangaDetailsFragment : Fragment() {
         this.findNavController().navigate(
             MangaDetailsFragmentDirections.actionMangaDetailsFragmentSelf(malId)
         )
+    }
+
+    private fun titleCaseString(data: String):String{
+        val str = data.replace("_", " ", true)
+        val words = str.split(" ")
+        var finalString = ""
+        words.forEach {
+            finalString += it.capitalize(Locale.ROOT) + " "
+        }
+        return finalString
     }
 
 }

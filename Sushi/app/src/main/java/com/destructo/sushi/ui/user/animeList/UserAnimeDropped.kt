@@ -50,7 +50,7 @@ class UserAnimeDropped : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
-            val episodes = anime?.myListStatus?.numEpisodesWatched
+            val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
             val animeId = anime?.id
             if (episodes != null && animeId != null){
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
