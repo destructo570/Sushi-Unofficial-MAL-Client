@@ -21,20 +21,28 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
+import com.destructo.sushi.enum.mal.UserAnimeStatus
+import com.destructo.sushi.enum.mal.UserAnimeStatus.*
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.anime.AnimeUpdateDialog
+import com.destructo.sushi.ui.anime.AnimeUpdateDialog.*
+import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.destructo.sushi.ui.anime.adapter.*
 import com.destructo.sushi.ui.anime.listener.*
+import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_anime_detail.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
+import kotlinx.android.synthetic.main.inc_my_anime_status.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
@@ -47,11 +55,13 @@ private const val ANIME_NOT_IN_USER_LIST = 0
 private const val USER_ANIME_LIST_DEFAULT = -1
 
 @AndroidEntryPoint
-class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
+class AnimeDetailFragment : Fragment(),
+    AppBarLayout.OnOffsetChangedListener, AnimeUpdateListener {
+
+    private val animeDetailViewModel: AnimeDetailViewModel by viewModels()
 
     private lateinit var binding: FragmentAnimeDetailBinding
     private var animeIdArg: Int = 0
-    private val animeDetailViewModel: AnimeDetailViewModel by viewModels()
     private lateinit var scoreCardView: MaterialCardView
     private lateinit var coverView: ImageView
     private lateinit var scoreTextView: TextView
@@ -59,9 +69,19 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private lateinit var appBar: AppBarLayout
     private lateinit var collapToolbar: CollapsingToolbarLayout
     private lateinit var genreChipGroup: ChipGroup
-    private lateinit var myListStatus: LinearLayout
     private lateinit var addToListButton:Button
+    private lateinit var animeDetailProgressBar: ProgressBar
     private var isInUserList:Int = USER_ANIME_LIST_DEFAULT
+
+    private lateinit var myListStatus: LinearLayout
+    private lateinit var myListScore:TextView
+    private lateinit var myListEpisode:TextView
+    private lateinit var myListCurrentStatus:TextView
+    private lateinit var myListRewatching:TextView
+
+    private var animeStatus:String?=null
+    private var animeEpisodes:String?=null
+    private var animeScore:Int?=0
 
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
@@ -79,13 +99,23 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
+
+        if (savedInstanceState != null) {
+            animeIdArg = savedInstanceState.getInt("animeId")
+            isInUserList = savedInstanceState.getInt("isInUserList")
+        }else{
             animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
             animeDetailViewModel.getAnimeDetail(animeIdArg)
             animeDetailViewModel.getAnimeCharacters(animeIdArg)
             animeDetailViewModel.getAnimeVideos(animeIdArg)
             animeDetailViewModel.getAnimeReviews(animeIdArg)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("animeId", animeIdArg)
+        outState.putInt("isInUserList", isInUserList)
     }
 
     override fun onCreateView(
@@ -95,12 +125,19 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         binding = FragmentAnimeDetailBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+
         scoreCardView = binding.animeScoreFab
         scoreTextView = binding.animeScoreTxt
         coverView = binding.root.anime_desc_cover_img
         genreChipGroup = binding.root.genre_chip_group
-        myListStatus = binding.myAnimeStatus
         addToListButton = binding.root.add_anime_to_list
+
+        myListStatus = binding.myAnimeStatus
+        myListCurrentStatus = binding.root.user_anime_status_text
+        myListEpisode = binding.root.user_anime_episode_text
+        myListScore = binding.root.user_anime_score_text
+        myListRewatching = binding.root.user_anime_rewatching_text
+        animeDetailProgressBar = binding.animeDetailProgress
 
         characterRecycler = binding.root.characterRecycler
         characterRecycler.setHasFixedSize(true)
@@ -128,17 +165,17 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
             when(isInUserList){
                 USER_ANIME_LIST_DEFAULT->{
-                    Timber.e("DO nothing case...")
                 }
                 ANIME_IN_USER_LIST->{
-                    Timber.e("Open Modal Dialog")
+                    val myDialog = AnimeUpdateDialog
+                        .newInstance(animeStatus,animeEpisodes,animeScore ?: 0)
+                    myDialog.show(childFragmentManager, "animeUpdateDialog")
                 }
                 ANIME_NOT_IN_USER_LIST->{
-                    Timber.e("Adding to list...")
+                    changeButtonState(it as Button,false)
                     animeDetailViewModel.updateUserAnimeStatus(animeId = animeIdArg.toString())
                 }
             }
-
         }
 
 
@@ -168,17 +205,22 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
 
         animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
-
             when (resources.status) {
                 Status.LOADING -> {
+                    animeDetailProgressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+                    animeDetailProgressBar.visibility = View.GONE
                     resources.data?.let { animeEntity ->
+
                         binding.animeEntity = animeEntity
 
                         if (animeEntity.myAnimeListStatus != null) {
                             myListStatus.visibility = View.VISIBLE
                             isInUserList = ANIME_IN_USER_LIST
+                            animeScore = animeEntity.myAnimeListStatus.score
+                            animeStatus = animeEntity.myAnimeListStatus.status?.toTitleCase()
+                            animeEpisodes = animeEntity.myAnimeListStatus.numEpisodesWatched.toString()
                         }else {
                             isInUserList = ANIME_NOT_IN_USER_LIST
                         }
@@ -260,17 +302,35 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         animeDetailViewModel.userAnimeStatus.observe(viewLifecycleOwner){resource->
             when(resource.status){
-                Status.LOADING->{}
+                Status.LOADING->{
+                }
                 Status.SUCCESS->{
-                    Toast.makeText(context,"Added to list",Toast.LENGTH_SHORT).show()
+                    changeButtonState(addToListButton, true)
                     isInUserList = ANIME_IN_USER_LIST
                     resource.data?.let {animeStatus->
-                        addToListButton.text = titleCaseString(animeStatus.status.toString())
+                        addToListButton.text = animeStatus.status.toString().toTitleCase()
                         addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
+                        myListStatus.visibility = View.VISIBLE
+                        animeDetailViewModel.getAnimeDetail(animeIdArg)
                     }
                 }
                 Status.ERROR->{
-                    Toast.makeText(context,"Failed to add",Toast.LENGTH_SHORT).show()
+                    changeButtonState(addToListButton, true)
+                }
+            }
+        }
+
+        animeDetailViewModel.userAnimeRemove.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.ERROR->{}
+                Status.SUCCESS -> {
+                    addToListButton.text = getString(R.string.anime_detail_add_to_list)
+                    addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
+                    myListStatus.visibility = View.GONE
+                    animeDetailViewModel.getAnimeDetail(animeIdArg)
+                }
+                Status.LOADING -> {
+
                 }
             }
         }
@@ -278,14 +338,13 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     }
 
     private fun setGenreChips(genreList: List<Genre?>) {
-
+        genreChipGroup.removeAllViews()
         genreList.forEach { genre ->
             genre?.let {
                 val chip = Chip(context)
                 chip.text = it.name
                 chip.isClickable = false
                 chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-
                 chip.chipBackgroundColor =
                     context?.let { it1 ->
                         AppCompatResources.getColorStateList(
@@ -349,13 +408,42 @@ class AnimeDetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     }
 
-    private fun titleCaseString(data: String):String{
-        val str = data.replace("_", " ", true)
-        val words = str.split(" ")
-        var finalString = ""
-        words.forEach {
-            finalString += it.capitalize(Locale.ROOT) + " "
+    override fun onUpdateClick(status: String, episodes: Int, score: Int, remove: Boolean) {
+
+        if (!remove){
+            animeDetailViewModel.updateUserAnimeStatus(
+                animeId = animeIdArg.toString(),
+                status = convertStatus(status),
+                num_watched_episodes = episodes,
+                score = score)
+        }else{
+            animeDetailViewModel.removeAnime(animeIdArg)
         }
-        return finalString
+
     }
+
+
+    private fun convertStatus(data: String): String{
+        var status = ""
+
+        when(data){
+            getString(R.string.user_anime_status_watching)->{status = WATCHING.value}
+            getString(R.string.user_anime_status_completed)->{status = COMPLETED.value}
+            getString(R.string.user_anime_status_plan_to_watch)->{status = PLAN_TO_WATCH.value}
+            getString(R.string.user_anime_status_dropped)->{status = DROPPED.value}
+            getString(R.string.user_anime_status_on_hold)->{status = ON_HOLD.value}
+        }
+        return status
+    }
+
+    private fun changeButtonState(button: Button, status: Boolean){
+        if (status){
+            button.isEnabled = true
+            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+        }else{
+            button.isEnabled = false
+            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+        }
+    }
+
 }

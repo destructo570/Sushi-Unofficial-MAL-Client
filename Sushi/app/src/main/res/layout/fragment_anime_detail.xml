@@ -252,5 +252,14 @@
                 android:textColor="@color/textColorOnPrimary"
                 tools:text="8.0" />
         </com.google.android.material.card.MaterialCardView>
+
+
+        <ProgressBar
+            android:id="@+id/anime_detail_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

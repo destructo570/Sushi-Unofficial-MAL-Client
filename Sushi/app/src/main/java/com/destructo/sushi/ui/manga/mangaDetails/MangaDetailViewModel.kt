@@ -34,6 +34,9 @@ constructor(
 
     val userMangaStatus: LiveData<Resource<UpdateUserManga>> = mangaDetailsRepo.userMangaStatus
 
+    val userMangaRemove: LiveData<Resource<Unit>> = mangaDetailsRepo.userMangaRemove
+
+
     fun getMangaDetail(malId: Int) {
         mangaDetailsRepo.getMangaDetail(malId)
     }
@@ -44,6 +47,10 @@ constructor(
 
     fun getMangaReviews(malId: Int) {
         mangaDetailsRepo.getMangaReviews(malId)
+    }
+
+    fun removeAnime(mangaId:Int){
+        mangaDetailsRepo.removeMangaFromList(mangaId.toString())
     }
 
 

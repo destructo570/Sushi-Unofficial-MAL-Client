@@ -50,4 +50,5 @@ constructor(
                          limit:String?,offset:String?){
         _seasonalAnime = animeRepo.getSeasonalAnime(year, season, sort, limit, offset)
     }
+
 }

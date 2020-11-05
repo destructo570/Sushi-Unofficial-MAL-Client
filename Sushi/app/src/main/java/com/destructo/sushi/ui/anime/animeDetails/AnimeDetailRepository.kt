@@ -14,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.wait
+import timber.log.Timber
 import javax.inject.Inject
 
 class AnimeDetailRepository
@@ -33,6 +35,9 @@ constructor(
     var animeReview: MutableLiveData<Resource<AnimeReviews>> = MutableLiveData()
 
     var userAnimeStatus: MutableLiveData<Resource<UpdateUserAnime>> = MutableLiveData()
+
+    var userAnimeRemove: MutableLiveData<Resource<Unit>> = MutableLiveData()
+
 
 
     fun getAnimeDetail(malId: Int) {
@@ -132,8 +137,29 @@ constructor(
                 }
             }catch (e: java.lang.Exception){
                 withContext(Dispatchers.Main){
-                    userAnimeStatus.value = Resource.error(e.message ?: "", null)}
+                    userAnimeStatus.value = Resource.error(e.message ?: "", null)
+                }
             }
         }
     }
+
+
+    fun removeAnimeFromList(animeId: String){
+
+        GlobalScope.launch {
+            try {
+               malApi.deleteAnimeFromList(animeId).await()
+                withContext(Dispatchers.Main){
+                    userAnimeRemove.value = Resource.success(Unit)
+                }
+            }catch (e: java.lang.Exception){
+                withContext(Dispatchers.Main){
+                    userAnimeRemove.value = Resource.error(e.message ?: "", null)
+                    Timber.e("Error: %s",e.message)
+                }
+            }
+        }
+
+        }
+
 }

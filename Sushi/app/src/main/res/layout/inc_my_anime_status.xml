@@ -29,12 +29,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/user_anime_status_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_normal"
-            android:text="@{animeEntity.myAnimeListStatus.status}"
+            animeDescFormat="@{animeEntity.myAnimeListStatus.status}"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView16"
             app:layout_constraintEnd_toStartOf="@+id/textView18"
@@ -49,14 +49,14 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:text="@string/anime_detail_episodes"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
-            app:layout_constraintEnd_toStartOf="@+id/textView19"
+            app:layout_constraintEnd_toStartOf="@+id/user_anime_episode_text"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/user_anime_episode_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
@@ -84,7 +84,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/user_anime_score_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
@@ -98,14 +98,14 @@
             tools:text="@string/fake_anime_title" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/user_anime_rewatching_text"
             formatBoolean="@{animeEntity.myAnimeListStatus.isRewatching()}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
-
+            android:singleLine="true"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

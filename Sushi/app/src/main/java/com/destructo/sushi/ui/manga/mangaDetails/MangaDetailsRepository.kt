@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class MangaDetailsRepository
@@ -33,6 +34,9 @@ constructor(
     var mangaReview: MutableLiveData<Resource<MangaReview>> = MutableLiveData()
 
     var userMangaStatus: MutableLiveData<Resource<UpdateUserManga>> = MutableLiveData()
+
+    var userMangaRemove: MutableLiveData<Resource<Unit>> = MutableLiveData()
+
 
 
     fun getMangaDetail(malId: Int) {
@@ -117,6 +121,24 @@ constructor(
                     userMangaStatus.value = Resource.error(e.message ?: "", null)}
             }
         }
+    }
+
+    fun removeMangaFromList(mangaId: String){
+
+        GlobalScope.launch {
+            try {
+                malApi.deleteMangaFromList(mangaId).await()
+                withContext(Dispatchers.Main){
+                    userMangaRemove.value = Resource.success(Unit)
+                }
+            }catch (e: java.lang.Exception){
+                withContext(Dispatchers.Main){
+                    userMangaRemove.value = Resource.error(e.message ?: "", null)
+                    Timber.e("Error: %s",e.message)
+                }
+            }
+        }
+
     }
 
 }

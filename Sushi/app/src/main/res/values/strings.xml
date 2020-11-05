@@ -146,6 +146,46 @@
     <string name="character_animeography">Animeography</string>
     <string name="character_mangaography">Mangaography</string>
 
+    <!-- User Anime Status -->
+    <string name="user_anime_status_watching">Watching</string>
+    <string name="user_anime_status_on_hold">On Hold</string>
+    <string name="user_anime_status_plan_to_watch">Plan To Watch</string>
+    <string name="user_anime_status_dropped">Dropped</string>
+    <string name="user_anime_status_completed">Completed</string>
+
+    <!-- User Manga Status -->
+    <string name="user_manga_status_reading">Reading</string>
+    <string name="user_manga_status_on_hold">On Hold</string>
+    <string name="user_manga_status_plan_to_read">Plan To Read</string>
+    <string name="user_manga_status_dropped">Dropped</string>
+    <string name="user_manga_status_completed">Completed</string>
+
+    <!-- User Anime/Manga Update -->
+    <string name="user_anime_status">Status</string>
+    <string name="user_anime_episode">Episodes</string>
+    <string name="user_manga_status">Status</string>
+    <string name="user_manga_chapter">Chapters</string>
+    <string name="user_manga_volume">Volume </string>
+    <string name="user_status_score">Score: </string>
+    <string name="user_status_save">Update</string>
+    <string name="user_status_remove">Remove</string>
+
+    <!-- User Anime/Manga Score -->
+    <string name="user_score_null">--</string>
+    <string name="user_score_one">1 (Appaling)</string>
+    <string name="user_score_two">2 (Horrible)</string>
+    <string name="user_score_three">3 (Very Bad)</string>
+    <string name="user_score_four">4 (Bad)</string>
+    <string name="user_score_five">5 (Average)</string>
+    <string name="user_score_six">6 (Fine)</string>
+    <string name="user_score_seven">7 (Good)</string>
+    <string name="user_score_eight">8 (Very Good)</string>
+    <string name="user_score_nine">9 (Great)</string>
+    <string name="user_score_ten">10 (Masterpiece)</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 
     <string name="season_sort_type_score">Score</string>
     <string name="season_sort_type_numListUser">Number Of List User</string>

@@ -40,8 +40,11 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 @BindingAdapter("animeButtonState")
 fun TextView.setAnimeButtonState(data: MyAnimeListStatus?) {
     data?.let {
-        data.status?.let {
-            text = toTitleCase(data.status.toString())
+        if(data.status != null) {
+            text = data.status.toString().toTitleCase()
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
+        }else{
+            text = "Edit Status"
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
         }
     }
@@ -50,8 +53,11 @@ fun TextView.setAnimeButtonState(data: MyAnimeListStatus?) {
 @BindingAdapter("mangaButtonState")
 fun TextView.setMangaButtonState(data: MyMangaListStatus?) {
     data?.let {
-        data.status?.let {
-            text = toTitleCase(data.status.toString())
+        if(data.status != null) {
+            text = data.status.toString().toTitleCase()
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
+        }else{
+            text = "Edit Status"
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
         }
     }
@@ -233,7 +239,7 @@ fun TextView.formatCharacterNickName(data: List<String?>?) {
 @BindingAdapter("animeDescFormat")
 fun TextView.formatAnimeDescString(data: String?) {
     data?.let {
-        text = toTitleCase(data)
+        text = data.toTitleCase()
     }
 }
 
@@ -280,14 +286,4 @@ private fun startSeasonFormatter(data: StartSeason?): String {
     }
 
     return result
-}
-
-private fun toTitleCase(data: String):String{
-    val str = data.replace("_", " ", true)
-    val words = str.split(" ")
-    var finalString = ""
-    words.forEach {
-        finalString += it.capitalize(Locale.ROOT) + " "
-    }
-    return finalString
 }

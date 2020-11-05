@@ -19,13 +19,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.manga.adapter.*
 import com.destructo.sushi.ui.manga.listener.MangaCharacterListener
 import com.destructo.sushi.ui.manga.listener.MangaIdListener
 import com.destructo.sushi.ui.manga.listener.MangaReviewListener
+import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
@@ -47,7 +50,7 @@ private const val MANGA_NOT_IN_USER_LIST = 0
 private const val USER_MANGA_LIST_DEFAULT = -1
 
 @AndroidEntryPoint
-class MangaDetailsFragment : Fragment() {
+class MangaDetailsFragment : Fragment(), MangaUpdateListener {
 
     private val mangaDetailViewModel: MangaDetailViewModel by viewModels()
     private lateinit var binding: FragmentMangaDetailsBinding
@@ -62,12 +65,18 @@ class MangaDetailsFragment : Fragment() {
     private lateinit var genreChipGroup: ChipGroup
     private lateinit var myListStatus: LinearLayout
     private lateinit var addToListButton:Button
+    private lateinit var mangaDetailProgressBar:ProgressBar
     private var isInUserList:Int = USER_MANGA_LIST_DEFAULT
 
     private lateinit var characterAdapter: MangaCharacterAdapter
     private lateinit var relatedAdapter: MangaRelatedListAdapter
     private lateinit var recommAdapter: MangaRecommListAdapter
     private lateinit var reviewAdapter: MangaReviewAdapter
+
+    private var mangaStatus:String?=null
+    private var mangaChapters:String?=null
+    private var mangaVolumes:String?=null
+    private var mangaScore:Int?=0
 
     private lateinit var characterRecycler: RecyclerView
     private lateinit var relatedRecycler: RecyclerView
@@ -77,14 +86,22 @@ class MangaDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            mangaIdArg = savedInstanceState.getInt("mangaId")
+            isInUserList = savedInstanceState.getInt("isInUserList")
+        }else{
             mangaIdArg = MangaDetailsFragmentArgs.fromBundle(requireArguments()).mangaId
             mangaDetailViewModel.getMangaDetail(mangaIdArg)
             mangaDetailViewModel.getMangaCharacters(mangaIdArg)
             mangaDetailViewModel.getMangaReviews(mangaIdArg)
-
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("mangaId", mangaIdArg)
+        outState.putInt("isInUserList", isInUserList)
     }
 
     override fun onCreateView(
@@ -103,6 +120,7 @@ class MangaDetailsFragment : Fragment() {
         recommRecycler = binding.root.recommRecycler
         myListStatus = binding.root.my_manga_status
         addToListButton = binding.root.add_manga_to_list
+        mangaDetailProgressBar = binding.root.manga_detail_progress
 
         toolbar = binding.mangaDescToolbar
         appBar = binding.mangaAppBar
@@ -125,6 +143,8 @@ class MangaDetailsFragment : Fragment() {
                 }
                 MANGA_IN_USER_LIST ->{
                     Timber.e("Open Modal Dialog")
+                    val myDialog = MangaUpdateDialog.newInstance(mangaStatus,mangaChapters,mangaVolumes,mangaScore?:0)
+                    myDialog.show(childFragmentManager, "mangaUpdateDialog")
                 }
                 MANGA_NOT_IN_USER_LIST ->{
                     Timber.e("Adding to list...")
@@ -161,14 +181,20 @@ class MangaDetailsFragment : Fragment() {
 
             when (resource.status) {
                 Status.LOADING -> {
+                    mangaDetailProgressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+                    mangaDetailProgressBar.visibility = View.GONE
                     resource.data?.let { manga ->
                         binding.mangaEntity = manga
 
                         if (manga.myMangaListStatus != null) {
                             myListStatus.visibility = View.VISIBLE
                             isInUserList = MANGA_IN_USER_LIST
+                            mangaScore = manga.myMangaListStatus.score
+                            mangaStatus =  manga.myMangaListStatus.status?.toTitleCase()
+                            mangaChapters =  manga.myMangaListStatus.numChaptersRead.toString()
+                            mangaVolumes =  manga.myMangaListStatus.numVolumesRead.toString()
                         }else {
                             isInUserList = MANGA_NOT_IN_USER_LIST
                         }
@@ -227,22 +253,39 @@ class MangaDetailsFragment : Fragment() {
             when(resource.status){
                 Status.LOADING->{}
                 Status.SUCCESS->{
-                    Toast.makeText(context,"Added to list", Toast.LENGTH_SHORT).show()
+                    changeButtonState(addToListButton, true)
                     isInUserList = MANGA_IN_USER_LIST
                     resource.data?.let {mangaStatus->
                         addToListButton.text = titleCaseString(mangaStatus.status.toString())
                         addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
+                        myListStatus.visibility = View.VISIBLE
+                        mangaDetailViewModel.getMangaDetail(mangaIdArg)
                     }
                 }
                 Status.ERROR->{
-                    Toast.makeText(context,"Failed to add", Toast.LENGTH_SHORT).show()
+                    changeButtonState(addToListButton, true)
+                }
+            }
+        }
+
+        mangaDetailViewModel.userMangaRemove.observe(viewLifecycleOwner){
+            when(it.status){
+                Status.ERROR->{}
+                Status.SUCCESS -> {
+                    addToListButton.text = getString(R.string.anime_detail_add_to_list)
+                    addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
+                    myListStatus.visibility = View.GONE
+                    mangaDetailViewModel.getMangaDetail(mangaIdArg)
+                }
+                Status.LOADING -> {
+
                 }
             }
         }
     }
 
     private fun setGenreChips(genreList: List<Genre?>) {
-
+        genreChipGroup.removeAllViews()
         genreList.forEach { genre ->
             genre?.let {
                 val chip = Chip(context)
@@ -305,5 +348,49 @@ class MangaDetailsFragment : Fragment() {
         }
         return finalString
     }
+
+    private fun convertStatus(data: String): String{
+        var status = ""
+
+        when(data){
+            getString(R.string.user_manga_status_reading)->{status = UserMangaStatus.READING.value}
+            getString(R.string.user_manga_status_completed)->{status = UserMangaStatus.COMPLETED.value}
+            getString(R.string.user_manga_status_plan_to_read)->{status = UserMangaStatus.PLAN_TO_READ.value}
+            getString(R.string.user_manga_status_dropped)->{status = UserMangaStatus.DROPPED.value}
+            getString(R.string.user_manga_status_on_hold)->{status = UserMangaStatus.ON_HOLD.value}
+        }
+        return status
+    }
+
+    private fun changeButtonState(button: Button, status: Boolean){
+        if (status){
+            button.isEnabled = true
+            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+        }else{
+            button.isEnabled = false
+            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+        }
+    }
+
+    override fun onUpdateClick(
+        status: String,
+        chapters: Int,
+        volume: Int,
+        score: Int,
+        remove: Boolean
+    ) {
+        if (!remove){
+            mangaDetailViewModel.updateUserMangaStatus(
+                mangaId = mangaIdArg.toString(),
+                status = convertStatus(status),
+                num_chapters_read = chapters,
+                num_volumes_read = volume,
+                score = score)
+        }else{
+            mangaDetailViewModel.removeAnime(mangaIdArg)
+        }
+    }
+
+
 
 }

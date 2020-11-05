@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+<!-- in drawable folder-->
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?android:colorControlHighlight">
 
-    <solid android:color="@color/colorPrimaryDark" />
-    <corners android:radius="32dp" />
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:colorAccent" />
+        </shape>
+    </item>
 
-</shape>
+    <item>
+        <shape android:shape="rectangle">
+            <!-- put your background color here-->
+            <solid android:color="@color/colorPrimaryDark" />
+        </shape>
+    </item>
+
+</ripple>

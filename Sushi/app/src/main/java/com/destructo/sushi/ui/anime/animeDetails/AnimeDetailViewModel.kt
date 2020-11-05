@@ -28,6 +28,7 @@ constructor(
 
     val userAnimeStatus: LiveData<Resource<UpdateUserAnime>> = animeDetailsRepo.userAnimeStatus
 
+    val userAnimeRemove: LiveData<Resource<Unit>> = animeDetailsRepo.userAnimeRemove
 
     fun getAnimeDetail(malId: Int) {
         animeDetailsRepo.getAnimeDetail(malId)
@@ -54,6 +55,10 @@ constructor(
         animeDetailsRepo.updateAnimeUserList(animeId, status,is_rewatching,score,num_watched_episodes,
                               priority,num_times_rewatched,rewatch_value,tags,comments)
 
+    }
+
+    fun removeAnime(animeId:Int){
+        animeDetailsRepo.removeAnimeFromList(animeId.toString())
     }
 
 }
