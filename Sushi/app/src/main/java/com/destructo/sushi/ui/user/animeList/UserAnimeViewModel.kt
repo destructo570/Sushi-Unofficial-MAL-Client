@@ -20,7 +20,7 @@ class UserAnimeViewModel
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
-    val myAnimeListRepo: MyAnimeListRepository
+    private val myAnimeListRepo: MyAnimeListRepository
 ) : ViewModel() {
 
     val userAnimeListAll: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListAll
@@ -44,6 +44,21 @@ constructor(
     fun getUserAnimeList(animeStatus:String?){
         myAnimeListRepo.getUserAnime(animeStatus)
     }
+//
+//    fun updateUserAnimeStatus(animeId:String,status:String?=null,
+//                              is_rewatching:Boolean?=null,score:Int?=null,
+//                              num_watched_episodes:Int?=null,priority:Int?=null,
+//                              num_times_rewatched:Int?=null, rewatch_value:Int?=null,
+//                              tags:List<String>?=null,comments:String?=null){
+//
+//        myAnimeListRepo.updateAnimeUserList(animeId, status,is_rewatching,score,num_watched_episodes,
+//            priority,num_times_rewatched,rewatch_value,tags,comments)
+//
+//    }
+//
+//    fun removeAnime(animeId:Int){
+//        myAnimeListRepo.removeAnimeFromList(animeId.toString())
+//    }
 
 }
 

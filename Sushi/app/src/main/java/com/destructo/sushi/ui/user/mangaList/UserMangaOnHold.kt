@@ -8,6 +8,8 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.network.Status
@@ -44,6 +46,7 @@ class UserMangaOnHold : Fragment() {
 
         userMangaRecycler = binding.userMangaRecycler
         userMangaRecycler.setHasFixedSize(true)
+        userMangaRecycler.itemAnimator = null
         userMangaProgress = binding.userMangaListProgressbar
 
 
@@ -58,11 +61,15 @@ class UserMangaOnHold : Fragment() {
                 userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
             }
         })
+
+        userMangaAdapter.stateRestorationPolicy = ALLOW
         userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaListOnHold.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
-                Status.LOADING ->{userMangaProgress.visibility = View.VISIBLE}
+                Status.LOADING ->{
+                    userMangaProgress.visibility = View.VISIBLE
+                }
                 Status.SUCCESS ->{
                     userMangaProgress.visibility = View.GONE
                     resource.data?.let{
@@ -72,6 +79,10 @@ class UserMangaOnHold : Fragment() {
                 Status.ERROR ->{
                     Timber.e("Error: %s", resource.message)}
             }
+        }
+
+        userMangaViewModel.userMangaStatus.observe(viewLifecycleOwner){updateManga->
+            userMangaViewModel.getUserMangaList(UserMangaStatus.ON_HOLD.value)
         }
     }
 }

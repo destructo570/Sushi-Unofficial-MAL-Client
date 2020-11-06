@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.network.Status
@@ -40,6 +42,7 @@ class UserAnimeCompleted : Fragment() {
 
         userAnimeRecycler = binding.userAnimeRecycler
         userAnimeRecycler.setHasFixedSize(true)
+        userAnimeRecycler.itemAnimator = null
         userAnimeProgressbar = binding.userAnimeListProgressbar
 
 
@@ -47,6 +50,7 @@ class UserAnimeCompleted : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
             val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
             val animeId = anime?.id
@@ -54,16 +58,25 @@ class UserAnimeCompleted : Fragment() {
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
         })
+
+        userAnimeAdapter.stateRestorationPolicy = ALLOW
+        userAnimeRecycler.adapter = userAnimeAdapter
+
         userAnimeViewModel.userAnimeListCompleted.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
                 Status.SUCCESS ->{
                     userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.let{userAnimeAdapter.submitList(it.data)
-                        userAnimeRecycler.adapter = userAnimeAdapter}
+                    resource.data?.let{
+                        userAnimeAdapter.submitList(it.data)
+                    }
                 }
                 Status.ERROR ->{Timber.e("Error: %s", resource.message)}
             }
+        }
+
+        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){animeStatus->
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.COMPLETED.value)
         }
     }
 

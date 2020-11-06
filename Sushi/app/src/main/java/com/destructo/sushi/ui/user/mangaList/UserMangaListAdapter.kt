@@ -52,8 +52,7 @@ class UserMangaDiffUtil : DiffUtil.ItemCallback<UserMangaData>() {
     }
 
     override fun areContentsTheSame(oldItem: UserMangaData, newItem: UserMangaData): Boolean {
-        return oldItem.manga?.id == newItem.manga?.id
-                && oldItem.manga?.title == newItem.manga?.title
+        return oldItem.manga == newItem.manga
     }
 
 }

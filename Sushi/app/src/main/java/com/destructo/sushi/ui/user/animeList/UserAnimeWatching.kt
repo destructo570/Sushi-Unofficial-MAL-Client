@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.network.Status
@@ -41,8 +43,8 @@ class UserAnimeWatching : Fragment() {
 
         userAnimeRecycler = binding.userAnimeRecycler
         userAnimeRecycler.setHasFixedSize(true)
+        userAnimeRecycler.itemAnimator = null
         userAnimeProgressbar = binding.userAnimeListProgressbar
-
 
         return binding.root
     }
@@ -55,16 +57,29 @@ class UserAnimeWatching : Fragment() {
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
         })
+
+        userAnimeAdapter.stateRestorationPolicy = ALLOW
+        userAnimeRecycler.adapter = userAnimeAdapter
+
         userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
-                Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
+                Status.LOADING ->{
+                    userAnimeProgressbar.visibility = View.VISIBLE
+                }
                 Status.SUCCESS ->{
                     userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.let{userAnimeAdapter.submitList(it.data)
-                        userAnimeRecycler.adapter = userAnimeAdapter}
+                    resource.data?.let{
+                        userAnimeAdapter.submitList(it.data)
+                    }
                 }
-                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+                Status.ERROR ->{
+                    Timber.e("Error: %s", resource.message)
+                }
             }
+        }
+
+        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){animeStatus->
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
         }
     }
 

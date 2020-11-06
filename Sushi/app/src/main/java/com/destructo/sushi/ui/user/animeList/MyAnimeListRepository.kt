@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -33,6 +34,8 @@ constructor(private val malApi: MalApi){
     var userAnimeListDropped: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
 
     var userAnimeStatus: MutableLiveData<Resource<UpdateUserAnime>> = MutableLiveData()
+
+    var userAnimeRemove: MutableLiveData<Resource<Unit>> = MutableLiveData()
 
     fun getUserAnime(animeStatus:String?){
         when(animeStatus){
@@ -98,4 +101,6 @@ constructor(private val malApi: MalApi){
             }
         }
     }
+
+
 }

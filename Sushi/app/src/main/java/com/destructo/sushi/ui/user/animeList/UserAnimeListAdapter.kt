@@ -35,7 +35,6 @@ class UserAnimeListAdapter(private val addEpisodeListener: AddEpisodeListener) :
                 return ViewHolder(binding)
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,8 +55,8 @@ class UserAnimeDiffUtil : DiffUtil.ItemCallback<UserAnimeData>() {
     }
 
     override fun areContentsTheSame(oldItem: UserAnimeData, newItem: UserAnimeData): Boolean {
-        return oldItem.anime?.id == newItem.anime?.id
-                && oldItem.anime?.title == newItem.anime?.title
+        return oldItem.anime == newItem.anime
+
     }
 
 }
