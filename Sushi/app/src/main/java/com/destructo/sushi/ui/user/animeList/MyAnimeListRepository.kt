@@ -102,5 +102,29 @@ constructor(private val malApi: MalApi){
         }
     }
 
+    fun updateAnimeUserList(animeId:String, status:String?=null,
+                            is_rewatching:Boolean?=null, score:Int?=null,
+                            num_watched_episodes:Int?=null, priority:Int?=null,
+                            num_times_rewatched:Int?=null, rewatch_value:Int?=null,
+                            tags:List<String>?=null, comments:String?=null) {
+        userAnimeStatus.value = Resource.loading(null)
+
+        GlobalScope.launch {
+            val addEpisodeDeferred = malApi.updateUserAnime(animeId,
+                status,is_rewatching,score,num_watched_episodes,
+                priority,num_times_rewatched,rewatch_value,tags,comments)
+            try {
+                val animeStatus = addEpisodeDeferred.await()
+                withContext(Dispatchers.Main){
+                    userAnimeStatus.value = Resource.success(animeStatus)
+                }
+            }catch (e: java.lang.Exception){
+                withContext(Dispatchers.Main){
+                    userAnimeStatus.value = Resource.error(e.message ?: "", null)
+                }
+            }
+        }
+    }
+
 
 }

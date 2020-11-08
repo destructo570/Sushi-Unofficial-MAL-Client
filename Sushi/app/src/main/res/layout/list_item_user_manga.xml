@@ -13,6 +13,9 @@
         <variable
             name="chapterListener"
             type="com.destructo.sushi.ui.user.mangaList.AddChapterListener" />
+        <variable
+            name="mangaIdListener"
+            type="com.destructo.sushi.ui.manga.listener.MangaIdListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -24,6 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/user_card_margin_small"
+        android:onClick="@{() -> mangaIdListener.onClick(mangaEntity.id)}"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -35,7 +35,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
     private lateinit var listener: AnimeUpdateListener
 
     companion object{
-        fun newInstance(status:String?, episodes:String?, score:Int): AnimeUpdateDialog{
+        fun newInstance(animeId: Int?, status:String?, episodes:String?, score:Int): AnimeUpdateDialog{
             val animeUpdateDialog = AnimeUpdateDialog()
             val bundle = Bundle()
             bundle.putString("status",status)
@@ -124,7 +124,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
                 .setMessage("Are you sure you want to remove this anime from your list?")
                 .setPositiveButton(R.string.yes
                 ) { p0, p1 ->
-                    listener.onUpdateClick("",0,0,true)
+                    listener.onUpdateClick(null,"",0,0,true)
                     dismiss()
                 }
                .setNegativeButton(R.string.no
@@ -159,7 +159,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
                 episode = episodeText.text.toString().toInt()
             }
             val score = animeScoreSeekBar.progress
-            listener.onUpdateClick(status, episode, score, false)
+            listener.onUpdateClick(null,status, episode, score, false)
             dismiss()
         }
 
@@ -219,7 +219,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
     }
 
 interface AnimeUpdateListener{
-    fun onUpdateClick(status:String, episodes:Int, score:Int, remove:Boolean)
+    fun onUpdateClick(animeId:Int?=null, status:String, episodes:Int, score:Int, remove:Boolean)
 }
 
 

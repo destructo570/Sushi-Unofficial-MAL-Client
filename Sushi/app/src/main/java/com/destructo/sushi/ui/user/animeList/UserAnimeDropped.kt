@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import timber.log.Timber
 
 class UserAnimeDropped : Fragment() {
@@ -59,7 +61,12 @@ class UserAnimeDropped : Fragment() {
             if (episodes != null && animeId != null){
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
-        })
+        },
+            AnimeIdListener {
+                it?.let{
+                    navigateToAnimeDetails(it)
+                }
+            })
 
         userAnimeAdapter.stateRestorationPolicy = ALLOW
         userAnimeRecycler.adapter = userAnimeAdapter
@@ -80,6 +87,18 @@ class UserAnimeDropped : Fragment() {
         userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){animeStatus->
             userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        userAnimeViewModel.getUserAnimeList(null)
+    }
+
+
+    private fun navigateToAnimeDetails(animeMalId: Int) {
+        this.findNavController().navigate(
+            MyAnimeListFragmentDirections.actionMyAnimeListFragmentToAnimeDetailFragment(animeMalId)
+        )
     }
 
 }

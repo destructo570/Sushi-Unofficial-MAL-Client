@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.manga.MangaFragmentDirections
+import com.destructo.sushi.ui.manga.listener.MangaIdListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -59,6 +62,8 @@ class UserMangaDropped : Fragment() {
             if (chapters != null && mangaId != null){
                 userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
             }
+        }, MangaIdListener {
+            it?.let{navigateToMangaDetails(it)}
         })
         userMangaAdapter.stateRestorationPolicy = ALLOW
         userMangaRecycler.adapter = userMangaAdapter
@@ -83,4 +88,16 @@ class UserMangaDropped : Fragment() {
             userMangaViewModel.getUserMangaList(UserMangaStatus.DROPPED.value)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        userMangaViewModel.getUserMangaList(UserMangaStatus.DROPPED.value)
+    }
+
+    private fun navigateToMangaDetails(mangaMalId: Int){
+        this.findNavController().navigate(
+            MyMangaListFragmentDirections.actionMyMangaListFragmentToMangaDetailsFragment(mangaMalId)
+        )
+    }
+
 }

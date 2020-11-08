@@ -2,28 +2,31 @@ package com.destructo.sushi.ui.user.animeList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemAnimeBinding
-import com.destructo.sushi.databinding.ListItemScheduleAnimeBinding
 import com.destructo.sushi.databinding.ListItemUserAnimeBinding
-import com.destructo.sushi.model.jikan.season.AnimeSubEntity
-import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
-import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import timber.log.Timber
 
-class UserAnimeListAdapter(private val addEpisodeListener: AddEpisodeListener) :
+class UserAnimeListAdapter(
+    private val addEpisodeListener: AddEpisodeListener,
+    private val animeIdListener: AnimeIdListener) :
     ListAdapter<UserAnimeData, UserAnimeListAdapter.ViewHolder>(UserAnimeDiffUtil()) {
-
 
     class ViewHolder private constructor(val binding: ListItemUserAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeEntity: UserAnimeData,addEpisodeListener: AddEpisodeListener) {
+        fun bind(animeEntity: UserAnimeData,
+                 addEpisodeListener: AddEpisodeListener,
+                 animeIdListener: AnimeIdListener
+                 ) {
             binding.animeEntity = animeEntity.anime
             binding.animeListStatus = animeEntity.animeListStatus
             binding.episodeListener = addEpisodeListener
+            binding.animeIdListener = animeIdListener
             binding.executePendingBindings()
 
         }
@@ -43,7 +46,8 @@ class UserAnimeListAdapter(private val addEpisodeListener: AddEpisodeListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
-        holder.bind(animeSubEntity,addEpisodeListener)
+        holder.bind(animeSubEntity, addEpisodeListener, animeIdListener)
+
     }
 
 

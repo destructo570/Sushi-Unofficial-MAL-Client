@@ -7,19 +7,28 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserMangaBinding
 import com.destructo.sushi.model.mal.userMangaList.UserMangaData
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.ui.manga.listener.MangaIdListener
 import com.destructo.sushi.ui.user.animeList.AddEpisodeListener
 
-class UserMangaListAdapter(private val addChapterListener: AddChapterListener):
+class UserMangaListAdapter(
+    private val addChapterListener: AddChapterListener,
+    private val mangaIdListener: MangaIdListener
+):
     ListAdapter<UserMangaData, UserMangaListAdapter.ViewHolder>(UserMangaDiffUtil()) {
 
 
     class ViewHolder private constructor(val binding: ListItemUserMangaBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(mangaEntity: UserMangaData,chapterListener: AddChapterListener) {
+        fun bind(mangaEntity: UserMangaData,
+                 chapterListener: AddChapterListener,
+                 mangaIdListener: MangaIdListener
+        ) {
             binding.mangaEntity = mangaEntity.manga
             binding.mangaListStatus = mangaEntity.mangaListStatus
             binding.chapterListener = chapterListener
+            binding.mangaIdListener = mangaIdListener
             binding.executePendingBindings()
 
         }
@@ -40,7 +49,7 @@ class UserMangaListAdapter(private val addChapterListener: AddChapterListener):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mangaEntity = getItem(position)
-        holder.bind(mangaEntity,addChapterListener)
+        holder.bind(mangaEntity,addChapterListener,mangaIdListener)
     }
 
 

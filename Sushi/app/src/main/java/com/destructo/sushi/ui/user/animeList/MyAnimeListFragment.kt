@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
@@ -21,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
-class MyAnimeListFragment : Fragment() {
+class MyAnimeListFragment : Fragment(){
 
     private lateinit var binding: FragmentMyAnimeListBinding
     private lateinit var myAnimeListPagerAdapter: UserAnimePagerAdapter
@@ -96,11 +99,16 @@ class MyAnimeListFragment : Fragment() {
 
     }
 
+
+
     private fun setupToolbar() {
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
     }
+
+
+
 
 }

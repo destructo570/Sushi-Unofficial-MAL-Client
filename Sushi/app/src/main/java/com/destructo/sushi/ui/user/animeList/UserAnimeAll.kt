@@ -1,17 +1,21 @@
 package com.destructo.sushi.ui.user.animeList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
+import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailViewModel
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -21,6 +25,8 @@ class UserAnimeAll : Fragment() {
     private lateinit var binding: FragmentUserAnimeListBinding
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels(ownerProducer = { requireParentFragment() })
+    private val animeDetailViewModel:AnimeDetailViewModel
+            by viewModels()
     private lateinit var userAnimeAdapter: UserAnimeListAdapter
     private lateinit var userAnimeRecycler: RecyclerView
     private lateinit var userAnimeProgressbar: ProgressBar
@@ -58,7 +64,13 @@ class UserAnimeAll : Fragment() {
             if (episodes != null && animeId != null){
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
-        })
+        },
+            AnimeIdListener {
+                it?.let{
+                    navigateToAnimeDetails(it)
+                }
+            })
+
         userAnimeAdapter.stateRestorationPolicy = ALLOW
         userAnimeRecycler.adapter = userAnimeAdapter
 
@@ -79,8 +91,20 @@ class UserAnimeAll : Fragment() {
             }
         }
 
-        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){animeStatus->
+        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){
             userAnimeViewModel.getUserAnimeList(null)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        userAnimeViewModel.getUserAnimeList(null)
+    }
+
+    private fun navigateToAnimeDetails(animeMalId: Int) {
+        this.findNavController().navigate(
+            MyAnimeListFragmentDirections.actionMyAnimeListFragmentToAnimeDetailFragment(animeMalId)
+        )
+    }
+
 }

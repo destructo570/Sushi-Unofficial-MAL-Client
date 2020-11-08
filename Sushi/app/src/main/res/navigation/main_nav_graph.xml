@@ -146,10 +146,47 @@
         android:id="@+id/myAnimeListFragment"
         android:name="com.destructo.sushi.ui.user.animeList.MyAnimeListFragment"
         android:label="fragment_my_anime_list"
-        tools:layout="@layout/fragment_my_anime_list" />
+        tools:layout="@layout/fragment_my_anime_list" >
+        <action
+            android:id="@+id/action_myAnimeListFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myMangaListFragment"
         android:name="com.destructo.sushi.ui.user.mangaList.MyMangaListFragment"
         android:label="fragment_my_manga_list"
-        tools:layout="@layout/fragment_my_manga_list" />
+        tools:layout="@layout/fragment_my_manga_list" >
+        <action
+            android:id="@+id/action_myMangaListFragment_to_mangaDetailsFragment"
+            app:destination="@id/mangaDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userMangaAll"
+        android:name="com.destructo.sushi.ui.user.mangaList.UserMangaAll"
+        android:label="UserMangaAll" />
+    <fragment
+        android:id="@+id/userAnimeCompleted"
+        android:name="com.destructo.sushi.ui.user.animeList.UserAnimeCompleted"
+        android:label="UserAnimeCompleted" />
+    <fragment
+        android:id="@+id/userAnimeDropped"
+        android:name="com.destructo.sushi.ui.user.animeList.UserAnimeDropped"
+        android:label="UserAnimeDropped" />
+    <fragment
+        android:id="@+id/userAnimeOnHold"
+        android:name="com.destructo.sushi.ui.user.animeList.UserAnimeOnHold"
+        android:label="UserAnimeOnHold" />
+    <fragment
+        android:id="@+id/userAnimePlanToWatch"
+        android:name="com.destructo.sushi.ui.user.animeList.UserAnimePlanToWatch"
+        android:label="UserAnimePlanToWatch" />
+    <fragment
+        android:id="@+id/userAnimeWatching"
+        android:name="com.destructo.sushi.ui.user.animeList.UserAnimeWatching"
+        android:label="UserAnimeWatching" />
+    <fragment
+        android:id="@+id/userAnimeAll"
+        android:name="com.destructo.sushi.ui.user.animeList.UserAnimeAll"
+        android:label="UserAnimeAll"
+        />
 </navigation>

@@ -168,7 +168,7 @@ class AnimeDetailFragment : Fragment(),
                 }
                 ANIME_IN_USER_LIST->{
                     val myDialog = AnimeUpdateDialog
-                        .newInstance(animeStatus,animeEpisodes,animeScore ?: 0)
+                        .newInstance(null, animeStatus,animeEpisodes,animeScore ?: 0)
                     myDialog.show(childFragmentManager, "animeUpdateDialog")
                 }
                 ANIME_NOT_IN_USER_LIST->{
@@ -408,7 +408,13 @@ class AnimeDetailFragment : Fragment(),
 
     }
 
-    override fun onUpdateClick(status: String, episodes: Int, score: Int, remove: Boolean) {
+    override fun onUpdateClick(
+        animeId: Int?,
+        status: String,
+        episodes: Int,
+        score: Int,
+        remove: Boolean
+    ) {
 
         if (!remove){
             animeDetailViewModel.updateUserAnimeStatus(
@@ -421,7 +427,6 @@ class AnimeDetailFragment : Fragment(),
         }
 
     }
-
 
     private fun convertStatus(data: String): String{
         var status = ""
