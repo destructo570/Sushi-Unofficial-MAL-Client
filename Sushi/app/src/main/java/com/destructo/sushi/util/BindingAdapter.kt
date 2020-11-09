@@ -12,10 +12,11 @@ import com.destructo.sushi.R
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
-import com.destructo.sushi.model.mal.anime.Anime
-import com.destructo.sushi.model.mal.anime.MyAnimeListStatus
-import com.destructo.sushi.model.mal.anime.StartSeason
+import com.destructo.sushi.model.mal.anime.*
+import com.destructo.sushi.model.mal.manga.Author
+import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
+import com.destructo.sushi.model.mal.manga.Serialization
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import java.util.*
 
@@ -75,6 +76,93 @@ fun TextView.setCharacterTitle(data: String?) {
 fun TextView.setEpisodeDetail(data: Int?) {
     data?.let {
         val formattedText = secondToMinute(data)
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatAnimeStudios")
+fun TextView.setStudiosList(data: List<Studio?>?) {
+    data?.let {
+        var formattedText = ""
+        for (studio in data){
+            formattedText = "${studio?.name}, "
+        }
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatMangaSerialization")
+fun TextView.setSerializationList(data: List<Serialization?>?) {
+    data?.let {
+        var formattedText = ""
+        for (serialization in data){
+            formattedText = "${serialization?.serializationInfo?.name}, "
+        }
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatMangaAuthors")
+fun TextView.setMangaAuthorList(data: List<Author?>?) {
+    data?.let {
+        var formattedText = ""
+        for (author in data){
+            formattedText = "${author?.authorInfo?.firstName} ${author?.authorInfo?.lastName}, "
+        }
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatAnimeBroadcast")
+fun TextView.setAnimeBroadcast(data: Broadcast?) {
+    data?.let {
+        val formattedText = "${data.dayOfTheWeek?.toTitleCase()}• ${data.startTime}"
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatAnimePremiered")
+fun TextView.setAnimePremiered(data: Anime?) {
+    data?.let {
+        val formattedText = "${data.startSeason?.season?.toTitleCase()}${data.startSeason?.year.toString()}"
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatMangaPublished")
+fun TextView.setMangaPublished(data: Manga?) {
+    data?.let {
+        val formattedText = "${data.startDate?.toTitleCase()} to ?"
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatAnimeAired")
+fun TextView.setAnimeAired(data: Anime?) {
+    data?.let {
+        val formattedText = "${data.startDate?.toTitleCase()} to ${data.endDate?.toTitleCase() ?: "?"}"
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatAnimeAltTitle")
+fun TextView.setAnimeAltTitles(data: Anime?) {
+    data?.alternativeTitles?.synonyms?.let {synonym ->
+        var formattedText = ""
+        for (title in synonym){
+            formattedText = "${title}, \n"
+        }
+        text = formattedText
+    }
+}
+
+@BindingAdapter("formatMangaAltTitle")
+fun TextView.setMangaAltTitles(data: Manga?) {
+    data?.alternativeTitles?.synonyms?.let {synonym ->
+        var formattedText = ""
+        for (title in synonym){
+            formattedText = "${title}, \n"
+        }
         text = formattedText
     }
 }

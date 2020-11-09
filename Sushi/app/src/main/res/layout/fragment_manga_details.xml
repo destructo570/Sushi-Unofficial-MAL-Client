@@ -157,6 +157,45 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/manga_genre_title" />
 
+                            <LinearLayout
+                                android:id="@+id/manga_alt_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/manga_genre"
+                                >
+
+                                <include
+                                    layout="@layout/inc_manga_alt_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    android:layout_marginBottom="@dimen/margin_normal"
+                                    bind:mangaEntity="@{mangaEntity}"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/manga_more_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/manga_alt_title"
+                                >
+
+                                <include
+                                    layout="@layout/inc_more_manga_detail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_small"
+                                    android:layout_marginBottom="@dimen/margin_normal"
+                                    bind:mangaEntity="@{mangaEntity}"
+                                    />
+                            </LinearLayout>
+
                             <include
                                 android:id="@+id/manga_characters"
                                 layout="@layout/inc_characters_list"
@@ -166,7 +205,7 @@
                                 android:layout_marginBottom="@dimen/margin_normal"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_genre" />
+                                app:layout_constraintTop_toBottomOf="@+id/manga_more_info" />
 
                             <include
                                 android:id="@+id/manga_reviews"

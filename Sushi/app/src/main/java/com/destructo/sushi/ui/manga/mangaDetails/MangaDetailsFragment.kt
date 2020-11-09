@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -36,9 +37,13 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_manga_details.view.*
+import kotlinx.android.synthetic.main.inc_anime_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
+import kotlinx.android.synthetic.main.inc_manga_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_manga_sub_desc.view.*
+import kotlinx.android.synthetic.main.inc_more_anime_detail.view.*
+import kotlinx.android.synthetic.main.inc_more_manga_detail.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_manga.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
@@ -67,6 +72,9 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener {
     private lateinit var addToListButton:Button
     private lateinit var mangaDetailProgressBar:ProgressBar
     private var isInUserList:Int = USER_MANGA_LIST_DEFAULT
+    private lateinit var mangaMoreInfoLayout:ConstraintLayout
+    private lateinit var mangaAltTitleLayout:ConstraintLayout
+
 
     private lateinit var characterAdapter: MangaCharacterAdapter
     private lateinit var relatedAdapter: MangaRelatedListAdapter
@@ -121,6 +129,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener {
         myListStatus = binding.root.my_manga_status
         addToListButton = binding.root.add_manga_to_list
         mangaDetailProgressBar = binding.root.manga_detail_progress
+        mangaMoreInfoLayout = binding.root.manga_more_detail_layout
+        mangaAltTitleLayout = binding.root.manga_alt_title_layout
 
         toolbar = binding.mangaDescToolbar
         appBar = binding.mangaAppBar
@@ -153,6 +163,22 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener {
                 }
             }
 
+        }
+
+        mangaMoreInfoLayout.setOnClickListener {
+            if(it.manga_more_detail_view.visibility != View.VISIBLE){
+                it.manga_more_detail_view.visibility = View.VISIBLE
+            }else{
+                it.manga_more_detail_view.visibility = View.GONE
+            }
+        }
+
+        mangaAltTitleLayout.setOnClickListener {
+            if(it.manga_alt_title_view.visibility != View.VISIBLE){
+                it.manga_alt_title_view.visibility = View.VISIBLE
+            }else{
+                it.manga_alt_title_view.visibility = View.GONE
+            }
         }
 
         return binding.root

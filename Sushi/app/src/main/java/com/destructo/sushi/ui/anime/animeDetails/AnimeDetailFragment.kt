@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -38,11 +39,15 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_anime_detail.*
+import kotlinx.android.synthetic.main.inc_anime_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
+import kotlinx.android.synthetic.main.inc_more_anime_detail.view.*
 import kotlinx.android.synthetic.main.inc_my_anime_status.view.*
+import kotlinx.android.synthetic.main.inc_opening_ending_song_detail.view.*
+import kotlinx.android.synthetic.main.inc_opening_ending_song_detail.view.anime_opening_ending
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
@@ -78,6 +83,10 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var myListEpisode:TextView
     private lateinit var myListCurrentStatus:TextView
     private lateinit var myListRewatching:TextView
+    private lateinit var animeSongsLayout: ConstraintLayout
+    private lateinit var moreAnimeInfoLayout: ConstraintLayout
+    private lateinit var animeAltTitleLayout: ConstraintLayout
+
 
     private var animeStatus:String?=null
     private var animeEpisodes:String?=null
@@ -138,6 +147,9 @@ class AnimeDetailFragment : Fragment(),
         myListScore = binding.root.user_anime_score_text
         myListRewatching = binding.root.user_anime_rewatching_text
         animeDetailProgressBar = binding.animeDetailProgress
+        animeSongsLayout = binding.root.anime_opening_ending
+        moreAnimeInfoLayout = binding.root.anime_more_detail
+        animeAltTitleLayout = binding.root.anime_alt_title_layout
 
         characterRecycler = binding.root.characterRecycler
         characterRecycler.setHasFixedSize(true)
@@ -177,6 +189,30 @@ class AnimeDetailFragment : Fragment(),
                 }
             }
         }
+
+        animeSongsLayout.setOnClickListener {
+            if(it.anime_ost_view.visibility != View.VISIBLE){
+                    it.anime_ost_view.visibility = View.VISIBLE
+                }else{
+                it.anime_ost_view.visibility = View.GONE
+            }
+        }
+
+        moreAnimeInfoLayout.setOnClickListener {
+            if(it.anime_more_detail_view.visibility != View.VISIBLE){
+                it.anime_more_detail_view.visibility = View.VISIBLE
+            }else{
+                it.anime_more_detail_view.visibility = View.GONE
+            }
+        }
+        animeAltTitleLayout.setOnClickListener {
+            if(it.anime_alt_title_view.visibility != View.VISIBLE){
+                it.anime_alt_title_view.visibility = View.VISIBLE
+            }else{
+                it.anime_alt_title_view.visibility = View.GONE
+            }
+        }
+
 
 
         return binding.root
