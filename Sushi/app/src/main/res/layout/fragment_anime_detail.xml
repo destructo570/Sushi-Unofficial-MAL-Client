@@ -153,6 +153,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/anime_genre_title" />
+
                         <LinearLayout
                             android:id="@+id/anime_alt_title"
                             android:layout_width="match_parent"
