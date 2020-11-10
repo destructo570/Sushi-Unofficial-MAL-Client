@@ -150,7 +150,7 @@ fun TextView.setAnimeAltTitles(data: Anime?) {
     data?.alternativeTitles?.synonyms?.let {synonym ->
         var formattedText = ""
         for (title in synonym){
-            formattedText = "${title}, \n"
+            formattedText = "${title}, "
         }
         text = formattedText
     }
@@ -161,7 +161,7 @@ fun TextView.setMangaAltTitles(data: Manga?) {
     data?.alternativeTitles?.synonyms?.let {synonym ->
         var formattedText = ""
         for (title in synonym){
-            formattedText = "${title}, \n"
+            formattedText = "${title}, "
         }
         text = formattedText
     }
