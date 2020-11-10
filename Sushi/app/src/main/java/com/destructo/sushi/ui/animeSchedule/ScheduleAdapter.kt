@@ -8,14 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemScheduleAnimeBinding
 import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
-class ScheduleAdapter: ListAdapter<AnimeSubEntity, ScheduleAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
+class ScheduleAdapter(val animeIdListener: AnimeIdListener): ListAdapter<AnimeSubEntity, ScheduleAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
 
 
     class ViewHolder private constructor(val binding: ListItemScheduleAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeSubEntity: AnimeSubEntity){
+        fun bind(animeSubEntity: AnimeSubEntity, animeIdListener: AnimeIdListener){
             binding.animeSubEntity = animeSubEntity
+            binding.listener = animeIdListener
             binding.executePendingBindings()
 
         }
@@ -37,7 +39,7 @@ class ScheduleAdapter: ListAdapter<AnimeSubEntity, ScheduleAdapter.ViewHolder>(S
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
-        holder.bind(animeSubEntity)
+        holder.bind(animeSubEntity, animeIdListener)
     }
 
 

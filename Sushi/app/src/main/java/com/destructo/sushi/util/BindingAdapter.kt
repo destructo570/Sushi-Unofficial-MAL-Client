@@ -3,8 +3,11 @@ package com.destructo.sushi.util
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -17,6 +20,9 @@ import com.destructo.sushi.model.mal.manga.Author
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.manga.Serialization
+import com.destructo.sushi.ui.anime.AnimeFragmentDirections
+import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.ui.animeSchedule.AnimeScheduleFragmentDirections
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -188,16 +194,6 @@ fun TextView.formatRank(num:Int?){
     }
 }
 
-@BindingAdapter("formattedDate")
-fun TextView.formatDate(date: Long){
-
-    val dateObject = Date(date)
-    val dateFormat = SimpleDateFormat("yyyy-MMM-dd hh:mm:ss a", Locale.getDefault())
-    text = "LAST UPDATED ON: " + dateFormat.format(dateObject)
-}
-
-
-
 @BindingAdapter("formatStartSeason")
 fun TextView.setEpisodeDetail(data: StartSeason?) {
     data?.let {
@@ -365,7 +361,11 @@ fun TextView.formatAnimeDescString(data: String?) {
 fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>?) {
     recyclerView.setHasFixedSize(true)
     recyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
-    val adapter = ScheduleAdapter()
+    val adapter = ScheduleAdapter(AnimeIdListener {malId->
+        malId?.let{recyclerView.findNavController().navigate(
+            AnimeScheduleFragmentDirections.actionScheduleFragmentToAnimeDetailFragment(malId)
+        )}
+    })
     recyclerView.adapter = adapter
     adapter.submitList(data)
 }

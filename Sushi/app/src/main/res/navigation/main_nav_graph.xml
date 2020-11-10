@@ -30,7 +30,11 @@
         android:id="@+id/scheduleFragment"
         android:name="com.destructo.sushi.ui.animeSchedule.AnimeScheduleFragment"
         android:label="@string/title_anime_schedule"
-        tools:layout="@layout/fragment_anime_schedule" />
+        tools:layout="@layout/fragment_anime_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mangaFragment"
         android:name="com.destructo.sushi.ui.manga.MangaFragment"
