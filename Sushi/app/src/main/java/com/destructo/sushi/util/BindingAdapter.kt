@@ -18,6 +18,8 @@ import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.manga.Serialization
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -166,6 +168,34 @@ fun TextView.setMangaAltTitles(data: Manga?) {
         text = formattedText
     }
 }
+
+@BindingAdapter("formattedInteger")
+fun TextView.formatNumber(num:Int?){
+    if(num != null && num >= 0) {
+
+        text = NumberFormat.getNumberInstance(Locale.US).format(num)
+    }else{
+        text = "N/A"
+    }
+}
+@BindingAdapter("formattedRank")
+fun TextView.formatRank(num:Int?){
+    if(num != null && num >= 0) {
+        val finalStr = NumberFormat.getNumberInstance(Locale.US).format(num)
+        text = "#$finalStr"
+    }else{
+        text = "N/A"
+    }
+}
+
+@BindingAdapter("formattedDate")
+fun TextView.formatDate(date: Long){
+
+    val dateObject = Date(date)
+    val dateFormat = SimpleDateFormat("yyyy-MMM-dd hh:mm:ss a", Locale.getDefault())
+    text = "LAST UPDATED ON: " + dateFormat.format(dateObject)
+}
+
 
 
 @BindingAdapter("formatStartSeason")
