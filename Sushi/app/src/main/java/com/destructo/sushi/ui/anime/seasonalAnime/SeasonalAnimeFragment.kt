@@ -22,6 +22,7 @@ import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
+import com.destructo.sushi.util.toTitleCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_seasonal_anime.view.*
@@ -50,17 +51,15 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var seasonArchiveMap: MutableMap<String, List<String?>?>
     private var selectedYear: String = "2021"
-    private var selectedSeason: String = "Winter"
+    private var selectedSeason: String = "winter"
     private var selectedSortType: String = "anime_score"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            seasonAnimeViewModel.getSeasonalAnime("2020", "fall", null, "100", null)
+            seasonAnimeViewModel.getSeasonalAnime("2020", "fall", "anime_score", "100", null)
             seasonAnimeViewModel.getSeasonArchive()
         }
-
     }
 
     override fun onCreateView(
@@ -88,6 +87,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         seasonAnimeRecycler = binding.root.seasonalAnimeRecyclerMain
         seasonAnimeRecycler.apply {
             setHasFixedSize(true)
+        }
+        seasonAnimeRecycler.apply {
+            setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 3)
             addItemDecoration(GridSpacingItemDeco(3, 25, true))
         }
@@ -103,6 +105,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         filterApplyButton.setOnClickListener {
+            toolbar.title = "${selectedSeason.toTitleCase()}, $selectedYear"
             seasonAnimeViewModel.getSeasonalAnime(
                 selectedYear, selectedSeason
                     .toLowerCase(Locale.getDefault()), selectedSortType, "100", null
@@ -124,6 +127,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             it?.let { navigateToAnimeDetails(it) }
         })
 
+
         seasonAnimeViewModel.seasonalAnime.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
@@ -134,17 +138,13 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     seasonalAnimeProgress.visibility = View.GONE
                     resource.data?.let { seasonAnime ->
                         seasonAdapter.submitList(seasonAnime.data)
-                        seasonAnimeRecycler.apply {
-                            setHasFixedSize(true)
-                            adapter = seasonAdapter
-                        }
+                        seasonAnimeRecycler.adapter = seasonAdapter
                     }
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
             }
-
         }
 
         seasonAnimeViewModel.seasonArchive.observe(viewLifecycleOwner) { resource ->
@@ -186,6 +186,15 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.seasonal_menu, menu)
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("year", selectedYear)
+        outState.putString("season", selectedSeason)
+        outState.putString("sort_type", selectedSortType)
 
     }
 
@@ -244,7 +253,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun setupToolbar() {
         setHasOptionsMenu(true)
-        toolbar.title = getString(R.string.title_browse_anime)
+        toolbar.title = "${selectedSeason.toTitleCase()}, $selectedYear"
         toolbar.inflateMenu(R.menu.seasonal_menu)
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
