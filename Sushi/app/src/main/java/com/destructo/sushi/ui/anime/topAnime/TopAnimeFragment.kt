@@ -38,6 +38,8 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var animeRankingSpinner: Spinner
     private lateinit var toolbar: Toolbar
     private lateinit var topAnimeProgress: ProgressBar
+    private var currentMangaList:String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,22 +104,21 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.anime_ranking_all) -> { topAnimeViewModel.getTopAnime(ALL.value,null,"500") }
-            getString(R.string.anime_ranking_airing)-> { topAnimeViewModel.getTopAnime(AIRING.value,null,"500")}
-            getString(R.string.anime_ranking_upcoming) -> { topAnimeViewModel.getTopAnime(UPCOMING.value,null,"500")}
-            getString(R.string.anime_ranking_tv) -> { topAnimeViewModel.getTopAnime(TV.value,null,"500")}
-            getString(R.string.anime_ranking_ova) -> { topAnimeViewModel.getTopAnime(OVA.value,null,"500")}
-            getString(R.string.anime_ranking_movie) -> { topAnimeViewModel.getTopAnime(MOVIE.value,null,"500")}
-            getString(R.string.anime_ranking_special) -> { topAnimeViewModel.getTopAnime(SPECIAL.value,null,"500")}
-            getString(R.string.anime_ranking_popularity) -> { topAnimeViewModel.getTopAnime(BY_POPULARITY.value,null,"500")}
-            getString(R.string.anime_ranking_favorites) -> { topAnimeViewModel.getTopAnime(FAVORITE.value,null,"500")}
+            getString(R.string.anime_ranking_all) -> { loadSelectedAnimeList(ALL.value) }
+            getString(R.string.anime_ranking_airing)-> { loadSelectedAnimeList(AIRING.value)}
+            getString(R.string.anime_ranking_upcoming) -> { loadSelectedAnimeList(UPCOMING.value)}
+            getString(R.string.anime_ranking_tv) -> { loadSelectedAnimeList(TV.value)}
+            getString(R.string.anime_ranking_ova) -> { loadSelectedAnimeList(OVA.value)}
+            getString(R.string.anime_ranking_movie) -> { loadSelectedAnimeList(MOVIE.value)}
+            getString(R.string.anime_ranking_special) -> { loadSelectedAnimeList(SPECIAL.value)}
+            getString(R.string.anime_ranking_popularity) -> { loadSelectedAnimeList(BY_POPULARITY.value)}
+            getString(R.string.anime_ranking_favorites) -> { loadSelectedAnimeList(FAVORITE.value)}
 
         }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
     }
-
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
@@ -131,6 +132,11 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-
+    private fun loadSelectedAnimeList(rankingType:String){
+        if(currentMangaList != rankingType){
+            topAnimeViewModel.getTopAnime(rankingType,null,"500")
+            currentMangaList = rankingType
+        }
+    }
 
 }

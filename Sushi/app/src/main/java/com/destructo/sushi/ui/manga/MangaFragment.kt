@@ -102,33 +102,15 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.manga_ranking_all) -> {
-                loadSelectedMangaList(MangaRankingType.ALL.value)
-            }
-            getString(R.string.manga_ranking_manga) -> {
-                loadSelectedMangaList(MangaRankingType.MANGA.value)
-            }
-            getString(R.string.manga_ranking_novels) -> {
-                loadSelectedMangaList(MangaRankingType.NOVELS.value)
-            }
-            getString(R.string.manga_ranking_oneshots) -> {
-                loadSelectedMangaList(MangaRankingType.ONESHOTS.value)
-            }
-            getString(R.string.manga_ranking_doujin) -> {
-                loadSelectedMangaList(MangaRankingType.DOUJIN.value)
-            }
-            getString(R.string.manga_ranking_manhwa) -> {
-                loadSelectedMangaList(MangaRankingType.MANHWA.value)
-            }
-            getString(R.string.manga_ranking_manhua) -> {
-                loadSelectedMangaList(MangaRankingType.MANHUA.value)
-            }
-            getString(R.string.manga_ranking_popularity) -> {
-                loadSelectedMangaList(MangaRankingType.BY_POPULARITY.value)
-            }
-            getString(R.string.manga_ranking_favorites) -> {
-               loadSelectedMangaList(MangaRankingType.FAVORITE.value)
-            }
+            getString(R.string.manga_ranking_all) -> { loadSelectedMangaList(MangaRankingType.ALL.value) }
+            getString(R.string.manga_ranking_manga) -> { loadSelectedMangaList(MangaRankingType.MANGA.value) }
+            getString(R.string.manga_ranking_novels) -> { loadSelectedMangaList(MangaRankingType.NOVELS.value) }
+            getString(R.string.manga_ranking_oneshots) -> { loadSelectedMangaList(MangaRankingType.ONESHOTS.value) }
+            getString(R.string.manga_ranking_doujin) -> { loadSelectedMangaList(MangaRankingType.DOUJIN.value) }
+            getString(R.string.manga_ranking_manhwa) -> { loadSelectedMangaList(MangaRankingType.MANHWA.value) }
+            getString(R.string.manga_ranking_manhua) -> { loadSelectedMangaList(MangaRankingType.MANHUA.value) }
+            getString(R.string.manga_ranking_popularity) -> { loadSelectedMangaList(MangaRankingType.BY_POPULARITY.value) }
+            getString(R.string.manga_ranking_favorites) -> { loadSelectedMangaList(MangaRankingType.FAVORITE.value) }
         }
     }
 
@@ -155,7 +137,6 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
             currentMangaList = rankingType
         }
     }
-
 
 }
 
