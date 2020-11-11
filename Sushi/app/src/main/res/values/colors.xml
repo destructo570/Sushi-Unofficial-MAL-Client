@@ -22,4 +22,13 @@
     <color name="colorMenuPressed">#269e9e9e</color>
     <color name="colorMenuTextSelected">#00897b</color>
 
+    <color name="twitter_button_bg">#262196F3</color>
+    <color name="twitter_button_content">#2196F3</color>
+
+    <color name="dribbble_button_bg">#26E91E63</color>
+    <color name="dribbble_button_content">#AD1457</color>
+
+    <color name="discord_button_bg">#26673AB7</color>
+    <color name="discord_button_content">#4527A0</color>
+
 </resources>
