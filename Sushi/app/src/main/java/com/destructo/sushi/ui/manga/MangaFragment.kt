@@ -40,11 +40,13 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var mangaTypeSpinner:Spinner
     private lateinit var toolbar: Toolbar
     private lateinit var mangaProgressBar: ProgressBar
+    private var currentMangaList:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)}
+            mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
+        }
     }
 
     override fun onCreateView(
@@ -100,15 +102,33 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.manga_ranking_all) -> {mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)}
-            getString(R.string.manga_ranking_manga) -> {mangaViewModel.getTopMangaList(MangaRankingType.MANGA.value,"500",null)}
-            getString(R.string.manga_ranking_novels) -> {mangaViewModel.getTopMangaList(MangaRankingType.NOVELS.value,"500",null)}
-            getString(R.string.manga_ranking_oneshots) -> {mangaViewModel.getTopMangaList(MangaRankingType.ONESHOTS.value,"500",null)}
-            getString(R.string.manga_ranking_doujin) -> {mangaViewModel.getTopMangaList(MangaRankingType.DOUJIN.value,"500",null)}
-            getString(R.string.manga_ranking_manhwa) -> {mangaViewModel.getTopMangaList(MangaRankingType.MANHWA.value,"500",null)}
-            getString(R.string.manga_ranking_manhua) -> {mangaViewModel.getTopMangaList(MangaRankingType.MANHUA.value,"500",null)}
-            getString(R.string.manga_ranking_popularity) -> {mangaViewModel.getTopMangaList(MangaRankingType.BY_POPULARITY.value,"500",null)}
-            getString(R.string.manga_ranking_favorites) -> {mangaViewModel.getTopMangaList(MangaRankingType.FAVORITE.value,"500",null)}
+            getString(R.string.manga_ranking_all) -> {
+                loadSelectedMangaList(MangaRankingType.ALL.value)
+            }
+            getString(R.string.manga_ranking_manga) -> {
+                loadSelectedMangaList(MangaRankingType.MANGA.value)
+            }
+            getString(R.string.manga_ranking_novels) -> {
+                loadSelectedMangaList(MangaRankingType.NOVELS.value)
+            }
+            getString(R.string.manga_ranking_oneshots) -> {
+                loadSelectedMangaList(MangaRankingType.ONESHOTS.value)
+            }
+            getString(R.string.manga_ranking_doujin) -> {
+                loadSelectedMangaList(MangaRankingType.DOUJIN.value)
+            }
+            getString(R.string.manga_ranking_manhwa) -> {
+                loadSelectedMangaList(MangaRankingType.MANHWA.value)
+            }
+            getString(R.string.manga_ranking_manhua) -> {
+                loadSelectedMangaList(MangaRankingType.MANHUA.value)
+            }
+            getString(R.string.manga_ranking_popularity) -> {
+                loadSelectedMangaList(MangaRankingType.BY_POPULARITY.value)
+            }
+            getString(R.string.manga_ranking_favorites) -> {
+               loadSelectedMangaList(MangaRankingType.FAVORITE.value)
+            }
         }
     }
 
@@ -126,6 +146,13 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
+        }
+    }
+
+    private fun loadSelectedMangaList(rankingType:String){
+        if(currentMangaList != rankingType){
+            mangaViewModel.getTopMangaList(rankingType,"500",null)
+            currentMangaList = rankingType
         }
     }
 
