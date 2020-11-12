@@ -193,4 +193,8 @@
         android:name="com.destructo.sushi.ui.user.animeList.UserAnimeAll"
         android:label="UserAnimeAll"
         />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.destructo.sushi.ui.user.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>
