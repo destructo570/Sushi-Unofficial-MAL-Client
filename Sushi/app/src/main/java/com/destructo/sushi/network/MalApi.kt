@@ -135,7 +135,9 @@ interface MalApi {
         @Query("q") query:String,
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
-        @Query("fields") fields:String?
+        @Query("fields") fields:String?,
+        @Query("nsfw") nsfw:String
+
     ): Deferred<AnimeList>
 
     @GET("manga")
@@ -143,7 +145,9 @@ interface MalApi {
         @Query("q") query:String,
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
-        @Query("fields") fields:String?
-    ): Deferred<MangaList>
+        @Query("fields") fields:String?,
+        @Query("nsfw") nsfw:String
+
+        ): Deferred<MangaList>
 
 }

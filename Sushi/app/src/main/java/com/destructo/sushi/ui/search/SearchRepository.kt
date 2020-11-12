@@ -28,7 +28,12 @@ constructor(
 
         animeResult.value = Resource.loading(null)
         GlobalScope.launch {
-            val getAnimeResultDeferred = malApi.searchAnimeAsync(query,  limit, offset, field)
+            val getAnimeResultDeferred = malApi.searchAnimeAsync(
+                query = query,
+                limit = limit,
+                offset = offset,
+                fields = field,
+                nsfw ="true")
             try {
                 val animeList = getAnimeResultDeferred.await()
                 withContext(Dispatchers.Main){
@@ -51,7 +56,8 @@ constructor(
                 query = query,
                 limit = limit,
                 offset = offset,
-                fields = field)
+                fields = field,
+                nsfw ="true")
             try {
                 val mangaList = getAnimeResultDeferred.await()
                 withContext(Dispatchers.Main){
