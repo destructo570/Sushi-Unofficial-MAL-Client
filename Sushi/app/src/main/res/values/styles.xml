@@ -144,4 +144,12 @@
     </style>
 
 
+    <!-- Search bar -->
+    <style name="SearchBarStyle" parent="Widget.AppCompat.SeekBar.Discrete">
+        <item name="android:editTextColor">@color/textColorPrimary</item>
+        <item name="android:textColorHint">@color/textColorSecondary</item>
+
+    </style>
+
+
 </resources>

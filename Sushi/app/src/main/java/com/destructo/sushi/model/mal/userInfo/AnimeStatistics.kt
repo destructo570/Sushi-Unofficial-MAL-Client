@@ -11,13 +11,13 @@ data class AnimeStatistics(
     @Json(name = "num_days_completed")
     val numDaysCompleted: Double?=null,
     @Json(name = "num_days_dropped")
-    val numDaysDropped: Int?=null,
+    val numDaysDropped: Double?=null,
     @Json(name = "num_days_on_hold")
-    val numDaysOnHold: Int?=null,
+    val numDaysOnHold: Double?=null,
     @Json(name = "num_days_watched")
     val numDaysWatched: Double?=null,
     @Json(name = "num_days_watching")
-    val numDaysWatching: Int?=null,
+    val numDaysWatching: Double?=null,
     @Json(name = "num_episodes")
     val numEpisodes: Int?=null,
     @Json(name = "num_items")

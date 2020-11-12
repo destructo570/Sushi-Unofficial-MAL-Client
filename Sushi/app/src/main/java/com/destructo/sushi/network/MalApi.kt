@@ -1,14 +1,17 @@
 package com.destructo.sushi.network
 
 import com.destructo.sushi.model.mal.anime.Anime
+import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.manga.Manga
+import com.destructo.sushi.model.mal.mangaList.MangaList
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
 import com.destructo.sushi.model.mal.seasonalAnime.Season
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
+import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
@@ -121,5 +124,26 @@ interface MalApi {
     fun deleteMangaFromList(
         @Path("manga_id") manga_id:String
     ):Deferred<Unit>
+
+    @GET("users/@me")
+    fun getUserInfo(
+        @Query("fields") status:String?,
+        ): Deferred<UserInfo>
+
+    @GET("anime")
+    fun searchAnimeAsync(
+        @Query("q") query:String,
+        @Query("limit") limit:String?,
+        @Query("offset") offset:String?,
+        @Query("fields") fields:String?
+    ): Deferred<AnimeList>
+
+    @GET("manga")
+    fun searchMangaAsync(
+        @Query("q") query:String,
+        @Query("limit") limit:String?,
+        @Query("offset") offset:String?,
+        @Query("fields") fields:String?
+    ): Deferred<MangaList>
 
 }

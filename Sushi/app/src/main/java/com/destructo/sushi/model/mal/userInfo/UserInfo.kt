@@ -22,5 +22,7 @@ data class UserInfo(
     @Json(name = "name")
     val name: String?=null,
     @Json(name = "time_zone")
-    val timeZone: String?=null
+    val timeZone: String?=null,
+    @Json(name = "picture")
+    val picture: String?=null
 )

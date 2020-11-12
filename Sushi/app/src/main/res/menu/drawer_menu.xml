@@ -40,6 +40,19 @@
 
     </item>
 
+    <item android:title="@string/title_other">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/searchFragment"
+                    android:icon="@drawable/ic_search_line"
+                    android:title="@string/title_search_mal" />
+
+            </group>
+        </menu>
+
+    </item>
+
 
 <!--    <item android:title="@string/title_other">-->
 <!--        <menu>-->

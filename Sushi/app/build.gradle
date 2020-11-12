@@ -139,6 +139,8 @@ dependencies {
 
     implementation "androidx.palette:palette:1.0.0"
 
+    implementation 'app.futured.donut:library:2.0.0'
+
 }
 
 kapt {
