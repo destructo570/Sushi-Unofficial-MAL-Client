@@ -11,6 +11,8 @@ import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -55,7 +57,7 @@ private const val MANGA_NOT_IN_USER_LIST = 0
 private const val USER_MANGA_LIST_DEFAULT = -1
 
 @AndroidEntryPoint
-class MangaDetailsFragment : Fragment(), MangaUpdateListener {
+class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOffsetChangedListener {
 
     private val mangaDetailViewModel: MangaDetailViewModel by viewModels()
     private lateinit var binding: FragmentMangaDetailsBinding
@@ -417,6 +419,28 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        appBar.addOnOffsetChangedListener(this)
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        if(verticalOffset == 0){
+            var drawable: Drawable? = toolbar.navigationIcon
+            drawable?.let {
+                drawable = DrawableCompat.wrap(drawable!!)
+                context?.let { it1 -> ContextCompat.getColor(it1,R.color.white) }?.let { it2 ->
+                    DrawableCompat.setTint(drawable!!.mutate(),
+                        it2
+                    )
+                }
+                toolbar.navigationIcon = drawable
+            }
+
+        }else{
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
+        }
+    }
 
 
 }
