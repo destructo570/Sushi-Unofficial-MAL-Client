@@ -12,6 +12,8 @@ import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -370,7 +372,6 @@ class AnimeDetailFragment : Fragment(),
                 }
             }
         }
-
     }
 
     private fun setGenreChips(genreList: List<Genre?>) {
@@ -391,6 +392,11 @@ class AnimeDetailFragment : Fragment(),
                 genreChipGroup.addView(chip)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appBar.addOnOffsetChangedListener(this)
     }
 
     private fun setScoreCardColor(imgUrl: String) {
@@ -441,7 +447,21 @@ class AnimeDetailFragment : Fragment(),
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        if(verticalOffset == 0){
+            var drawable: Drawable? = toolbar.navigationIcon
+            drawable?.let {
+                drawable = DrawableCompat.wrap(drawable!!)
+                context?.let { it1 -> ContextCompat.getColor(it1,R.color.white) }?.let { it2 ->
+                    DrawableCompat.setTint(drawable!!.mutate(),
+                        it2
+                    )
+                }
+                toolbar.navigationIcon = drawable
+            }
 
+        }else{
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
+        }
     }
 
     override fun onUpdateClick(
