@@ -30,8 +30,8 @@ constructor(
 
     val userAnimeRemove: LiveData<Resource<Unit>> = animeDetailsRepo.userAnimeRemove
 
-    fun getAnimeDetail(malId: Int) {
-        animeDetailsRepo.getAnimeDetail(malId)
+    fun getAnimeDetail(malId: Int, isEdited: Boolean) {
+        animeDetailsRepo.getAnimeDetail(malId, isEdited)
     }
 
     fun getAnimeCharacters(malId: Int) {

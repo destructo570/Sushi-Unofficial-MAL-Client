@@ -24,12 +24,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
-import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
-import com.destructo.sushi.ui.anime.AnimeUpdateDialog.*
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.destructo.sushi.ui.anime.adapter.*
 import com.destructo.sushi.ui.anime.listener.*
@@ -40,7 +38,6 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_anime_detail.*
 import kotlinx.android.synthetic.main.inc_anime_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
@@ -55,7 +52,6 @@ import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
 import kotlinx.android.synthetic.main.inc_staff_list.view.*
 import timber.log.Timber
-import java.util.*
 
 private const val ANIME_IN_USER_LIST = 1
 private const val ANIME_NOT_IN_USER_LIST = 0
@@ -89,7 +85,6 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
     private lateinit var animeAltTitleLayout: ConstraintLayout
 
-
     private var animeStatus:String?=null
     private var animeEpisodes:String?=null
     private var animeScore:Int?=0
@@ -116,10 +111,11 @@ class AnimeDetailFragment : Fragment(),
             isInUserList = savedInstanceState.getInt("isInUserList")
         }else{
             animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
-            animeDetailViewModel.getAnimeDetail(animeIdArg)
+            animeDetailViewModel.getAnimeDetail(animeIdArg, false)
             animeDetailViewModel.getAnimeCharacters(animeIdArg)
             animeDetailViewModel.getAnimeVideos(animeIdArg)
             animeDetailViewModel.getAnimeReviews(animeIdArg)
+
         }
     }
 
@@ -172,7 +168,6 @@ class AnimeDetailFragment : Fragment(),
 
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
-
         }
 
         addToListButton.setOnClickListener {
@@ -241,7 +236,6 @@ class AnimeDetailFragment : Fragment(),
 
         })
 
-
         animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
             when (resources.status) {
                 Status.LOADING -> {
@@ -271,6 +265,8 @@ class AnimeDetailFragment : Fragment(),
                         animeEntity.genres?.let { setGenreChips(it) }
 
                         animeEntity.mainPicture?.medium?.let { setScoreCardColor(it) }
+
+
 
                     }
                 }
@@ -349,7 +345,7 @@ class AnimeDetailFragment : Fragment(),
                         addToListButton.text = animeStatus.status.toString().toTitleCase()
                         addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
                         myListStatus.visibility = View.VISIBLE
-                        animeDetailViewModel.getAnimeDetail(animeIdArg)
+                        animeDetailViewModel.getAnimeDetail(animeIdArg, true)
                     }
                 }
                 Status.ERROR->{
@@ -365,7 +361,7 @@ class AnimeDetailFragment : Fragment(),
                     addToListButton.text = getString(R.string.anime_detail_add_to_list)
                     addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
                     myListStatus.visibility = View.GONE
-                    animeDetailViewModel.getAnimeDetail(animeIdArg)
+                    animeDetailViewModel.getAnimeDetail(animeIdArg, true)
                 }
                 Status.LOADING -> {
 

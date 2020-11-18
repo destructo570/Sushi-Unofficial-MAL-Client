@@ -2,6 +2,7 @@ package com.destructo.sushi.model.mal.anime
 
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.common.Picture
@@ -10,6 +11,7 @@ import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity(tableName = "anime_details", primaryKeys = ["id"])
 data class Anime(
     @Json(name = "alternative_titles")
     val alternativeTitles: AlternativeTitles?=null,

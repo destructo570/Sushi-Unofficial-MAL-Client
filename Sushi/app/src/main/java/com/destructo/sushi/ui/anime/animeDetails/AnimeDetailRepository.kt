@@ -2,6 +2,10 @@ package com.destructo.sushi.ui.anime.animeDetails
 
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
+import com.destructo.sushi.model.database.AnimeCharacterListEntity
+import com.destructo.sushi.model.database.AnimeDetailEntity
+import com.destructo.sushi.model.database.AnimeReviewsEntity
+import com.destructo.sushi.model.database.AnimeVideosEntity
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
@@ -10,11 +14,11 @@ import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.internal.wait
+import com.destructo.sushi.room.AnimeCharacterListDao
+import com.destructo.sushi.room.AnimeDetailsDao
+import com.destructo.sushi.room.AnimeReviewListDao
+import com.destructo.sushi.room.AnimeVideoListDao
+import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,7 +26,12 @@ class AnimeDetailRepository
 @Inject
 constructor(
     private val malApi: MalApi,
-    private val jikanApi: JikanApi
+    private val jikanApi: JikanApi,
+    private val animeDetailsDao: AnimeDetailsDao,
+    private val animeCharacterListDao: AnimeCharacterListDao,
+    private val animeVideosDao: AnimeVideoListDao,
+    private val animeReviewsDao: AnimeReviewListDao
+
 ) {
 
     var animeDetail: MutableLiveData<Resource<Anime>> = MutableLiveData()
@@ -38,24 +47,25 @@ constructor(
 
     var userAnimeRemove: MutableLiveData<Resource<Unit>> = MutableLiveData()
 
-
-
-    fun getAnimeDetail(malId: Int) {
+    fun getAnimeDetail(malId: Int, isEdited: Boolean) {
         animeDetail.value = Resource.loading(null)
 
         GlobalScope.launch {
-            val animeId: String = malId.toString()
-            val getAnimeByIdDeferred = malApi.getAnimeByIdAsync(animeId, ALL_ANIME_FIELDS)
-            try {
-                val animeDetails = getAnimeByIdDeferred.await()
-                withContext(Dispatchers.Main) {
-                    animeDetail.value = Resource.success(animeDetails)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    animeDetail.value = Resource.error(e.message ?: "", null)
+            val animeDetailCache = animeDetailsDao.getAnimeDetailsById(malId)
 
-                }
+            if (animeDetailCache != null){
+
+                    if((System.currentTimeMillis() - animeDetailCache.time) > 20000
+                        || isEdited) {
+                        animeDetailCall(malId)
+                    }else{
+                        val mAnime = animeDetailCache.anime
+                        withContext(Dispatchers.Main) {
+                        animeDetail.value = Resource.success(mAnime)
+                        }
+                    }
+            }else{
+                animeDetailCall(malId)
             }
         }
     }
@@ -63,18 +73,22 @@ constructor(
     fun getAnimeCharacters(malId: Int) {
         animeCharacterAndStaff.value = Resource.loading(null)
         GlobalScope.launch {
-            val animeId: String = malId.toString()
-            val getAnimeCharactersDeferred = jikanApi.getCharacterAndStaffAsync(animeId)
-            try {
-                val animeCharactersAndStaff = getAnimeCharactersDeferred.await()
-                withContext(Dispatchers.Main) {
-                    animeCharacterAndStaff.value = Resource.success(animeCharactersAndStaff)
+            val animeCharacterListCache = animeCharacterListDao.getAnimeCharactersById(malId)
+
+            if (animeCharacterListCache != null){
+
+                if((System.currentTimeMillis() - animeCharacterListCache.time) > 30000) {
+                    animeCharacterCall(malId)
+                }else{
+                    val mAnime = animeCharacterListCache.characterAndStaffList
+                    withContext(Dispatchers.Main) {
+                        animeCharacterAndStaff.value = Resource.success(mAnime)
+                    }
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    animeCharacterAndStaff.value = Resource.error(e.message ?: "", null)
-                }
+            }else{
+                animeCharacterCall(malId)
             }
+
         }
     }
 
@@ -82,18 +96,20 @@ constructor(
     fun getAnimeVideos(malId: Int) {
         animeVideosAndEpisodes.value = Resource.loading(null)
         GlobalScope.launch {
-            val animeId: String = malId.toString()
-            val getAnimeVideosDeferred = jikanApi.getAnimeVideosAsync(animeId)
-            try {
-                val animeVideosList = getAnimeVideosDeferred.await()
-                withContext(Dispatchers.Main) {
-                    animeVideosAndEpisodes.value = Resource.success(animeVideosList)
-                }
+            val animeVideosListCache = animeVideosDao.getAnimeVideosById(malId)
 
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    animeVideosAndEpisodes.value = Resource.error(e.message ?: "", null)
+            if (animeVideosListCache != null){
+
+                if((System.currentTimeMillis() - animeVideosListCache.time) > 30000) {
+                    animeVideoCall(malId)
+                }else{
+                    val mAnime = animeVideosListCache.videosAndEpisodes
+                    withContext(Dispatchers.Main) {
+                        animeVideosAndEpisodes.value = Resource.success(mAnime)
+                    }
                 }
+            }else{
+                animeVideoCall(malId)
             }
         }
     }
@@ -102,18 +118,20 @@ constructor(
     fun getAnimeReviews(malId: Int) {
         animeReview.value = Resource.loading(null)
         GlobalScope.launch {
-            val animeId: String = malId.toString()
-            val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId)
-            try {
-                val animeReviews = getAnimeReviewsDeferred.await()
-                withContext(Dispatchers.Main) {
-                    animeReview.value = Resource.success(animeReviews)
-                }
+            val animeReviewListCache = animeReviewsDao.getAnimeReviewsById(malId)
 
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    animeReview.value = Resource.error(e.message ?: "", null)
+            if (animeReviewListCache != null){
+
+                if((System.currentTimeMillis() - animeReviewListCache.time) > 30000) {
+                    animeReviewCall(malId)
+                }else{
+                    val mAnime = animeReviewListCache.reviewList
+                    withContext(Dispatchers.Main) {
+                        animeReview.value = Resource.success(mAnime)
+                    }
                 }
+            }else{
+                animeReviewCall(malId)
             }
         }
     }
@@ -160,6 +178,97 @@ constructor(
             }
         }
 
-        }
+    }
 
-}
+    suspend fun animeDetailCall(malId:Int){
+
+        val animeId: String = malId.toString()
+        val getAnimeByIdDeferred = malApi.getAnimeByIdAsync(animeId, ALL_ANIME_FIELDS)
+        try {
+            val animeDetails = getAnimeByIdDeferred.await()
+            val animeRequest = AnimeDetailEntity(
+                anime = animeDetails,
+                id = animeDetails.id!!,
+                time = System.currentTimeMillis()
+            )
+            animeDetailsDao.insertAnimeDetails(animeRequest)
+            withContext(Dispatchers.Main) {
+                animeDetail.value = Resource.success(animeRequest.anime)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                animeDetail.value = Resource.error(e.message ?: "", null)
+            }
+        }
+    }
+
+    private suspend fun animeCharacterCall(malId:Int) {
+
+        val animeId: String = malId.toString()
+        val getAnimeCharactersDeferred = jikanApi.getCharacterAndStaffAsync(animeId)
+        try {
+            val animeCharactersAndStaffList = getAnimeCharactersDeferred.await()
+            val animeCharacterListEntity = AnimeCharacterListEntity(
+                characterAndStaffList = animeCharactersAndStaffList,
+                time = System.currentTimeMillis(),
+                id = malId
+            )
+            animeCharacterListDao.insertAnimeCharacters(animeCharacterListEntity)
+            withContext(Dispatchers.Main) {
+                animeCharacterAndStaff
+                    .value = Resource.success(animeCharacterListEntity.characterAndStaffList)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                animeCharacterAndStaff.value = Resource.error(e.message ?: "", null)
+            }
+        }
+    }
+
+    private suspend fun animeVideoCall(malId:Int) {
+        val animeId: String = malId.toString()
+        val getAnimeVideosDeferred = jikanApi.getAnimeVideosAsync(animeId)
+        try {
+            val animeVideosList = getAnimeVideosDeferred.await()
+            val animeVideoListEntity = AnimeVideosEntity(
+                videosAndEpisodes = animeVideosList,
+                time = System.currentTimeMillis(),
+                id = malId
+            )
+            animeVideosDao.insertAnimeVideos(animeVideoListEntity)
+            withContext(Dispatchers.Main) {
+                animeVideosAndEpisodes
+                    .value = Resource.success(animeVideoListEntity.videosAndEpisodes)
+            }
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                animeVideosAndEpisodes.value = Resource.error(e.message ?: "", null)
+            }
+        }
+    }
+
+    suspend fun animeReviewCall(malId:Int) {
+        val animeId: String = malId.toString()
+        val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId)
+        try {
+            val animeReviews = getAnimeReviewsDeferred.await()
+            val animeReviewListEntity = AnimeReviewsEntity(
+                reviewList = animeReviews,
+                time = System.currentTimeMillis(),
+                id = malId
+            )
+            animeReviewsDao.insertAnimeReviews(animeReviewListEntity)
+            withContext(Dispatchers.Main) {
+                animeReview.value = Resource.success(animeReviewListEntity.reviewList)
+            }
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                animeReview.value = Resource.error(e.message ?: "", null)
+            }
+        }
+    }
+
+
+    }

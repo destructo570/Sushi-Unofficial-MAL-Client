@@ -15,7 +15,7 @@ class MalAuthInterceptor(
 
         var response = chain.proceed(requestBuilder.build())
 
-        if(!response.isSuccessful && response.code == 429){
+        if(!response.isSuccessful || response.code == 429){
             try {
                 Timber.e("You are being rate limited by MAL, Retrying in 3 seconds.")
                 Thread.sleep(3000L)
