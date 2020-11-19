@@ -101,7 +101,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             isInUserList = savedInstanceState.getInt("isInUserList")
         }else{
             mangaIdArg = MangaDetailsFragmentArgs.fromBundle(requireArguments()).mangaId
-            mangaDetailViewModel.getMangaDetail(mangaIdArg)
+            mangaDetailViewModel.getMangaDetail(mangaIdArg, false)
             mangaDetailViewModel.getMangaCharacters(mangaIdArg)
             mangaDetailViewModel.getMangaReviews(mangaIdArg)
         }
@@ -287,7 +287,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                         addToListButton.text = titleCaseString(mangaStatus.status.toString())
                         addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
                         myListStatus.visibility = View.VISIBLE
-                        mangaDetailViewModel.getMangaDetail(mangaIdArg)
+                        mangaDetailViewModel.getMangaDetail(mangaIdArg, true)
                     }
                 }
                 Status.ERROR->{
@@ -303,7 +303,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     addToListButton.text = getString(R.string.anime_detail_add_to_list)
                     addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
                     myListStatus.visibility = View.GONE
-                    mangaDetailViewModel.getMangaDetail(mangaIdArg)
+                    mangaDetailViewModel.getMangaDetail(mangaIdArg, true)
                 }
                 Status.LOADING -> {
 

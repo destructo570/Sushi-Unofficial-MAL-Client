@@ -50,4 +50,22 @@ object RoomModule {
     fun provideAnimeReviewListDao(sushiDatabase: SushiDatabase): AnimeReviewListDao{
         return sushiDatabase.animeReviewsDao()
     }
+
+    @Singleton
+    @Provides
+    fun provideMangaDetailsDao(sushiDatabase: SushiDatabase): MangaDetailsDao{
+        return sushiDatabase.mangaDetailsDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMangaCharacterListDao(sushiDatabase: SushiDatabase): MangaCharacterListDao{
+        return sushiDatabase.mangaCharacterListDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideMangaReviewListDao(sushiDatabase: SushiDatabase): MangaReviewListDao{
+        return sushiDatabase.mangaReviewListDao()
+    }
 }

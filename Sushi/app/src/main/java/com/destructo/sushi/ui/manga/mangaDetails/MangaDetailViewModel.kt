@@ -37,8 +37,8 @@ constructor(
     val userMangaRemove: LiveData<Resource<Unit>> = mangaDetailsRepo.userMangaRemove
 
 
-    fun getMangaDetail(malId: Int) {
-        mangaDetailsRepo.getMangaDetail(malId)
+    fun getMangaDetail(malId: Int, isEdited: Boolean) {
+        mangaDetailsRepo.getMangaDetail(malId, isEdited)
     }
 
     fun getMangaCharacters(malId: Int) {

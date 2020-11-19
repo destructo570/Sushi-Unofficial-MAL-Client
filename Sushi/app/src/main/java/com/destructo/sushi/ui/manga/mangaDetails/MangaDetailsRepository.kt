@@ -5,6 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.ALL_MANGA_FIELDS
 import com.destructo.sushi.BASIC_MANGA_FIELDS
+import com.destructo.sushi.model.database.AnimeDetailEntity
+import com.destructo.sushi.model.database.MangaCharacterListEntity
+import com.destructo.sushi.model.database.MangaDetailsEntity
+import com.destructo.sushi.model.database.MangaReviewsEntity
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
@@ -13,6 +17,9 @@ import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.MangaCharacterListDao
+import com.destructo.sushi.room.MangaDetailsDao
+import com.destructo.sushi.room.MangaReviewListDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,7 +31,10 @@ class MangaDetailsRepository
 @Inject
 constructor(
     private val malApi: MalApi,
-    private val jikanApi: JikanApi
+    private val jikanApi: JikanApi,
+    private val mangaDetailsDao: MangaDetailsDao,
+    private val mangaCharacterListDao: MangaCharacterListDao,
+    private val mangaReviewListDao: MangaReviewListDao
 ){
 
     var mangaDetail: MutableLiveData<Resource<Manga>> = MutableLiveData()
@@ -39,22 +49,25 @@ constructor(
 
 
 
-    fun getMangaDetail(malId: Int) {
+    fun getMangaDetail(malId: Int, isEdited: Boolean) {
         mangaDetail.value = Resource.loading(null)
 
         GlobalScope.launch {
-            val mangaId: String = malId.toString()
-            val getMangaByIdDeferred = malApi.getMangaByIdAsync(mangaId, ALL_MANGA_FIELDS)
-            try {
-                val mangaDetails = getMangaByIdDeferred.await()
-                withContext(Dispatchers.Main) {
-                    mangaDetail.value = Resource.success(mangaDetails)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    mangaDetail.value = Resource.error(e.message ?: "", null)
+            val mangaDetailCache = mangaDetailsDao.getMangaDetailsById(malId)
 
+            if (mangaDetailCache != null){
+
+                if((System.currentTimeMillis() - mangaDetailCache.time) > 20000
+                    || isEdited) {
+                    mangaDetailsCall(malId)
+                }else{
+                    val mangaDetails = mangaDetailCache.manga
+                    withContext(Dispatchers.Main) {
+                        mangaDetail.value = Resource.success(mangaDetails)
+                    }
                 }
+            }else{
+                mangaDetailsCall(malId)
             }
         }
     }
@@ -63,18 +76,20 @@ constructor(
         mangaCharacter.value = Resource.loading(null)
 
         GlobalScope.launch {
-            val mangaId: String = malId.toString()
-            val getMangaCharactersDeferred = jikanApi.getMangaCharactersAsync(mangaId)
-            try {
-                val mangaCharacterList = getMangaCharactersDeferred.await()
-                withContext(Dispatchers.Main) {
-                    mangaCharacter.value = Resource.success(mangaCharacterList)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    mangaCharacter.value = Resource.error(e.message ?: "", null)
+            val mangaCharacterListCache = mangaCharacterListDao.getMangaCharacterListById(malId)
 
+            if (mangaCharacterListCache != null){
+
+                if((System.currentTimeMillis() - mangaCharacterListCache.time) > 20000) {
+                    mangaCharactersCall(malId)
+                }else{
+                    val mangaCharacterList = mangaCharacterListCache.mangaCharacterList
+                    withContext(Dispatchers.Main) {
+                        mangaCharacter.value = Resource.success(mangaCharacterList)
+                    }
                 }
+            }else{
+                mangaCharactersCall(malId)
             }
         }
     }
@@ -83,18 +98,20 @@ constructor(
         mangaReview.value = Resource.loading(null)
 
         GlobalScope.launch {
-            val mangaId: String = malId.toString()
-            val getMangaReviewsDeferred = jikanApi.getMangaReviewsAsync(mangaId)
-            try {
-                val mangaCharacterList = getMangaReviewsDeferred.await()
-                withContext(Dispatchers.Main) {
-                    mangaReview.value = Resource.success(mangaCharacterList)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    mangaCharacter.value = Resource.error(e.message ?: "", null)
+            val mangaReviewListCache = mangaReviewListDao.getMangaReviewsById(malId)
 
+            if (mangaReviewListCache != null){
+
+                if((System.currentTimeMillis() - mangaReviewListCache.time) > 20000) {
+                    mangaReviewsCall(malId)
+                }else{
+                    val mangaCharacterList = mangaReviewListCache.reviewList
+                    withContext(Dispatchers.Main) {
+                        mangaReview.value = Resource.success(mangaCharacterList)
+                    }
                 }
+            }else{
+                mangaReviewsCall(malId)
             }
         }
     }
@@ -141,4 +158,70 @@ constructor(
 
     }
 
-}
+    private suspend fun mangaDetailsCall(malId:Int) {
+
+        val mangaId: String = malId.toString()
+        val getMangaByIdDeferred = malApi.getMangaByIdAsync(mangaId, ALL_MANGA_FIELDS)
+        try {
+            val mangaDetails = getMangaByIdDeferred.await()
+            val mangaRequest = MangaDetailsEntity(
+                manga = mangaDetails,
+                id = malId,
+                time = System.currentTimeMillis()
+            )
+            mangaDetailsDao.insertMangaDetails(mangaRequest)
+            withContext(Dispatchers.Main) {
+                mangaDetail.value = Resource.success(mangaDetails)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                mangaDetail.value = Resource.error(e.message ?: "", null)
+
+            }
+        }
+
+    }
+    private suspend fun mangaCharactersCall(malId:Int) {
+        val mangaId: String = malId.toString()
+        val getMangaCharactersDeferred = jikanApi.getMangaCharactersAsync(mangaId)
+        try {
+            val mangaCharacterList = getMangaCharactersDeferred.await()
+            val mangaCharacterRequest = MangaCharacterListEntity(
+                mangaCharacterList = mangaCharacterList,
+                id = malId,
+                time = System.currentTimeMillis()
+            )
+            mangaCharacterListDao.insertMangaCharacterList(mangaCharacterRequest)
+            withContext(Dispatchers.Main) {
+                mangaCharacter.value = Resource.success(mangaCharacterRequest.mangaCharacterList)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                mangaCharacter.value = Resource.error(e.message ?: "", null)
+
+            }
+        }
+    }
+    private suspend fun mangaReviewsCall(malId:Int) {
+        val mangaId: String = malId.toString()
+        val getMangaReviewsDeferred = jikanApi.getMangaReviewsAsync(mangaId)
+        try {
+            val mangaCharacterList = getMangaReviewsDeferred.await()
+            val mangaReviewRequest = MangaReviewsEntity(
+                reviewList = mangaCharacterList,
+                id = malId,
+                time = System.currentTimeMillis()
+            )
+            mangaReviewListDao.insertMangaReviews(mangaReviewRequest)
+            withContext(Dispatchers.Main) {
+                mangaReview.value = Resource.success(mangaReviewRequest.reviewList)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                mangaReview.value = Resource.error(e.message ?: "", null)
+
+            }
+        }
+    }
+
+    }
