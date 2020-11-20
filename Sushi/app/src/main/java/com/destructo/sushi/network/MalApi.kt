@@ -23,9 +23,8 @@ interface MalApi {
         @Path("Id") animeId:String,
         @Query("fields") fields:String
     ): Deferred<Anime>
+
     @GET("anime/ranking")
-
-
     fun getAnimeRankingAsync(
         @Query("ranking_type") ranking_type:String,
         @Query("limit") limit:String?,
@@ -33,6 +32,9 @@ interface MalApi {
         @Query("fields") fields:String?
 
     ): Deferred<AnimeRanking>
+
+    @GET
+    fun getAnimeRankingNext(@Url url:String): Deferred<AnimeRanking>
 
     @GET("anime/season/{year}/{season}")
     fun getSeasonalAnimeAsync(

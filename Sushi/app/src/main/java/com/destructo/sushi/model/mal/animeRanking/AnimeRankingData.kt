@@ -12,5 +12,5 @@ data class AnimeRankingData(
     @Json(name = "node")
     val anime: Anime?=null,
     @Json(name = "ranking")
-    val ranking: Ranking?=null
+    val ranking: Ranking?=null,
 ):Parcelable

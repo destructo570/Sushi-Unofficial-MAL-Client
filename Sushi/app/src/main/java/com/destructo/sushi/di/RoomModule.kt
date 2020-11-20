@@ -68,4 +68,5 @@ object RoomModule {
     fun provideMangaReviewListDao(sushiDatabase: SushiDatabase): MangaReviewListDao{
         return sushiDatabase.mangaReviewListDao()
     }
+
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentCurrentlyAiringBinding
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
@@ -23,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_currently_airing.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class CurrentlyAiring : Fragment() {
+class CurrentlyAiring : Fragment(), ListEndListener {
 
     private val currentlyAiringViewModel: CurrentlyAiringViewModel by viewModels()
 
@@ -69,6 +71,7 @@ class CurrentlyAiring : Fragment() {
         currentlyAiringAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
+        currentlyAiringAdapter.setListEndListener(this)
 
         currentlyAiringViewModel.currentlyAiring.observe(viewLifecycleOwner){resource->
 
@@ -107,5 +110,9 @@ class CurrentlyAiring : Fragment() {
         }
     }
 
+    override fun onEndReached(position: Int) {
+        Toast.makeText(context,"End reached...", Toast.LENGTH_SHORT).show()
     }
+
+}
 

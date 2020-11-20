@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -21,9 +22,16 @@ constructor(
     private val topAnimeRepo: TopAnimeRepository,
 ):ViewModel(){
 
-    val topAnimeList: LiveData<Resource<AnimeRanking>> = topAnimeRepo.topAnimeListOva
+    val topAnimeNextPage: LiveData<Resource<AnimeRanking>> = topAnimeRepo.topAnimeListNextPage
 
-    fun getTopAnime(ranking_type:String,offset:String?, limit:String?){
-        topAnimeRepo.getTopAnime(ranking_type,offset,limit)
+    val animeRankingList: MutableLiveData<Resource<MutableList<AnimeRankingData>>> = topAnimeRepo.animeRankingList
+
+    fun getTopAnimeNextPage(){
+       topAnimeRepo.getTopAnimeNext()
     }
+
+    fun getAnimeRankingList(ranking_type:String,offset:String?, limit:String?){
+        topAnimeRepo.getAnimeRankingList(ranking_type,offset,limit)
+    }
+
 }

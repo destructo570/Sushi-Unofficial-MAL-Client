@@ -7,6 +7,7 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.anime.*
+import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.common.Picture
@@ -110,4 +111,5 @@ class TypeConverters {
     fun mangaReviewListToString(data: MangaReview?): String?{
         return gson.toJson(data)
     }
+
 }

@@ -21,7 +21,6 @@ abstract class SushiDatabase: RoomDatabase() {
     abstract fun mangaCharacterListDao():MangaCharacterListDao
     abstract fun mangaReviewListDao():MangaReviewListDao
 
-
     companion object{
 
         val DATABASE_NAME = "sushi_database"

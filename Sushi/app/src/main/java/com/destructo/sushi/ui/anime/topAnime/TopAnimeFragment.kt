@@ -4,24 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.enum.mal.AnimeRankingType.*
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
@@ -29,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndListener {
 
     private val topAnimeViewModel:TopAnimeViewModel by viewModels()
     private lateinit var topAnimeRecycler:RecyclerView
@@ -40,11 +41,10 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var topAnimeProgress: ProgressBar
     private var currentMangaList:String = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            topAnimeViewModel.getTopAnime(ALL.value,null,"500")
+            topAnimeViewModel.getAnimeRankingList(ALL.value,null,"50")
         }
     }
 
@@ -80,8 +80,10 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         topAnimeAdapter = AnimeRankingAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
+        topAnimeAdapter.setListEndListener(this)
+        topAnimeAdapter.stateRestorationPolicy = ALLOW
 
-        topAnimeViewModel.topAnimeList.observe(viewLifecycleOwner){resource->
+        topAnimeViewModel.animeRankingList.observe(viewLifecycleOwner){ resource->
             when(resource?.status){
                 Status.LOADING ->{
                     topAnimeProgress.visibility = View.VISIBLE
@@ -90,9 +92,27 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Status.SUCCESS ->{
                     topAnimeProgress.visibility = View.GONE
                     topAnimeRecycler.visibility = View.VISIBLE
-                    resource.data?.let {topAnime->
-                        topAnimeAdapter.submitList(topAnime.data)
+                    resource.data?.let {
                         topAnimeRecycler.adapter = topAnimeAdapter
+                        topAnimeAdapter.submitList(it)
+                    }
+                }
+                Status.ERROR->{
+                    Timber.e("Error: %s", resource.message)}
+            }
+        }
+
+        topAnimeViewModel.topAnimeNextPage.observe(viewLifecycleOwner){
+                resource->
+            when(resource?.status){
+                Status.LOADING ->{
+                }
+                Status.SUCCESS ->{
+                    resource.data?.data?.let {
+                        val currentList = topAnimeAdapter.currentList
+                        currentList.addAll(it)
+                        topAnimeAdapter.submitList(null)
+                        topAnimeAdapter.submitList(currentList.toList())
                     }
                 }
                 Status.ERROR->{
@@ -134,9 +154,13 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun loadSelectedAnimeList(rankingType:String){
         if(currentMangaList != rankingType){
-            topAnimeViewModel.getTopAnime(rankingType,null,"500")
+            topAnimeViewModel.getAnimeRankingList(rankingType,null,"50")
             currentMangaList = rankingType
         }
+    }
+
+    override fun onEndReached(position: Int) {
+            topAnimeViewModel.getTopAnimeNextPage()
     }
 
 }
