@@ -35,6 +35,8 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
     private lateinit var upcomingAnimeRecycler:RecyclerView
     private lateinit var toolbar: Toolbar
     private lateinit var upcomingAnimeProgress:ProgressBar
+    private lateinit var upcomingAnimePaginationProgress:ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,7 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
 
         toolbar = binding.toolbar
         upcomingAnimeProgress = binding.upcomingAnimeProgressbar
+        upcomingAnimePaginationProgress = binding.upcomingPaginationProgress
 
 
         return binding.root
@@ -99,10 +102,10 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
             when(resource.status){
 
                 Status.LOADING->{
-                    upcomingAnimeProgress.visibility = View.VISIBLE
+                    upcomingAnimePaginationProgress.visibility = View.VISIBLE
                 }
                 Status.SUCCESS->{
-                    upcomingAnimeProgress.visibility = View.GONE
+                    upcomingAnimePaginationProgress.visibility = View.GONE
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)

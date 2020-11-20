@@ -35,6 +35,8 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
     private lateinit var animeRankingSpinner: Spinner
     private lateinit var toolbar: Toolbar
     private lateinit var topAnimeProgress: ProgressBar
+    private lateinit var topAnimePaginationProgress: LinearLayout
+
     private var currentRankingType:String = ALL.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +81,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
         topAnimeRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
         topAnimeProgress = binding.topAnimeProgressbar
+        topAnimePaginationProgress = binding.topAnimePaginationProgress
 
         return binding.root
     }
@@ -112,8 +115,12 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
         topAnimeViewModel.topAnimeNextPage.observe(viewLifecycleOwner) { resource ->
             when (resource?.status) {
                 Status.LOADING -> {
+                    topAnimePaginationProgress.visibility = View.VISIBLE
+
                 }
                 Status.SUCCESS -> {
+                    topAnimePaginationProgress.visibility = View.GONE
+
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)

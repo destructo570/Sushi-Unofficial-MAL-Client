@@ -33,6 +33,8 @@ class CurrentlyAiring : Fragment(), ListEndListener {
     private lateinit var currentlyAiringRecycler: RecyclerView
     private lateinit var toolbar: Toolbar
     private lateinit var currentlyAiringProgress:ProgressBar
+    private lateinit var currentlyAiringPagingProgress:ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,7 @@ class CurrentlyAiring : Fragment(), ListEndListener {
         }
         toolbar = binding.toolbar
         currentlyAiringProgress = binding.currentlyAiringProgressbar
+        currentlyAiringPagingProgress = binding.airingPaginationProgress
 
             return binding.root
         }
@@ -94,10 +97,10 @@ class CurrentlyAiring : Fragment(), ListEndListener {
             when(resource.status){
 
                 Status.LOADING->{
-                    currentlyAiringProgress.visibility = View.VISIBLE
+                    currentlyAiringPagingProgress.visibility = View.VISIBLE
                 }
                 Status.SUCCESS->{
-                    currentlyAiringProgress.visibility = View.GONE
+                    currentlyAiringPagingProgress.visibility = View.GONE
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)
