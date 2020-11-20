@@ -10,6 +10,7 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.AnimeRankingDao
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -20,11 +21,14 @@ constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
     private val topAnimeRepo: TopAnimeRepository,
+    private val animeRankingDao: AnimeRankingDao
 ):ViewModel(){
 
     val topAnimeNextPage: LiveData<Resource<AnimeRanking>> = topAnimeRepo.topAnimeListNextPage
 
-    val animeRankingList: MutableLiveData<Resource<MutableList<AnimeRankingData>>> = topAnimeRepo.animeRankingList
+    val animeRankingList: MutableLiveData<Resource<MutableList<AnimeRankingData?>>> = topAnimeRepo.animeRankingList
+
+    val listOfAllTopAnime = animeRankingDao.getAllAnimeRanking()
 
     fun getTopAnimeNextPage(){
        topAnimeRepo.getTopAnimeNext()

@@ -82,6 +82,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
         })
         topAnimeAdapter.setListEndListener(this)
         topAnimeAdapter.stateRestorationPolicy = ALLOW
+        topAnimeRecycler.adapter = topAnimeAdapter
 
         topAnimeViewModel.animeRankingList.observe(viewLifecycleOwner){ resource->
             when(resource?.status){
@@ -92,10 +93,10 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
                 Status.SUCCESS ->{
                     topAnimeProgress.visibility = View.GONE
                     topAnimeRecycler.visibility = View.VISIBLE
-                    resource.data?.let {
-                        topAnimeRecycler.adapter = topAnimeAdapter
-                        topAnimeAdapter.submitList(it)
-                    }
+//                    resource.data?.let {
+//                        topAnimeRecycler.adapter = topAnimeAdapter
+//                        topAnimeAdapter.submitList(it)
+//                    }
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)}
@@ -109,15 +110,20 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
                 }
                 Status.SUCCESS ->{
                     resource.data?.data?.let {
-                        val currentList = topAnimeAdapter.currentList
-                        currentList.addAll(it)
-                        topAnimeAdapter.submitList(null)
-                        topAnimeAdapter.submitList(currentList.toList())
+//                        val currentList = topAnimeAdapter.currentList
+//                        currentList.addAll(it)
+//                        topAnimeAdapter.submitList(null)
+//                        topAnimeAdapter.submitList(currentList.toList())
                     }
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)}
             }
+        }
+
+        topAnimeViewModel.listOfAllTopAnime.observe(viewLifecycleOwner){
+            topAnimeAdapter.submitList(it)
+            Timber.e("Changes...")
         }
 
         }
