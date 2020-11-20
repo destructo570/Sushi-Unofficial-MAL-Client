@@ -130,7 +130,6 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
         topAnimeViewModel.listOfAllTopAnime.observe(viewLifecycleOwner) {
             topAnimeAdapter.submitList(it)
-            Timber.e("Changes...")
         }
 
     }

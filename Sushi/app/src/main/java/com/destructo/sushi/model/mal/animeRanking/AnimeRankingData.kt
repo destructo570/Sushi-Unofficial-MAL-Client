@@ -17,5 +17,4 @@ data class AnimeRankingData(
     @Json(name = "ranking")
     @Embedded
     val ranking: Ranking?=null,
-    var ranking_type: String?=null,
 ):Parcelable

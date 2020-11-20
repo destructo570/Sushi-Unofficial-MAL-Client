@@ -11,9 +11,13 @@ import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.jikan.top.TopAnimeEntity
 import com.destructo.sushi.model.jikan.top.TopMangaEntity
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 
-class MangaAdapter(private val mangaDetailListener:MangaDetailListener):ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
+class MangaAdapter(private val mangaDetailListener: MangaDetailListener) :
+    ListAdapter<MangaRankingData, MangaAdapter.ViewHolder>(MangaDiffUtil()) {
+
+    private var listEndListener: ListEndListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MangaAdapter.ViewHolder {
         return ViewHolder.from(parent)
@@ -21,15 +25,23 @@ class MangaAdapter(private val mangaDetailListener:MangaDetailListener):ListAdap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mangaEntity = getItem(position)
-        holder.bind(mangaEntity,mangaDetailListener)
+        holder.bind(mangaEntity, mangaDetailListener)
+        if (position == currentList.size - 2) run {
+            listEndListener?.onEndReached(position)
+        }
     }
 
-    class ViewHolder(val binding: ListItemMangaBinding) :RecyclerView.ViewHolder(binding.root){
-        fun bind(mangaEntity: MangaRankingData,mangaDetailListener:MangaDetailListener){
+    fun setListEndListener(listEndListener: ListEndListener) {
+        this.listEndListener = listEndListener
+    }
+
+    class ViewHolder(val binding: ListItemMangaBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(mangaEntity: MangaRankingData, mangaDetailListener: MangaDetailListener) {
             binding.mangaEntity = mangaEntity.manga
             binding.mangaListener = mangaDetailListener
             binding.executePendingBindings()
         }
+
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -44,7 +56,7 @@ class MangaAdapter(private val mangaDetailListener:MangaDetailListener):ListAdap
 
 }
 
-class MangaDiffUtil:DiffUtil.ItemCallback<MangaRankingData>(){
+class MangaDiffUtil : DiffUtil.ItemCallback<MangaRankingData>() {
     override fun areItemsTheSame(oldItem: MangaRankingData, newItem: MangaRankingData): Boolean {
         return oldItem.manga?.id == newItem.manga?.id
 

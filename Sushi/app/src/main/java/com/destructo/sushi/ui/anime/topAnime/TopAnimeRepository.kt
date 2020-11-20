@@ -79,7 +79,6 @@ constructor(
             val animeRanking = getTopAnimeDeferred.await()
             if ( nextPage != animeRanking.paging?.next){
                 nextPage = animeRanking.paging?.next
-                Timber.e(animeRanking.paging?.next)
             }
             val animeList = animeRanking.data
 

@@ -9,9 +9,6 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 @Dao
 interface AnimeRankingDao {
 
-    @Query("SELECT * FROM anime_ranking_list WHERE ranking_type LIKE :rankingType ORDER BY rank ASC")
-    fun getAnimeRankingByRankingType(rankingType: String): LiveData<List<AnimeRankingData>>
-
     @Query("SELECT * FROM anime_ranking_list ORDER BY rank ASC")
     fun getAllAnimeRanking(): LiveData<List<AnimeRankingData>>
 

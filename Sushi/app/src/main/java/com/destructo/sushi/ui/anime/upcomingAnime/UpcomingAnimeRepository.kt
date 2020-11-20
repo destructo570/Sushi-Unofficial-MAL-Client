@@ -27,7 +27,7 @@ constructor(val malApi: MalApi,
     var upcomingAnimeList: MutableLiveData<Resource<MutableList<AnimeRankingData?>>> =
         MutableLiveData()
 
-    var nextPage: String? = null
+    private var nextPage: String? = null
 
     fun getTopAnimeNext() {
 
@@ -79,7 +79,6 @@ constructor(val malApi: MalApi,
             val animeRanking = getTopAnimeDeferred.await()
             if ( nextPage != animeRanking.paging?.next){
                 nextPage = animeRanking.paging?.next
-                Timber.e(animeRanking.paging?.next)
             }
             val animeList = animeRanking.data
 

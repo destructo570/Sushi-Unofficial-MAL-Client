@@ -5,24 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ProgressBar
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.databinding.FragmentMangaBinding
-import com.destructo.sushi.enum.TopSubtype
-import com.destructo.sushi.enum.mal.MangaRankingType
+import com.destructo.sushi.enum.mal.MangaRankingType.*
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndListener {
 
     private val mangaViewModel:MangaViewModel by viewModels()
 
@@ -40,13 +35,25 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var mangaTypeSpinner:Spinner
     private lateinit var toolbar: Toolbar
     private lateinit var mangaProgressBar: ProgressBar
-    private var currentMangaList:String = ""
+    private lateinit var topMangaPaginationProgress: LinearLayout
+    private var currentRankingType:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-            mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
+        if(savedInstanceState != null){
+            val savedString = savedInstanceState.getString("ranking_type")
+            savedString?.let {
+                currentRankingType = it
+            }
+        }else{
+            mangaViewModel.getMangaRankingList(null, DEFAULT_PAGE_LIMIT)
+
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("ranking_type", currentRankingType)
     }
 
     override fun onCreateView(
@@ -59,6 +66,7 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         toolbar = binding.toolbar
         mangaProgressBar = binding.mangaProgressbar
+        topMangaPaginationProgress = binding.topMangaPaginationProgress
 
         mangaTypeSpinner = binding.mangaRankingSpinner
         context?.let { ArrayAdapter.createFromResource(
@@ -80,42 +88,61 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
         mangaAdapter = MangaAdapter(MangaDetailListener {
             it?.let {  navigateToMangaDetails(it) }
         })
+        mangaAdapter.setListEndListener(this)
+        mangaRecycler.adapter = mangaAdapter
 
-        mangaViewModel.topManga.observe(viewLifecycleOwner){resource->
-            when (resource.status){
-                Status.LOADING ->{
-                    mangaRecycler.visibility = View.INVISIBLE
+        mangaViewModel.mangaRankingList.observe(viewLifecycleOwner) { resource ->
+            when (resource?.status) {
+                Status.LOADING -> {
                     mangaProgressBar.visibility = View.VISIBLE
+                    mangaRecycler.visibility = View.INVISIBLE
                 }
-                Status.SUCCESS ->{
-                    mangaRecycler.visibility = View.VISIBLE
+                Status.SUCCESS -> {
                     mangaProgressBar.visibility = View.GONE
-                    resource?.data?.let {topManga->
-                        mangaAdapter.submitList(topManga.data)
-                        mangaRecycler.adapter = mangaAdapter
-                    }
+                    mangaRecycler.visibility = View.VISIBLE
                 }
-                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
             }
+        }
+
+        mangaViewModel.topMangaNextPage.observe(viewLifecycleOwner) { resource ->
+            when (resource?.status) {
+                Status.LOADING -> {
+                    topMangaPaginationProgress.visibility = View.VISIBLE
+
+                }
+                Status.SUCCESS -> {
+                    topMangaPaginationProgress.visibility = View.GONE
+
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
+            }
+        }
+
+        mangaViewModel.listOfAllTopManga.observe(viewLifecycleOwner) {
+            mangaAdapter.submitList(it)
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.manga_ranking_all) -> { loadSelectedMangaList(MangaRankingType.ALL.value) }
-            getString(R.string.manga_ranking_manga) -> { loadSelectedMangaList(MangaRankingType.MANGA.value) }
-            getString(R.string.manga_ranking_novels) -> { loadSelectedMangaList(MangaRankingType.NOVELS.value) }
-            getString(R.string.manga_ranking_oneshots) -> { loadSelectedMangaList(MangaRankingType.ONESHOTS.value) }
-            getString(R.string.manga_ranking_doujin) -> { loadSelectedMangaList(MangaRankingType.DOUJIN.value) }
-            getString(R.string.manga_ranking_manhwa) -> { loadSelectedMangaList(MangaRankingType.MANHWA.value) }
-            getString(R.string.manga_ranking_manhua) -> { loadSelectedMangaList(MangaRankingType.MANHUA.value) }
-            getString(R.string.manga_ranking_popularity) -> { loadSelectedMangaList(MangaRankingType.BY_POPULARITY.value) }
-            getString(R.string.manga_ranking_favorites) -> { loadSelectedMangaList(MangaRankingType.FAVORITE.value) }
+            getString(R.string.manga_ranking_all) -> { loadSelectedMangaList(ALL.value) }
+            getString(R.string.manga_ranking_manga) -> { loadSelectedMangaList(MANGA.value) }
+            getString(R.string.manga_ranking_novels) -> { loadSelectedMangaList(NOVELS.value) }
+            getString(R.string.manga_ranking_oneshots) -> { loadSelectedMangaList(ONESHOTS.value) }
+            getString(R.string.manga_ranking_doujin) -> { loadSelectedMangaList(DOUJIN.value) }
+            getString(R.string.manga_ranking_manhwa) -> { loadSelectedMangaList(MANHWA.value) }
+            getString(R.string.manga_ranking_manhua) -> { loadSelectedMangaList(MANHUA.value) }
+            getString(R.string.manga_ranking_popularity) -> { loadSelectedMangaList(BY_POPULARITY.value) }
+            getString(R.string.manga_ranking_favorites) -> { loadSelectedMangaList(FAVORITE.value) }
         }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        mangaViewModel.getTopMangaList(MangaRankingType.ALL.value,"500",null)
     }
 
     private fun navigateToMangaDetails(mangaMalId: Int){
@@ -132,10 +159,16 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun loadSelectedMangaList(rankingType:String){
-        if(currentMangaList != rankingType){
-            mangaViewModel.getTopMangaList(rankingType,"500",null)
-            currentMangaList = rankingType
+        if(currentRankingType != rankingType){
+            mangaViewModel.clearMangaList()
+            mangaViewModel.setRankingType(rankingType)
+            mangaViewModel.getMangaRankingList(null, DEFAULT_PAGE_LIMIT)
+            currentRankingType = rankingType
         }
+    }
+
+    override fun onEndReached(position: Int) {
+        mangaViewModel.getTopMangaNextPage()
     }
 
 }
