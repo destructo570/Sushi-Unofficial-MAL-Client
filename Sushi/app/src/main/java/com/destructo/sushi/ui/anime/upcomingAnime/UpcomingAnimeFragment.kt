@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.network.Status
@@ -39,9 +40,9 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
         super.onCreate(savedInstanceState)
 
         if(savedInstanceState == null){
-           upcomingAnimeViewModel.getUpcomingAnime(null,"500")
+            upcomingAnimeViewModel.clearList()
+            upcomingAnimeViewModel.getUpcomingList(null, DEFAULT_PAGE_LIMIT)
         }
-
     }
 
     override fun onCreateView(
@@ -57,7 +58,6 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecyclerMain
         upcomingAnimeRecycler.apply {
             layoutManager = GridLayoutManager(context,3)
-            setHasFixedSize(true)
             addItemDecoration(GridSpacingItemDeco(3,25,true))
         }
 
@@ -75,9 +75,9 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         upcomingAdapter.setListEndListener(this)
+        upcomingAnimeRecycler.adapter = upcomingAdapter
 
-        upcomingAnimeViewModel.upcomingAnime.observe(viewLifecycleOwner){
-                resource->
+        upcomingAnimeViewModel.upcomingList.observe(viewLifecycleOwner){ resource->
 
             when(resource.status){
 
@@ -86,10 +86,6 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
                 }
                 Status.SUCCESS->{
                     upcomingAnimeProgress.visibility = View.GONE
-                    resource.data?.let {currentlyAiring->
-                        upcomingAdapter.submitList(currentlyAiring.data)
-                        upcomingAnimeRecycler.adapter = upcomingAdapter
-                    }
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)
@@ -97,8 +93,28 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
 
             }
         }
-    }
 
+        upcomingAnimeViewModel.nextPage.observe(viewLifecycleOwner){ resource->
+
+            when(resource.status){
+
+                Status.LOADING->{
+                    upcomingAnimeProgress.visibility = View.VISIBLE
+                }
+                Status.SUCCESS->{
+                    upcomingAnimeProgress.visibility = View.GONE
+                }
+                Status.ERROR->{
+                    Timber.e("Error: %s", resource.message)
+                }
+
+            }
+        }
+
+        upcomingAnimeViewModel.upcomingAnimeList.observe(viewLifecycleOwner){
+            upcomingAdapter.submitList(it)
+        }
+    }
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
@@ -114,8 +130,7 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
     }
 
     override fun onEndReached(position: Int) {
-        Toast.makeText(context,"End reached...", Toast.LENGTH_SHORT).show()
-
+        upcomingAnimeViewModel.getNextPage()
     }
 
 }

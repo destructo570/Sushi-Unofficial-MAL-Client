@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,8 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.databinding.FragmentCurrentlyAiringBinding
-import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
@@ -38,9 +37,9 @@ class CurrentlyAiring : Fragment(), ListEndListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            currentlyAiringViewModel.getCurrentlyAiringAnime(null,"500")
+            currentlyAiringViewModel.clearAnimeList()
+            currentlyAiringViewModel.getAnimeRankingList(null, DEFAULT_PAGE_LIMIT)
         }
-
     }
 
     override fun onCreateView(
@@ -55,7 +54,6 @@ class CurrentlyAiring : Fragment(), ListEndListener {
 
         currentlyAiringRecycler = binding.root.currentlyRecyclerMain
         currentlyAiringRecycler.apply {
-            setHasFixedSize(true)
             addItemDecoration(GridSpacingItemDeco(3,25,true))
             layoutManager = GridLayoutManager(context,3)
         }
@@ -72,8 +70,9 @@ class CurrentlyAiring : Fragment(), ListEndListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         currentlyAiringAdapter.setListEndListener(this)
+        currentlyAiringRecycler.adapter = currentlyAiringAdapter
 
-        currentlyAiringViewModel.currentlyAiring.observe(viewLifecycleOwner){resource->
+        currentlyAiringViewModel.currentlyAiringList.observe(viewLifecycleOwner){ resource->
 
             when(resource.status){
 
@@ -82,12 +81,6 @@ class CurrentlyAiring : Fragment(), ListEndListener {
                 }
                 Status.SUCCESS->{
                     currentlyAiringProgress.visibility = View.GONE
-                    resource.data?.let {currentlyAiring->
-                        currentlyAiringAdapter.submitList(currentlyAiring.data)
-                        currentlyAiringRecycler.apply{
-                            adapter = currentlyAiringAdapter
-                        }
-                    }
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)
@@ -95,8 +88,29 @@ class CurrentlyAiring : Fragment(), ListEndListener {
 
             }
         }
-    }
 
+        currentlyAiringViewModel.nextPage.observe(viewLifecycleOwner){ resource->
+
+            when(resource.status){
+
+                Status.LOADING->{
+                    currentlyAiringProgress.visibility = View.VISIBLE
+                }
+                Status.SUCCESS->{
+                    currentlyAiringProgress.visibility = View.GONE
+                }
+                Status.ERROR->{
+                    Timber.e("Error: %s", resource.message)
+                }
+
+            }
+        }
+
+        currentlyAiringViewModel.currentlyAiring.observe(viewLifecycleOwner){
+            currentlyAiringAdapter.submitList(it)
+        }
+
+    }
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
@@ -111,7 +125,7 @@ class CurrentlyAiring : Fragment(), ListEndListener {
     }
 
     override fun onEndReached(position: Int) {
-        Toast.makeText(context,"End reached...", Toast.LENGTH_SHORT).show()
+        currentlyAiringViewModel.getTopAnimeNextPage()
     }
 
 }

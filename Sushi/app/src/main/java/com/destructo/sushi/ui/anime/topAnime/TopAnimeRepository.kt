@@ -1,8 +1,8 @@
 package com.destructo.sushi.ui.anime.topAnime
 
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.BASIC_ANIME_FIELDS
+import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.MalApi
@@ -19,41 +19,34 @@ constructor(
     val malApi: MalApi,
     val animeRankingDao: AnimeRankingDao
 ) {
+    var rankingType: String = AnimeRankingType.ALL.value
 
     var topAnimeListNextPage: MutableLiveData<Resource<AnimeRanking>> = MutableLiveData()
 
     var animeRankingList: MutableLiveData<Resource<MutableList<AnimeRankingData?>>> =
         MutableLiveData()
 
-    var nextPage: NextPage? = null
-
+    private var nextPage: String? = null
 
     fun getTopAnimeNext() {
 
-        if (nextPage != null) {
+        if (!nextPage.isNullOrBlank()) {
             topAnimeListNextPage.value = Resource.loading(null)
             GlobalScope.launch {
-                if (!nextPage!!.next.isNullOrBlank()  && !nextPage!!.ranking_type.isNullOrBlank() ){
                     nextPageCall(
-                        next = nextPage!!.next,
-                        ranking_type = nextPage!!.ranking_type)
-                }
+                        next = nextPage!!,
+                        )
             }
         }
     }
 
-    suspend fun nextPageCall(next: String, ranking_type: String) {
+    private suspend fun nextPageCall(next: String) {
         try {
             val getTopAnimeDeferred = malApi.getAnimeRankingNext(next)
             val animeRanking = getTopAnimeDeferred.await()
             val animeList = animeRanking.data
-
-            animeList?.forEach { it ->
-                it?.let { animeRankingData ->
-                    animeRankingData.ranking_type = ranking_type
-                    animeRankingDao.insertAnimeRanking(animeRankingData)
-                }
-            }
+            nextPage = animeRanking.paging?.next
+            animeRankingDao.insertAnimeRankingList(animeList!!)
             withContext(Dispatchers.Main) {
                 topAnimeListNextPage.value = Resource.success(animeRanking)
             }
@@ -65,38 +58,34 @@ constructor(
 
     }
 
-    fun getAnimeRankingList(ranking_type: String, offset: String?, limit: String?) {
+    fun getAnimeRankingList(offset: String?, limit: String?) {
 
         animeRankingList.value = Resource.loading(null)
         GlobalScope.launch {
             animeRankingCall(
-                ranking_type = ranking_type,
+                ranking_type = rankingType,
                 offset = offset,
                 limit = limit
             )
         }
     }
 
-    suspend fun animeRankingCall(ranking_type: String, offset: String?, limit: String?){
+    private suspend fun animeRankingCall(ranking_type: String, offset: String?, limit: String?){
         try {
             val getTopAnimeDeferred = malApi.getAnimeRankingAsync(
                 ranking_type, limit, offset,
                 BASIC_ANIME_FIELDS
         )
             val animeRanking = getTopAnimeDeferred.await()
+            if ( nextPage != animeRanking.paging?.next){
+                nextPage = animeRanking.paging?.next
+                Timber.e(animeRanking.paging?.next)
+            }
             val animeList = animeRanking.data
 
-            animeList?.forEach { it ->
-                it?.let { animeRankingData ->
-                    animeRankingData.ranking_type = ranking_type
-                    animeRankingDao.insertAnimeRanking(animeRankingData)
-                }
-            }
-
+            animeRankingDao.insertAnimeRankingList(animeList!!)
         withContext(Dispatchers.Main) {
-
-            animeRankingList.value = Resource.success(animeList?.toMutableList())
-
+            animeRankingList.value = Resource.success(animeList.toMutableList())
         }
     } catch (e: Exception) {
             withContext(Dispatchers.Main) {
@@ -105,8 +94,3 @@ constructor(
         }
     }
 }
-
-data class NextPage(
-    val next: String = "",
-    val ranking_type: String = ""
-)

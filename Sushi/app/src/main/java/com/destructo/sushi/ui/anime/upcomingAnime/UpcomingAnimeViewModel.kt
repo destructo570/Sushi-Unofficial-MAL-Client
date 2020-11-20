@@ -3,28 +3,40 @@ package com.destructo.sushi.ui.anime.upcomingAnime
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.destructo.sushi.ALL_ANIME_FIELDS
-import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
-import com.destructo.sushi.network.JikanApi
-import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.AnimeRankingDao
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class UpcomingAnimeViewModel
 @ViewModelInject
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
-    private val upcomingAnimeRepo: UpcomingAnimeRepository
-)
-    :ViewModel() {
+    private val upcomingAnimeRepo: UpcomingAnimeRepository,
+    private val animeRankingDao: AnimeRankingDao
+) : ViewModel() {
 
-    val upcomingAnime:LiveData<Resource<AnimeRanking>> = upcomingAnimeRepo.upcomingAnime
+    val nextPage: LiveData<Resource<AnimeRanking>> =
+        upcomingAnimeRepo.upcomingAnimeListNextPage
 
-    fun getUpcomingAnime(offset:String?, limit:String?){
-        upcomingAnimeRepo.getUpcomingAnime(offset, limit)
+    val upcomingList: MutableLiveData<Resource<MutableList<AnimeRankingData?>>> =
+        upcomingAnimeRepo.upcomingAnimeList
+
+    val upcomingAnimeList = animeRankingDao.getAllAnimeRanking()
+
+    fun getNextPage() {
+        upcomingAnimeRepo.getTopAnimeNext()
     }
 
+    fun getUpcomingList(offset: String?, limit: String?) {
+        upcomingAnimeRepo.getAnimeRankingList(offset, limit)
+    }
+
+    fun clearList() {
+        viewModelScope.launch {
+            animeRankingDao.clear()
+        }
+    }
 }

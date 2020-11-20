@@ -8,19 +8,15 @@ import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
+import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
-import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.enum.mal.AnimeRankingType.*
-import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
-import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
@@ -39,14 +35,27 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
     private lateinit var animeRankingSpinner: Spinner
     private lateinit var toolbar: Toolbar
     private lateinit var topAnimeProgress: ProgressBar
-    private var currentMangaList:String = ""
+    private var currentRankingType:String = ALL.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-            topAnimeViewModel.getAnimeRankingList(ALL.value,null,"50")
+        if(savedInstanceState != null){
+            val savedString = savedInstanceState.getString("ranking_type")
+            savedString?.let {
+                currentRankingType = it
+            }
+
+        }else{
+            topAnimeViewModel.clearAnimeList()
+            topAnimeViewModel.getAnimeRankingList(null, DEFAULT_PAGE_LIMIT)
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("ranking_type", currentRankingType)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,49 +93,40 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
         topAnimeAdapter.stateRestorationPolicy = ALLOW
         topAnimeRecycler.adapter = topAnimeAdapter
 
-        topAnimeViewModel.animeRankingList.observe(viewLifecycleOwner){ resource->
-            when(resource?.status){
-                Status.LOADING ->{
+        topAnimeViewModel.animeRankingList.observe(viewLifecycleOwner) { resource ->
+            when (resource?.status) {
+                Status.LOADING -> {
                     topAnimeProgress.visibility = View.VISIBLE
                     topAnimeRecycler.visibility = View.INVISIBLE
                 }
-                Status.SUCCESS ->{
+                Status.SUCCESS -> {
                     topAnimeProgress.visibility = View.GONE
                     topAnimeRecycler.visibility = View.VISIBLE
-//                    resource.data?.let {
-//                        topAnimeRecycler.adapter = topAnimeAdapter
-//                        topAnimeAdapter.submitList(it)
-//                    }
                 }
-                Status.ERROR->{
-                    Timber.e("Error: %s", resource.message)}
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
             }
         }
 
-        topAnimeViewModel.topAnimeNextPage.observe(viewLifecycleOwner){
-                resource->
-            when(resource?.status){
-                Status.LOADING ->{
+        topAnimeViewModel.topAnimeNextPage.observe(viewLifecycleOwner) { resource ->
+            when (resource?.status) {
+                Status.LOADING -> {
                 }
-                Status.SUCCESS ->{
-                    resource.data?.data?.let {
-//                        val currentList = topAnimeAdapter.currentList
-//                        currentList.addAll(it)
-//                        topAnimeAdapter.submitList(null)
-//                        topAnimeAdapter.submitList(currentList.toList())
-                    }
+                Status.SUCCESS -> {
                 }
-                Status.ERROR->{
-                    Timber.e("Error: %s", resource.message)}
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
             }
         }
 
-        topAnimeViewModel.listOfAllTopAnime.observe(viewLifecycleOwner){
+        topAnimeViewModel.listOfAllTopAnime.observe(viewLifecycleOwner) {
             topAnimeAdapter.submitList(it)
             Timber.e("Changes...")
         }
 
-        }
+    }
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
@@ -159,14 +159,17 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
     }
 
     private fun loadSelectedAnimeList(rankingType:String){
-        if(currentMangaList != rankingType){
-            topAnimeViewModel.getAnimeRankingList(rankingType,null,"50")
-            currentMangaList = rankingType
+        if(currentRankingType != rankingType){
+            topAnimeViewModel.clearAnimeList()
+            topAnimeViewModel.setRankingType(rankingType)
+            topAnimeViewModel.getAnimeRankingList(null,DEFAULT_PAGE_LIMIT)
+            currentRankingType = rankingType
         }
     }
 
+
     override fun onEndReached(position: Int) {
-            topAnimeViewModel.getTopAnimeNextPage()
+        topAnimeViewModel.getTopAnimeNextPage()
     }
 
 }
