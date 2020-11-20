@@ -7,13 +7,14 @@ import com.destructo.sushi.model.database.*
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
+import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
 import com.destructo.sushi.room.TypeConverters as TypeConverters1
 
 @TypeConverters(value = [TypeConverters1::class])
 @Database(entities = [AnimeDetailEntity::class, AnimeCharacterListEntity::class,
     AnimeVideosEntity::class, AnimeReviewsEntity::class, MangaDetailsEntity::class,
     MangaCharacterListEntity::class, MangaReviewsEntity::class, AnimeRankingData::class,
-    MangaRankingData::class], version = 1, exportSchema = false)
+    MangaRankingData::class, SeasonAnimeData::class], version = 1, exportSchema = false)
 abstract class SushiDatabase: RoomDatabase() {
 
     abstract fun animeDetailsDao():AnimeDetailsDao
@@ -25,6 +26,7 @@ abstract class SushiDatabase: RoomDatabase() {
     abstract fun mangaReviewListDao():MangaReviewListDao
     abstract fun animeRankingListDao():AnimeRankingDao
     abstract fun mangaRankingListDao():MangaRankingDao
+    abstract fun seasonAnimeDao():SeasonAnimeDao
 
     companion object{
 

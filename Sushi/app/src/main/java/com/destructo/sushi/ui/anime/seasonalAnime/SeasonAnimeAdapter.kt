@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
 
 class SeasonAnimeAdapter(private val animeIdListener: AnimeIdListener):
     ListAdapter<SeasonAnimeData, SeasonAnimeAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
 
+    private var listEndListener: ListEndListener? = null
 
     class ViewHolder private constructor(val binding: ListItemSeasonAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -31,7 +33,6 @@ class SeasonAnimeAdapter(private val animeIdListener: AnimeIdListener):
                 )
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +42,13 @@ class SeasonAnimeAdapter(private val animeIdListener: AnimeIdListener):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
         holder.bind(animeSubEntity,animeIdListener)
+        if (position == currentList.size - 2) run {
+            listEndListener?.onEndReached(position)
+        }
+    }
+
+    fun setListEndListener(listEndListener: ListEndListener){
+        this.listEndListener = listEndListener
     }
 
 }

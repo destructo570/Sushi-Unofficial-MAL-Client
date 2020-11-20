@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
 import com.destructo.sushi.R.string.season_sort_type_numListUser
 import com.destructo.sushi.R.string.season_sort_type_score
@@ -20,6 +21,7 @@ import com.destructo.sushi.enum.mal.SeasonalSortType.NUM_LIST_USER
 import com.destructo.sushi.enum.mal.SeasonalSortType.SCORE
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import com.destructo.sushi.util.toTitleCase
@@ -32,7 +34,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener,ListEndListener {
 
     private val seasonAnimeViewModel: SeasonalAnimeViewModel by viewModels()
 
@@ -48,6 +50,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var toolbar: Toolbar
     private lateinit var seasonalAnimeProgress: ProgressBar
+    private lateinit var seasonalAnimePaginationProgress: ProgressBar
+
 
     private lateinit var seasonArchiveMap: MutableMap<String, List<String?>?>
     private var selectedYear: String = "2021"
@@ -57,7 +61,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            seasonAnimeViewModel.getSeasonalAnime("2020", "fall", "anime_score", "100", null)
+            seasonAnimeViewModel.clearList()
+            seasonAnimeViewModel.getSeasonalAnime("2020", "fall", "anime_score", DEFAULT_PAGE_LIMIT, null)
             seasonAnimeViewModel.getSeasonArchive()
         }
     }
@@ -80,16 +85,14 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         toolbar = binding.toolbar
         seasonalAnimeProgress = binding.seasonalAnimeProgressbar
+        seasonalAnimePaginationProgress = binding.seasonalAnimePaginationProgressbar
 
         yearSpinner.onItemSelectedListener = this
         seasonSpinner.onItemSelectedListener = this
 
         seasonAnimeRecycler = binding.root.seasonalAnimeRecyclerMain
+
         seasonAnimeRecycler.apply {
-            setHasFixedSize(true)
-        }
-        seasonAnimeRecycler.apply {
-            setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 3)
             addItemDecoration(GridSpacingItemDeco(3, 25, true))
         }
@@ -106,10 +109,15 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         filterApplyButton.setOnClickListener {
             toolbar.title = "${selectedSeason.toTitleCase()}, $selectedYear"
+            seasonAnimeViewModel.clearList()
+
             seasonAnimeViewModel.getSeasonalAnime(
-                selectedYear, selectedSeason
-                    .toLowerCase(Locale.getDefault()), selectedSortType, "100", null
+                selectedYear,
+                selectedSeason.toLowerCase(Locale.getDefault()),
+                selectedSortType,
+                DEFAULT_PAGE_LIMIT, null
             )
+
             drawerLayout.closeDrawer(GravityCompat.END)
         }
 
@@ -126,7 +134,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         seasonAdapter = SeasonAnimeAdapter(AnimeIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-
+        seasonAdapter.setListEndListener(this)
+        seasonAnimeRecycler.adapter = seasonAdapter
 
         seasonAnimeViewModel.seasonalAnime.observe(viewLifecycleOwner) { resource ->
 
@@ -136,10 +145,6 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 }
                 Status.SUCCESS -> {
                     seasonalAnimeProgress.visibility = View.GONE
-                    resource.data?.let { seasonAnime ->
-                        seasonAdapter.submitList(seasonAnime.data)
-                        seasonAnimeRecycler.adapter = seasonAdapter
-                    }
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
@@ -179,6 +184,26 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     Timber.e("Error: %s", resource.message)
                 }
             }
+        }
+
+        seasonAnimeViewModel.seasonalAnimeList.observe(viewLifecycleOwner){
+            seasonAdapter.submitList(it)
+        }
+
+        seasonAnimeViewModel.nextPage.observe(viewLifecycleOwner){ resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                    seasonalAnimePaginationProgress.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    seasonalAnimePaginationProgress.visibility = View.GONE
+
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
+        }
 
         }
     }
@@ -267,6 +292,10 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             false
 
         }
+    }
+
+    override fun onEndReached(position: Int) {
+        seasonAnimeViewModel.getAnimeNextPage()
     }
 
 
