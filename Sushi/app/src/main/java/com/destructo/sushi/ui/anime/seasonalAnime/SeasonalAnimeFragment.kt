@@ -52,7 +52,6 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener,Lis
     private lateinit var seasonalAnimeProgress: ProgressBar
     private lateinit var seasonalAnimePaginationProgress: ProgressBar
 
-
     private lateinit var seasonArchiveMap: MutableMap<String, List<String?>?>
     private var selectedYear: String = "2021"
     private var selectedSeason: String = "winter"
@@ -216,11 +215,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener,Lis
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
         outState.putString("year", selectedYear)
         outState.putString("season", selectedSeason)
         outState.putString("sort_type", selectedSortType)
-
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

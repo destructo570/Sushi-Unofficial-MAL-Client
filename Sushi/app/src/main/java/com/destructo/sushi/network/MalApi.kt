@@ -42,6 +42,12 @@ interface MalApi {
     @GET
     fun getSeasonalAnimeNext(@Url url:String): Deferred<SeasonalAnime>
 
+    @GET
+    fun getSearchAnimeNext(@Url url:String): Deferred<AnimeList>
+
+    @GET
+    fun getSearchMangaNext(@Url url:String): Deferred<MangaList>
+
     @GET("anime/season/{year}/{season}")
     fun getSeasonalAnimeAsync(
         @Path("year") year:String,

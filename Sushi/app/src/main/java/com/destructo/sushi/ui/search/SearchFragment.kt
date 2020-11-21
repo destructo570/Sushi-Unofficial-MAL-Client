@@ -64,7 +64,9 @@ class SearchFragment : Fragment() {
                 query?.let {
                     if (!it.isBlank()) {
                         if (it.length >= 3){
-                        searchViewModel.setQueryString(it)
+                            searchViewModel.clearMangaList()
+                            searchViewModel.clearAnimeList()
+                            searchViewModel.setQueryString(it)
                         }else{
                             Toast.makeText(context, "Query must be atleast 3 letters", Toast.LENGTH_SHORT).show()
                         }

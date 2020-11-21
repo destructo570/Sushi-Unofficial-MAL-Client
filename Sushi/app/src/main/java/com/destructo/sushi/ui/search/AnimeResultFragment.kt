@@ -12,10 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ALL_ANIME_FIELDS
+import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterBinding
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.AnimeFragmentDirections
 import com.destructo.sushi.ui.anime.characterDetails.CharacterViewModel
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
@@ -35,6 +37,9 @@ class AnimeResultFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null){
+        searchViewModel.clearAnimeList()
+        }
     }
 
     override fun onCreateView(
@@ -46,7 +51,6 @@ class AnimeResultFragment : Fragment() {
                 lifecycleOwner = viewLifecycleOwner
             }
         resultRecyclerView = binding.resultRecycler
-        resultRecyclerView.setHasFixedSize(true)
         resultRecyclerView.layoutManager = GridLayoutManager(context,3)
         resultRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
@@ -59,12 +63,20 @@ class AnimeResultFragment : Fragment() {
         animeListAdapter = AnimeListAdapter(AnimeIdListener {
             it?.let {navigateToAnimeDetails(it)}
         })
+        animeListAdapter.setListEndListener(object: ListEndListener{
+            override fun onEndReached(position: Int) {
+                searchViewModel.getNextAnimePage()
+            }
+
+        })
+        resultRecyclerView.adapter = animeListAdapter
+
 
         searchViewModel.searchQuery.observe(viewLifecycleOwner){
             searchViewModel.getAnimeResult(
                 query = it,
                 field = ALL_ANIME_FIELDS,
-                limit = "100",
+                limit = DEFAULT_PAGE_LIMIT,
                 offset = "")
         }
 
@@ -75,17 +87,15 @@ class AnimeResultFragment : Fragment() {
                 }
                 Status.SUCCESS->{
                     progressBar.visibility = View.GONE
-                    resource.data?.data?.let{animeList->
-                        animeListAdapter.submitList(animeList)
-                        resultRecyclerView.adapter = animeListAdapter
-                    }
-
                 }
                 Status.ERROR->{
                     Timber.e("Error: %s", resource.message)
                 }
-
             }
+        }
+
+        searchViewModel.searchAnimeResult.observe(viewLifecycleOwner){
+            animeListAdapter.submitList(it)
         }
 
     }
@@ -95,5 +105,6 @@ class AnimeResultFragment : Fragment() {
             SearchFragmentDirections.actionSearchFragmentToAnimeDetailFragment(animeMalId)
         )
     }
+
 
 }

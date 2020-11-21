@@ -9,11 +9,14 @@ import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.animeList.AnimeListData
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
 class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :
     ListAdapter<AnimeListData, AnimeListAdapter.ViewHolder>(AnimeListDiffUtil()) {
+
+    private var listEndListener: ListEndListener? = null
 
     class ViewHolder private constructor(val binding: ListItemAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -44,6 +47,13 @@ class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeEntity = getItem(position)
         holder.bind(animeEntity, animeIdListener)
+        if (position == currentList.size - 2) run {
+            listEndListener?.onEndReached(position)
+        }
+    }
+
+    fun setListEndListener(listEndListener: ListEndListener){
+        this.listEndListener = listEndListener
     }
 
 

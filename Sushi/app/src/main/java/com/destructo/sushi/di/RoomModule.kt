@@ -87,4 +87,16 @@ object RoomModule {
         return sushiDatabase.seasonAnimeDao()
     }
 
+    @Singleton
+    @Provides
+    fun provideSearchAnimeListDao(sushiDatabase: SushiDatabase): SearchAnimeDao{
+        return sushiDatabase.animeListDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchMangaListDao(sushiDatabase: SushiDatabase): SearchMangaDao{
+        return sushiDatabase.mangaListDao()
+    }
+
 }

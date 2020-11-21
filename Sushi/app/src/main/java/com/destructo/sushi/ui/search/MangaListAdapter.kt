@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.mal.mangaList.MangaListData
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.manga.MangaAdapter
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 
 class MangaListAdapter(
     private val mangaDetailListener: MangaDetailListener):
     ListAdapter<MangaListData, MangaListAdapter.ViewHolder>(MangaListDiffUtil()) {
+
+    private var listEndListener: ListEndListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -22,6 +25,13 @@ class MangaListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mangaEntity = getItem(position)
         holder.bind(mangaEntity,mangaDetailListener)
+        if (position == currentList.size - 2) run {
+            listEndListener?.onEndReached(position)
+        }
+    }
+
+    fun setListEndListener(listEndListener: ListEndListener){
+        this.listEndListener = listEndListener
     }
 
     class ViewHolder(val binding: ListItemMangaBinding) : RecyclerView.ViewHolder(binding.root){
