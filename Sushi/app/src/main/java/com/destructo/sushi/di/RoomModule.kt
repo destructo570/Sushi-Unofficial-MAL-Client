@@ -110,4 +110,6 @@ object RoomModule {
     fun provideUserMangaListDao(sushiDatabase: SushiDatabase): UserMangaListDao{
         return sushiDatabase.userMangaListDao()
     }
+
+    
 }
