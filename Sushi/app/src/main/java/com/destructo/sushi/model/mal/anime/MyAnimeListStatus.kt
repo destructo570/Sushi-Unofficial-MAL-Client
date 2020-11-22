@@ -10,7 +10,7 @@ data class MyAnimeListStatus(
     @Json(name = "is_rewatching")
     val isRewatching: Boolean? = null,
     @Json(name = "num_episodes_watched")
-    val numEpisodesWatched: Int? = null,
+    var numEpisodesWatched: Int? = null,
     @Json(name = "score")
     val score: Int? = null,
     @Json(name = "status")

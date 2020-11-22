@@ -9,7 +9,6 @@ import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeRankingDao
 import kotlinx.coroutines.*
-import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -42,7 +41,7 @@ constructor(
 
     private suspend fun nextPageCall(next: String) {
         try {
-            val getTopAnimeDeferred = malApi.getAnimeRankingNext(next)
+            val getTopAnimeDeferred = malApi.getAnimeRankingNextAsync(next)
             val animeRanking = getTopAnimeDeferred.await()
             val animeList = animeRanking.data
             nextPage = animeRanking.paging?.next

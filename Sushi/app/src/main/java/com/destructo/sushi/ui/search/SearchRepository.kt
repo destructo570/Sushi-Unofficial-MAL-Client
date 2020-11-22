@@ -20,6 +20,7 @@ constructor(
     val malApi: MalApi,
     private val searchAnimeDao: SearchAnimeDao,
     private val searchMangaDao: SearchMangaDao
+
 ){
 
     var animeResult: MutableLiveData<Resource<AnimeList>> = MutableLiveData()
@@ -105,7 +106,7 @@ constructor(
 
     private suspend fun animeNextPageCall(next: String) {
         try {
-            val getTopAnimeDeferred = malApi.getSearchAnimeNext(next)
+            val getTopAnimeDeferred = malApi.getSearchAnimeNextAsync(next)
             val animeRanking = getTopAnimeDeferred.await()
             val animeList = animeRanking.data
             animeNextPage = animeRanking.paging?.next
@@ -136,7 +137,7 @@ constructor(
 
     private suspend fun mangaNextPageCall(next: String) {
         try {
-            val getMangaSearchDefferred = malApi.getSearchMangaNext(next)
+            val getMangaSearchDefferred = malApi.getSearchMangaNextAsync(next)
             val response = getMangaSearchDefferred.await()
             val mangaList = response.data
             mangaNextPage = response.paging?.next

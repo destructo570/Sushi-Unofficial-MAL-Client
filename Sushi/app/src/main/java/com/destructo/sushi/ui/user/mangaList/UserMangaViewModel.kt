@@ -10,9 +10,13 @@ import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.enum.mal.UserMangaStatus.*
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
+import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
+import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
+import com.destructo.sushi.model.mal.userMangaList.UserMangaData
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.UserMangaListDao
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -20,10 +24,11 @@ class UserMangaViewModel@ViewModelInject
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
-    private val myMangaListRepo:MyMangaListRepository
+    private val myMangaListRepo:MyMangaListRepository,
+    private val userMangaListDao: UserMangaListDao
 ) : ViewModel() {
 
-    val userMangaList: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListAll
+    val userMangaListAll: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListAll
 
     val userMangaListReading: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListReading
 
@@ -37,12 +42,38 @@ constructor(
 
     val userMangaStatus: LiveData<Resource<UpdateUserManga>> = myMangaListRepo.userMangaStatus
 
+    var userMangaListReadingNext: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListReadingNext
+
+    var userMangaListCompletedNext: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListCompletedNext
+
+    var userMangaListPlanToReadNext: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListPlanToReadNext
+
+    var userMangaListOnHoldNext: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListOnHoldNext
+
+    var userMangaListDroppedNext: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListDroppedNext
+
+    var allNewList: MutableLiveData<MutableList<UserMangaData?>> = MutableLiveData()
+
+    var userMangaList = userMangaListDao.getUserMangaList()
+
     fun addChapterManga(mangaId:String,numberOfCh:Int?){
         myMangaListRepo.addChapter(mangaId, numberOfCh)
     }
 
     fun getUserMangaList(mangaStatus:String?){
         myMangaListRepo.getUserManga(mangaStatus)
+    }
+
+    fun getNextPage(mangaStatus:String?){
+        myMangaListRepo.getUserMangaNext(mangaStatus)
+    }
+
+    fun getUserMangaByStatus(mangaStatus:String): LiveData<List<UserMangaData>>{
+        return userMangaListDao.getUserMangaListByStatus(mangaStatus)
+    }
+
+    fun clearList(){
+        viewModelScope.launch{userMangaListDao.clear()}
     }
 
 }

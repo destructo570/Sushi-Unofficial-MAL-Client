@@ -27,3 +27,4 @@ const val DEBUG_ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg0
 const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
 
 const val DEFAULT_PAGE_LIMIT = "60"
+const val DEFAULT_USER_LIST_PAGE_LIMIT = "10"

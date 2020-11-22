@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.manga.MangaFragmentDirections
 import com.destructo.sushi.ui.manga.listener.MangaIdListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,8 @@ class UserMangaAll : Fragment() {
     private lateinit var userMangaAdapter: UserMangaListAdapter
     private lateinit var userMangaRecycler: RecyclerView
     private lateinit var userMangaProgress: ProgressBar
+    private lateinit var userMangaPaginationProgress: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,7 @@ class UserMangaAll : Fragment() {
         userMangaRecycler.setHasFixedSize(true)
         userMangaRecycler.itemAnimator = null
         userMangaProgress = binding.userMangaListProgressbar
+        userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
 
         return binding.root
     }
@@ -62,10 +66,16 @@ class UserMangaAll : Fragment() {
         }, MangaIdListener {
             it?.let{navigateToMangaDetails(it)}
         })
+        userMangaAdapter.setListEndListener(object : ListEndListener {
+            override fun onEndReached(position: Int) {
+                userMangaViewModel.getNextPage(null)
+            }
+
+        })
         userMangaAdapter.stateRestorationPolicy = ALLOW
         userMangaRecycler.adapter = userMangaAdapter
 
-        userMangaViewModel.userMangaList.observe(viewLifecycleOwner) { resource ->
+        userMangaViewModel.userMangaListAll.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING ->{
                     userMangaProgress.visibility = View.VISIBLE

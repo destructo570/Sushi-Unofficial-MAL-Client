@@ -34,19 +34,25 @@ interface MalApi {
     ): Deferred<AnimeRanking>
 
     @GET
-    fun getAnimeRankingNext(@Url url:String): Deferred<AnimeRanking>
+    fun getAnimeRankingNextAsync(@Url url:String): Deferred<AnimeRanking>
 
     @GET
-    fun getMangaRankingNext(@Url url:String): Deferred<MangaRanking>
+    fun getMangaRankingNextAsync(@Url url:String): Deferred<MangaRanking>
 
     @GET
-    fun getSeasonalAnimeNext(@Url url:String): Deferred<SeasonalAnime>
+    fun getSeasonalAnimeNextAsync(@Url url:String): Deferred<SeasonalAnime>
 
     @GET
-    fun getSearchAnimeNext(@Url url:String): Deferred<AnimeList>
+    fun getSearchAnimeNextAsync(@Url url:String): Deferred<AnimeList>
 
     @GET
-    fun getSearchMangaNext(@Url url:String): Deferred<MangaList>
+    fun getSearchMangaNextAsync(@Url url:String): Deferred<MangaList>
+
+    @GET
+    fun getUserAnimeNextAsync(@Url url:String): Deferred<UserAnimeList>
+
+    @GET
+    fun getUserMangaNextAsync(@Url url:String): Deferred<UserMangaList>
 
     @GET("anime/season/{year}/{season}")
     fun getSeasonalAnimeAsync(

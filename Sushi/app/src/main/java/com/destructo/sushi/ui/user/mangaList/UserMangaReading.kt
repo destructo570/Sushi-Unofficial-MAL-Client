@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.ListEndListener
 import com.destructo.sushi.ui.manga.MangaFragmentDirections
 import com.destructo.sushi.ui.manga.listener.MangaIdListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,7 @@ class UserMangaReading : Fragment() {
     private lateinit var userMangaAdapter: UserMangaListAdapter
     private lateinit var userMangaRecycler: RecyclerView
     private lateinit var userMangaProgress: ProgressBar
+    private lateinit var userMangaPaginationProgress: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +53,8 @@ class UserMangaReading : Fragment() {
         userMangaRecycler.setHasFixedSize(true)
         userMangaRecycler.itemAnimator = null
         userMangaProgress = binding.userMangaListProgressbar
+        userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
+
 
 
         return binding.root
@@ -66,6 +70,12 @@ class UserMangaReading : Fragment() {
         }, MangaIdListener {
             it?.let{navigateToMangaDetails(it)}
         })
+        userMangaAdapter.setListEndListener(object : ListEndListener {
+            override fun onEndReached(position: Int) {
+                userMangaViewModel.getNextPage(UserMangaStatus.READING.value)
+            }
+
+        })
 
         userMangaAdapter.stateRestorationPolicy = ALLOW
         userMangaRecycler.adapter = userMangaAdapter
@@ -77,23 +87,49 @@ class UserMangaReading : Fragment() {
                 }
                 Status.SUCCESS ->{
                     userMangaProgress.visibility = View.GONE
-                    resource.data?.let{
-                        userMangaAdapter.submitList(it.data)
-                    }
                 }
                 Status.ERROR ->{
                     Timber.e("Error: %s", resource.message)}
             }
         }
 
-        userMangaViewModel.userMangaStatus.observe(viewLifecycleOwner){updateManga->
-            userMangaViewModel.getUserMangaList(UserMangaStatus.READING.value)
+
+        userMangaViewModel.userMangaStatus.observe(viewLifecycleOwner){resource->
+            when(resource.status){
+                Status.LOADING ->{
+                    userMangaProgress.visibility = View.VISIBLE
+                }
+                Status.SUCCESS ->{
+                    userMangaProgress.visibility = View.GONE
+                }
+                Status.ERROR ->{
+                    Timber.e("Error: %s", resource.message)
+                }
+            }
+        }
+
+        userMangaViewModel.getUserMangaByStatus(UserMangaStatus.READING.value)
+            .observe(viewLifecycleOwner){
+                userMangaAdapter.submitList(it)
+            }
+
+        userMangaViewModel.userMangaListReadingNext.observe(viewLifecycleOwner){resource->
+            when(resource.status){
+                Status.LOADING ->{
+                    userMangaPaginationProgress.visibility = View.VISIBLE
+                }
+                Status.SUCCESS ->{
+                    userMangaPaginationProgress.visibility = View.GONE
+                }
+                Status.ERROR ->{
+                    Timber.e("Error: %s", resource.message)
+                }
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        userMangaViewModel.getUserMangaList(UserMangaStatus.READING.value)
     }
 
     private fun navigateToMangaDetails(mangaMalId: Int){

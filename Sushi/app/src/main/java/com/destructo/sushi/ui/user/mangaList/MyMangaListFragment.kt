@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeBinding
@@ -28,10 +29,11 @@ class MyMangaListFragment : Fragment() {
     private lateinit var myMangaListViewPager: ViewPager2
     private lateinit var myMangaListTabLayout: TabLayout
     private lateinit var myMangaListTabMediator: TabLayoutMediator
+    private val userMangaViewModel: UserMangaViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        userMangaViewModel.clearList()
     }
 
     override fun onCreateView(
@@ -46,26 +48,22 @@ class MyMangaListFragment : Fragment() {
         myMangaListTabLayout = binding.myMangaListTablayout
         toolbar = binding.toolbar
 
-
         myMangaListTabMediator =
             TabLayoutMediator(myMangaListTabLayout, myMangaListViewPager) { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = getString(R.string.manga_list_tab_all)
-                    }
-                    1 -> {
                         tab.text = getString(R.string.manga_list_tab_reading)
                     }
-                    2 -> {
+                    1 -> {
                         tab.text = getString(R.string.manga_list_tab_completed)
                     }
-                    3 -> {
+                    2 -> {
                         tab.text = getString(R.string.manga_list_tab_onhold)
                     }
-                    4 -> {
+                    3 -> {
                         tab.text = getString(R.string.manga_list_tab_dropped)
                     }
-                    5 -> {
+                    4 -> {
                         tab.text = getString(R.string.manga_list_tab_ptr)
                     }
                 }
@@ -78,7 +76,7 @@ class MyMangaListFragment : Fragment() {
         setupToolbar()
 
         val fragmentList = arrayListOf(
-            UserMangaAll(),
+            //UserMangaAll(),
             UserMangaReading(),
             UserMangaCompleted(),
             UserMangaOnHold(),

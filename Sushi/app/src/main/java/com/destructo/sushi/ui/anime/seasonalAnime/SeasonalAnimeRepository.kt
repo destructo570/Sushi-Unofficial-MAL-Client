@@ -1,10 +1,8 @@
 package com.destructo.sushi.ui.anime.seasonalAnime
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.model.jikan.season.SeasonArchive
-import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
@@ -14,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class SeasonalAnimeRepository
@@ -77,7 +74,7 @@ constructor(
 
     private suspend fun nextPageCall(next: String) {
         try {
-            val getSeasonalAnimeDeferred = malApi.getSeasonalAnimeNext(next)
+            val getSeasonalAnimeDeferred = malApi.getSeasonalAnimeNextAsync(next)
             val response = getSeasonalAnimeDeferred.await()
             val animeList = response.data
             nextPage = response.paging?.next

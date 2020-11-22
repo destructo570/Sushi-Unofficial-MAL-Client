@@ -9,9 +9,11 @@ import com.destructo.sushi.enum.mal.UserAnimeSort.*
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
+import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.UserAnimeListDao
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -20,7 +22,8 @@ class UserAnimeViewModel
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
-    private val myAnimeListRepo: MyAnimeListRepository
+    private val myAnimeListRepo: MyAnimeListRepository,
+    private val userAnimeListDao: UserAnimeListDao
 ) : ViewModel() {
 
     val userAnimeListAll: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListAll
@@ -37,6 +40,23 @@ constructor(
 
     val userAnimeStatus: LiveData<Resource<UpdateUserAnime>> = myAnimeListRepo.userAnimeStatus
 
+    var userAnimeListAllNext: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListAllNext
+
+    var userAnimeListWatchingNext: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListWatchingNext
+
+    var userAnimeListCompletedNext: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListCompletedNext
+
+    var userAnimeListPlanToWatchNext: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListPlanToWatchNext
+
+    var userAnimeListOnHoldNext: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListOnHoldNext
+
+    var userAnimeListDroppedNext: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListDroppedNext
+
+    var allNewList: MutableLiveData<MutableList<UserAnimeData?>> = MutableLiveData()
+
+    var userAnimeList = userAnimeListDao.getUserAnimeList()
+
+
     fun addEpisodeAnime(animeId:String,numberOfEp:Int?){
         myAnimeListRepo.addEpisode(animeId, numberOfEp)
     }
@@ -45,21 +65,17 @@ constructor(
         myAnimeListRepo.getUserAnime(animeStatus)
     }
 
-    fun updateUserAnimeStatus(animeId:String,status:String?=null,
-                              is_rewatching:Boolean?=null,score:Int?=null,
-                              num_watched_episodes:Int?=null,priority:Int?=null,
-                              num_times_rewatched:Int?=null, rewatch_value:Int?=null,
-                              tags:List<String>?=null,comments:String?=null){
-
-        myAnimeListRepo.updateAnimeUserList(animeId, status,is_rewatching,score,num_watched_episodes,
-            priority,num_times_rewatched,rewatch_value,tags,comments)
-
+    fun getNextPage(animeStatus:String?){
+        myAnimeListRepo.getUserAnimeNext(animeStatus)
     }
 
-//
-//    fun removeAnime(animeId:Int){
-//        myAnimeListRepo.removeAnimeFromList(animeId.toString())
-//    }
+    fun getUserAnimeByStatus(animeStatus:String): LiveData<List<UserAnimeData>>{
+        return userAnimeListDao.getUserAnimeListByStatus(animeStatus)
+    }
+
+    fun clearList(){
+        viewModelScope.launch{userAnimeListDao.clear()}
+    }
 
 }
 

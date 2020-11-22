@@ -44,7 +44,7 @@ constructor(
 
     private suspend fun nextPageCall(next: String) {
         try {
-            val getTopMangaDeferred = malApi.getMangaRankingNext(next)
+            val getTopMangaDeferred = malApi.getMangaRankingNextAsync(next)
             val mangaRanking = getTopMangaDeferred.await()
             val mangaList = mangaRanking.data
             nextPage = mangaRanking.paging?.next

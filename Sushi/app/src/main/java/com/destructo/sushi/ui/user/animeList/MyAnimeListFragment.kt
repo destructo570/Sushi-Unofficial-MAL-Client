@@ -32,10 +32,12 @@ class MyAnimeListFragment : Fragment(){
     private lateinit var myAnimeListTabLayout: TabLayout
     private lateinit var myAnimeListTabMediator: TabLayoutMediator
     private lateinit var toolbar: Toolbar
+    private val userAnimeViewModel: UserAnimeViewModel
+            by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        userAnimeViewModel.clearList()
     }
 
     override fun onCreateView(
@@ -55,26 +57,22 @@ class MyAnimeListFragment : Fragment(){
             TabLayoutMediator(myAnimeListTabLayout, myAnimeListViewPager) { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = getString(R.string.anime_list_tab_all)
-                    }
-                    1 -> {
                         tab.text = getString(R.string.anime_list_tab_watching)
                     }
-                    2 -> {
+                    1 -> {
                         tab.text = getString(R.string.anime_list_tab_completed)
                     }
-                    3 -> {
+                    2 -> {
                         tab.text = getString(R.string.anime_list_tab_onhold)
                     }
-                    4 -> {
+                    3 -> {
                         tab.text = getString(R.string.anime_list_tab_dropped)
                     }
-                    5 -> {
+                    4 -> {
                         tab.text = getString(R.string.anime_list_tab_ptw)
                     }
                 }
             }
-
 
         return binding.root
     }
@@ -84,7 +82,7 @@ class MyAnimeListFragment : Fragment(){
         setupToolbar()
 
         val fragmentList = arrayListOf(
-            UserAnimeAll(),
+            //UserAnimeAll(),
             UserAnimeWatching(),
             UserAnimeCompleted(),
             UserAnimeOnHold(),
@@ -99,16 +97,10 @@ class MyAnimeListFragment : Fragment(){
 
     }
 
-
-
     private fun setupToolbar() {
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
     }
-
-
-
-
 }

@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -43,7 +42,7 @@ constructor(val malApi: MalApi,
 
     private suspend fun nextPageCall(next: String) {
         try {
-            val getTopAnimeDeferred = malApi.getAnimeRankingNext(next)
+            val getTopAnimeDeferred = malApi.getAnimeRankingNextAsync(next)
             val animeRanking = getTopAnimeDeferred.await()
             val animeList = animeRanking.data
             nextPage = animeRanking.paging?.next
