@@ -22,6 +22,7 @@ import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.adapter.AnimeHomeAdapter
 import com.destructo.sushi.ui.anime.adapter.SeasonAnimeHomeAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.util.Pkce
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*

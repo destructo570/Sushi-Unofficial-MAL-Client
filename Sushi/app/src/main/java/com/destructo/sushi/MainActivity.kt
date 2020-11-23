@@ -1,5 +1,6 @@
 package com.destructo.sushi
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.destructo.sushi.databinding.ActivityMainBinding
+import com.destructo.sushi.ui.auth.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -120,5 +122,7 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+
 
 }

@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.mal.mangaList.MangaListData
-import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
-import com.destructo.sushi.ui.ListEndListener
-import com.destructo.sushi.ui.manga.MangaAdapter
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 
 class MangaListAdapter(

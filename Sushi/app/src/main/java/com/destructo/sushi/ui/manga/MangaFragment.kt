@@ -17,7 +17,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMangaBinding
 import com.destructo.sushi.enum.mal.MangaRankingType.*
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint

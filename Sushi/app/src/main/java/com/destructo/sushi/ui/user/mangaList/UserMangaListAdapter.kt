@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserMangaBinding
 import com.destructo.sushi.model.mal.userMangaList.UserMangaData
-import com.destructo.sushi.ui.ListEndListener
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.manga.listener.MangaIdListener
-import com.destructo.sushi.ui.user.animeList.AddEpisodeListener
 
 class UserMangaListAdapter(
     private val addChapterListener: AddChapterListener,

@@ -1,23 +1,19 @@
 package com.destructo.sushi.ui.user.animeList
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import timber.log.Timber
 

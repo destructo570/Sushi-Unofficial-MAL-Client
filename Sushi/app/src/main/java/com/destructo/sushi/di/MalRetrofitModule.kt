@@ -5,6 +5,7 @@ import com.destructo.sushi.BASE_MAL_API_URL
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.MalAuthInterceptor
+import com.destructo.sushi.util.SessionManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -34,9 +35,9 @@ object MalRetrofitModule {
     @Singleton
     @Provides
     @MalInterceptor
-    fun provideMalInterceptor():OkHttpClient{
+    fun provideMalInterceptor(sessionManager: SessionManager):OkHttpClient{
         return OkHttpClient.Builder()
-            .addInterceptor(MalAuthInterceptor())
+            .addInterceptor(MalAuthInterceptor(sessionManager))
             .build()
     }
 
@@ -62,7 +63,6 @@ object MalRetrofitModule {
             .build()
             .create(MalApi::class.java)
     }
-
 
 }
 

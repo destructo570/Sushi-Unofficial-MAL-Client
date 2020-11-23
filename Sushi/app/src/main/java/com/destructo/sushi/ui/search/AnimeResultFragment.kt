@@ -6,20 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
-import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentCharacterBinding
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
-import com.destructo.sushi.ui.anime.characterDetails.CharacterViewModel
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,7 +58,7 @@ class AnimeResultFragment : Fragment() {
         animeListAdapter = AnimeListAdapter(AnimeIdListener {
             it?.let {navigateToAnimeDetails(it)}
         })
-        animeListAdapter.setListEndListener(object: ListEndListener{
+        animeListAdapter.setListEndListener(object: ListEndListener {
             override fun onEndReached(position: Int) {
                 searchViewModel.getNextAnimePage()
             }

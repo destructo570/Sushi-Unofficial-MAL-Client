@@ -1,17 +1,13 @@
 package com.destructo.sushi.ui.manga
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemAnimeBinding
 import com.destructo.sushi.databinding.ListItemMangaBinding
-import com.destructo.sushi.model.jikan.top.TopAnimeEntity
-import com.destructo.sushi.model.jikan.top.TopMangaEntity
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
 
 class MangaAdapter(private val mangaDetailListener: MangaDetailListener) :

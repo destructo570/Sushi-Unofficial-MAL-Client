@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
-import com.destructo.sushi.ui.manga.MangaFragmentDirections
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.manga.listener.MangaIdListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

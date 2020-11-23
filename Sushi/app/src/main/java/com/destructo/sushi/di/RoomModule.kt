@@ -111,5 +111,4 @@ object RoomModule {
         return sushiDatabase.userMangaListDao()
     }
 
-    
 }

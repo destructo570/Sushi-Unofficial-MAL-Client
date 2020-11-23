@@ -4,19 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.animeDetails.AnimeDetailViewModel
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,7 +70,7 @@ class UserAnimeAll : Fragment() {
                     navigateToAnimeDetails(it)
                 }
             })
-        userAnimeAdapter.setListEndListener(object : ListEndListener{
+        userAnimeAdapter.setListEndListener(object : ListEndListener {
             override fun onEndReached(position: Int) {
                 userAnimeViewModel.getNextPage(null)
             }

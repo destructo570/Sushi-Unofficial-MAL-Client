@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemSeasonAnimeBinding
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
 

@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemAnimeBinding
-import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.animeList.AnimeListData
-import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
-import com.destructo.sushi.ui.ListEndListener
-import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
 class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :

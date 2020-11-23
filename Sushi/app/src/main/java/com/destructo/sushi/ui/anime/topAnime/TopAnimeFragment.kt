@@ -18,7 +18,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType.*
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco

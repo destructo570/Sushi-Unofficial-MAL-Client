@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.databinding.FragmentCurrentlyAiringBinding
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco

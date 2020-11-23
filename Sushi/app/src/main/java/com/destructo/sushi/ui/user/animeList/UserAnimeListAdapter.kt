@@ -2,15 +2,13 @@ package com.destructo.sushi.ui.user.animeList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserAnimeBinding
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
-import timber.log.Timber
 
 class UserAnimeListAdapter(
     private val addEpisodeListener: AddEpisodeListener,

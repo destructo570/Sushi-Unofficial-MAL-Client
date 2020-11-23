@@ -6,6 +6,7 @@
 
     <string name="title_my_anime_list">My Anime List</string>
     <string name="title_my_manga_list">My Manga List</string>
+    <string name="title_logout">Log Out From This Account</string>
     <string name="title_browse_anime">Browse Anime</string>
     <string name="title_anime_schedule">Anime Schedule</string>
     <string name="title_browse_manga">Browse Manga</string>
@@ -212,5 +213,10 @@
     <string name="join_discord_description">Join our discord server for reporting bugs, feature requests, latest information or having fun!</string>
     <string name="developer_description">I am Vishal Kashi. Android developer and Graphic/UI/UX designer from India. Hope you liked the app. Contact or checkout more of my work below.</string>
 
+
+    <!-- Login screen -->
+    <string name="welcome_text">Welcome to Sushi!\nYour new friend to help you browse MyAnimeList and manage your Anime/Manga Library.\n Let\'s get started!.</string>
+    <string name="login_button_text">Log In With MyAnimeList</string>
+    <string name="log_out_confirmation">Are you sure you want to logout?</string>
 
 </resources>

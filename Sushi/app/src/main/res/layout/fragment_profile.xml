@@ -52,12 +52,11 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        imageUrl="@{userInfo.picture}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/test_img"
-                        imageUrl="@{userInfo.picture}"
-                        />
+                        android:src="@drawable/test_img" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -67,7 +66,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@{userInfo.name}"
-                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    tools:text="Batman"
+                    android:textAppearance="@style/TextAppearance.Sushi.H2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@{userInfo.location}"
+                    tools:text="New York, Manhattan"
                     android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,8 +88,8 @@
                     android:id="@+id/materialCardView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="2dp"
@@ -99,8 +100,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:id="@+id/textView79"
@@ -132,14 +132,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
+                            android:drawablePadding="5dp"
                             android:text="Watching: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/textView79"
-                            app:drawableTint="@color/watching_color"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
-                            android:drawablePadding="5dp"
-                            />
+                            app:drawableTint="@color/watching_color"
+                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                            app:layout_constraintTop_toBottomOf="@+id/textView79" />
 
                         <TextView
                             android:id="@+id/anime_completed_txt"
@@ -147,13 +146,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
+                            android:drawablePadding="5dp"
                             android:text="Completed: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:drawableStartCompat="@drawable/ic_circle_bg"
+                            app:drawableTint="@color/completed_color"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_watching_txt"
-                            app:drawableTint="@color/completed_color"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            android:drawablePadding="5dp"
 
                             />
 
@@ -163,13 +162,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
+                            android:drawablePadding="5dp"
                             android:text="On Hold: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:drawableStartCompat="@drawable/ic_circle_bg"
+                            app:drawableTint="@color/on_hold_color"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_completed_txt"
-                            app:drawableTint="@color/on_hold_color"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            android:drawablePadding="5dp"
 
                             />
 
@@ -179,13 +178,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
+                            android:drawablePadding="5dp"
                             android:text="Dropped: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:drawableStartCompat="@drawable/ic_circle_bg"
+                            app:drawableTint="@color/dropped_color"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_onhold_txt"
-                            app:drawableTint="@color/dropped_color"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            android:drawablePadding="5dp"
 
                             />
 
@@ -195,13 +194,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
+                            android:drawablePadding="5dp"
                             android:text="Plan To Watch: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:drawableStartCompat="@drawable/ic_circle_bg"
+                            app:drawableTint="@color/plan_to_watch_color"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_dropped_txt"
-                            app:drawableTint="@color/plan_to_watch_color"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            android:drawablePadding="5dp"
 
                             />
 
@@ -211,13 +210,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
+                            android:drawablePadding="5dp"
                             android:text="Total: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:drawableStartCompat="@drawable/ic_circle_bg"
+                            app:drawableTint="@android:color/transparent"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_ptw_txt"
-                            app:drawableTint="@android:color/transparent"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            android:drawablePadding="5dp"
 
                             />
 
@@ -273,6 +272,25 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
+
+
+                <Button
+                    android:id="@+id/mal_logout_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:drawableTint="@color/colorPrimary"
+                    android:stateListAnimator="@null"
+                    android:text="@string/title_logout"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

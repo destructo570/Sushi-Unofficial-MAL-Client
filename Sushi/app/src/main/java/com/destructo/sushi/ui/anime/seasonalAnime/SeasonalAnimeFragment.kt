@@ -19,9 +19,8 @@ import com.destructo.sushi.R.string.season_sort_type_score
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
 import com.destructo.sushi.enum.mal.SeasonalSortType.NUM_LIST_USER
 import com.destructo.sushi.enum.mal.SeasonalSortType.SCORE
-import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.ListEndListener
+import com.destructo.sushi.ui.listener.ListEndListener
 import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import com.destructo.sushi.util.toTitleCase
@@ -34,7 +33,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener,ListEndListener {
+class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndListener {
 
     private val seasonAnimeViewModel: SeasonalAnimeViewModel by viewModels()
 

@@ -1,13 +1,17 @@
 package com.destructo.sushi.ui.user.profile
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
@@ -17,9 +21,12 @@ import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentProfileBinding
 import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.auth.LoginActivity
+import com.destructo.sushi.util.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -37,11 +44,15 @@ class ProfileFragment : Fragment() {
     private lateinit var ptwText:TextView
     private lateinit var droppedText:TextView
     private lateinit var totalText:TextView
+    private lateinit var logoutButton: Button
+
 
     private lateinit var animeDaysTxt:TextView
     private lateinit var animeMeanScoreTxt:TextView
     private lateinit var animeEpisodesTxt:TextView
     private lateinit var animeRewatchTxt:TextView
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     private val profileViewModel:ProfileViewModel by viewModels()
 
@@ -73,6 +84,44 @@ class ProfileFragment : Fragment() {
         animeMeanScoreTxt = binding.animeMeanScore
         animeEpisodesTxt =  binding.animeEpisodesWatched
         animeRewatchTxt = binding.animeRewatchValue
+        logoutButton = binding.malLogoutButton
+
+        logoutButton.setOnClickListener {
+
+            val dialog = AlertDialog.Builder(context)
+                .setTitle("Confirm Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton(R.string.yes
+                ) { p0, p1 ->
+                    sessionManager.clearSession()
+                    logOutOfApp()
+                }
+                .setNegativeButton(R.string.no
+                ) { p0, p1 ->
+
+                }
+                .create()
+
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context?.let { it1 ->
+                    AppCompatResources.getColorStateList(
+                        it1,
+                        R.color.textColorSecondary
+                    )
+                })
+
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context?.let { it1 ->
+                    AppCompatResources.getColorStateList(
+                        it1,
+                        R.color.textColorPrimary
+                    )
+                })
+
+            }
+
+            dialog.show()
+
+        }
 
         return binding.root
     }
@@ -193,5 +242,11 @@ class ProfileFragment : Fragment() {
         animeEpisodesTxt.text = episodeStr
         animeMeanScoreTxt.text = meanScoreStr
 
+    }
+
+    private fun logOutOfApp() {
+        val intent = Intent(context, LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 }
