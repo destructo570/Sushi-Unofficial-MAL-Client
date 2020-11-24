@@ -13,18 +13,24 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import app.futured.donut.DonutProgressView
 import app.futured.donut.DonutSection
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentProfileBinding
 import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.auth.LoginActivity
 import com.destructo.sushi.util.SessionManager
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.profile_header_layout.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -45,6 +51,8 @@ class ProfileFragment : Fragment() {
     private lateinit var droppedText:TextView
     private lateinit var totalText:TextView
     private lateinit var logoutButton: Button
+    private lateinit var profileHeader:ConstraintLayout
+    private lateinit var navView: NavigationView
 
 
     private lateinit var animeDaysTxt:TextView
@@ -59,6 +67,7 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
+            profileViewModel.clearUserInfo()
             profileViewModel.getUserInfo("anime_statistics")
         }
     }
@@ -85,6 +94,9 @@ class ProfileFragment : Fragment() {
         animeEpisodesTxt =  binding.animeEpisodesWatched
         animeRewatchTxt = binding.animeRewatchValue
         logoutButton = binding.malLogoutButton
+
+        navView = requireActivity().navigationView
+        profileHeader = navView.getHeaderView(0) as ConstraintLayout
 
         logoutButton.setOnClickListener {
 
@@ -143,7 +155,6 @@ class ProfileFragment : Fragment() {
                             animeStatistics = it
                             setAnimeStats(animeStatistics)
                         }
-
                     }
                 }
                 Status.ERROR->{
@@ -151,6 +162,8 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
+
+
     }
 
     private fun setupToolbar() {

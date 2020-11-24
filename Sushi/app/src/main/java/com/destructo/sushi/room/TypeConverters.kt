@@ -15,6 +15,8 @@ import com.destructo.sushi.model.mal.common.Ranking
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.RelatedManga
 import com.destructo.sushi.model.mal.userAnimeList.AnimeListStatus
+import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
+import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.model.mal.userMangaList.MangaListStatus
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -138,6 +140,19 @@ class TypeConverters {
 
     @TypeConverter
     fun mangaListStatusToString(data: MangaListStatus?): String?{
+        return gson.toJson(data)
+    }
+
+    @TypeConverter
+    fun stringToUserInfo(data: String?): UserInfo?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<UserInfo?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun userInfoToString(data: UserInfo?): String?{
         return gson.toJson(data)
     }
 

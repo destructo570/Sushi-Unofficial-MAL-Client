@@ -1,6 +1,9 @@
 package com.destructo.sushi.model.mal.userInfo
 
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.squareup.moshi.Json
 

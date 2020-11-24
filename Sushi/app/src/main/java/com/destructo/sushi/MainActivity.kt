@@ -1,9 +1,12 @@
 package com.destructo.sushi
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -11,11 +14,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.destructo.sushi.databinding.ActivityMainBinding
-import com.destructo.sushi.ui.auth.LoginActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.profile_header_layout.view.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,7 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView2:NavigationView
     private lateinit var navView:NavigationView
 
-    private lateinit var profileHeader: View
+    private lateinit var profileHeader: ConstraintLayout
+    private val mainViewModel: MainViewModel by viewModels()
 
      private val appBarConfig by lazy {
         AppBarConfiguration(
@@ -61,14 +66,15 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.navigationView)
         navView2 = findViewById(R.id.navigationView2)
         drawerLayout = findViewById(R.id.drawer_layout)
-        profileHeader = navView.getHeaderView(0)
+        profileHeader = navView.getHeaderView(0) as ConstraintLayout
         setupDrawerLayout()
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        mainViewModel.getUserInfo("anime_statistics")
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
                 R.id.profileFragment -> {
-
                 }
                 R.id.myAnimeListFragment -> {
                     navView.setCheckedItem(R.id.myAnimeListFragment)
@@ -100,10 +106,23 @@ class MainActivity : AppCompatActivity() {
         profileHeader.setOnClickListener {
             navController.navigate(R.id.profileFragment)
             drawer_layout.closeDrawer(GravityCompat.START)
+
         }
 
+        mainViewModel.userInfoEntity.observe(this){
+            it?.userInfo?.let {userInfo->
+                profileHeader.header_user_name.text = userInfo.name
+                profileHeader.header_user_location.text = userInfo.location
 
-
+                Glide.with(profileHeader.header_user_image.context)
+                    .load(userInfo.picture)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.test_img)
+                    )
+                    .into(profileHeader.header_user_image)
+            }
+        }
 
     }
 
