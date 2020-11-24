@@ -191,27 +191,27 @@ class ProfileFragment : Fragment() {
 
         val watchingSection = DonutSection(
             name = "Watching",
-            color = Color.parseColor("#00c853"),
+            color = Color.parseColor("#00e676"),
             amount = watching?.toFloat() ?: 0.0f
         )
         val completedSection = DonutSection(
             name = "Completed",
-            color = Color.parseColor("#5c6bc0"),
+            color = Color.parseColor("#3d5afe"),
             amount = completed?.toFloat() ?: 0.0f
         )
         val onHoldSection = DonutSection(
             name = "On Hold",
-            color = Color.parseColor("#ffd600"),
+            color = Color.parseColor("#ffea00"),
             amount = onHold?.toFloat() ?: 0.0f
         )
         val droppedSection = DonutSection(
             name = "Dropped",
-            color = Color.parseColor("#d50000"),
+            color = Color.parseColor("#ff3d00"),
             amount = dropped?.toFloat() ?: 0.0f
         )
         val planToWatchSection = DonutSection(
             name = "Plan to Watch",
-            color = Color.parseColor("#9e9e9e"),
+            color = Color.parseColor("#607d8b"),
             amount = planToWatch?.toFloat() ?: 0.0f
         )
         animeStatDonut.cap = 0.0f

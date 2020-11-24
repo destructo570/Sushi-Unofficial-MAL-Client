@@ -33,10 +33,10 @@
     <color name="discord_button_bg">#26673AB7</color>
     <color name="discord_button_content">#4527A0</color>
 
-    <color name="watching_color">#4CAF50</color>
-    <color name="completed_color">#3F51B5</color>
-    <color name="on_hold_color">#FFC107</color>
-    <color name="dropped_color">#f44336</color>
-    <color name="plan_to_watch_color">#607D8B</color>
+    <color name="watching_color">#00e676</color>
+    <color name="completed_color">#3d5afe</color>
+    <color name="on_hold_color">#ffea00</color>
+    <color name="dropped_color">#ff3d00</color>
+    <color name="plan_to_watch_color">#607d8b</color>
 
 </resources>
