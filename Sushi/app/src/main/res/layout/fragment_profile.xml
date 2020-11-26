@@ -80,6 +80,7 @@
                     android:text="@{userInfo.location}"
                     tools:text="New York, Manhattan"
                     android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
+                    android:textColor="@color/textColorSecondary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView77" />
@@ -93,6 +94,7 @@
                     android:layout_marginEnd="16dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="2dp"
+                    app:cardBackgroundColor="?attr/colorPrimary"
                     app:cardUseCompatPadding="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +138,7 @@
                             android:text="Watching: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/watching_color"
+                            app:drawableTint="@color/colorWatching"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/textView79" />
 
@@ -150,7 +152,7 @@
                             android:text="Completed: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/completed_color"
+                            app:drawableTint="@color/colorCompleted"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_watching_txt"
 
@@ -166,7 +168,7 @@
                             android:text="On Hold: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/on_hold_color"
+                            app:drawableTint="@color/colorOnHold"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_completed_txt"
 
@@ -182,7 +184,7 @@
                             android:text="Dropped: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/dropped_color"
+                            app:drawableTint="@color/colorDropped"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_onhold_txt"
 
@@ -198,7 +200,7 @@
                             android:text="Plan To Watch: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/plan_to_watch_color"
+                            app:drawableTint="@color/colorPlanToWatch"
                             app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
                             app:layout_constraintTop_toBottomOf="@+id/anime_dropped_txt"
 
@@ -280,12 +282,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:drawableTint="@color/colorPrimary"
+                    style="@style/Widget.Sushi.OutlinedButton"
                     android:stateListAnimator="@null"
                     android:text="@string/title_logout"
-                    android:textAppearance="@style/TextAppearance.Sushi.B3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

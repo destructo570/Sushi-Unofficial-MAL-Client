@@ -49,7 +49,7 @@
                 android:text="@{animeEntity.mediaType}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@string/fake_anime_type" />
@@ -91,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/item_card_text_margin_small"
                 android:layout_marginBottom="@dimen/item_card_text_margin_normal"
-                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                android:textColor="?attr/textColorTertiary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/score_icon"
                 app:layout_constraintTop_toBottomOf="@+id/list_anime_title"
@@ -104,7 +105,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
                 formatAnimeRank="@{animeEntity.rank}"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintEnd_toEndOf="parent" />
 

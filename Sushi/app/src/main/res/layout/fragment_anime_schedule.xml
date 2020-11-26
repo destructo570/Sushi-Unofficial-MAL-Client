@@ -22,7 +22,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/ToolBarWithNavigationBack"
+                style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -36,8 +36,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:paddingBottom="4dp"
                 app:layout_collapseMode="pin"
-                app:tabIndicator="@drawable/custom_tab_layout_indicator"
-                app:tabMode="scrollable" />
+                 />
 
         </com.google.android.material.appbar.AppBarLayout>
 

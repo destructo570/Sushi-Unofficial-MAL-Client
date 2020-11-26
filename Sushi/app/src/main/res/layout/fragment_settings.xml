@@ -18,14 +18,19 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/ToolBarWithNavigationBack"
+                style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:title="@string/title_settings"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            android:id="@+id/preferenceFragment"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

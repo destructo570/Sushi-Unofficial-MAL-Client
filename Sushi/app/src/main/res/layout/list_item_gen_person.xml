@@ -50,7 +50,7 @@
                 android:text="@{personEntity.role}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@string/fake_anime_type" />

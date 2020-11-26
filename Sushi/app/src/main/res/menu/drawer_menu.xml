@@ -10,7 +10,8 @@
         android:title="@string/title_my_manga_list" />
     </group>
 
-    <item android:title="@string/title_anime">
+    <item android:title="@string/title_anime"
+        >
         <menu>
             <group android:checkableBehavior="single">
                 <item

@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,12 +15,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.destructo.sushi.enum.AppTheme
+import com.destructo.sushi.util.hideSoftKeyboard
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -57,6 +62,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
+        setApplicationTheme(currentTheme)
+
         setContentView(R.layout.activity_main)
 
         navHostFragment = supportFragmentManager
@@ -142,6 +152,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setApplicationTheme(theme: String?){
+        Timber.e("Current Theme: $theme")
+        when(theme){
+            AppTheme.LIGHT.value ->{setTheme(R.style.AppTheme)}
+            AppTheme.NIGHT.value ->{setTheme(R.style.AppTheme_Dark)}
+            else ->{setTheme(R.style.AppTheme)}
+        }
+    }
 
 
 }

@@ -14,6 +14,9 @@ interface UserAnimeListDao {
     @Query("SELECT * FROM user_anime_list WHERE status LIKE :status ORDER BY title ASC")
     fun getUserAnimeListByStatus(status: String): LiveData<List<UserAnimeData>>
 
+    @Query("SELECT * FROM user_anime_list WHERE animeId LIKE :id")
+    fun getUserAnimeById(id: Int): UserAnimeData
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUseAnimeList(animeList: List<UserAnimeData?>)
 
@@ -22,6 +25,9 @@ interface UserAnimeListDao {
 
     @Query("DELETE FROM user_anime_list")
     fun clear()
+
+    @Query("DELETE FROM user_anime_list WHERE `offset` LIKE :offset")
+    fun deleteUserAnimeListByOffset(offset: Int)
 
     @Delete
     fun deleteUseAnime(anime: UserAnimeData)

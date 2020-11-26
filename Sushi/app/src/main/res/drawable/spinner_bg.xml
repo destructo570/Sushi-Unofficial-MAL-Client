@@ -5,7 +5,10 @@
         <layer-list>
             <item>
                 <shape android:thickness="2dp">
-                    <gradient android:angle = "90" android:endColor = "@color/contentBackground" android:startColor = "@color/contentBackground" android:type = "linear"/>
+                    <gradient android:angle = "90"
+                        android:endColor = "?attr/contentBackground"
+                        android:startColor = "?attr/contentBackground"
+                        android:type = "linear"/>
                     <corners android:radius = "8dp"/>
                     <padding android:bottom = "3dp" android:left = "3dp" android:right = "3dp" android:top = "3dp"/>
                 </shape>

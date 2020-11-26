@@ -447,7 +447,7 @@ class AnimeDetailFragment : Fragment(),
             var drawable: Drawable? = toolbar.navigationIcon
             drawable?.let {
                 drawable = DrawableCompat.wrap(drawable!!)
-                context?.let { it1 -> ContextCompat.getColor(it1,R.color.white) }?.let { it2 ->
+                context?.let { it1 -> ContextCompat.getColor(it1,R.color.iconTintOnPrimary) }?.let { it2 ->
                     DrawableCompat.setTint(drawable!!.mutate(),
                         it2
                     )

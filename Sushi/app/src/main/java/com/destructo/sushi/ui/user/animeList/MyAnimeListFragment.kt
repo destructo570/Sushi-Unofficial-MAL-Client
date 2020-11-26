@@ -37,7 +37,7 @@ class MyAnimeListFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userAnimeViewModel.clearList()
+        if(savedInstanceState == null){userAnimeViewModel.clearList()}
     }
 
     override fun onCreateView(

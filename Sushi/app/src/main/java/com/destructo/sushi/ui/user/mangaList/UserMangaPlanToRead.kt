@@ -67,7 +67,7 @@ class UserMangaPlanToRead : Fragment() {
             }
         }, MangaIdListener {
             it?.let{navigateToMangaDetails(it)}
-        })
+        }, false)
         userMangaAdapter.setListEndListener(object : ListEndListener {
             override fun onEndReached(position: Int) {
                 userMangaViewModel.getNextPage(UserMangaStatus.PLAN_TO_READ.value)

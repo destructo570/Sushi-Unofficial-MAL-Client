@@ -66,7 +66,7 @@ class UserAnimePlanToWatch : Fragment() {
                 it?.let{
                     navigateToAnimeDetails(it)
                 }
-            })
+            }, false)
         userAnimeAdapter.setListEndListener(object : ListEndListener {
             override fun onEndReached(position: Int) {
                 userAnimeViewModel.getNextPage(UserAnimeStatus.PLAN_TO_WATCH.value)

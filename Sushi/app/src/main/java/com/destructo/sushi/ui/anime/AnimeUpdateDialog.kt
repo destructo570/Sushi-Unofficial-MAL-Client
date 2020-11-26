@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.AnimeStatusUpdateBottomSheetBinding
+import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toEditable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
@@ -119,7 +121,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
         })
 
         removeButton.setOnClickListener {
-           val dialog = AlertDialog.Builder(context)
+           val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
                 .setTitle("Remove anime from list")
                 .setMessage("Are you sure you want to remove this anime from your list?")
                 .setPositiveButton(R.string.yes
@@ -132,20 +134,13 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
                .create()
 
             dialog.setOnShowListener {
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context?.let { it1 ->
-                    AppCompatResources.getColorStateList(
-                        it1,
-                        R.color.textColorSecondary
-                    )
-                })
 
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context?.let { it1 ->
-                    AppCompatResources.getColorStateList(
-                        it1,
-                        R.color.textColorPrimary
-                    )
-                })
-
+                val view = dialog.window
+                view?.setBackgroundDrawable(context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg) })
+                context?.let {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
+                }
             }
 
             dialog.show()

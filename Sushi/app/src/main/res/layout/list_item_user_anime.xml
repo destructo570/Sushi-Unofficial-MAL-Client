@@ -61,7 +61,7 @@
                 userAnimeSubtitle="@{animeEntity}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                android:textColor="@color/textColorSecondary"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover"
                 app:layout_constraintTop_toBottomOf="@+id/list_anime_title"
                 tools:text="@string/fake_anime_type" />
@@ -96,7 +96,7 @@
                 android:visibility="gone"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_small"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -144,7 +144,7 @@
                 app:elevation="@dimen/add_button_elevation"
                 app:iconPadding="@dimen/add_button_icon_padding"
                 app:iconGravity="textStart"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="?attr/colorAccentSecondary"
                 android:onClick="@{() -> episodeListener.onClick(animeEntity)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

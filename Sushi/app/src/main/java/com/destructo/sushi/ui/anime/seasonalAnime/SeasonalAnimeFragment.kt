@@ -283,6 +283,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
             when (item.itemId) {
                 R.id.filter_menu_id -> {
                     drawerLayout.openDrawer(GravityCompat.END)
+
                 }
             }
             false

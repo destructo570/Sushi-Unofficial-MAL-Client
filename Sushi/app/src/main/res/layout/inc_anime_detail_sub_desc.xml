@@ -90,16 +90,14 @@
 
         <Button
             android:id="@+id/add_anime_to_list"
+            style="@style/SushiPrimaryImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="4dp"
             animeButtonState="@{animeEntity.myAnimeListStatus}"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/anime_detail_add_to_list"
-            android:textAppearance="@style/TextAppearance.Sushi.B3"
             android:drawableLeft="@drawable/ic_add_fill"
-            android:drawableTint="@color/colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/anime_desc_episode_duration" />
 

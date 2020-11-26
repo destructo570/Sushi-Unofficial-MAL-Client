@@ -1,6 +1,7 @@
 package com.destructo.sushi.ui.user.mangaList
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +13,8 @@ import com.destructo.sushi.ui.manga.listener.MangaIdListener
 
 class UserMangaListAdapter(
     private val addChapterListener: AddChapterListener,
-    private val mangaIdListener: MangaIdListener
+    private val mangaIdListener: MangaIdListener,
+    private val isReadingList: Boolean
 ):
     ListAdapter<UserMangaData, UserMangaListAdapter.ViewHolder>(UserMangaDiffUtil()) {
 
@@ -23,12 +25,14 @@ class UserMangaListAdapter(
 
         fun bind(mangaEntity: UserMangaData,
                  chapterListener: AddChapterListener,
-                 mangaIdListener: MangaIdListener
+                 mangaIdListener: MangaIdListener,
+                 isReadingList: Boolean
         ) {
             binding.mangaEntity = mangaEntity.manga
             binding.mangaListStatus = mangaEntity.mangaListStatus
             binding.chapterListener = chapterListener
             binding.mangaIdListener = mangaIdListener
+            if(!isReadingList){binding.addEpisodeButton.visibility = View.GONE}
             binding.executePendingBindings()
 
         }
@@ -49,7 +53,7 @@ class UserMangaListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mangaEntity = getItem(position)
-        holder.bind(mangaEntity,addChapterListener,mangaIdListener)
+        holder.bind(mangaEntity, addChapterListener, mangaIdListener, isReadingList)
         if (position == currentList.size - 1) run {
             listEndListener?.onEndReached(position)
         }

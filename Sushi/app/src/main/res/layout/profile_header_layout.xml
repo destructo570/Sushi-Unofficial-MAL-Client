@@ -48,7 +48,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="New York"
-        android:textColor="@color/textColorSecondary"
+        android:textColor="?attr/textColorSecondary"
         android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
         app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
         app:layout_constraintTop_toBottomOf="@+id/header_user_name" />

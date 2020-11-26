@@ -12,7 +12,6 @@
     <dimen name="text_size_h1">20sp</dimen>
     <dimen name="text_size_h2">18sp</dimen>
     <dimen name="text_size_h3">16sp</dimen>
-    <dimen name="text_size_h4">16sp</dimen>
 
     <!-- Common Text Body -->
     <dimen name="text_size_b1">16sp</dimen>
@@ -84,7 +83,7 @@
     <dimen name="video_card_margin_micro">2dp</dimen>
 
     <!-- Review Card-->
-    <dimen name="review_card_height">150dp</dimen>
+    <dimen name="review_card_height">200dp</dimen>
     <dimen name="review_card_width">300dp</dimen>
     <dimen name="reviewer_img_size">48dp</dimen>
     <dimen name="review_card_margin_normal">8dp</dimen>

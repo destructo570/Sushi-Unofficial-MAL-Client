@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default Theme -->
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#373737</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="colorAccentDark">#373737</color>
-
-    <color name="colorAccentRed">#e53935</color>
-
-    <color name="default_score_card_bg_color">#607D8B</color>
-
-
+    <color name="colorAccentSecondary">#373737</color>
+    <color name="colorScoreCardBackground">#607D8B</color>
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#9e9e9e</color>
     <color name="textColorOnPrimary">#ffffff</color>
-
-    <color name="white">#FFFFFF</color>
+    <color name="textColorTertiary">#212121</color>
     <color name="contentBackground">#ECEFF1</color>
+    <color name="iconTintPrimary">#212121</color>
+    <color name="iconTintOnPrimary">#FFFFFF</color>
+    <color name="iconTintSecondary">#212121</color>
+    <color name="foregroundTintDarkPrimary">#BF000000</color>
+    <color name="foregroundTintDarkSecondary">#8c000000</color>
+    <color name="colorMenuSelected">#ECEFF1</color>
+    <color name="colorMenuPressed">#ECEFF1</color>
+    <color name="colorMenuTextSelected">#212121</color>
+    <color name="colorCardBackground">#ffffff</color>
 
-    <color name="content_tint_dark">#BF000000</color>
-    <color name="content_tint_dark2">#8c000000</color>
+    <!-- Night Theme -->
+    <color name="colorPrimaryNight">#111016</color>
+    <color name="colorPrimaryDarkNight">#000000</color>
+    <color name="colorAccentNight">#5c6bc0</color>
+    <color name="colorAccentSecondaryNight">#5c6bc0</color>
+    <color name="colorScoreCardBackgroundNight">#607D8B</color>
+    <color name="textColorPrimaryNight">#ffffff</color>
+    <color name="textColorTertiaryNight">#9e9e9e</color>
+    <color name="textColorSecondaryNight">#9e9e9e</color>
+    <color name="textColorOnPrimaryNight">#ffffff</color>
+    <color name="contentBackgroundNight">#1e1e29</color>
+    <color name="iconTintPrimaryNight">#9e9e9e</color>
+    <color name="iconTintOnPrimaryNight">#FFFFFF</color>
+    <color name="iconTintSecondaryNight">#9e9e9e</color>
+    <color name="foregroundTintDarkPrimaryNight">#BF000000</color>
+    <color name="foregroundTintDarkSecondaryNight">#8c000000</color>
+    <color name="colorMenuSelectedNight">#1e1e29</color>
+    <color name="colorMenuPressedNight">#1e1e29</color>
+    <color name="colorMenuTextSelectedNight">#ffffff</color>
+    <color name="colorCardBackgroundNight">#1e1e29</color>
 
-    <color name="colorMenuSelected">#2603DAC5</color>
-    <color name="colorMenuPressed">#269e9e9e</color>
-    <color name="colorMenuTextSelected">#00897b</color>
 
-    <color name="twitter_button_bg">#262196F3</color>
-    <color name="twitter_button_content">#2196F3</color>
-
-    <color name="dribbble_button_bg">#26E91E63</color>
-    <color name="dribbble_button_content">#AD1457</color>
-
-    <color name="discord_button_bg">#26673AB7</color>
-    <color name="discord_button_content">#4527A0</color>
-
-    <color name="watching_color">#00e676</color>
-    <color name="completed_color">#3d5afe</color>
-    <color name="on_hold_color">#ffea00</color>
-    <color name="dropped_color">#ff3d00</color>
-    <color name="plan_to_watch_color">#607d8b</color>
+    <color name="colorWatching">#00e676</color>
+    <color name="colorCompleted">#3d5afe</color>
+    <color name="colorOnHold">#ffea00</color>
+    <color name="colorDropped">#ff3d00</color>
+    <color name="colorPlanToWatch">#607d8b</color>
 
 </resources>

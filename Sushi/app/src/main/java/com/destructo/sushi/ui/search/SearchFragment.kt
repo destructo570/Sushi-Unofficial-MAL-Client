@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -21,6 +22,9 @@ import com.destructo.sushi.ui.anime.characterDetails.CharacterAbout
 import com.destructo.sushi.ui.anime.characterDetails.CharacterAnimeography
 import com.destructo.sushi.ui.anime.characterDetails.CharacterMangaography
 import com.destructo.sushi.ui.anime.characterDetails.CharacterVoiceActors
+import com.destructo.sushi.util.getColorFromAttr
+import com.destructo.sushi.util.hideSoftKeyboard
+import com.destructo.sushi.util.showSoftKeyboard
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,9 +41,11 @@ class SearchFragment : Fragment() {
     private lateinit var resultPagerAdapter: FragmentStateAdapter
     private lateinit var resultTabLayout: TabLayout
     private lateinit var resultTabMediator: TabLayoutMediator
+    private lateinit var searchEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -54,9 +60,13 @@ class SearchFragment : Fragment() {
 
         searchView = binding.searchView
         searchView.setIconifiedByDefault(false)
-        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        searchEditText.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorPrimary) })
-        searchEditText.setHintTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorSecondary) })
+        searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        context?.let{
+            searchEditText.setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
+            searchEditText.setHintTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
+            searchEditText.typeface = ResourcesCompat.getFont(it, R.font.poppins_regular)
+            searchEditText.textSize = 16f
+        }
         searchView.requestFocus()
 
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{

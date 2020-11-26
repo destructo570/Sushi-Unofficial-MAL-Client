@@ -10,7 +10,9 @@ data class UserAnimeData(
     val animeListStatus: AnimeListStatus?=null,
     @Json(name = "node")
     val anime: Anime,
+    var animeId: Int?,
     var status: String?,
-    var title: String?
+    var title: String?,
+    var offset: String?
 
 )

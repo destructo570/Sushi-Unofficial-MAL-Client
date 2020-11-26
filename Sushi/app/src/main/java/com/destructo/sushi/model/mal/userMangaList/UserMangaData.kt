@@ -12,5 +12,7 @@ data class UserMangaData(
     @Json(name = "node")
     val manga: Manga,
     var status: String?,
-    var title: String?
+    var title: String?,
+    var mangaId: Int?,
+    var offset: String?
 )

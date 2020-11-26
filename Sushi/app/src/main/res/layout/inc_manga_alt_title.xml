@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="Synonyms"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,6 +82,7 @@
                 android:layout_marginTop="16dp"
                 android:text="English"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
@@ -102,6 +104,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Japanese"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView50" />
 

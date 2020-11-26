@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/collapsing_toobar_height"
                     app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
-                    app:contentScrim="?colorPrimary"
+                    app:contentScrim="?attr/colorPrimary"
                     app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
                     app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
                     app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
@@ -42,7 +42,7 @@
                         imageUrl="@{mangaEntity.mainPicture.large}"
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
-                        android:foreground="@color/content_tint_dark"
+                        android:foreground="?attr/foregroundTintDarkPrimary"
                         android:scaleType="centerCrop"
                         android:src="@drawable/test_img" />
 
@@ -72,8 +72,7 @@
                         android:id="@+id/anime_detail_cardview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@android:color/white"
-                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="?attr/colorPrimary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -135,17 +134,6 @@
                                 app:layout_constraintTop_toBottomOf="@+id/manga_synopsis_title" />
 
 
-                            <TextView
-                                android:id="@+id/manga_genre_title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_normal"
-                                android:text="@string/title_genre"
-                                android:textAppearance="@style/TextAppearance.Sushi.H2"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_synopsis" />
-
                             <include
                                 android:id="@+id/manga_genre"
                                 layout="@layout/inc_genre_list"
@@ -155,7 +143,7 @@
                                 android:layout_marginBottom="@dimen/margin_normal"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_genre_title" />
+                                app:layout_constraintTop_toBottomOf="@+id/manga_synopsis" />
 
                             <LinearLayout
                                 android:id="@+id/manga_alt_title"
@@ -173,8 +161,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_small"
                                     android:layout_marginBottom="@dimen/margin_small"
-                                    bind:mangaEntity="@{mangaEntity}"
-                                    />
+                                    bind:mangaEntity="@{mangaEntity}" />
                             </LinearLayout>
                             <LinearLayout
                                 android:id="@+id/manga_more_info"
@@ -256,7 +243,7 @@
                 android:layout_marginEnd="16dp"
                 android:elevation="@dimen/fab_elevation"
                 app:cardCornerRadius="200dp"
-                android:backgroundTint="@color/default_score_card_bg_color"
+                android:backgroundTint="?attr/colorScoreCardBackground"
                 app:layout_anchor="@id/anime_detail_cardview"
                 app:layout_anchorGravity="top|right|end">
 
@@ -267,7 +254,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAppearance="@style/TextAppearance.Sushi.H2"
-                    android:textColor="@color/textColorOnPrimary"
+                    android:textColor="?attr/textColorOnPrimary"
                     tools:text="8.0" />
             </com.google.android.material.card.MaterialCardView>
 

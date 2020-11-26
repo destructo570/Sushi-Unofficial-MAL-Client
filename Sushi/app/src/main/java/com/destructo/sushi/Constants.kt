@@ -26,3 +26,8 @@ const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
 
 const val DEFAULT_PAGE_LIMIT = "60"
 const val DEFAULT_USER_LIST_PAGE_LIMIT = "10"
+
+//Theme Shared Pref Key
+const val CURRENT_THEME = "current_theme"
+
+

@@ -12,7 +12,6 @@
 
         tools:context="com.destructo.sushi.ui.anime.characterDetails.CharacterAnimeography">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/animeographyRecyclerMain"
             android:layout_width="match_parent"

@@ -9,7 +9,6 @@
             type="com.destructo.sushi.model.jikan.character.Character" />
     </data>
 
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +34,7 @@
             android:id="@+id/anime_collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="?colorPrimary"
+            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,8 +171,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:tabIndicator="@drawable/custom_tab_layout_indicator"
-            app:tabMode="scrollable" />
+ />
 
     </com.google.android.material.appbar.AppBarLayout>
 

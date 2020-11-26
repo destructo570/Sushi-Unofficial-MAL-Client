@@ -1,6 +1,7 @@
 package com.destructo.sushi.ui.user.animeList
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +13,9 @@ import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
 class UserAnimeListAdapter(
     private val addEpisodeListener: AddEpisodeListener,
-    private val animeIdListener: AnimeIdListener) :
+    private val animeIdListener: AnimeIdListener,
+    private val isWatchingList: Boolean
+    ) :
     ListAdapter<UserAnimeData, UserAnimeListAdapter.ViewHolder>(UserAnimeDiffUtil()) {
 
     private var listEndListener: ListEndListener? = null
@@ -22,12 +25,14 @@ class UserAnimeListAdapter(
 
         fun bind(animeEntity: UserAnimeData,
                  addEpisodeListener: AddEpisodeListener,
-                 animeIdListener: AnimeIdListener
+                 animeIdListener: AnimeIdListener,
+                 isWatchingList: Boolean
                  ) {
             binding.animeEntity = animeEntity.anime
             binding.animeListStatus = animeEntity.animeListStatus
             binding.episodeListener = addEpisodeListener
             binding.animeIdListener = animeIdListener
+            if(!isWatchingList){binding.addEpisodeButton.visibility = View.GONE}
             binding.executePendingBindings()
 
         }
@@ -47,7 +52,7 @@ class UserAnimeListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeSubEntity = getItem(position)
-        holder.bind(animeSubEntity, addEpisodeListener, animeIdListener)
+        holder.bind(animeSubEntity, addEpisodeListener, animeIdListener, isWatchingList)
         if (position == currentList.size - 1) run {
             listEndListener?.onEndReached(position)
         }

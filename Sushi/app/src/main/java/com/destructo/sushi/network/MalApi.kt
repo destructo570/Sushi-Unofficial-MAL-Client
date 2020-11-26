@@ -51,6 +51,9 @@ interface MalApi {
     @GET
     fun getUserAnimeNextAsync(@Url url:String): Deferred<UserAnimeList>
 
+    @GET("anime")
+    fun getUserAnimeByOffsetAsync(@Query("offset") offset:String): Deferred<UserAnimeList>
+
     @GET
     fun getUserMangaNextAsync(@Url url:String): Deferred<UserMangaList>
 

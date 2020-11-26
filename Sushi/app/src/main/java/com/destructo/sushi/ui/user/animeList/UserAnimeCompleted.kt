@@ -67,7 +67,7 @@ class UserAnimeCompleted : Fragment() {
                 it?.let{
                     navigateToAnimeDetails(it)
                 }
-            })
+            }, false)
         userAnimeAdapter.setListEndListener(object : ListEndListener {
             override fun onEndReached(position: Int) {
                 userAnimeViewModel.getNextPage(UserAnimeStatus.COMPLETED.value)

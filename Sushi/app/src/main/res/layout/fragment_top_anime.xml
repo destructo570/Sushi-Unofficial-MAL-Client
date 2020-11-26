@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:layout_collapseMode="pin"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -76,7 +76,7 @@
             android:orientation="vertical"
             android:visibility="gone"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             >
             <ProgressBar
                 android:layout_width="wrap_content"

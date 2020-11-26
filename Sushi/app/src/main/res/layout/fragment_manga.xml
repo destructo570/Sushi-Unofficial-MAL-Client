@@ -22,7 +22,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/ToolBarWithNavigationBack"
+                style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -32,7 +32,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
+                android:background="?attr/colorPrimary"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
             android:orientation="vertical"
             android:visibility="gone"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             >
             <ProgressBar
                 android:layout_width="wrap_content"

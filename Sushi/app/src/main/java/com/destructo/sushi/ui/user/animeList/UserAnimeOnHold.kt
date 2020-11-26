@@ -69,7 +69,7 @@ class UserAnimeOnHold : Fragment() {
             it?.let{
                 navigateToAnimeDetails(it)
             }
-        })
+        }, false)
         userAnimeAdapter.setListEndListener(object : ListEndListener {
             override fun onEndReached(position: Int) {
                 userAnimeViewModel.getNextPage(UserAnimeStatus.ON_HOLD.value)

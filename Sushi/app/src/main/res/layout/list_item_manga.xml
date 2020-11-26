@@ -48,7 +48,7 @@
                 android:text="@{mangaEntity.mediaType}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_manga_cover"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@string/fake_manga_type" />
@@ -91,7 +91,8 @@
                 android:layout_marginEnd="@dimen/item_card_text_margin_normal"
                 android:layout_marginBottom="@dimen/item_card_text_margin_normal"
                 android:text="@{mangaEntity.mean.toString()}"
-                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                android:textColor="?attr/textColorTertiary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/score_icon"
@@ -105,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/item_card_text_margin_normal"
                 android:layout_marginBottom="@dimen/item_card_text_margin_small"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_manga_cover"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="#142" />

@@ -56,7 +56,7 @@
                 android:text="@{mangaEntity.mediaType}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                android:textColor="@color/textColorSecondary"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toEndOf="@+id/list_manga_cover"
                 app:layout_constraintTop_toBottomOf="@+id/list_manga_title"
                 tools:text="@string/fake_anime_type" />
@@ -127,7 +127,7 @@
                 app:elevation="@dimen/add_button_elevation"
                 app:iconPadding="@dimen/add_button_icon_padding"
                 app:iconGravity="textStart"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="?attr/colorAccentSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:icon="@drawable/ic_add_fill" />

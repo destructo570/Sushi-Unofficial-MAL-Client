@@ -1,12 +1,15 @@
 package com.destructo.sushi.ui.user.animeList
 
-import androidx.lifecycle.LiveData
+import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
+import com.destructo.sushi.REDIRECT_URL
 import com.destructo.sushi.enum.mal.UserAnimeSort
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
+import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -15,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.http.Query
 import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
@@ -102,7 +106,7 @@ constructor(
                 getNextPage(animeStatus, userAnimeListDroppedNext, droppedNextPage)
             }
             else ->{
-                getNextPage(animeStatus, userAnimeListAllNext, allNextPage)
+                Timber.e("Unknown Status")
             }
 
         }
@@ -122,15 +126,9 @@ constructor(
             val getUserAnimeDeferred = malApi.getUserAnimeNextAsync(nextPage)
             try {
                 val userAnime = getUserAnimeDeferred.await()
-                val userAnimeList = userAnime.data
-                if (userAnimeList != null){
-                    for (anime in userAnimeList){
-                        anime?.status = anime?.anime?.myAnimeListStatus?.status
-                        anime?.title =  anime?.anime?.title
-                    }
-                }
-                userAnimeListDao.insertUseAnimeList(userAnimeList!!)
+                setUserAnimeData(userAnime)
                 setNextPage(animeStatus, userAnime.paging?.next)
+                userAnimeListDao.insertUseAnimeList(userAnime.data!!)
                 withContext(Dispatchers.Main){
                     animeList.value = Resource.success(userAnime)
                 }
@@ -139,6 +137,31 @@ constructor(
                     animeList.value = Resource.error(e.message ?: "", null)}
             }
         }
+        }
+    }
+
+
+    private fun loadPage(
+        animeStatus: String,
+        offset:String?
+    ) {
+        if(!offset.isNullOrBlank()){
+            GlobalScope.launch {
+                val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
+                    "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
+                    animeStatus, UserAnimeSort.ANIME_TITLE.value, offset,ALL_ANIME_FIELDS)
+                try {
+                    val userAnime = getUserAnimeDeferred.await()
+                    val userAnimeList = userAnime.data
+                    setUserAnimeData(userAnime)
+                    userAnimeListDao.deleteUserAnimeListByOffset(offset.toInt())
+                    userAnimeListDao.insertUseAnimeList(userAnimeList!!)
+
+                }catch (e:Exception){
+                    withContext(Dispatchers.Main){
+                    }
+                }
+            }
         }
     }
 
@@ -154,16 +177,9 @@ constructor(
                 animeStatus, UserAnimeSort.ANIME_TITLE.value, "",ALL_ANIME_FIELDS)
             try {
                 val userAnime = getUserAnimeDeferred.await()
-                val userAnimeList = userAnime.data
-                if (userAnimeList != null){
-                    for (anime in userAnimeList){
-                        anime?.status = anime?.anime?.myAnimeListStatus?.status
-                        anime?.title =  anime?.anime?.title
-                    }
-                }
-
-                userAnimeListDao.insertUseAnimeList(userAnimeList!!)
+                setUserAnimeData(userAnime)
                 setNextPage(animeStatus, userAnime.paging?.next)
+                userAnimeListDao.insertUseAnimeList(userAnime.data!!)
                 withContext(Dispatchers.Main){
                     animeList.value = Resource.success(userAnime)
                 }
@@ -183,12 +199,17 @@ constructor(
                 null,null,null,null,null)
             try {
                 val animeStatus = addEpisodeDeferred.await()
+
+                val anime = userAnimeListDao.getUserAnimeById(animeId.toInt())
+                anime.status?.let { loadPage(it, anime.offset) }
+
                 withContext(Dispatchers.Main){
                     userAnimeStatus.value = Resource.success(animeStatus)
                 }
             }catch (e:Exception){
                 withContext(Dispatchers.Main){
-                    userAnimeStatus.value = Resource.error(e.message ?: "", null)}
+                    userAnimeStatus.value = Resource.error(e.message ?: "", null)
+                }
             }
         }
     }
@@ -216,6 +237,54 @@ constructor(
                 }
 
             }
+    }
+
+    private fun calcOffset(nextPage: String?, prevPage:String?): String{
+        var currentOffset = "0"
+        if(!nextPage.isNullOrBlank()){
+            val nextOffset = getOffset(nextPage)
+            if (!nextOffset.isNullOrBlank()){
+            val temp = nextOffset.toInt().minus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
+            if (temp>=0){
+               currentOffset = temp.toString()
+            }
+        }
+        return currentOffset
+        }else{
+            val prevOffset = getOffset(prevPage)
+            if (!prevOffset.isNullOrBlank()){
+                val temp = prevOffset.toInt().plus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
+                if (temp>=0){
+                    currentOffset = temp.toString()
+                }
+            }
+            return currentOffset
+        }
+
+    }
+
+    private fun getOffset(url: String?): String?{
+
+        if (!url.isNullOrBlank()){
+            val uri = url.toUri()
+            return uri.getQueryParameter("offset").toString()
+        }else{
+            return null
+        }
+    }
+
+    private fun setUserAnimeData(userAnime: UserAnimeList){
+        val userAnimeList = userAnime.data
+        if (userAnimeList != null) {
+            for (anime in userAnimeList){
+                anime?.status = anime?.anime?.myAnimeListStatus?.status
+                anime?.title =  anime?.anime?.title
+                anime?.animeId = anime?.anime?.id
+                val next = userAnime.paging?.next
+                val prev = userAnime.paging?.previous
+                anime?.offset = calcOffset(next, prev)
+            }
+        }
     }
 
 }

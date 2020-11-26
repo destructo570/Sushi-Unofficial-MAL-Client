@@ -5,18 +5,42 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed">false</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccentSecondary">@color/colorAccentSecondary</item>
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorScoreCardBackground">@color/colorScoreCardBackground</item>
+        <item name="textColorPrimary">@color/textColorPrimary</item>
+        <item name="textColorSecondary">@color/textColorSecondary</item>
+        <item name="textColorTertiary">@color/textColorTertiary</item>
+        <item name="textColorOnPrimary">@color/textColorOnPrimary</item>
+        <item name="contentBackground">@color/contentBackground</item>
+        <item name="iconTintPrimary">@color/iconTintPrimary</item>
+        <item name="iconTintOnPrimary">@color/iconTintOnPrimary</item>
+        <item name="iconTintSecondary">@color/iconTintSecondary</item>
+        <item name="foregroundTintDarkPrimary">@color/foregroundTintDarkPrimary</item>
+        <item name="foregroundTintDarkSecondary">@color/foregroundTintDarkSecondary</item>
         <item name="colorNavigationItemSelected">@color/colorMenuTextSelected</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <item name="colorMenuSelected">@color/colorMenuSelected</item>
+        <item name="colorMenuPressed">@color/colorMenuPressed</item>
+        <item name="colorMenuTextSelected">@color/colorMenuTextSelected</item>
+        <item name="colorCardBackground">@color/colorCardBackground</item>
+
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
-        <item name="itemIconTint">?attr/colorNavigationItem</item>
-        <item name="itemTextColor">?attr/colorNavigationItem</item>
+        <item name="itemIconTint">?attr/textColorPrimary</item>
+        <item name="itemTextColor">?attr/textColorPrimary</item>
         <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
+        <item name="itemTextAppearance">@style/NavigationStyle</item>
+
     </style>
     <!-- App Drawer Style-->
     <style name="NavigationStyle">
@@ -29,7 +53,7 @@
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">@dimen/text_size_h1</item>
-        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
     </style>
 
     <style name="TextAppearance.Sushi.H2" parent="@style/TextAppearance.Sushi.H1">
@@ -46,6 +70,7 @@
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">@dimen/text_size_b3</item>
+
     </style>
 
     <style name="TextAppearance.Sushi.B2" parent="TextAppearance.Sushi.B1">
@@ -67,12 +92,18 @@
     <style name="TextAppearance.Sushi.ByLine1" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">@dimen/text_size_b3</item>
-        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textColor">?attr/textColorSecondary</item>
     </style>
 
     <style name="TextAppearance.Sushi.ByLine2" parent="TextAppearance.Sushi.B1">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textSize">@dimen/text_size_b3</item>
+        <item name="android:textColor">?attr/textColorSecondary</item>
+    </style>
+    <style name="TextAppearance.Sushi.ByLine3" parent="TextAppearance.Sushi.B1">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">@dimen/text_size_b3</item>
+        <item name="android:textColor">?attr/textColorTertiary</item>
     </style>
 
     <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
@@ -90,6 +121,8 @@
         <item name="android:paddingTop">@dimen/see_more_padding_small</item>
         <item name="android:paddingBottom">@dimen/see_more_padding_small</item>
         <item name="android:background">@drawable/drawable_rectangle_bg</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
+
     </style>
 
     <!-- Spinner -->
@@ -98,30 +131,35 @@
         <item name="android:minWidth">@dimen/spinner_min_width</item>
         <item name="android:minHeight">@dimen/spinner_min_height</item>
         <item name="android:popupElevation">@dimen/spinner_popup_elevation</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
+        <item name="android:popupBackground">?attr/contentBackground</item>
     </style>
 
     <!-- Tab Layout -->
-    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
-        <item name="tabSelectedTextColor">@color/colorPrimaryDark</item>
-        <item name="tabTextColor">@color/textColorSecondary</item>
+    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout.Colored">
+        <item name="tabSelectedTextColor">?attr/textColorPrimary</item>
+        <item name="tabTextColor">?attr/textColorSecondary</item>
         <item name="android:textSize">20sp</item>
         <item name="tabTextAppearance">@style/TextAppearance.Sushi.B4</item>
-        <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorColor">?attr/textColorPrimary</item>
+        <item name="tabIndicator">@drawable/custom_tab_layout_indicator</item>
+        <item name="tabMode">scrollable</item>
         <item name="tabIndicatorHeight">4dp</item>
 
     </style>
 
     <style name="ToolBarWithNavigationBack" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="navigationIcon">@drawable/ic_arrow_back_line</item>
-        <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="titleTextColor">?attr/textColorPrimary</item>
         <item name="android:elevation">0dp</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">?attr/colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
     </style>
 
     <style name="ToolBarWithNavigation" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="navigationIcon">@drawable/ic_menu_fill</item>
-        <item name="titleTextColor">@color/textColorPrimary</item>
+        <item name="titleTextColor">?attr/textColorPrimary</item>
+        <item name="android:elevation">0dp</item>
         <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
     </style>
 
@@ -133,22 +171,63 @@
     <style name="Widget.Sushi.ItemCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">@dimen/default_corner_radius</item>
         <item name="cardElevation">@dimen/default_card_elevation</item>
+        <item name="cardBackgroundColor">?attr/colorCardBackground</item>
+
     </style>
 
     <!-- Seek bar -->
     <style name="Widget.Sushi.Seekbar" parent="Widget.AppCompat.SeekBar.Discrete">
-        <item name="android:progressBackgroundTint">@color/contentBackground</item>
-        <item name="android:progressTint">@color/colorPrimaryDark</item>
-        <item name="android:thumbTint">@color/colorPrimaryDark</item>
-        <item name="android:colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:progressBackgroundTint">?attr/contentBackground</item>
+        <item name="android:progressTint">?attr/colorAccent</item>
+        <item name="android:thumbTint">?attr/colorAccent</item>
+        <item name="android:colorControlActivated">?attr/colorAccent</item>
     </style>
 
+    <!-- Primary button -->
+    <style name="SushiPrimaryButton">
+        <item name="android:textColor">?attr/textColorOnPrimary</item>
+        <item name="drawableTint">?attr/colorPrimary</item>
+        <item name="backgroundTint">?attr/colorAccentSecondary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.B3</item>
+    </style>
+
+    <!-- Primary image button-->
+    <style name="SushiPrimaryImageButton" parent="SushiPrimaryButton">
+        <item name="android:textColor">?attr/textColorOnPrimary</item>
+        <item name="drawableTint">?attr/iconTintOnPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.B3</item>
+    </style>
+
+    <!-- Image button-->
+    <style name="SushiImageButton">
+        <item name="android:textColor">?attr/textColorOnPrimary</item>
+        <item name="iconTint">?attr/iconTintPrimary</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/add_button_icon_padding</item>
+        <item name="backgroundTint">?attr/contentBackground</item>
+
+    </style>
+
+    <!-- Outlined button -->
+    <style name="Widget.Sushi.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">?attr/textColorPrimary</item>
+        <item name="drawableTint">?attr/colorPrimary</item>
+        <item name="strokeColor">?attr/contentBackground</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.B3</item>
+    </style>
+
+    <!-- Alert Dialog -->
+    <style name="SushiAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:textColor">?attr/textColorPrimary</item>
+        <item name="dialogCornerRadius">8dp</item>
+        <item name="android:textColorPrimary">?attr/textColorPrimary</item>
+
+    </style>
 
     <!-- Search bar -->
     <style name="SearchBarStyle" parent="Widget.AppCompat.SeekBar.Discrete">
-        <item name="android:editTextColor">@color/textColorPrimary</item>
-        <item name="android:textColorHint">@color/textColorSecondary</item>
-
+        <item name="android:editTextColor">?attr/textColorPrimary</item>
+        <item name="android:textColorHint">?attr/textColorSecondary</item>
     </style>
 
 

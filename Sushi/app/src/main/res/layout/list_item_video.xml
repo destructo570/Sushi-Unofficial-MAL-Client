@@ -34,7 +34,7 @@
                 imageUrl="@{promoVideo.imageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@color/content_tint_dark2"
+                android:foreground="?attr/foregroundTintDarkSecondary"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_img"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
                 android:src="@drawable/ic_youplay_fill"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/white" />
+                app:tint="?attr/iconTintOnPrimary" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -66,7 +66,7 @@
                 android:singleLine="true"
                 android:text="@{promoVideo.title}"
                 android:textAppearance="@style/TextAppearance.Sushi.H2"
-                android:textColor="@color/textColorOnPrimary"
+                android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

@@ -14,6 +14,8 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import app.futured.donut.DonutProgressView
@@ -26,6 +28,7 @@ import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.auth.LoginActivity
 import com.destructo.sushi.util.SessionManager
+import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -100,7 +103,7 @@ class ProfileFragment : Fragment() {
 
         logoutButton.setOnClickListener {
 
-            val dialog = AlertDialog.Builder(context)
+            val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
                 .setTitle("Confirm Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton(R.string.yes
@@ -115,24 +118,15 @@ class ProfileFragment : Fragment() {
                 .create()
 
             dialog.setOnShowListener {
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context?.let { it1 ->
-                    AppCompatResources.getColorStateList(
-                        it1,
-                        R.color.textColorSecondary
-                    )
-                })
 
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context?.let { it1 ->
-                    AppCompatResources.getColorStateList(
-                        it1,
-                        R.color.textColorPrimary
-                    )
-                })
-
+                val view = dialog.window
+                view?.setBackgroundDrawable(context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg) })
+                context?.let {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
+                }
             }
-
             dialog.show()
-
         }
 
         return binding.root

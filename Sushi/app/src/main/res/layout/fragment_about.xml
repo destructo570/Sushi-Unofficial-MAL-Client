@@ -17,7 +17,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/ToolBarWithNavigationBack"
+                style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:title="@string/title_about_app"
@@ -57,7 +57,7 @@
                 android:id="@+id/about_detail_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardBackgroundColor="?attr/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -104,28 +104,26 @@
 
                         <Button
                             android:id="@+id/dev_twitter_button"
+                            style="@style/SushiPrimaryImageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/colorPrimaryDark"
                             android:drawableLeft="@drawable/ic_twitter_line"
-                            android:drawableTint="@color/colorPrimary"
                             android:stateListAnimator="@null"
                             android:text="@string/social_twitter"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3" />
+                            />
 
                         <Button
                             android:id="@+id/dev_dribbble_button"
+                            style="@style/SushiPrimaryImageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
-                            android:backgroundTint="@color/colorPrimaryDark"
                             android:drawableLeft="@drawable/ic_dribbble_line"
-                            android:drawableTint="@color/colorPrimary"
                             android:stateListAnimator="@null"
                             android:text="@string/social_dribbble"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3" />
+                            />
 
                     </LinearLayout>
 
@@ -142,11 +140,11 @@
 
                     <Button
                         android:id="@+id/dev_discord_button"
+                        style="@style/SushiPrimaryButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/colorPrimaryDark"
                         android:stateListAnimator="@null"
                         android:text="@string/social_discord"
                         android:textAppearance="@style/TextAppearance.Sushi.B3"

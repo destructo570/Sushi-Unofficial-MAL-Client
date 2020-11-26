@@ -66,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="Type" />
@@ -87,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Serialization"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -109,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Chapters"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView43" />
@@ -131,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Volumes"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView50" />
@@ -153,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Status"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView52" />
@@ -163,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Authors"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView54" />
@@ -197,6 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Published"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView57" />
@@ -207,6 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 android:text="Rank"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView58" />
@@ -243,6 +251,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Rank"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView61" />
 
@@ -265,6 +274,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Scored Users"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView62" />
 
@@ -287,6 +297,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Members"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView70" />
 
@@ -297,6 +308,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Popularity"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView72" />
 
