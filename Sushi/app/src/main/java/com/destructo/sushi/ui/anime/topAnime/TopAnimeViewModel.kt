@@ -26,12 +26,12 @@ constructor(
 
     val listOfAllTopAnime = animeRankingDao.getAllAnimeRanking()
 
-    fun getTopAnimeNextPage(){
-       topAnimeRepo.getTopAnimeNext()
+    fun getTopAnimeNextPage( nsfw: Boolean){
+       topAnimeRepo.getTopAnimeNext(nsfw)
     }
 
-    fun getAnimeRankingList(offset:String?, limit:String?){
-        topAnimeRepo.getAnimeRankingList(offset,limit)
+    fun getAnimeRankingList(offset:String?, limit:String?, nsfw: Boolean){
+        topAnimeRepo.getAnimeRankingList(offset, limit, nsfw)
     }
 
     fun clearAnimeList(){

@@ -30,12 +30,12 @@ constructor(
 
     val currentlyAiring = animeRankingDao.getAllAnimeRanking()
 
-    fun getTopAnimeNextPage() {
-        currentlyAiringRepo.getTopAnimeNext()
+    fun getTopAnimeNextPage(nsfw: Boolean) {
+        currentlyAiringRepo.getTopAnimeNext(nsfw)
     }
 
-    fun getAnimeRankingList(offset: String?, limit: String?) {
-        currentlyAiringRepo.getAnimeRankingList(offset, limit)
+    fun getAnimeRankingList(offset: String?, limit: String?, nsfw: Boolean) {
+        currentlyAiringRepo.getAnimeRankingList(offset, limit, nsfw)
     }
 
     fun clearAnimeList() {

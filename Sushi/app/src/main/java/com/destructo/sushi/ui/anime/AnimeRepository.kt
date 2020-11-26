@@ -25,7 +25,8 @@ constructor(
     fun getTopAnime(
         ranking_type: String,
         offset: String?,
-        limit: String?
+        limit: String?,
+        nsfw: Boolean
     ): MutableLiveData<Resource<AnimeRanking>> {
 
         val result = MutableLiveData<Resource<AnimeRanking>>()
@@ -34,7 +35,8 @@ constructor(
         GlobalScope.launch {
             val topAnimeDeferred = malApi.getAnimeRankingAsync(
                 ranking_type, limit, offset,
-                BASIC_ANIME_FIELDS
+                BASIC_ANIME_FIELDS,
+                nsfw
             )
             try {
                 val topAnimeList = topAnimeDeferred.await()

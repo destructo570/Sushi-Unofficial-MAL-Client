@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.search
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ALL_MANGA_FIELDS
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.listener.ListEndListener
@@ -21,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MangaResultFragment : Fragment(), ListEndListener {
+class MangaResultFragment : Fragment() {
 
     private lateinit var binding: FragmentResultBinding
     private val searchViewModel: SearchViewModel
@@ -29,6 +32,8 @@ class MangaResultFragment : Fragment(), ListEndListener {
     private lateinit var resultRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var mangaListAdapter:MangaListAdapter
+    private lateinit var sharedPref: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +54,9 @@ class MangaResultFragment : Fragment(), ListEndListener {
         resultRecyclerView.layoutManager = GridLayoutManager(context,3)
         resultRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+
+
         progressBar = binding.resultProgressBar
 
         return binding.root
@@ -63,7 +71,7 @@ class MangaResultFragment : Fragment(), ListEndListener {
         })
         mangaListAdapter.setListEndListener(object: ListEndListener {
             override fun onEndReached(position: Int) {
-                searchViewModel.getNextMangaPage()
+                searchViewModel.getNextMangaPage(sharedPref.getBoolean(NSFW_TAG, false))
             }
         })
         resultRecyclerView.adapter = mangaListAdapter
@@ -74,7 +82,8 @@ class MangaResultFragment : Fragment(), ListEndListener {
                 query = it,
                 field = ALL_MANGA_FIELDS,
                 limit = DEFAULT_PAGE_LIMIT,
-                offset = "")
+                offset = "",
+                nsfw = sharedPref.getBoolean(NSFW_TAG, false))
         }
 
         searchViewModel.mangaSearchResult.observe(viewLifecycleOwner){resource->
@@ -100,10 +109,6 @@ class MangaResultFragment : Fragment(), ListEndListener {
         this.findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToMangaDetailsFragment(mangaMalId)
         )
-    }
-
-    override fun onEndReached(position: Int) {
-        searchViewModel.getNextMangaPage()
     }
 
 }

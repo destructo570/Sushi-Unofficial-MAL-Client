@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.anime.currentlyAiring
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.databinding.FragmentCurrentlyAiringBinding
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.listener.ListEndListener
@@ -34,13 +37,19 @@ class CurrentlyAiring : Fragment(), ListEndListener {
     private lateinit var toolbar: Toolbar
     private lateinit var currentlyAiringProgress:ProgressBar
     private lateinit var currentlyAiringPagingProgress:ProgressBar
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
         if(savedInstanceState == null){
             currentlyAiringViewModel.clearAnimeList()
-            currentlyAiringViewModel.getAnimeRankingList(null, DEFAULT_PAGE_LIMIT)
+            currentlyAiringViewModel.getAnimeRankingList(null,
+                DEFAULT_PAGE_LIMIT,
+                sharedPreferences.getBoolean(NSFW_TAG, false))
         }
     }
 
@@ -128,7 +137,7 @@ class CurrentlyAiring : Fragment(), ListEndListener {
     }
 
     override fun onEndReached(position: Int) {
-        currentlyAiringViewModel.getTopAnimeNextPage()
+        currentlyAiringViewModel.getTopAnimeNextPage(sharedPreferences.getBoolean(NSFW_TAG, false))
     }
 
 }

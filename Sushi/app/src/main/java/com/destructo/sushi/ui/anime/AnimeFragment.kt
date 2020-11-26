@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.anime
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,9 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
@@ -58,15 +61,21 @@ class AnimeFragment : Fragment() {
     private lateinit var airingAnimeProgressBar:LinearLayout
     private lateinit var upcomingAnimeProgressBar:LinearLayout
     private lateinit var seasonAnimeProgressBar:LinearLayout
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            animeViewModel.getTopAnime(AnimeRankingType.ALL.value, null, "25")
-            animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25")
-            animeViewModel.getCurrentlyAiringAnime(AnimeRankingType.AIRING.value, null,"25")
+            animeViewModel.getTopAnime(AnimeRankingType.ALL.value, null, "25", sharedPreferences.getBoolean(
+                NSFW_TAG, false))
+            animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25", sharedPreferences.getBoolean(
+                NSFW_TAG, false))
+            animeViewModel.getCurrentlyAiringAnime(AnimeRankingType.AIRING.value, null,"25", sharedPreferences.getBoolean(
+                NSFW_TAG, false))
             animeViewModel.getSeasonalAnime("2020", "fall", null, "25", null)
         }
 

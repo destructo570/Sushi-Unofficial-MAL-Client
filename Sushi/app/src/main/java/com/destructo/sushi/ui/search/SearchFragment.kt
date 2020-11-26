@@ -91,8 +91,6 @@ class SearchFragment : Fragment() {
 
         })
 
-
-
         resultPager = binding.resultViewPager
         resultPager.offscreenPageLimit = 1
         resultTabLayout = binding.resultTabLayout

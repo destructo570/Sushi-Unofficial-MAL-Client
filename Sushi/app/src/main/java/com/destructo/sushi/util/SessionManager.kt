@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.*
 import com.destructo.sushi.AR_GRANT_CODE
 import com.destructo.sushi.CLIENT_ID
-import com.destructo.sushi.INVALID_TOKEN
 import com.destructo.sushi.model.mal.auth.AuthToken
 import com.destructo.sushi.network.MalAuthApi
 import dagger.hilt.android.qualifiers.ApplicationContext

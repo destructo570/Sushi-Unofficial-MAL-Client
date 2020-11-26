@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.anime.topAnime
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType.*
@@ -36,11 +39,15 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
     private lateinit var toolbar: Toolbar
     private lateinit var topAnimeProgress: ProgressBar
     private lateinit var topAnimePaginationProgress: LinearLayout
+    private lateinit var sharedPref: SharedPreferences
 
     private var currentRankingType:String = ALL.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+
         if(savedInstanceState != null){
             val savedString = savedInstanceState.getString("ranking_type")
             savedString?.let {
@@ -49,7 +56,9 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
         }else{
             topAnimeViewModel.clearAnimeList()
-            topAnimeViewModel.getAnimeRankingList(null, DEFAULT_PAGE_LIMIT)
+            topAnimeViewModel.getAnimeRankingList(null,
+                DEFAULT_PAGE_LIMIT,
+                sharedPref.getBoolean(NSFW_TAG, false))
         }
     }
 
@@ -168,14 +177,16 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
         if(currentRankingType != rankingType){
             topAnimeViewModel.clearAnimeList()
             topAnimeViewModel.setRankingType(rankingType)
-            topAnimeViewModel.getAnimeRankingList(null,DEFAULT_PAGE_LIMIT)
+            topAnimeViewModel.getAnimeRankingList(null,
+                DEFAULT_PAGE_LIMIT,
+                sharedPref.getBoolean(NSFW_TAG, false))
             currentRankingType = rankingType
         }
     }
 
 
     override fun onEndReached(position: Int) {
-        topAnimeViewModel.getTopAnimeNextPage()
+        topAnimeViewModel.getTopAnimeNextPage(sharedPref.getBoolean(NSFW_TAG, false))
     }
 
 }

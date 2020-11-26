@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.manga
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +11,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMangaBinding
 import com.destructo.sushi.enum.mal.MangaRankingType.*
@@ -37,16 +40,23 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndLis
     private lateinit var mangaProgressBar: ProgressBar
     private lateinit var topMangaPaginationProgress: LinearLayout
     private var currentRankingType:String = ""
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+
         if(savedInstanceState != null){
             val savedString = savedInstanceState.getString("ranking_type")
             savedString?.let {
                 currentRankingType = it
             }
         }else{
-            mangaViewModel.getMangaRankingList(null, DEFAULT_PAGE_LIMIT)
+            mangaViewModel.getMangaRankingList(
+                null,
+                DEFAULT_PAGE_LIMIT,
+                sharedPref.getBoolean(NSFW_TAG, false))
 
         }
     }
@@ -162,13 +172,16 @@ class MangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndLis
         if(currentRankingType != rankingType){
             mangaViewModel.clearMangaList()
             mangaViewModel.setRankingType(rankingType)
-            mangaViewModel.getMangaRankingList(null, DEFAULT_PAGE_LIMIT)
+            mangaViewModel.getMangaRankingList(
+                null,
+                DEFAULT_PAGE_LIMIT,
+                sharedPref.getBoolean(NSFW_TAG, false))
             currentRankingType = rankingType
         }
     }
 
     override fun onEndReached(position: Int) {
-        mangaViewModel.getTopMangaNextPage()
+        mangaViewModel.getTopMangaNextPage(sharedPref.getBoolean(NSFW_TAG, false))
     }
 
 }

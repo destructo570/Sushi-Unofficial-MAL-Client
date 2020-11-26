@@ -30,25 +30,31 @@ constructor(
 
     private var nextPage: String? = null
 
-    fun getTopMangaNext() {
+    fun getTopMangaNext(nsfw:Boolean) {
 
         if (!nextPage.isNullOrBlank()) {
             topMangaListNextPage.value = Resource.loading(null)
             GlobalScope.launch {
                 nextPageCall(
                     next = nextPage!!,
+                    nsfw = nsfw
                 )
             }
         }
     }
 
-    private suspend fun nextPageCall(next: String) {
+    private suspend fun nextPageCall(next: String, nsfw:Boolean) {
         try {
-            val getTopMangaDeferred = malApi.getMangaRankingNextAsync(next)
+            val getTopMangaDeferred = malApi.getMangaRankingNextAsync(next, nsfw)
             val mangaRanking = getTopMangaDeferred.await()
-            val mangaList = mangaRanking.data
+            if (nsfw) {
+                val mangaList = mangaRanking.data
+                MangaRankingDao.insertMangaRankingList(mangaList!!)
+            }else{
+                val mangaList = mangaRanking.data?.filter { it?.manga?.nsfw == "white" }
+                MangaRankingDao.insertMangaRankingList(mangaList!!)
+            }
             nextPage = mangaRanking.paging?.next
-            MangaRankingDao.insertMangaRankingList(mangaList!!)
             withContext(Dispatchers.Main) {
                 topMangaListNextPage.value = Resource.success(mangaRanking)
             }
@@ -60,33 +66,39 @@ constructor(
 
     }
 
-    fun getMangaRankingList(offset: String?, limit: String?) {
+    fun getMangaRankingList(offset: String?, limit: String?, nsfw:Boolean) {
 
         mangaRankingList.value = Resource.loading(null)
         GlobalScope.launch {
             mangaRankingCall(
                 ranking_type = rankingType,
                 offset = offset,
-                limit = limit
+                limit = limit,
+                nsfw = nsfw
             )
         }
     }
 
-    private suspend fun mangaRankingCall(ranking_type: String, offset: String?, limit: String?){
+    private suspend fun mangaRankingCall(ranking_type: String, offset: String?, limit: String?, nsfw:Boolean){
         try {
             val getTopMangaDeferred = malApi.getMangaRankingAsync(
                 ranking_type, limit, offset,
-                BASIC_MANGA_FIELDS
+                BASIC_MANGA_FIELDS,
+                nsfw = nsfw
             )
             val mangaRanking = getTopMangaDeferred.await()
             if ( nextPage != mangaRanking.paging?.next){
                 nextPage = mangaRanking.paging?.next
             }
-            val mangaList = mangaRanking.data
-
-            MangaRankingDao.insertMangaRankingList(mangaList!!)
+            if (nsfw) {
+                val mangaList = mangaRanking.data
+                MangaRankingDao.insertMangaRankingList(mangaList!!)
+            }else{
+                val mangaList = mangaRanking.data?.filter { it?.manga?.nsfw == "white" }
+                MangaRankingDao.insertMangaRankingList(mangaList!!)
+            }
             withContext(Dispatchers.Main) {
-                mangaRankingList.value = Resource.success(mangaList.toMutableList())
+                mangaRankingList.value = Resource.success(mangaRanking.data.toMutableList())
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {

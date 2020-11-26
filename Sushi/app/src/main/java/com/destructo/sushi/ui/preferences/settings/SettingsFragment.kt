@@ -12,7 +12,9 @@ import androidx.core.view.GravityCompat
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.destructo.sushi.CURRENT_THEME
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentSettingsBinding
 import com.destructo.sushi.enum.AppTheme
@@ -77,6 +79,19 @@ class PreferenceFragment : PreferenceFragmentCompat(){
                 else ->{
                     sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.LIGHT.value)?.apply()
                     requireActivity().recreate()
+                }
+            }
+            return@setOnPreferenceChangeListener true
+        }
+
+        val nsfw = findPreference<SwitchPreferenceCompat>("nsfw")
+        nsfw?.setOnPreferenceChangeListener { _, newValue ->
+            when (newValue){
+                true->{
+                    sharedPref?.edit()?.putBoolean(NSFW_TAG, true)?.apply()
+                }
+                false->{
+                    sharedPref?.edit()?.putBoolean(NSFW_TAG, false)?.apply()
                 }
             }
             return@setOnPreferenceChangeListener true

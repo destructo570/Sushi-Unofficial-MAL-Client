@@ -41,20 +41,21 @@ constructor(
     val searchQuery: LiveData<String>
     get() = _searchQuery
 
-    fun getAnimeResult(query:String, field:String, limit:String, offset:String) {
+    fun getAnimeResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
         searchRepo.getAnimeResult(
             query = query,
             limit = limit,
             offset = offset,
-            field = field)
+            field = field,
+            nsfw = nsfw)
     }
 
-    fun getNextAnimePage(){
-        searchRepo.getAnimeNext()
+    fun getNextAnimePage(nsfw: Boolean){
+        searchRepo.getAnimeNext(nsfw)
     }
 
-    fun getNextMangaPage(){
-        searchRepo.getMangaNext()
+    fun getNextMangaPage(nsfw: Boolean){
+        searchRepo.getMangaNext(nsfw)
     }
 
     fun clearAnimeList(){
@@ -65,12 +66,13 @@ constructor(
         searchMangaDao.clear()
     }
 
-    fun getMangaResult(query:String, field:String, limit:String, offset:String) {
+    fun getMangaResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
         searchRepo.getMangaResult(
             query = query,
             limit = limit,
             offset = offset,
-            field = field)
+            field = field,
+            nsfw = nsfw)
     }
 
     fun setQueryString(query: String){

@@ -26,12 +26,12 @@ constructor(
 
     val upcomingAnimeList = animeRankingDao.getAllAnimeRanking()
 
-    fun getNextPage() {
-        upcomingAnimeRepo.getTopAnimeNext()
+    fun getNextPage( nsfw: Boolean) {
+        upcomingAnimeRepo.getTopAnimeNext(nsfw)
     }
 
-    fun getUpcomingList(offset: String?, limit: String?) {
-        upcomingAnimeRepo.getAnimeRankingList(offset, limit)
+    fun getUpcomingList(offset: String?, limit: String?, nsfw: Boolean) {
+        upcomingAnimeRepo.getAnimeRankingList(offset, limit, nsfw)
     }
 
     fun clearList() {

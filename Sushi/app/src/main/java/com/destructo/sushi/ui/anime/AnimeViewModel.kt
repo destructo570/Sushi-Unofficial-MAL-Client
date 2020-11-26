@@ -34,16 +34,19 @@ constructor(
         get() = _currentlyAiring
 
 
-    fun getTopAnime(ranking_type:String,offset:String?, limit:String?) {
-        _topAnime = animeRepo.getTopAnime(ranking_type, offset, limit)
+    fun getTopAnime(ranking_type:String,offset:String?, limit:String?,
+                    nsfw: Boolean) {
+        _topAnime = animeRepo.getTopAnime(ranking_type, offset, limit, nsfw)
     }
 
-    fun getUpcomingAnime(ranking_type:String,offset:String?, limit:String?) {
-        _upcomingAnime = animeRepo.getTopAnime(ranking_type, offset, limit)
+    fun getUpcomingAnime(ranking_type:String,offset:String?, limit:String?,
+                         nsfw: Boolean) {
+        _upcomingAnime = animeRepo.getTopAnime(ranking_type, offset, limit, nsfw)
     }
 
-    fun getCurrentlyAiringAnime(ranking_type:String,offset:String?, limit:String?) {
-        _currentlyAiring = animeRepo.getTopAnime(ranking_type, offset, limit)
+    fun getCurrentlyAiringAnime(ranking_type:String,offset:String?, limit:String?,
+                                nsfw: Boolean) {
+        _currentlyAiring = animeRepo.getTopAnime(ranking_type, offset, limit, nsfw)
     }
 
     fun getSeasonalAnime(year:String,season:String,sort:String?,

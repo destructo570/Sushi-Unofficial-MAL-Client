@@ -27,25 +27,30 @@ constructor(
 
     private var nextPage: String? = null
 
-    fun getTopAnimeNext() {
+    fun getTopAnimeNext(nsfw: Boolean) {
 
         if (!nextPage.isNullOrBlank()) {
             topAnimeListNextPage.value = Resource.loading(null)
             GlobalScope.launch {
                     nextPageCall(
                         next = nextPage!!,
-                        )
+                        nsfw = nsfw)
             }
         }
     }
 
-    private suspend fun nextPageCall(next: String) {
+    private suspend fun nextPageCall(next: String, nsfw: Boolean) {
         try {
-            val getTopAnimeDeferred = malApi.getAnimeRankingNextAsync(next)
+            val getTopAnimeDeferred = malApi.getAnimeRankingNextAsync(next, nsfw)
             val animeRanking = getTopAnimeDeferred.await()
-            val animeList = animeRanking.data
+            if (nsfw) {
+                val animeList = animeRanking.data
+                animeRankingDao.insertAnimeRankingList(animeList!!)
+            }else{
+                val animeList = animeRanking.data?.filter { it?.anime?.nsfw == "white" }
+                animeRankingDao.insertAnimeRankingList(animeList!!)
+            }
             nextPage = animeRanking.paging?.next
-            animeRankingDao.insertAnimeRankingList(animeList!!)
             withContext(Dispatchers.Main) {
                 topAnimeListNextPage.value = Resource.success(animeRanking)
             }
@@ -57,23 +62,25 @@ constructor(
 
     }
 
-    fun getAnimeRankingList(offset: String?, limit: String?) {
+    fun getAnimeRankingList(offset: String?, limit: String?, nsfw: Boolean) {
 
         animeRankingList.value = Resource.loading(null)
         GlobalScope.launch {
             animeRankingCall(
                 ranking_type = rankingType,
                 offset = offset,
-                limit = limit
+                limit = limit,
+                nsfw
             )
         }
     }
 
-    private suspend fun animeRankingCall(ranking_type: String, offset: String?, limit: String?){
+    private suspend fun animeRankingCall(ranking_type: String, offset: String?, limit: String?, nsfw: Boolean){
         try {
             val getTopAnimeDeferred = malApi.getAnimeRankingAsync(
                 ranking_type, limit, offset,
-                BASIC_ANIME_FIELDS
+                BASIC_ANIME_FIELDS,
+                nsfw
         )
             val animeRanking = getTopAnimeDeferred.await()
             if ( nextPage != animeRanking.paging?.next){

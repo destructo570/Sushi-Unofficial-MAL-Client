@@ -29,30 +29,35 @@ interface MalApi {
         @Query("ranking_type") ranking_type:String,
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
-        @Query("fields") fields:String?
+        @Query("fields") fields:String?,
+        @Query("nsfw") nsfw:Boolean
 
     ): Deferred<AnimeRanking>
 
     @GET
-    fun getAnimeRankingNextAsync(@Url url:String): Deferred<AnimeRanking>
+    fun getAnimeRankingNextAsync(
+        @Url url:String,
+        @Query("nsfw") nsfw:Boolean
+    ): Deferred<AnimeRanking>
 
     @GET
-    fun getMangaRankingNextAsync(@Url url:String): Deferred<MangaRanking>
+    fun getMangaRankingNextAsync(@Url url:String,
+                                 @Query("nsfw") nsfw:Boolean
+    ): Deferred<MangaRanking>
 
     @GET
     fun getSeasonalAnimeNextAsync(@Url url:String): Deferred<SeasonalAnime>
 
     @GET
-    fun getSearchAnimeNextAsync(@Url url:String): Deferred<AnimeList>
+    fun getSearchAnimeNextAsync(@Url url:String,
+                                @Query("nsfw")nsfw:Boolean): Deferred<AnimeList>
 
     @GET
-    fun getSearchMangaNextAsync(@Url url:String): Deferred<MangaList>
+    fun getSearchMangaNextAsync(@Url url:String,
+                                @Query("nsfw")nsfw:Boolean): Deferred<MangaList>
 
     @GET
     fun getUserAnimeNextAsync(@Url url:String): Deferred<UserAnimeList>
-
-    @GET("anime")
-    fun getUserAnimeByOffsetAsync(@Query("offset") offset:String): Deferred<UserAnimeList>
 
     @GET
     fun getUserMangaNextAsync(@Url url:String): Deferred<UserMangaList>
@@ -74,7 +79,9 @@ interface MalApi {
         @Query("ranking_type") ranking_type:String?,
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
-        @Query("fields") fields:String?
+        @Query("fields") fields:String?,
+        @Query("nsfw") nsfw:Boolean
+
     ): Deferred<MangaRanking>
 
 
@@ -159,7 +166,7 @@ interface MalApi {
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
         @Query("fields") fields:String?,
-        @Query("nsfw") nsfw:String
+        @Query("nsfw") nsfw:Boolean
 
     ): Deferred<AnimeList>
 
@@ -169,7 +176,7 @@ interface MalApi {
         @Query("limit") limit:String?,
         @Query("offset") offset:String?,
         @Query("fields") fields:String?,
-        @Query("nsfw") nsfw:String
+        @Query("nsfw") nsfw:Boolean
 
         ): Deferred<MangaList>
 

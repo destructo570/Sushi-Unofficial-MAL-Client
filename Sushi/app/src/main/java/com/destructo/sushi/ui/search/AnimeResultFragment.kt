@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.search
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.listener.ListEndListener
@@ -29,6 +32,7 @@ class AnimeResultFragment : Fragment() {
     private lateinit var resultRecyclerView:RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var animeListAdapter:AnimeListAdapter
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,8 @@ class AnimeResultFragment : Fragment() {
         resultRecyclerView.layoutManager = GridLayoutManager(context,3)
         resultRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
 
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+
         progressBar = binding.resultProgressBar
 
         return binding.root
@@ -60,11 +66,12 @@ class AnimeResultFragment : Fragment() {
         })
         animeListAdapter.setListEndListener(object: ListEndListener {
             override fun onEndReached(position: Int) {
-                searchViewModel.getNextAnimePage()
+                searchViewModel.getNextAnimePage(sharedPref.getBoolean(NSFW_TAG, false))
             }
 
         })
         resultRecyclerView.adapter = animeListAdapter
+
 
 
         searchViewModel.searchQuery.observe(viewLifecycleOwner){
@@ -72,7 +79,8 @@ class AnimeResultFragment : Fragment() {
                 query = it,
                 field = ALL_ANIME_FIELDS,
                 limit = DEFAULT_PAGE_LIMIT,
-                offset = "")
+                offset = "",
+                nsfw = sharedPref.getBoolean(NSFW_TAG, false))
         }
 
         searchViewModel.animeSearchResult.observe(viewLifecycleOwner){resource->
