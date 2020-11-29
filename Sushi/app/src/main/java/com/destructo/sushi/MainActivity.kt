@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                 //R.id.newsFragment,
                 //R.id.promotionFragment,
                 R.id.settingsFragment,
-                R.id.aboutFragment
             ), drawer_layout
         )
     }
@@ -107,9 +106,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.settingsFragment -> {
                     navView.setCheckedItem(R.id.settingsFragment)
-                }
-                R.id.aboutFragment -> {
-                    navView.setCheckedItem(R.id.aboutFragment)
                 }
             }
         }

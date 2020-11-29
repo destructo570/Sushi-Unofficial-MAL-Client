@@ -64,16 +64,7 @@
         android:name="com.destructo.sushi.ui.other.promotional.PromotionFragment"
         android:label="@string/title_promotion"
         tools:layout="@layout/fragment_promotion" />
-    <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.destructo.sushi.ui.preferences.aboutApp.AboutFragment"
-        android:label="@string/title_about_app"
-        tools:layout="@layout/fragment_about" />
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.destructo.sushi.ui.preferences.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+
     <fragment
         android:id="@+id/topAnimeFragment"
         android:name="com.destructo.sushi.ui.anime.topAnime.TopAnimeFragment"
@@ -209,8 +200,8 @@
             app:destination="@id/mangaDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.destructo.sushi.ui.auth.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        android:id="@+id/settingsFragment"
+        android:name="com.destructo.sushi.ui.preferences.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+
 </navigation>

@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
 import com.destructo.sushi.databinding.FragmentSettingsBinding
@@ -35,6 +37,11 @@ class AboutFragment : Fragment() {
         binding = FragmentAboutBinding.inflate(inflater,container,false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigateUp()
+        }
+
         toolbar = binding.toolbar
         twitterButton = binding.devTwitterButton
         dribbbleButton = binding.devDribbbleButton

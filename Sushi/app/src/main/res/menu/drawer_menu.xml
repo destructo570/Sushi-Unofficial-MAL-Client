@@ -87,10 +87,6 @@
                     android:id="@+id/settingsFragment"
                     android:icon="@drawable/ic_settings_line"
                     android:title="@string/title_settings" />
-                <item
-                    android:id="@+id/aboutFragment"
-                    android:icon="@drawable/ic_information_line"
-                    android:title="@string/title_about_app" />
             </group>
         </menu>
 

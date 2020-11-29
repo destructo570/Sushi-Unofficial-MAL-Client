@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.preferences.settings.MainSettingsFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/ToolBarWithNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:title="@string/title_settings"
+                app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/look_and_feel"
+                >
+
+                <ImageView
+                    android:id="@+id/theme_icon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_palette_line" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/look_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    tools:text="@tools:sample/full_names"
+                    android:text="@string/pref_title_look_and_feel"
+                    app:layout_constraintStart_toEndOf="@+id/theme_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/look_desc_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                    android:text="@string/pref_desc_look_and_feel"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/theme_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/look_title"
+                    tools:text="@tools:sample/full_names" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/app_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/look_and_feel">
+
+                <ImageView
+                    android:id="@+id/settings_icon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_settings_line" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/app_settings_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    android:text="@string/pref_title_app_settings"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/settings_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/full_names"
+
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/app_settings_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                    android:text="@string/pref_desc_app_settings"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/settings_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/app_settings_title"
+                    tools:text="@tools:sample/full_names" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/about_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/app_settings">
+
+                <ImageView
+                    android:id="@+id/about_app_icon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_information_line" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/about_app_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    android:text="@string/pref_title_about_app"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/about_app_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/full_names"
+
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/about_app_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                    android:text="@string/pref_desc_about_app"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/about_app_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/about_app_title"
+                    tools:text="@tools:sample/full_names" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

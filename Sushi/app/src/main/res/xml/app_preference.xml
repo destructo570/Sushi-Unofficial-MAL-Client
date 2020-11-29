@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <PreferenceCategory app:title="@string/pref_title_general">
 
-        <ListPreference
-            app:key="theme"
-            app:title="@string/pref_theme"
-            app:summary="%s"
-            app:entries="@array/theme_options"
-            app:entryValues="@array/theme_values"
-            app:defaultValue="@string/theme_light" />
         <SwitchPreferenceCompat
             app:key="nsfw"
             app:defaultValue="false"
@@ -18,5 +10,4 @@
             app:title="@string/pref_nsfw" />
 
     </PreferenceCategory>
-
 </PreferenceScreen>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_nav_graph"
+    app:startDestination="@id/mainSettingsFragment">
+
+    <fragment
+        android:id="@+id/mainSettingsFragment"
+        android:name="com.destructo.sushi.ui.preferences.settings.MainSettingsFragment"
+        android:label="fragment_main_settings"
+        tools:layout="@layout/fragment_main_settings" >
+        <action
+            android:id="@+id/action_mainSettingsFragment_to_lookAndFeelFragment"
+            app:destination="@id/lookAndFeelFragment" />
+        <action
+            android:id="@+id/action_mainSettingsFragment_to_appPreferenceFragment"
+            app:destination="@id/appPreferenceFragment" />
+        <action
+            android:id="@+id/action_mainSettingsFragment_to_aboutFragment2"
+            app:destination="@id/aboutFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/lookAndFeelFragment"
+        android:name="com.destructo.sushi.ui.preferences.settings.LookAndFeelFragment"
+        android:label="Look And Feel"
+        />
+
+    <fragment
+        android:id="@+id/appPreferenceFragment"
+        android:name="com.destructo.sushi.ui.preferences.settings.AppPreferenceFragment"
+        android:label="App Preferences"
+        />
+    <fragment
+        android:id="@+id/aboutFragment2"
+        android:name="com.destructo.sushi.ui.preferences.aboutApp.AboutFragment"
+        android:label="AboutFragment" />
+</navigation>
