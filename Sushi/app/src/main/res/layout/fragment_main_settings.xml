@@ -66,6 +66,7 @@
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.Sushi.B3"
                     tools:text="@tools:sample/full_names"
+                    android:textStyle="bold"
                     android:text="@string/pref_title_look_and_feel"
                     app:layout_constraintStart_toEndOf="@+id/theme_icon"
                     app:layout_constraintTop_toTopOf="parent"
