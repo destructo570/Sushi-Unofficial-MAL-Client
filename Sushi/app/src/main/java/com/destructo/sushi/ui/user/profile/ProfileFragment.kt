@@ -4,24 +4,20 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import app.futured.donut.DonutProgressView
 import app.futured.donut.DonutSection
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentProfileBinding
 import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
@@ -32,8 +28,6 @@ import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.profile_header_layout.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -107,12 +101,12 @@ class ProfileFragment : Fragment() {
                 .setTitle("Confirm Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton(R.string.yes
-                ) { p0, p1 ->
+                ) { _, _ ->
                     sessionManager.clearSession()
                     logOutOfApp()
                 }
                 .setNegativeButton(R.string.no
-                ) { p0, p1 ->
+                ) { _, _ ->
 
                 }
                 .create()

@@ -2,11 +2,11 @@ package com.destructo.sushi.ui.search
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -17,8 +17,8 @@ import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -64,10 +64,8 @@ class MangaResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        mangaListAdapter = MangaListAdapter(MangaDetailListener {
-            it?.let {
-                navigateToMangaDetails(it)
-            }
+        mangaListAdapter = MangaListAdapter(MalIdListener {
+            it?.let { navigateToMangaDetails(it) }
         })
         mangaListAdapter.setListEndListener(object: ListEndListener {
             override fun onEndReached(position: Int) {

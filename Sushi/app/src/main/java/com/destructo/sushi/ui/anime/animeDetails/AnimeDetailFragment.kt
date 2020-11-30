@@ -29,8 +29,8 @@ import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
-import com.destructo.sushi.ui.anime.adapter.*
-import com.destructo.sushi.ui.anime.listener.*
+import com.destructo.sushi.adapter.*
+import com.destructo.sushi.listener.*
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -46,7 +46,6 @@ import kotlinx.android.synthetic.main.inc_genre_list.view.*
 import kotlinx.android.synthetic.main.inc_more_anime_detail.view.*
 import kotlinx.android.synthetic.main.inc_my_anime_status.view.*
 import kotlinx.android.synthetic.main.inc_opening_ending_song_detail.view.*
-import kotlinx.android.synthetic.main.inc_opening_ending_song_detail.view.anime_opening_ending
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
@@ -223,10 +222,10 @@ class AnimeDetailFragment : Fragment(),
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
 
         })
-        recommAdapter = AnimeRecommListAdapter(AnimeIdListener {
+        recommAdapter = AnimeRecommListAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        relatedAdapter = AnimeRelatedListAdapter(AnimeIdListener {
+        relatedAdapter = AnimeRelatedListAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         videoAdapter = AnimeVideoAdapter(AnimePromoListener {

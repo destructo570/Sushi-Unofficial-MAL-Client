@@ -1,9 +1,6 @@
 package com.destructo.sushi.model.mal.auth
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
-import javax.inject.Singleton
 
 data class AuthToken(
     @Json(name="expires_in")

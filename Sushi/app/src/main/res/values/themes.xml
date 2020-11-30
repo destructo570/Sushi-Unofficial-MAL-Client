@@ -5,7 +5,7 @@
     <style name="AppTheme.Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
-        <item name="android:windowBackground">@color/colorPrimaryNight</item>
+        <item name="android:windowBackground">?attr/colorPrimary</item>
         <item name="android:textColor">@color/textColorPrimaryNight</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>

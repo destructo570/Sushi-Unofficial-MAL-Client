@@ -2,8 +2,6 @@ package com.destructo.sushi.room
 
 import androidx.room.*
 import com.destructo.sushi.model.database.MangaCharacterListEntity
-import com.destructo.sushi.model.database.MangaDetailsEntity
-import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 
 @Dao
 interface MangaCharacterListDao {

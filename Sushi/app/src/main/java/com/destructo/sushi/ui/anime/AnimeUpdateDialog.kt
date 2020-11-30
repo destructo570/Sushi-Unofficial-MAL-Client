@@ -1,13 +1,11 @@
 package com.destructo.sushi.ui.anime
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.AnimeStatusUpdateBottomSheetBinding
@@ -16,7 +14,6 @@ import com.destructo.sushi.util.toEditable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
@@ -84,7 +81,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
             }
         }
 
-        episodeIncButton.setOnClickListener {view->
+        episodeIncButton.setOnClickListener {
             val episodeCount:Int
 
              if(episodeText.text.isNotEmpty()){
@@ -96,7 +93,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
 
         }
 
-        episodeDecButton.setOnClickListener {view->
+        episodeDecButton.setOnClickListener {
             val episodeCount:Int
 
             if(episodeText.text.isNotEmpty()){
@@ -125,12 +122,12 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
                 .setTitle("Remove anime from list")
                 .setMessage("Are you sure you want to remove this anime from your list?")
                 .setPositiveButton(R.string.yes
-                ) { p0, p1 ->
+                ) { _, _ ->
                     listener.onUpdateClick(null,"",0,0,true)
                     dismiss()
                 }
                .setNegativeButton(R.string.no
-                ) { p0, p1 -> dismiss() }
+                ) { _, _ -> dismiss() }
                .create()
 
             dialog.setOnShowListener {

@@ -2,19 +2,14 @@ package com.destructo.sushi.ui.manga.mangaDetails
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
-import com.destructo.sushi.ALL_MANGA_FIELDS
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
-import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
-import com.destructo.sushi.network.JikanApi
-import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
-import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.lang.Exception
 
 
 class MangaDetailViewModel

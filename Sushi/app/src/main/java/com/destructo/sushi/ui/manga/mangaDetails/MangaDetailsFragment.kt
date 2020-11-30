@@ -3,7 +3,6 @@ package com.destructo.sushi.ui.manga.mangaDetails
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -22,15 +22,18 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
-import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.anime.AnimeUpdateDialog
-import com.destructo.sushi.ui.manga.adapter.*
-import com.destructo.sushi.ui.manga.listener.MangaCharacterListener
-import com.destructo.sushi.ui.manga.listener.MangaIdListener
-import com.destructo.sushi.ui.manga.listener.MangaReviewListener
+import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.adapter.MangaCharacterAdapter
+import com.destructo.sushi.adapter.MangaRecommListAdapter
+import com.destructo.sushi.adapter.MangaRelatedListAdapter
+import com.destructo.sushi.adapter.MangaReviewAdapter
+import com.destructo.sushi.listener.MangaCharacterListener
+import com.destructo.sushi.listener.MangaReviewListener
+import com.destructo.sushi.ui.manga.MangaUpdateDialog
+import com.destructo.sushi.ui.manga.MangaUpdateListener
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -39,12 +42,10 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_manga_details.view.*
-import kotlinx.android.synthetic.main.inc_anime_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
 import kotlinx.android.synthetic.main.inc_manga_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_manga_sub_desc.view.*
-import kotlinx.android.synthetic.main.inc_more_anime_detail.view.*
 import kotlinx.android.synthetic.main.inc_more_manga_detail.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_manga.view.*
@@ -188,11 +189,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        recommAdapter = MangaRecommListAdapter(MangaIdListener {
+        recommAdapter = MangaRecommListAdapter(MalIdListener {
             it?.let { navigateToMangaDetails(it) }
         })
 
-        relatedAdapter = MangaRelatedListAdapter(MangaIdListener {
+        relatedAdapter = MangaRelatedListAdapter(MalIdListener {
             it?.let { navigateToMangaDetails(it) }
         })
 

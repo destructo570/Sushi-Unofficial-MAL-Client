@@ -6,7 +6,6 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.mangaList.MangaList
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
-import com.destructo.sushi.model.mal.seasonalAnime.Season
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga

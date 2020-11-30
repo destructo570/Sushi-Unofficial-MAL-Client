@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+import com.destructo.sushi.adapter.UserMangaListAdapter
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
+import com.destructo.sushi.listener.AddChapterListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.manga.listener.MangaIdListener
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -64,7 +66,7 @@ class UserMangaDropped : Fragment() {
             if (chapters != null && mangaId != null){
                 userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
             }
-        }, MangaIdListener {
+        }, MalIdListener {
             it?.let{navigateToMangaDetails(it)}
         }, false)
         userMangaAdapter.setListEndListener(object : ListEndListener {

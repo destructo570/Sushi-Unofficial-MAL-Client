@@ -1,12 +1,15 @@
 package com.destructo.sushi.ui.auth
 
 import android.net.Uri
-import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
-import com.destructo.sushi.*
-import com.destructo.sushi.network.AuthApi
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import com.destructo.sushi.AC_GRANT_CODE
+import com.destructo.sushi.CLIENT_ID
+import com.destructo.sushi.REDIRECT_URL
 import com.destructo.sushi.network.MalAuthApi
 import com.destructo.sushi.util.PKCE
 import com.destructo.sushi.util.SessionManager
@@ -15,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Exception
 
 class LoginViewModel
 @ViewModelInject

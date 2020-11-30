@@ -18,7 +18,10 @@ import com.destructo.sushi.room.AnimeCharacterListDao
 import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.AnimeReviewListDao
 import com.destructo.sushi.room.AnimeVideoListDao
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 

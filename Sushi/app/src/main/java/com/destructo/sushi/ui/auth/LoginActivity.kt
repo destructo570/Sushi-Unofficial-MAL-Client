@@ -9,9 +9,11 @@ import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.destructo.sushi.*
+import com.destructo.sushi.AUTH_CODE_URL
+import com.destructo.sushi.CLIENT_ID
+import com.destructo.sushi.MainActivity
+import com.destructo.sushi.R
 import com.destructo.sushi.databinding.ActivityLoginBinding
-import com.destructo.sushi.util.PKCE
 import com.destructo.sushi.util.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

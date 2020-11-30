@@ -3,7 +3,6 @@ package com.destructo.sushi.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.destructo.sushi.model.mal.animeList.AnimeListData
-import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
 
 @Dao
 interface SearchAnimeDao {

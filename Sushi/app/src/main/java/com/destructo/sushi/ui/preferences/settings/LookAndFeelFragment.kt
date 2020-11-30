@@ -7,9 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreferenceCompat
 import com.destructo.sushi.CURRENT_THEME
-import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.enum.AppTheme
 

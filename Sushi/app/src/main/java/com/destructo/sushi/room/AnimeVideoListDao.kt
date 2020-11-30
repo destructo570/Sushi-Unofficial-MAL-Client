@@ -1,7 +1,6 @@
 package com.destructo.sushi.room
 
 import androidx.room.*
-import com.destructo.sushi.model.database.AnimeDetailEntity
 import com.destructo.sushi.model.database.AnimeVideosEntity
 
 @Dao

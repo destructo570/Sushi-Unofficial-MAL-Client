@@ -1,19 +1,17 @@
 package com.destructo.sushi.ui.user.mangaList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentAnimeBinding
-import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
+import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentMyMangaListBinding
-import com.destructo.sushi.ui.user.animeList.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +23,7 @@ class MyMangaListFragment : Fragment() {
     private lateinit var binding: FragmentMyMangaListBinding
     private lateinit var toolbar: Toolbar
 
-    private lateinit var myMangaListPagerAdapter: UserMangaPagerAdapter
+    private lateinit var myMangaListPagerAdapter: FragmentPagerAdapter
     private lateinit var myMangaListViewPager: ViewPager2
     private lateinit var myMangaListTabLayout: TabLayout
     private lateinit var myMangaListTabMediator: TabLayoutMediator
@@ -85,7 +83,7 @@ class MyMangaListFragment : Fragment() {
         )
 
         myMangaListPagerAdapter =
-            UserMangaPagerAdapter(fragmentList, childFragmentManager, lifecycle)
+            FragmentPagerAdapter(fragmentList, childFragmentManager, lifecycle)
         myMangaListViewPager.adapter = myMangaListPagerAdapter
         myMangaListTabMediator.attach()
 

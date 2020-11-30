@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemMangaBinding
 import com.destructo.sushi.model.mal.mangaList.MangaListData
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.manga.mangaDetails.MangaDetailListener
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 
 class MangaListAdapter(
-    private val mangaDetailListener: MangaDetailListener):
+    private val malIdListener: MalIdListener
+):
     ListAdapter<MangaListData, MangaListAdapter.ViewHolder>(MangaListDiffUtil()) {
 
     private var listEndListener: ListEndListener? = null
@@ -22,7 +23,7 @@ class MangaListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mangaEntity = getItem(position)
-        holder.bind(mangaEntity,mangaDetailListener)
+        holder.bind(mangaEntity,malIdListener)
         if (position == currentList.size - 2) run {
             listEndListener?.onEndReached(position)
         }
@@ -33,9 +34,9 @@ class MangaListAdapter(
     }
 
     class ViewHolder(val binding: ListItemMangaBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(mangaEntity: MangaListData, mangaDetailListener: MangaDetailListener){
+        fun bind(mangaEntity: MangaListData, malIdListener: MalIdListener){
             binding.mangaEntity = mangaEntity.manga
-            binding.mangaListener = mangaDetailListener
+            binding.mangaListener = malIdListener
             binding.executePendingBindings()
         }
         companion object {
@@ -54,13 +55,13 @@ class MangaListAdapter(
 
 class MangaListDiffUtil: DiffUtil.ItemCallback<MangaListData>(){
     override fun areItemsTheSame(oldItem: MangaListData, newItem: MangaListData): Boolean {
-        return oldItem.manga?.id == newItem.manga?.id
+        return oldItem.manga.id == newItem.manga.id
 
     }
 
     override fun areContentsTheSame(oldItem: MangaListData, newItem: MangaListData): Boolean {
-        return oldItem.manga?.id == newItem.manga?.id
-                && oldItem.manga?.title == newItem.manga?.title
+        return oldItem.manga.id == newItem.manga.id
+                && oldItem.manga.title == newItem.manga.title
     }
 
 }

@@ -1,30 +1,23 @@
 package com.destructo.sushi.ui.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
+import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentSearchBinding
-import com.destructo.sushi.ui.anime.characterDetails.CharacterAbout
-import com.destructo.sushi.ui.anime.characterDetails.CharacterAnimeography
-import com.destructo.sushi.ui.anime.characterDetails.CharacterMangaography
-import com.destructo.sushi.ui.anime.characterDetails.CharacterVoiceActors
 import com.destructo.sushi.util.getColorFromAttr
-import com.destructo.sushi.util.hideSoftKeyboard
-import com.destructo.sushi.util.showSoftKeyboard
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -129,7 +122,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupViewPager(fragmentList:ArrayList<Fragment>){
-        resultPagerAdapter = SearchPagerAdapter(
+        resultPagerAdapter = FragmentPagerAdapter(
             fragmentList,
             childFragmentManager,
             lifecycle)

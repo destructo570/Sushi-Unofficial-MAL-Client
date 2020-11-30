@@ -1,18 +1,13 @@
 package com.destructo.sushi.ui.manga.mangaDetails
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.ALL_MANGA_FIELDS
-import com.destructo.sushi.BASIC_MANGA_FIELDS
-import com.destructo.sushi.model.database.AnimeDetailEntity
 import com.destructo.sushi.model.database.MangaCharacterListEntity
 import com.destructo.sushi.model.database.MangaDetailsEntity
 import com.destructo.sushi.model.database.MangaReviewsEntity
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
-import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi

@@ -33,9 +33,9 @@ constructor(
         GlobalScope.launch {
             val getSeasonArchiveDeferred = jikanApi.getSeasonArchiveAsync()
             try {
-                val seasonArchiveEntity = getSeasonArchiveDeferred.await()
+                val response = getSeasonArchiveDeferred.await()
                 withContext(Dispatchers.Main){
-                    seasonArchive.value = Resource.success(seasonArchiveEntity)
+                    seasonArchive.value = Resource.success(response)
                 }
 
             }catch (e:Exception){
@@ -76,9 +76,8 @@ constructor(
         try {
             val getSeasonalAnimeDeferred = malApi.getSeasonalAnimeNextAsync(next)
             val response = getSeasonalAnimeDeferred.await()
-            val animeList = response.data
             nextPage = response.paging?.next
-            seasonAnimeDao.insertSeasonAnimeList(animeList!!)
+            seasonAnimeDao.insertSeasonAnimeList(response.data!!)
 
             withContext(Dispatchers.Main) {
                 seasonalNextPage.value = Resource.success(response)
@@ -96,13 +95,12 @@ constructor(
         val getSeasonalDeferred = malApi
             .getSeasonalAnimeAsync(year, season, sort, limit, offset, ALL_ANIME_FIELDS)
         try {
-            val seasonalAnimeResponse = getSeasonalDeferred.await()
-            val seasonAnimeList = seasonalAnimeResponse.data
-            nextPage = seasonalAnimeResponse.paging?.next
-            seasonAnimeDao.insertSeasonAnimeList(seasonAnimeList!!)
+            val response = getSeasonalDeferred.await()
+            nextPage = response.paging?.next
+            seasonAnimeDao.insertSeasonAnimeList(response.data!!)
 
             withContext(Dispatchers.Main) {
-                seasonalAnime.value = Resource.success(seasonalAnimeResponse)
+                seasonalAnime.value = Resource.success(response)
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main){

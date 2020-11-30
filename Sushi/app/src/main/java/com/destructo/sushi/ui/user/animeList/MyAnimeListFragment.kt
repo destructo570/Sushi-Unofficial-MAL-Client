@@ -1,33 +1,27 @@
 package com.destructo.sushi.ui.user.animeList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
-import com.destructo.sushi.ui.anime.AnimeUpdateListener
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
 class MyAnimeListFragment : Fragment(){
 
     private lateinit var binding: FragmentMyAnimeListBinding
-    private lateinit var myAnimeListPagerAdapter: UserAnimePagerAdapter
+    private lateinit var myAnimeListPagerAdapter: FragmentPagerAdapter
     private lateinit var myAnimeListViewPager: ViewPager2
     private lateinit var myAnimeListTabLayout: TabLayout
     private lateinit var myAnimeListTabMediator: TabLayoutMediator
@@ -91,7 +85,7 @@ class MyAnimeListFragment : Fragment(){
         )
 
         myAnimeListPagerAdapter =
-            UserAnimePagerAdapter(fragmentList, childFragmentManager, lifecycle)
+            FragmentPagerAdapter(fragmentList, childFragmentManager, lifecycle)
         myAnimeListViewPager.adapter = myAnimeListPagerAdapter
         myAnimeListTabMediator.attach()
 

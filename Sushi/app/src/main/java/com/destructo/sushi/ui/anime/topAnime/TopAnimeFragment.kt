@@ -14,16 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType.*
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.adapter.AnimeRankingAdapter
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -98,7 +98,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        topAnimeAdapter = AnimeRankingAdapter(AnimeIdListener {
+        topAnimeAdapter = AnimeRankingAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         topAnimeAdapter.setListEndListener(this)

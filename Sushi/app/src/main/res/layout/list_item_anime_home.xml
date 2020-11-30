@@ -9,7 +9,7 @@
             type="com.destructo.sushi.model.mal.anime.Anime" />
         <variable
             name="animeListener"
-            type="com.destructo.sushi.ui.anime.listener.AnimeIdListener" />
+            type="com.destructo.sushi.listener.MalIdListener" />
 
     </data>
 

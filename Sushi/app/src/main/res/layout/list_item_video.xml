@@ -11,7 +11,7 @@
 
         <variable
             name="promoListener"
-            type="com.destructo.sushi.ui.anime.listener.AnimePromoListener" />
+            type="com.destructo.sushi.listener.AnimePromoListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -1,20 +1,16 @@
 package com.destructo.sushi.ui.anime
 
-import android.provider.Contacts
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.BASIC_ANIME_FIELDS
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
-import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.FragmentScoped
-import kotlinx.coroutines.*
-import timber.log.Timber
-import java.lang.Exception
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class AnimeRepository
 @Inject

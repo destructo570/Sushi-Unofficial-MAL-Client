@@ -6,7 +6,6 @@ import androidx.lifecycle.*
 import com.destructo.sushi.model.jikan.character.Character
 import com.destructo.sushi.network.JikanApi
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class CharacterViewModel
 @ViewModelInject

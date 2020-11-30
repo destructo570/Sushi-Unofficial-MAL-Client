@@ -1,8 +1,8 @@
 package com.destructo.sushi.model.jikan.anime.core
 
 
-import com.destructo.sushi.model.jikan.JikanEntity
 import com.destructo.jikanplay.model.common.Recommendation
+import com.destructo.sushi.model.jikan.JikanEntity
 import com.squareup.moshi.Json
 
 data class AnimeRecomm(

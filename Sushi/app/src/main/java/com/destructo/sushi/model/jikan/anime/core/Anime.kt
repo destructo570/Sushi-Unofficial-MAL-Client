@@ -1,10 +1,10 @@
 package com.destructo.sushi.model.jikan.anime.core
 
 
-import com.destructo.sushi.model.jikan.JikanEntity
-import com.destructo.sushi.model.jikan.anime.support.RelatedAnime
-import com.destructo.sushi.model.jikan.MALEntity
 import com.destructo.jikanplay.model.common.TimeInterval
+import com.destructo.sushi.model.jikan.JikanEntity
+import com.destructo.sushi.model.jikan.MALEntity
+import com.destructo.sushi.model.jikan.anime.support.RelatedAnime
 import com.squareup.moshi.Json
 
 data class Anime(

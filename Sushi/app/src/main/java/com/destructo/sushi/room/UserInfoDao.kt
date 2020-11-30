@@ -3,8 +3,6 @@ package com.destructo.sushi.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.destructo.sushi.model.database.UserInfoEntity
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
-import com.destructo.sushi.model.mal.userInfo.UserInfo
 
 @Dao
 interface UserInfoDao {

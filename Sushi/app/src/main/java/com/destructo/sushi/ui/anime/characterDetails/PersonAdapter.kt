@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemCharacterBinding
 import com.destructo.sushi.databinding.ListItemGenPersonBinding
 import com.destructo.sushi.model.jikan.character.PersonEntity
 

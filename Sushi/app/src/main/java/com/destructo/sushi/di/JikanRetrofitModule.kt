@@ -3,10 +3,8 @@ package com.destructo.sushi.di
 import com.destructo.sushi.BASE_JIKAN_URL
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.JikanRateLimitInterceptor
-import com.destructo.sushi.network.MalAuthInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

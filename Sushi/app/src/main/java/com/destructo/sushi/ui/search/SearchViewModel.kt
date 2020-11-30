@@ -8,11 +8,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.mangaList.MangaList
-import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SearchAnimeDao
 import com.destructo.sushi.room.SearchMangaDao
-import com.destructo.sushi.ui.user.profile.ProfileRepository
 
 class SearchViewModel
 @ViewModelInject

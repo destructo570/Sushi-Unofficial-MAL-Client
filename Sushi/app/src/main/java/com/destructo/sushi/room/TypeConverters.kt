@@ -6,16 +6,9 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
-import com.destructo.sushi.model.mal.anime.*
-import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
-import com.destructo.sushi.model.mal.common.Genre
-import com.destructo.sushi.model.mal.common.MainPicture
-import com.destructo.sushi.model.mal.common.Picture
-import com.destructo.sushi.model.mal.common.Ranking
+import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.manga.Manga
-import com.destructo.sushi.model.mal.manga.RelatedManga
 import com.destructo.sushi.model.mal.userAnimeList.AnimeListStatus
-import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.model.mal.userMangaList.MangaListStatus
 import com.google.gson.Gson

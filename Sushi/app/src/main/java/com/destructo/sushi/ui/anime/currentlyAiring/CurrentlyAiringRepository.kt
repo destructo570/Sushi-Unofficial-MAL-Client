@@ -2,6 +2,7 @@ package com.destructo.sushi.ui.anime.currentlyAiring
 
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.BASIC_ANIME_FIELDS
+import com.destructo.sushi.NSFW_WHITE
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
@@ -12,8 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class CurrentlyAiringRepository
@@ -31,7 +30,6 @@ constructor(val malApi: MalApi,
     private var nextPage: String? = null
 
     fun getTopAnimeNext(nsfw: Boolean) {
-
         if (!nextPage.isNullOrBlank()) {
             airingAnimeListNextPage.value = Resource.loading(null)
             GlobalScope.launch {
@@ -41,29 +39,6 @@ constructor(val malApi: MalApi,
                 )
             }
         }
-    }
-
-    private suspend fun nextPageCall(next: String, nsfw: Boolean) {
-        try {
-            val getTopAnimeDeferred = malApi.getAnimeRankingNextAsync(next, nsfw)
-            val animeRanking = getTopAnimeDeferred.await()
-            if (nsfw) {
-                val animeList = animeRanking.data
-                animeRankingDao.insertAnimeRankingList(animeList!!)
-            }else{
-                val animeList = animeRanking.data?.filter { it?.anime?.nsfw == "white" }
-                    animeRankingDao.insertAnimeRankingList(animeList!!)
-            }
-            nextPage = animeRanking.paging?.next
-            withContext(Dispatchers.Main) {
-                airingAnimeListNextPage.value = Resource.success(animeRanking)
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                airingAnimeListNextPage.value = Resource.error(e.message ?: "", null)
-            }
-        }
-
     }
 
     fun getAnimeRankingList(offset: String?, limit: String?, nsfw: Boolean) {
@@ -78,24 +53,45 @@ constructor(val malApi: MalApi,
         }
     }
 
+    private suspend fun nextPageCall(next: String, nsfw: Boolean) {
+        try {
+            val getTopAnimeDeferred = malApi.getAnimeRankingNextAsync(next, nsfw)
+            val animeRanking = getTopAnimeDeferred.await()
+            if (nsfw) {
+                animeRankingDao.insertAnimeRankingList(animeRanking.data!!)
+            }else{
+                val animeList = animeRanking.data?.filter { it?.anime?.nsfw == NSFW_WHITE }
+                animeRankingDao.insertAnimeRankingList(animeList!!)
+            }
+            nextPage = animeRanking.paging?.next
+            withContext(Dispatchers.Main) {
+                airingAnimeListNextPage.value = Resource.success(animeRanking)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                airingAnimeListNextPage.value = Resource.error(e.message ?: "", null)
+            }
+        }
+
+    }
+
     private suspend fun animeRankingCall(offset: String?, limit: String?, nsfw: Boolean){
         try {
             val getTopAnimeDeferred = malApi.getAnimeRankingAsync(
-                rankingType,
-                limit,
-                offset,
-                BASIC_ANIME_FIELDS,
-                nsfw
+                ranking_type = rankingType,
+                limit = limit,
+                offset = offset,
+                fields = BASIC_ANIME_FIELDS,
+                nsfw = nsfw
             )
             val animeRanking = getTopAnimeDeferred.await()
             if ( nextPage != animeRanking.paging?.next){
                 nextPage = animeRanking.paging?.next
             }
-            val animeList = animeRanking.data
 
-            animeRankingDao.insertAnimeRankingList(animeList!!)
+            animeRankingDao.insertAnimeRankingList(animeRanking.data!!)
             withContext(Dispatchers.Main) {
-                airingAnimeList.value = Resource.success(animeList.toMutableList())
+                airingAnimeList.value = Resource.success(animeRanking.data.toMutableList())
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {

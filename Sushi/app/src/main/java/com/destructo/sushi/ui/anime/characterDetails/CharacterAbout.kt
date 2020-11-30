@@ -1,12 +1,11 @@
 package com.destructo.sushi.ui.anime.characterDetails
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.destructo.sushi.databinding.FragmentCharacterAboutBinding
-import com.destructo.sushi.databinding.FragmentCharacterBinding
 
 private const val ABOUT: String = "param1"
 

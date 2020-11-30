@@ -3,22 +3,12 @@ package com.destructo.sushi.ui.user.mangaList
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.destructo.sushi.ALL_MANGA_FIELDS
-import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.enum.mal.UserMangaSort
-import com.destructo.sushi.enum.mal.UserMangaStatus
-import com.destructo.sushi.enum.mal.UserMangaStatus.*
-import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.model.mal.userMangaList.UserMangaData
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
-import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.UserMangaListDao
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class UserMangaViewModel@ViewModelInject
 constructor(

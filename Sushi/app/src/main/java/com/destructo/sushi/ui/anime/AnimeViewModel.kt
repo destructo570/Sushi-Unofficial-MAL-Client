@@ -2,11 +2,12 @@ package com.destructo.sushi.ui.anime
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
-import com.destructo.sushi.network.JikanApi
-import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 
 class AnimeViewModel

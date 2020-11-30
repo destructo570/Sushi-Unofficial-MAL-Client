@@ -11,7 +11,7 @@
 
         <variable
             name="reviewListener"
-            type="com.destructo.sushi.ui.anime.listener.AnimeReviewListener" />
+            type="com.destructo.sushi.listener.AnimeReviewListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

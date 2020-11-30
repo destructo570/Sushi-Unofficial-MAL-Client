@@ -1,15 +1,13 @@
 package com.destructo.sushi.ui.preferences.settings
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentAboutBinding
 import com.destructo.sushi.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment(){
@@ -34,7 +32,7 @@ class SettingsFragment : Fragment(){
         navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_settings) as NavHostFragment
         navController = navHostFragment.navController
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, _, _ ->
 
         }
 

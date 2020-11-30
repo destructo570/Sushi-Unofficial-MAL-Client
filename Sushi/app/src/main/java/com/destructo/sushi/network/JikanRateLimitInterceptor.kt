@@ -1,6 +1,5 @@
 package com.destructo.sushi.network
 
-import android.widget.Toast
 import okhttp3.Interceptor
 import okhttp3.Response
 import timber.log.Timber

@@ -2,7 +2,6 @@ package com.destructo.sushi.model.database
 
 import androidx.room.Entity
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
-import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 
 @Entity(tableName = "anime_reviews", primaryKeys = ["id"])
 data class AnimeReviewsEntity(

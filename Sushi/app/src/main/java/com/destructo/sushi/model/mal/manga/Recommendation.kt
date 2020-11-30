@@ -2,7 +2,6 @@ package com.destructo.sushi.model.mal.manga
 
 
 import android.os.Parcelable
-import com.destructo.sushi.model.mal.manga.MangaBasic
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 

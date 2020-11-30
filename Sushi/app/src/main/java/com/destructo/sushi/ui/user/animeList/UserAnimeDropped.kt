@@ -1,20 +1,22 @@
 package com.destructo.sushi.ui.user.animeList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.*
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
+import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import timber.log.Timber
 
 class UserAnimeDropped : Fragment() {
@@ -59,14 +61,15 @@ class UserAnimeDropped : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+        userAnimeAdapter = UserAnimeListAdapter(
+            AddEpisodeListener { anime ->
             val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
             val animeId = anime?.id
             if (episodes != null && animeId != null){
                 userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
             }
         },
-            AnimeIdListener {
+            MalIdListener {
                 it?.let{
                     navigateToAnimeDetails(it)
                 }

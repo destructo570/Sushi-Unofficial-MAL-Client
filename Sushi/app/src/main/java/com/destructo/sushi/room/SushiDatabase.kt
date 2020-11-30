@@ -4,7 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.destructo.sushi.model.database.*
-import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeList.AnimeListData
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.model.mal.mangaList.MangaListData

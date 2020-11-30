@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemAnimeBinding
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.mal.animeList.AnimeListData
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 
-class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :
+class AnimeListAdapter(private val malIdListener: MalIdListener) :
     ListAdapter<AnimeListData, AnimeListAdapter.ViewHolder>(AnimeListDiffUtil()) {
 
     private var listEndListener: ListEndListener? = null
@@ -18,7 +18,7 @@ class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :
     class ViewHolder private constructor(val binding: ListItemAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeEntity: AnimeListData, listener: AnimeIdListener) {
+        fun bind(animeEntity: AnimeListData, listener: MalIdListener) {
             binding.animeEntity = animeEntity.anime
             binding.animeListener = listener
             binding.executePendingBindings()
@@ -43,7 +43,7 @@ class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeEntity = getItem(position)
-        holder.bind(animeEntity, animeIdListener)
+        holder.bind(animeEntity, malIdListener)
         if (position == currentList.size - 2) run {
             listEndListener?.onEndReached(position)
         }
@@ -53,12 +53,11 @@ class AnimeListAdapter(private val animeIdListener: AnimeIdListener) :
         this.listEndListener = listEndListener
     }
 
-
 }
 
 class AnimeListDiffUtil : DiffUtil.ItemCallback<AnimeListData>() {
     override fun areItemsTheSame(oldItem: AnimeListData, newItem: AnimeListData): Boolean {
-        return oldItem.anime?.id == newItem.anime?.id
+        return oldItem.anime.id == newItem.anime.id
     }
 
     override fun areContentsTheSame(oldItem: AnimeListData, newItem: AnimeListData): Boolean {

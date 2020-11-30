@@ -37,9 +37,9 @@
     </fragment>
     <fragment
         android:id="@+id/mangaFragment"
-        android:name="com.destructo.sushi.ui.manga.MangaFragment"
+        android:name="com.destructo.sushi.ui.manga.topManga.TopMangaFragment"
         android:label="@string/title_browse_manga"
-        tools:layout="@layout/fragment_manga" >
+        tools:layout="@layout/fragment_top_manga" >
         <action
             android:id="@+id/action_mangaFragment_to_mangaDetailsFragment"
             app:destination="@id/mangaDetailsFragment" />
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/currentlyAiring"
-        android:name="com.destructo.sushi.ui.anime.currentlyAiring.CurrentlyAiring"
+        android:name="com.destructo.sushi.ui.anime.currentlyAiring.CurrentlyAiringFragment"
         android:label="@string/title_currently_airing"
         tools:layout="@layout/fragment_currently_airing" >
         <action
@@ -155,10 +155,7 @@
             android:id="@+id/action_myMangaListFragment_to_mangaDetailsFragment"
             app:destination="@id/mangaDetailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/userMangaAll"
-        android:name="com.destructo.sushi.ui.user.mangaList.UserMangaAll"
-        android:label="UserMangaAll" />
+
     <fragment
         android:id="@+id/userAnimeCompleted"
         android:name="com.destructo.sushi.ui.user.animeList.UserAnimeCompleted"
@@ -179,11 +176,7 @@
         android:id="@+id/userAnimeWatching"
         android:name="com.destructo.sushi.ui.user.animeList.UserAnimeWatching"
         android:label="UserAnimeWatching" />
-    <fragment
-        android:id="@+id/userAnimeAll"
-        android:name="com.destructo.sushi.ui.user.animeList.UserAnimeAll"
-        android:label="UserAnimeAll"
-        />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.destructo.sushi.ui.user.profile.ProfileFragment"

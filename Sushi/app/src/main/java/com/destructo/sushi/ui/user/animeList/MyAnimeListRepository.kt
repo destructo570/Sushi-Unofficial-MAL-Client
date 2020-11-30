@@ -1,15 +1,12 @@
 package com.destructo.sushi.ui.user.animeList
 
-import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
-import com.destructo.sushi.REDIRECT_URL
 import com.destructo.sushi.enum.mal.UserAnimeSort
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -18,9 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.http.Query
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 

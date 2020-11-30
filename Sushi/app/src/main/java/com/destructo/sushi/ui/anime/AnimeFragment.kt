@@ -16,16 +16,12 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.AnimeHomeAdapter
+import com.destructo.sushi.adapter.SeasonAnimeHomeAdapter
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
-import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
-import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
-import com.destructo.sushi.network.Resource
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.anime.adapter.AnimeHomeAdapter
-import com.destructo.sushi.ui.anime.adapter.SeasonAnimeHomeAdapter
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
-import com.destructo.sushi.util.Pkce
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*
@@ -33,7 +29,6 @@ import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_seasonal_anime.view.*
 import kotlinx.android.synthetic.main.inc_top_anime.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeFragment : Fragment() {
@@ -65,11 +60,10 @@ class AnimeFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
+            setHasOptionsMenu(true)
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             animeViewModel.getTopAnime(AnimeRankingType.ALL.value, null, "25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
             animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25", sharedPreferences.getBoolean(
@@ -129,16 +123,16 @@ class AnimeFragment : Fragment() {
 
         setupToolbar()
 
-        topAnimeAdapter = AnimeHomeAdapter(AnimeIdListener {
+        topAnimeAdapter = AnimeHomeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        upcomingAnimeAdapter = AnimeHomeAdapter(AnimeIdListener {
+        upcomingAnimeAdapter = AnimeHomeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        currentlyAiringAdapter = AnimeHomeAdapter(AnimeIdListener {
+        currentlyAiringAdapter = AnimeHomeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        seasonalAnimeAdapter = SeasonAnimeHomeAdapter(AnimeIdListener {
+        seasonalAnimeAdapter = SeasonAnimeHomeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
 

@@ -1,8 +1,6 @@
 package com.destructo.sushi.di
 
-import com.destructo.sushi.BASE_JIKAN_URL
 import com.destructo.sushi.BASE_MAL_API_URL
-import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.MalAuthInterceptor
 import com.destructo.sushi.util.SessionManager

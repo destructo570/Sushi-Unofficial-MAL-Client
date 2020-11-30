@@ -1,19 +1,12 @@
 package com.destructo.sushi.ui.animeSchedule
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.R
 import com.destructo.sushi.databinding.ItemAnimeScheduleBinding
-import com.destructo.sushi.databinding.ListItemScheduleAnimeBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
-import kotlinx.android.synthetic.main.item_anime_schedule.view.*
-import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SchedulePagerAdapter:
     ListAdapter<List<AnimeSubEntity?>?, SchedulePagerAdapter.ViewHolder>(AnimeScheduleDiffUtil()){

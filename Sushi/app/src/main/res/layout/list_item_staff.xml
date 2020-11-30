@@ -9,7 +9,7 @@
             type="com.destructo.sushi.model.jikan.anime.support.Staff" />
         <variable
             name="staffListener"
-            type="com.destructo.sushi.ui.anime.listener.AnimeStaffListener" />
+            type="com.destructo.sushi.listener.AnimeStaffListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

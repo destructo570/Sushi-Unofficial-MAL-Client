@@ -1,9 +1,6 @@
 package com.destructo.sushi.network
 
-import android.content.Context
-import android.util.Log
 import com.destructo.sushi.util.ACCESS_TOKEN
-import com.destructo.sushi.util.PKCE
 import com.destructo.sushi.util.REFRESH_TOKEN
 import com.destructo.sushi.util.SessionManager
 import okhttp3.Interceptor

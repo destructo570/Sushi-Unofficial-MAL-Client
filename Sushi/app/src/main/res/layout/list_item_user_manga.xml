@@ -12,10 +12,10 @@
             type="com.destructo.sushi.model.mal.userMangaList.MangaListStatus" />
         <variable
             name="chapterListener"
-            type="com.destructo.sushi.ui.user.mangaList.AddChapterListener" />
+            type="com.destructo.sushi.listener.AddChapterListener" />
         <variable
             name="mangaIdListener"
-            type="com.destructo.sushi.ui.manga.listener.MangaIdListener" />
+            type="com.destructo.sushi.listener.MalIdListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

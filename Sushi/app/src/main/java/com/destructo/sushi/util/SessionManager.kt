@@ -2,7 +2,7 @@ package com.destructo.sushi.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.SharedPreferences.*
+import android.content.SharedPreferences.Editor
 import com.destructo.sushi.AR_GRANT_CODE
 import com.destructo.sushi.CLIENT_ID
 import com.destructo.sushi.model.mal.auth.AuthToken

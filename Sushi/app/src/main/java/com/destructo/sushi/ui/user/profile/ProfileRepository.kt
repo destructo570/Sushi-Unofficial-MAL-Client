@@ -1,12 +1,8 @@
 package com.destructo.sushi.ui.user.profile
 
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.ALL_MANGA_FIELDS
-import com.destructo.sushi.enum.mal.UserMangaSort
-import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.model.database.UserInfoEntity
 import com.destructo.sushi.model.mal.userInfo.UserInfo
-import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.UserInfoDao
@@ -14,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
 class ProfileRepository

@@ -16,12 +16,13 @@ import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
 import com.destructo.sushi.R.string.season_sort_type_numListUser
 import com.destructo.sushi.R.string.season_sort_type_score
+import com.destructo.sushi.adapter.SeasonAnimeAdapter
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
 import com.destructo.sushi.enum.mal.SeasonalSortType.NUM_LIST_USER
 import com.destructo.sushi.enum.mal.SeasonalSortType.SCORE
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import com.destructo.sushi.util.toTitleCase
 import dagger.hilt.android.AndroidEntryPoint
@@ -129,7 +130,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        seasonAdapter = SeasonAnimeAdapter(AnimeIdListener {
+        seasonAdapter = SeasonAnimeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         seasonAdapter.setListEndListener(this)

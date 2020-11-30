@@ -3,7 +3,6 @@ package com.destructo.sushi.ui.preferences.aboutApp
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,11 @@ import android.widget.Button
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
-import com.destructo.sushi.databinding.FragmentSettingsBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_about.view.*
 
 class AboutFragment : Fragment() {
 

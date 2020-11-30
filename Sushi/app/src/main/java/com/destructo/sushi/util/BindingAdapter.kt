@@ -3,15 +3,14 @@ package com.destructo.sushi.util
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.R
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
@@ -20,12 +19,9 @@ import com.destructo.sushi.model.mal.manga.Author
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.manga.Serialization
-import com.destructo.sushi.ui.anime.AnimeFragmentDirections
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
 import com.destructo.sushi.ui.animeSchedule.AnimeScheduleFragmentDirections
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -361,7 +357,7 @@ fun TextView.formatAnimeDescString(data: String?) {
 fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>?) {
     recyclerView.setHasFixedSize(true)
     recyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
-    val adapter = ScheduleAdapter(AnimeIdListener {malId->
+    val adapter = ScheduleAdapter(MalIdListener { malId->
         malId?.let{recyclerView.findNavController().navigate(
             AnimeScheduleFragmentDirections.actionScheduleFragmentToAnimeDetailFragment(malId)
         )}
@@ -382,7 +378,7 @@ private fun formatSmallTitleText(text: String): String {
 }
 
 private fun secondToMinute(seconds: Int?): String {
-    var result = ""
+    val result: String
     if (seconds != null) {
         result = "${seconds.div(60)}min"
         return result
@@ -395,7 +391,7 @@ private fun secondToMinute(seconds: Int?): String {
 
 
 private fun startSeasonFormatter(data: StartSeason?): String {
-    var result = ""
+    val result: String
     if (data != null) {
         result = "${data.season?.capitalize(Locale.ROOT)} ${data.year}"
         return result

@@ -2,14 +2,11 @@ package com.destructo.sushi.ui.user.mangaList
 
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.ALL_MANGA_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
-import com.destructo.sushi.enum.mal.UserAnimeSort
 import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource

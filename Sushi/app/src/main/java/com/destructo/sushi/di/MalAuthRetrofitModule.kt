@@ -1,12 +1,9 @@
 package com.destructo.sushi.di
 
-import com.destructo.sushi.BASE_MAL_API_URL
 import com.destructo.sushi.BASE_MAL_AUTH_URL
-import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.MalAuthApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

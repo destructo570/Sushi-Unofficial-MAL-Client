@@ -1,6 +1,5 @@
 package com.destructo.sushi.model.jikan
 
-import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 
 interface JikanEntity  {

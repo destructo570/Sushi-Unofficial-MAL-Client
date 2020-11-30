@@ -1,9 +1,7 @@
 package com.destructo.sushi.room
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.destructo.sushi.model.database.AnimeDetailEntity
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 
 @Dao

@@ -18,9 +18,9 @@ import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.listener.ListEndListener
-import com.destructo.sushi.ui.anime.adapter.AnimeRankingAdapter
-import com.destructo.sushi.ui.anime.listener.AnimeIdListener
+import com.destructo.sushi.adapter.AnimeRankingAdapter
+import com.destructo.sushi.listener.ListEndListener
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
@@ -78,7 +78,7 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
 
-        upcomingAdapter = AnimeRankingAdapter(AnimeIdListener {
+        upcomingAdapter = AnimeRankingAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         upcomingAdapter.setListEndListener(this)

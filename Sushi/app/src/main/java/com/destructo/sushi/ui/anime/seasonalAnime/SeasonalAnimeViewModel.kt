@@ -2,19 +2,15 @@ package com.destructo.sushi.ui.anime.seasonalAnime
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
-import com.destructo.sushi.ALL_ANIME_FIELDS
-import com.destructo.sushi.model.jikan.season.Season
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.model.jikan.season.SeasonArchive
-import com.destructo.sushi.model.jikan.top.TopAnime
-import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
-import com.destructo.sushi.network.JikanApi
-import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SeasonAnimeDao
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SeasonalAnimeViewModel
     @ViewModelInject
