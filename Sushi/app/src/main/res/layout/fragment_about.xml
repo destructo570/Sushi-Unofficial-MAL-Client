@@ -222,7 +222,6 @@
                     android:id="@+id/join_discord"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rate_review_app">
@@ -282,7 +281,6 @@
                     android:id="@+id/give_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/join_discord">
@@ -342,7 +340,6 @@
                     android:id="@+id/open_source_license"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/give_feedback">
@@ -403,7 +400,6 @@
                     android:id="@+id/app_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/open_source_license">
