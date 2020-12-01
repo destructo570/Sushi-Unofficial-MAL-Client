@@ -37,125 +37,126 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/margin_normal">
+                >
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/about_dev_cardview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardElevation="0dp"
-                app:strokeWidth="2dp"
-                app:cardCornerRadius="8dp"
-                app:strokeColor="?attr/contentBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/about_dev_cardview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/margin_normal">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/lead_dev_image"
-                        style="@style/Widget.Sushi.ItemCardView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        app:cardCornerRadius="200dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/header_user_image"
-                            android:layout_width="@dimen/header_profile_img_size"
-                            android:layout_height="@dimen/header_profile_img_size"
-                            android:scaleType="centerCrop"
-                            imageUrl="@{String.format(@string/dev_profile_image)}"
-                            android:src="@drawable/test_img" />
-
-                    </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="?attr/colorPrimary"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="?attr/contentBackground"
+                    app:strokeWidth="2dp">
 
 
-                    <TextView
-                        android:id="@+id/dev_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/title_dev_name"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lead_dev_image" />
-
-                    <TextView
-                        android:id="@+id/dev_role"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_dev_role"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?attr/textColorSecondary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dev_name" />
-
-                    <TextView
-                        android:id="@+id/about_dev_description"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/developer_description"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/dev_role" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_normal">
 
-                    <LinearLayout
-                        android:id="@+id/dev_socials"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/about_dev_description">
-
-                        <Button
-                            android:id="@+id/dev_twitter_button"
-                            style="@style/SushiPrimaryImageButton"
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/lead_dev_image"
+                            style="@style/Widget.Sushi.ItemCardView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_twitter_line"
-                            android:stateListAnimator="@null"
-                            android:text="@string/social_twitter"
-                            />
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            app:cardCornerRadius="200dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <Button
-                            android:id="@+id/dev_dribbble_button"
-                            style="@style/SushiPrimaryImageButton"
+                            <ImageView
+                                android:id="@+id/header_user_image"
+                                imageUrl="@{String.format(@string/dev_profile_image)}"
+                                android:layout_width="@dimen/header_profile_img_size"
+                                android:layout_height="@dimen/header_profile_img_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/test_img" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                        <TextView
+                            android:id="@+id/dev_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_small"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_dribbble_line"
-                            android:stateListAnimator="@null"
-                            android:text="@string/social_dribbble"
-                            />
+                            android:layout_marginTop="8dp"
+                            android:text="@string/title_dev_name"
+                            android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lead_dev_image" />
 
-                    </LinearLayout>
+                        <TextView
+                            android:id="@+id/dev_role"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_dev_role"
+                            android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                            android:textColor="?attr/textColorSecondary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dev_name" />
+
+                        <TextView
+                            android:id="@+id/about_dev_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/developer_description"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.Sushi.B3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dev_role" />
+
+                        <LinearLayout
+                            android:id="@+id/dev_socials"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/about_dev_description">
+
+                            <Button
+                                android:id="@+id/dev_twitter_button"
+                                style="@style/SushiPrimaryImageButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_twitter_line"
+                                android:stateListAnimator="@null"
+                                android:text="@string/social_twitter" />
+
+                            <Button
+                                android:id="@+id/dev_dribbble_button"
+                                style="@style/SushiPrimaryImageButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_small"
+                                android:layout_weight="1"
+                                android:drawableLeft="@drawable/ic_dribbble_line"
+                                android:stateListAnimator="@null"
+                                android:text="@string/social_dribbble" />
+
+                        </LinearLayout>
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -164,6 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/ripple_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/about_dev_cardview">
 
@@ -223,6 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rate_review_app">
 
@@ -282,6 +285,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/join_discord">
 
@@ -341,6 +345,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/give_feedback">
 
@@ -401,6 +406,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/open_source_license">
 
