@@ -33,17 +33,5 @@
             style="@style/Widget.Custom.NavigationView"
             android:fitsSystemWindows="true" />
 
-
-        <com.google.android.material.navigation.NavigationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/navigationView2"
-            android:layout_gravity="end"
-            style="@style/Widget.Custom.NavigationView"
-            app:itemTextColor="@color/textColorPrimary"
-            app:headerLayout="@layout/seasonal_filter_options"
-            android:fitsSystemWindows="true" />
-
-
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

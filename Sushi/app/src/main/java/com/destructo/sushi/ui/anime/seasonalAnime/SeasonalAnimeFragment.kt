@@ -3,7 +3,9 @@ package com.destructo.sushi.ui.anime.seasonalAnime
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -25,10 +27,10 @@ import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
 import com.destructo.sushi.util.toTitleCase
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_seasonal_anime.view.*
-import kotlinx.android.synthetic.main.seasonal_filter_options.*
+import kotlinx.android.synthetic.main.seasonal_filter_options.view.*
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
@@ -47,6 +49,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     private lateinit var filterApplyButton: Button
     private lateinit var seasonCancelButton: Button
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView3: NavigationView
+    private lateinit var seasonFilterHeader: ConstraintLayout
+
 
     private lateinit var toolbar: Toolbar
     private lateinit var seasonalAnimeProgress: ProgressBar
@@ -75,12 +80,15 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
-        yearSpinner = requireActivity().season_year_spinner
-        seasonSpinner = requireActivity().season_spinneer
-        sortTypeSpinner = requireActivity().season_sort_spinner
-        filterApplyButton = requireActivity().season_apply_filter_button
-        seasonCancelButton = requireActivity().season_cancel_filter_button
-        drawerLayout = requireActivity().drawer_layout
+        drawerLayout = binding.drawerLayout
+        navView3 = binding.seasonalNavView
+        seasonFilterHeader = navView3.getHeaderView(0) as ConstraintLayout
+
+        yearSpinner = seasonFilterHeader.season_year_spinner
+        seasonSpinner = seasonFilterHeader.season_spinneer
+        sortTypeSpinner = seasonFilterHeader.season_sort_spinner
+        filterApplyButton = seasonFilterHeader.season_apply_filter_button
+        seasonCancelButton = seasonFilterHeader.season_cancel_filter_button
 
         toolbar = binding.toolbar
         seasonalAnimeProgress = binding.seasonalAnimeProgressbar
@@ -123,6 +131,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
         seasonCancelButton.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
         }
+        setOnBackPressed()
 
         return binding.root
     }
@@ -289,6 +298,16 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
             }
             false
 
+        }
+    }
+
+    private fun setOnBackPressed(){
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if(drawerLayout.isDrawerOpen(GravityCompat.END)){
+                drawerLayout.closeDrawer(GravityCompat.END)
+            }else{
+                findNavController().navigateUp()
+            }
         }
     }
 

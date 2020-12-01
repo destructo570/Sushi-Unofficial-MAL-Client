@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         navView = findViewById(R.id.navigationView)
-        navView2 = findViewById(R.id.navigationView2)
         drawerLayout = findViewById(R.id.drawer_layout)
         profileHeader = navView.getHeaderView(0) as ConstraintLayout
         setupDrawerLayout()
