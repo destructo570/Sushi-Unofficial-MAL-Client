@@ -29,6 +29,7 @@ import com.destructo.sushi.util.GridSpacingItemDeco
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_seasonal_anime.view.*
 import kotlinx.android.synthetic.main.seasonal_filter_options.view.*
 import timber.log.Timber
@@ -58,8 +59,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     private lateinit var seasonalAnimePaginationProgress: ProgressBar
 
     private lateinit var seasonArchiveMap: MutableMap<String, List<String?>?>
-    private var selectedYear: String = "2021"
-    private var selectedSeason: String = "winter"
+    private var selectedYear: String = "2020"
+    private var selectedSeason: String = "fall"
     private var selectedSortType: String = "anime_score"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,7 +132,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
         seasonCancelButton.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.END)
         }
+
         setOnBackPressed()
+        setDrawerListener()
 
         return binding.root
     }
@@ -167,9 +170,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
                 }
                 Status.SUCCESS -> {
                     resource.data?.archive.let { listOfArchive ->
-                        seasonArchiveMap = mutableMapOf(
-                            listOfArchive?.get(0)?.year.toString() to (listOfArchive?.get(0)?.seasons)
-                        )
+                        seasonArchiveMap = mutableMapOf()
 
                         listOfArchive?.forEach { archive ->
                             seasonArchiveMap[archive?.year.toString()] = archive?.seasons
@@ -248,6 +249,8 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
         }
     }
 
+
+
     private fun getSortType(selectedItem: String): String {
         var sortType = ""
         when (selectedItem) {
@@ -309,6 +312,27 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
                 findNavController().navigateUp()
             }
         }
+    }
+
+    private fun setDrawerListener(){
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                requireActivity().drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+
+            }
+
+        })
     }
 
     override fun onEndReached(position: Int) {
