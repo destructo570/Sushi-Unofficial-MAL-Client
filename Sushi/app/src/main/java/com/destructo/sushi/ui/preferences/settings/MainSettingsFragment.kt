@@ -1,5 +1,7 @@
 package com.destructo.sushi.ui.preferences.settings
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +11,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
+import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentMainSettingsBinding
+import com.destructo.sushi.ui.purchaseActivity.PurchaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainSettingsFragment : Fragment() {
@@ -20,9 +25,11 @@ class MainSettingsFragment : Fragment() {
     private lateinit var lookAndFeel:ConstraintLayout
     private lateinit var appPreference:ConstraintLayout
     private lateinit var aboutApp:ConstraintLayout
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
     }
 
@@ -36,7 +43,11 @@ class MainSettingsFragment : Fragment() {
         toolbar = binding.toolbar
         lookAndFeel = binding.lookAndFeel
         lookAndFeel.setOnClickListener {
-            findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
+            if(sharedPref.getBoolean(IS_PRO_USER, false)){
+                findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
+            }else{
+                startPurchaseActivity()
+            }
         }
         appPreference = binding.appSettings
         appPreference.setOnClickListener {
@@ -54,12 +65,21 @@ class MainSettingsFragment : Fragment() {
         setupToolbar()
     }
 
+
+
     private fun setupToolbar() {
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
     }
+
+
+    fun startPurchaseActivity(){
+        val intent = Intent(context, PurchaseActivity::class.java)
+        startActivity(intent)
+    }
+
 
 
 }

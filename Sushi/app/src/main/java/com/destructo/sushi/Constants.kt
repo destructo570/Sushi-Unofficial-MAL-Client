@@ -29,6 +29,12 @@ const val DEFAULT_USER_LIST_PAGE_LIMIT = "10"
 //Shared Pref Key
 const val CURRENT_THEME = "current_theme"
 const val NSFW_TAG = "nsfw_tag"
+const val IS_PRO_USER = "is_pro_user"
+
+
+//ProductId
+const val PRODUCT_ID = "sushi_pro_key"
+
 
 
 const val NSFW_WHITE = "white"

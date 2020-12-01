@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.preferences.settings.SettingsActivity"></activity>
+        <activity android:name=".ui.purchaseActivity.PurchaseActivity"></activity>
+        <activity android:name=".ui.preferences.settings.SettingsActivity" />
         <activity
             android:name=".ui.auth.LoginActivity"
             android:label="@string/app_name">
@@ -33,7 +34,7 @@
                     android:scheme="com.destructo.sushi" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
