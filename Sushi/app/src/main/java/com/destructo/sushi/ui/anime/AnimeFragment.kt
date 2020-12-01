@@ -22,12 +22,11 @@ import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
-import kotlinx.android.synthetic.main.inc_seasonal_anime.view.*
-import kotlinx.android.synthetic.main.inc_top_anime.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
 
 @AndroidEntryPoint
@@ -58,19 +57,19 @@ class AnimeFragment : Fragment() {
     private lateinit var seasonAnimeProgressBar:LinearLayout
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var topAnimeCard: MaterialCardView
+    private lateinit var seasonalAnimeCard: MaterialCardView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             setHasOptionsMenu(true)
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            animeViewModel.getTopAnime(AnimeRankingType.ALL.value, null, "25", sharedPreferences.getBoolean(
-                NSFW_TAG, false))
             animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
             animeViewModel.getCurrentlyAiringAnime(AnimeRankingType.AIRING.value, null,"25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
-            animeViewModel.getSeasonalAnime("2020", "fall", null, "25", null)
         }
 
     }
@@ -82,38 +81,33 @@ class AnimeFragment : Fragment() {
         binding = FragmentAnimeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        topAnimeRecycler = binding.root.topAnimeRecycler
-        topAnimeRecycler.setHasFixedSize(true)
+
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecycler
         upcomingAnimeRecycler.setHasFixedSize(true)
         currentAiringRecycler = binding.root.currentlyAiringRecycler
         currentAiringRecycler.setHasFixedSize(true)
-        seasonalAnimeRecycler = binding.root.seasonalAnimeRecycler
-        seasonalAnimeRecycler.setHasFixedSize(true)
+
 
         toolbar = binding.root.anime_frag_toolbar
-        topAnimeProgressBar = binding.root.top_anime_progress
         airingAnimeProgressBar = binding.root.airing_anime_progress
         upcomingAnimeProgressBar = binding.root.upcoming_anime_progress
-        seasonAnimeProgressBar = binding.root.seasonal_anime_progress
 
-
-        topAnimeSeeMore = binding.root.topAnimeMore
+        topAnimeCard = binding.topAnimeButton
+        seasonalAnimeCard = binding.seasonalAnimeButton
         upcomingAnimeSeeMore = binding.root.upcomingAnimeMore
         currentlyAiringMore = binding.root.currentlyAiringMore
-        seasonalAnimeMore = binding.root.seasonalAnimeMore
 
-        topAnimeSeeMore.setOnClickListener {
+        topAnimeCard.setOnClickListener {
             navigateToTopAnime()
+        }
+        seasonalAnimeCard.setOnClickListener {
+            navigateToSeasonalAnime()
         }
         upcomingAnimeSeeMore.setOnClickListener {
             navigateToUpcomingAnime()
         }
         currentlyAiringMore.setOnClickListener {
             navigateToCurrentlyAiring()
-        }
-        seasonalAnimeMore.setOnClickListener {
-            navigateToSeasonalAnime()
         }
 
         return binding.root
@@ -123,37 +117,12 @@ class AnimeFragment : Fragment() {
 
         setupToolbar()
 
-        topAnimeAdapter = AnimeHomeAdapter(MalIdListener {
-            it?.let { navigateToAnimeDetails(it) }
-        })
         upcomingAnimeAdapter = AnimeHomeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
         currentlyAiringAdapter = AnimeHomeAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
-        seasonalAnimeAdapter = SeasonAnimeHomeAdapter(MalIdListener {
-            it?.let { navigateToAnimeDetails(it) }
-        })
-
-        animeViewModel.topAnime.observe(viewLifecycleOwner) { resource ->
-
-            when (resource.status) {
-                Status.LOADING -> {
-                    topAnimeProgressBar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    resource.data?.let {
-                        topAnimeProgressBar.visibility = View.GONE
-                        topAnimeAdapter.submitList(it.data)
-                        topAnimeRecycler.adapter = topAnimeAdapter
-                    }
-                }
-                Status.ERROR -> {
-                }
-            }
-
-        }
 
         animeViewModel.upcomingAnime.observe(viewLifecycleOwner) { resource ->
 
@@ -192,24 +161,6 @@ class AnimeFragment : Fragment() {
                 }
             }
 
-        }
-
-        animeViewModel.seasonalAnime.observe(viewLifecycleOwner) { resource ->
-
-            when (resource.status) {
-                Status.LOADING -> {
-                    seasonAnimeProgressBar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    resource.data?.let {
-                        seasonAnimeProgressBar.visibility = View.GONE
-                        seasonalAnimeAdapter.submitList(it.data)
-                        seasonalAnimeRecycler.adapter = seasonalAnimeAdapter
-                    }
-                }
-                Status.ERROR -> {
-                }
-            }
         }
 
 

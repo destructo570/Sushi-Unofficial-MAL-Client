@@ -33,52 +33,96 @@
             android:layout_height="match_parent"
             tools:context=".ui.anime.AnimeFragment">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/top_anime_button"
+                style="@style/Widget.Sushi.ItemCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
 
-            <include
-                android:id="@+id/includeTop"
-                layout="@layout/inc_top_anime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/seasonal_anime_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="@dimen/margin_normal"
+                        android:src="@drawable/ic_line_chart_fill" />
+
+                    <TextView
+                        style="@style/TextAppearance.Sushi.H3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:gravity="center_vertical"
+                        android:text="@string/title_top_anime" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/seasonal_anime_button"
+                style="@style/Widget.Sushi.ItemCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/top_anime_button"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="@dimen/margin_normal"
+                        android:src="@drawable/ic_sun_fill" />
+
+                    <TextView
+                        style="@style/TextAppearance.Sushi.H3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:gravity="center_vertical"
+                        android:text="@string/title_seasonal_anime" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <include
                 android:id="@+id/includeAiring"
                 layout="@layout/inc_currently_airing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="7dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/includeUpcoming"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeTop" />
+                app:layout_constraintTop_toBottomOf="@+id/seasonal_anime_button" />
 
             <include
                 android:id="@+id/includeUpcoming"
                 layout="@layout/inc_upcoming_anime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/includSeasonale"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/includeAiring" />
 
-
-            <include
-                android:id="@+id/includSeasonale"
-                layout="@layout/inc_seasonal_anime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/margin_small"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeUpcoming" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
