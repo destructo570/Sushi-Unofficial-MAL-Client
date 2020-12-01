@@ -199,6 +199,11 @@
     <string name="title_search_anime">Anime</string>
     <string name="title_search_manga">Manga</string>
 
+    <!-- About Section -->
+    <string name="title_dev_name">Vishal Kashi</string>
+    <string name="title_dev_role">Lead developer/Designer</string>
+    <string name="dev_profile_image">https://avatars0.githubusercontent.com/u/27971772?s=400&amp;u=15f384f5df30bebf686d716499f542a23f77ab79&amp;v=4</string>
+
 
     <!-- Developer Social Links -->
     <string name="social_twitter">Twitter</string>
@@ -207,11 +212,12 @@
     <string name="social_discord">Join The Discord Server</string>
     <string name="social_twitter_link">https://twitter.com/iamvishalkashi</string>
     <string name="social_instagram_link">https://www.instagram.com/vishal.kashi/</string>
+    <string name="dev_email_id">dev.destructo570@gmail.com</string>
     <string name="social_dribbble_link">https://dribbble.com/VishalKashi</string>
     <string name="social_discord_link">https://discord.gg/n5GmTKAJHs</string>
+    <string name="sushi_play_link">https://play.google.com/store/apps/details?id=com.destructo.sushi_mal</string>
 
-    <string name="join_discord_description">Join our discord server for reporting bugs, feature requests, latest information or having fun!</string>
-    <string name="developer_description">I am Vishal Kashi. Android developer and Graphic/UI/UX designer from India. Hope you liked the app. Contact or checkout more of my work below.</string>
+    <string name="developer_description">Android developer and Graphic/UI/UX designer from India. Hope you liked the app. Contact me or checkout more of my work below.</string>
 
 
     <!-- Login screen -->
@@ -232,7 +238,15 @@
     <string name="pref_desc_about_app">Developers and app licenses</string>
     <string name="pref_title_app_settings">App Settings</string>
     <string name="pref_desc_app_settings">Change app related settings</string>
-
+    <string name="pref_title_discord">Join The Discord Server</string>
+    <string name="pref_desc_discord">Join discord to report bugs, feature requests/suggestions, latest updates, giveaways.</string>
+    <string name="pref_title_rate_app">Rate And Review App</string>
+    <string name="pref_desc_rate_app">Please leave a rating and review if you liked the app.</string>
+    <string name="pref_title_send_feedback">Send Feedback</string>
+    <string name="pref_desc_send_feedback">Send your feedback and suggestions.</string>
+    <string name="pref_title_open_source_license">Open Source License</string>
+    <string name="pref_desc_open_source_license">List of open source licenses.</string>
+    <string name="pref_title_app_version">App Version</string>
     <string name="title_buy_now">Buy Pro To Unlock</string>
     <string name="sushui_pro_perk_one">Dark theme and 5+ more themes.</string>
     <string name="sushui_pro_perk_two">Support the developer.</string>

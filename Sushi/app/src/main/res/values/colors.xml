@@ -42,8 +42,6 @@
     <color name="colorMenuTextSelectedNight">#ffffff</color>
     <color name="colorCardBackgroundNight">#1e1e29</color>
 
-
-
     <!-- Amoled Theme -->
     <color name="colorPrimaryAmoled">#000000</color>
     <color name="contentBackgroundAmoled">#14141c</color>
@@ -67,8 +65,6 @@
     <color name="colorAccentAmoledCyan">#3fffbf</color>
     <color name="colorAccentSecondaryAmoledCyan">#3fffbf</color>
     <color name="contentBackgroundAmoledCyan">#141c1b</color>
-
-
 
     <color name="colorWatching">#00e676</color>
     <color name="colorCompleted">#3d5afe</color>
