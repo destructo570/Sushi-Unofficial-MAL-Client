@@ -33,6 +33,22 @@ class LookAndFeelFragment : PreferenceFragmentCompat(){
                     sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.LIGHT.value)?.apply()
                     requireActivity().recreate()
                 }
+                getString(R.string.theme_amoled)->{
+                    sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.AMOLED.value)?.apply()
+                    requireActivity().recreate()
+                }
+                getString(R.string.theme_amoled_lime)->{
+                    sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.AMOLED_LIME.value)?.apply()
+                    requireActivity().recreate()
+                }
+                getString(R.string.theme_amoled_sakura)->{
+                    sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.AMOLED_SAKURA.value)?.apply()
+                    requireActivity().recreate()
+                }
+                getString(R.string.theme_amoled_cyan)->{
+                        sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.AMOLED_CYAN.value)?.apply()
+                    requireActivity().recreate()
+                }
                 else ->{
                     sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.LIGHT.value)?.apply()
                     requireActivity().recreate()

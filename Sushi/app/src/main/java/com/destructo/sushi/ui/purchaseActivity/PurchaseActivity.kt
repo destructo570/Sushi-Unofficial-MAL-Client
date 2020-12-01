@@ -114,6 +114,7 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
                         ){
                         sharedPref.edit()?.putBoolean(IS_PRO_USER, true)?.apply()
                         Toast.makeText(this,"Purchase restored! Please restart the app.", Toast.LENGTH_LONG).show()
+                        finish()
                     }
                 }
             }
@@ -143,30 +144,6 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
     }
 
-    fun buyDirect(){
-        val skuList = listOf(PRODUCT_ID)
-        val params = SkuDetailsParams.newBuilder()
-        params.setSkusList(skuList)
-            .setType(BillingClient.SkuType.INAPP)
-
-        billingClient.querySkuDetailsAsync(params.build()
-        ) { billingResult, skuDetails ->
-            if (skuDetails != null) {
-                for (skuDetail in skuDetails) {
-                    if (skuDetail.sku == PRODUCT_ID){
-                        launchPurchaseFlow(skuDetail)
-                    }
-                }
-                restoreButton.isEnabled = true
-                purchaseButton.isEnabled = true
-            } else {
-                Toast.makeText(this, "Error retrieving products.",Toast.LENGTH_LONG).show()
-                Timber.e("No Sku Found")
-            }
-        }
-
-    }
-
     private fun launchPurchaseFlow(skuDetails: SkuDetails){
         val flowParams = BillingFlowParams.newBuilder()
             .setSkuDetails(skuDetails)
@@ -182,6 +159,9 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
                     val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
                         .setPurchaseToken(purchase.purchaseToken)
                     billingClient.acknowledgePurchase(acknowledgePurchaseParams.build())
+                    sharedPref.edit()?.putBoolean(IS_PRO_USER, true)?.apply()
+                    showToast("Purchase successful.\nThank you for your support!")
+                    finish()
                 }
             }
         }
@@ -197,6 +177,10 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         }else{
             Timber.e("onPurchaseUpdatedError : ${billingResult.responseCode}")
         }
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show()
     }
 
 }

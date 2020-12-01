@@ -147,6 +147,11 @@ class MainActivity : AppCompatActivity() {
         when(theme){
             AppTheme.LIGHT.value ->{setTheme(R.style.AppTheme)}
             AppTheme.NIGHT.value ->{setTheme(R.style.AppTheme_Dark)}
+            AppTheme.AMOLED.value ->{setTheme(R.style.AppTheme_Amoled)}
+            AppTheme.AMOLED_LIME.value ->{setTheme(R.style.AppTheme_Amoled_Lime)}
+            AppTheme.AMOLED_SAKURA.value ->{setTheme(R.style.AppTheme_Amoled_Sakura)}
+            AppTheme.AMOLED_CYAN.value ->{setTheme(R.style.AppTheme_Amoled_Cyan)}
+
             else ->{setTheme(R.style.AppTheme)}
         }
     }

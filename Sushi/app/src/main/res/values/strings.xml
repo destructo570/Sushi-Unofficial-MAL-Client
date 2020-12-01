@@ -238,9 +238,18 @@
     <string name="sushui_pro_perk_two">Support the developer.</string>
 
 
-
     <string name="theme_light">Light</string>
+    <string name="theme_light_lime">Light Lime</string>
+    <string name="theme_light_sakura">Light Sakura</string>
+    <string name="theme_light_cyan">Light Cyan</string>
     <string name="theme_night">Night</string>
+    <string name="theme_night_lime">Night Lime</string>
+    <string name="theme_night_sakura">Night Sakura</string>
+    <string name="theme_night_cyan">Night Cyan</string>
+    <string name="theme_amoled">Amoled</string>
+    <string name="theme_amoled_lime">Amoled Lime</string>
+    <string name="theme_amoled_sakura">Amoled Sakura</string>
+    <string name="theme_amoled_cyan">Amoled Cyan</string>
 
 
 </resources>
