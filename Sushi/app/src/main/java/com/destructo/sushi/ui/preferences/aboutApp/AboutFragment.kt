@@ -87,9 +87,9 @@ class AboutFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
         toolbar.setNavigationOnClickListener {
-            activity?.drawer_layout?.openDrawer(GravityCompat.START)
+            findNavController().navigateUp()
         }
     }
 
