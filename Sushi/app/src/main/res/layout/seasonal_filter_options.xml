@@ -84,13 +84,12 @@
 
         <Button
             android:id="@+id/season_apply_filter_button"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/SushiPrimaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_small"
-            android:backgroundTint="?attr/colorPrimaryDark"
             android:text="@string/string_apply_filter"
             app:layout_constraintEnd_toStartOf="@+id/season_cancel_filter_button"
             app:layout_constraintHorizontal_chainStyle="packed"
