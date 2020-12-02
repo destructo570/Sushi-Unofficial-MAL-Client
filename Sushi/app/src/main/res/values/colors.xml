@@ -20,6 +20,9 @@
     <color name="colorMenuPressed">#ECEFF1</color>
     <color name="colorMenuTextSelected">#212121</color>
     <color name="colorCardBackground">#ffffff</color>
+    <color name="colorPopupBackground">#ffffff</color>
+
+
 
     <!-- Night Theme -->
     <color name="colorPrimaryNight">#111016</color>
@@ -41,12 +44,16 @@
     <color name="colorMenuPressedNight">#1e1e29</color>
     <color name="colorMenuTextSelectedNight">#ffffff</color>
     <color name="colorCardBackgroundNight">#1e1e29</color>
+    <color name="colorPopupBackgroundNight">#1e1e29</color>
+
 
     <!-- Amoled Theme -->
     <color name="colorPrimaryAmoled">#000000</color>
     <color name="contentBackgroundAmoled">#14141c</color>
     <color name="colorMenuSelectedAmoled">#14141c</color>
     <color name="colorMenuPressedAmoled">#14141c</color>
+    <color name="colorPopupBackgroundAmoled">#14141c</color>
+
 
     <!-- Amoled Lime Theme -->
     <color name="colorPrimaryAmoledLime">#000000</color>

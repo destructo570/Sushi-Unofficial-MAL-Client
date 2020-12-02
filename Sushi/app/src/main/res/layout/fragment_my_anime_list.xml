@@ -26,6 +26,7 @@
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:title="@string/title_my_anime_list"
+                app:popupTheme="@style/PopupMenu"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
             <com.google.android.material.tabs.TabLayout

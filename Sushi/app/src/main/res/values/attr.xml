@@ -19,5 +19,6 @@
     <attr name="colorMenuTextSelected" format="color" />
     <attr name="colorCardBackground" format="color" />
     <attr name="colorAccentSecondary" format="color" />
+    <attr name="popupBackgroundColor" format="color" />
 
 </resources>

@@ -1,9 +1,7 @@
 package com.destructo.sushi.ui.user.animeList
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -12,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
+import com.destructo.sushi.enum.UserAnimeListSort
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +30,10 @@ class MyAnimeListFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){userAnimeViewModel.clearList()}
+        if(savedInstanceState == null){
+            userAnimeViewModel.clearList()
+            userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
+        }
     }
 
     override fun onCreateView(
@@ -76,7 +78,6 @@ class MyAnimeListFragment : Fragment(){
         setupToolbar()
 
         val fragmentList = arrayListOf(
-            //UserAnimeAll(),
             UserAnimeWatching(),
             UserAnimeCompleted(),
             UserAnimeOnHold(),
@@ -91,10 +92,35 @@ class MyAnimeListFragment : Fragment(){
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.user_list_sort, menu)
+
+    }
+
     private fun setupToolbar() {
+        setHasOptionsMenu(true)
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
+        }
+        toolbar.inflateMenu(R.menu.user_list_sort)
+        toolbar.setOnMenuItemClickListener { item ->
+
+            when(item.itemId){
+                R.id.sort_by_title -> {
+                    userAnimeViewModel.clearList()
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)                }
+                R.id.sort_by_score -> {
+                    userAnimeViewModel.clearList()
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)                }
+                R.id.sort_by_last_updated -> {
+                    userAnimeViewModel.clearList()
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)                }
+
+            }
+            true
+
         }
     }
 }

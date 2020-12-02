@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                app:cardBackgroundColor="?attr/contentBackground"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/seasonal_anime_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -76,6 +77,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="?attr/contentBackground"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/top_anime_button"
                 app:layout_constraintTop_toTopOf="parent">

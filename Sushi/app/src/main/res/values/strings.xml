@@ -45,6 +45,9 @@
     <string name="string_apply_filter">Apply Filter</string>
     <string name="string_cancel">Cancel</string>
     <string name="string_sort_by">Sort By</string>
+    <string name="string_sort_by_title">Title</string>
+    <string name="string_sort_by_score">Score</string>
+    <string name="string_sort_by_updated">Last Updated</string>
 
     <string name="string_monday">Monday</string>
     <string name="string_tuesday">Tuesday</string>

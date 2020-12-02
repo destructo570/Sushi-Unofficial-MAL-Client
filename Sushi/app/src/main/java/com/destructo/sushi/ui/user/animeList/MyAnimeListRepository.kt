@@ -4,7 +4,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
-import com.destructo.sushi.enum.mal.UserAnimeSort
+import com.destructo.sushi.enum.UserAnimeListSort
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
@@ -25,6 +25,8 @@ class MyAnimeListRepository
 constructor(
     private val malApi: MalApi,
     private val userAnimeListDao: UserAnimeListDao){
+
+    var anime_sort_type: String = UserAnimeListSort.BY_TITLE.value
 
     var userAnimeListAll: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
 
@@ -144,7 +146,7 @@ constructor(
             GlobalScope.launch {
                 val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    animeStatus, UserAnimeSort.ANIME_TITLE.value, offset,ALL_ANIME_FIELDS)
+                    animeStatus, anime_sort_type, offset,ALL_ANIME_FIELDS)
                 try {
                     val userAnime = getUserAnimeDeferred.await()
                     val userAnimeList = userAnime.data
@@ -169,7 +171,7 @@ constructor(
         GlobalScope.launch {
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                animeStatus, UserAnimeSort.ANIME_TITLE.value, "",ALL_ANIME_FIELDS)
+                animeStatus, anime_sort_type, "",ALL_ANIME_FIELDS)
             try {
                 val userAnime = getUserAnimeDeferred.await()
                 setUserAnimeData(userAnime)

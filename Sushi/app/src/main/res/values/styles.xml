@@ -9,6 +9,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>
         <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -31,6 +32,7 @@
         <item name="colorMenuPressed">@color/colorMenuPressed</item>
         <item name="colorMenuTextSelected">@color/colorMenuTextSelected</item>
         <item name="colorCardBackground">@color/colorCardBackground</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackground</item>
 
     </style>
 
@@ -132,6 +134,11 @@
         <item name="android:popupElevation">@dimen/spinner_popup_elevation</item>
         <item name="android:textColor">?attr/textColorPrimary</item>
         <item name="android:popupBackground">?attr/contentBackground</item>
+    </style>
+
+    <!-- Popup Theme -->
+    <style name="PopupMenu" parent="Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:popupBackground">?attr/popupBackgroundColor</item>
     </style>
 
     <!-- Tab Layout -->

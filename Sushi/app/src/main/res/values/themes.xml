@@ -9,6 +9,7 @@
         <item name="android:textColor">@color/textColorPrimaryNight</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="colorPrimary">@color/colorPrimaryNight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
         <item name="colorAccent">@color/colorAccentNight</item>
@@ -31,6 +32,8 @@
         <item name="colorMenuPressed">@color/colorMenuPressedNight</item>
         <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
         <item name="colorCardBackground">@color/colorCardBackgroundNight</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackgroundNight</item>
+
 
     </style>
 
@@ -43,6 +46,7 @@
         <item name="android:textColor">@color/textColorPrimaryNight</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="colorPrimary">@color/colorPrimaryAmoled</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
         <item name="colorAccent">@color/colorAccentNight</item>
@@ -65,6 +69,8 @@
         <item name="colorMenuPressed">@color/colorMenuPressedAmoled</item>
         <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
         <item name="colorCardBackground">@color/contentBackgroundAmoled</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
+
 
     </style>
 
