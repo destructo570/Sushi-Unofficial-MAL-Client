@@ -23,14 +23,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.*
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
+import com.destructo.sushi.listener.*
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
-import com.destructo.sushi.adapter.*
-import com.destructo.sushi.listener.*
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -220,7 +220,7 @@ class AnimeDetailFragment : Fragment(),
             it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
-
+            it?.let { it.url?.let { it1 -> openUrl(it1) } }
         })
         recommAdapter = AnimeRecommListAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
@@ -229,10 +229,10 @@ class AnimeDetailFragment : Fragment(),
             it?.let { navigateToAnimeDetails(it) }
         })
         videoAdapter = AnimeVideoAdapter(AnimePromoListener {
-            it?.let { openVideoLink(it) }
+            it?.let { openUrl(it) }
         })
         reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
-
+            it?.let { it.url?.let { it1 -> openUrl(it1) } }
         })
 
         animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
@@ -435,7 +435,7 @@ class AnimeDetailFragment : Fragment(),
         )
     }
 
-    private fun openVideoLink(url: String) {
+    private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         startActivity(intent)

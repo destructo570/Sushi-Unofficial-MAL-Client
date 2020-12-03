@@ -1,7 +1,9 @@
 package com.destructo.sushi.ui.manga.mangaDetails
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,17 +23,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
-import com.destructo.sushi.enum.mal.UserMangaStatus
-import com.destructo.sushi.model.mal.common.Genre
-import com.destructo.sushi.network.Status
-import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.adapter.MangaCharacterAdapter
 import com.destructo.sushi.adapter.MangaRecommListAdapter
 import com.destructo.sushi.adapter.MangaRelatedListAdapter
 import com.destructo.sushi.adapter.MangaReviewAdapter
+import com.destructo.sushi.databinding.FragmentMangaDetailsBinding
+import com.destructo.sushi.enum.mal.UserMangaStatus
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.listener.MangaCharacterListener
 import com.destructo.sushi.listener.MangaReviewListener
+import com.destructo.sushi.model.mal.common.Genre
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
 import com.destructo.sushi.util.toTitleCase
@@ -198,11 +200,12 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         })
 
         characterAdapter = MangaCharacterAdapter(MangaCharacterListener {
+            it?.let { it.url?.let { it1 -> openUrl(it1) } }
 
         })
 
         reviewAdapter = MangaReviewAdapter(MangaReviewListener {
-
+            it?.let { it.url?.let { it1 -> openUrl(it1) } }
         })
 
 
@@ -311,6 +314,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                 }
             }
         }
+    }
+    private fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 
     private fun setGenreChips(genreList: List<Genre?>) {

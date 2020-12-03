@@ -251,8 +251,9 @@
     <string name="pref_desc_open_source_license">List of open source licenses.</string>
     <string name="pref_title_app_version">App Version</string>
     <string name="title_buy_now">Buy Pro To Unlock</string>
-    <string name="sushui_pro_perk_one">Dark theme and 5+ more themes.</string>
-    <string name="sushui_pro_perk_two">Support the developer.</string>
+    <string name="sushui_pro_perk_one">Dark theme</string>
+    <string name="sushui_pro_perk_two">Amoled theme</string>
+    <string name="sushui_pro_perk_three">Support the developer.</string>
 
 
     <string name="theme_light">Light</string>

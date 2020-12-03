@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.FragmentCharacterMangaographyBinding
@@ -40,6 +41,7 @@ class CharacterMangaography() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mangaoAdapter = PersonAdapter(PersonListener {
+            it?.let { navigateToMangaDetails(it) }
         })
 
         characterViewModel.character.observe(viewLifecycleOwner){character->
@@ -47,5 +49,11 @@ class CharacterMangaography() : Fragment() {
             mangaoRecyclerView.adapter = mangaoAdapter
         }
 
+    }
+
+    private fun navigateToMangaDetails(mangaMalId: Int){
+        this.findNavController().navigate(
+            CharacterFragmentDirections.actionCharacterFragmentToMangaDetailsFragment(mangaMalId)
+        )
     }
 }

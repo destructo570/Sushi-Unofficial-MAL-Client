@@ -44,7 +44,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buy_now_title" />
 
-
             <TextView
                 android:id="@+id/bullet_point_perk_2"
                 style="@style/TextAppearance.Sushi.B3"
@@ -57,6 +56,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bullet_point_perk_1" />
 
+
+            <TextView
+                android:id="@+id/bullet_point_perk_3"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/sushui_pro_perk_three"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bullet_point_perk_2" />
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/promo_images_view_pager"
                 android:layout_width="match_parent"
@@ -68,7 +80,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bullet_point_perk_2" />
+                app:layout_constraintTop_toBottomOf="@+id/bullet_point_perk_3" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
