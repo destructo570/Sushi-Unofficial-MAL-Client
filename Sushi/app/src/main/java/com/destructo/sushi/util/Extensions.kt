@@ -7,6 +7,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import java.util.*
 
 
@@ -48,5 +50,13 @@ fun View.hideSoftKeyboard() {
             imm?.showSoftInput(this, InputMethodManager.HIDE_IMPLICIT_ONLY)
         }
     }
+}
+
+
+fun <T> Fragment.getNavigationResultLiveData(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
 }
 

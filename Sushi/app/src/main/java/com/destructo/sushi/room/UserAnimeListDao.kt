@@ -28,6 +28,9 @@ interface UserAnimeListDao {
     @Query("DELETE FROM user_anime_list WHERE `offset` LIKE :offset")
     fun deleteUserAnimeListByOffset(offset: Int)
 
+    @Query("DELETE FROM user_anime_list WHERE animeId LIKE :animeId")
+    fun deleteUserAnimeById(animeId: Int)
+
     @Delete
     fun deleteUseAnime(anime: UserAnimeData)
 }

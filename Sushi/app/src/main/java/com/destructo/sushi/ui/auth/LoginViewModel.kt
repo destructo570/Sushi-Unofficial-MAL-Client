@@ -3,14 +3,14 @@ package com.destructo.sushi.ui.auth
 import android.net.Uri
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.destructo.sushi.AC_GRANT_CODE
+import com.destructo.sushi.AR_GRANT_CODE
 import com.destructo.sushi.CLIENT_ID
 import com.destructo.sushi.REDIRECT_URL
+import com.destructo.sushi.model.mal.auth.AuthToken
 import com.destructo.sushi.network.MalAuthApi
+import com.destructo.sushi.network.Resource
 import com.destructo.sushi.util.PKCE
 import com.destructo.sushi.util.SessionManager
 import kotlinx.coroutines.CoroutineScope
@@ -36,6 +36,10 @@ constructor(
     val authComplete: LiveData<String?>
         get() = _authComplete
 
+    private val _refreshComplete: MutableLiveData<Resource<AuthToken>> = MutableLiveData()
+    val refreshComplete: LiveData<Resource<AuthToken>>
+        get() = _refreshComplete
+
 
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -54,6 +58,26 @@ constructor(
 
             }catch (e: Exception){
                 Timber.e("Error: %s", e.message)
+            }
+        }
+    }
+
+    fun refreshAuthToken(
+        refreshToken:String?){
+        _refreshComplete.value = Resource.loading(null)
+            if(!refreshToken.isNullOrBlank()) {
+            viewModelScope.launch{
+                val refreshTokenDeferred = malAuthApi.refreshAuthTokenAsync(CLIENT_ID, refreshToken, AR_GRANT_CODE)
+                try {
+                    val newAuthToken = refreshTokenDeferred.await()
+                    sessionManager.createSession(newAuthToken)
+                    _refreshComplete.value = Resource.success(newAuthToken)
+                    Timber.e("Retrieved token: ${sessionManager.getLatestRefreshToken()?.takeLast(4)}")
+
+                }catch (e: Exception){
+                    _refreshComplete.value = Resource.error(e.message ?: "Failed to refresh token", null)
+
+                }
             }
         }
     }

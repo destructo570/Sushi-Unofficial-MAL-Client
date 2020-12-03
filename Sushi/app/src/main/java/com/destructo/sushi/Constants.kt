@@ -24,20 +24,22 @@ const val BASIC_MANGA_FIELDS ="id,title,main_picture,mean,rank,media_type,nsfw"
 const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
 
 const val DEFAULT_PAGE_LIMIT = "60"
-const val DEFAULT_USER_LIST_PAGE_LIMIT = "10"
+const val DEFAULT_USER_LIST_PAGE_LIMIT = "20"
 
 //Shared Pref Key
 const val CURRENT_THEME = "current_theme"
 const val NSFW_TAG = "nsfw_tag"
 const val IS_PRO_USER = "is_pro_user"
 
-
 //ProductId
 const val PRODUCT_ID = "sushi_pro_key"
 
-
-
 const val NSFW_WHITE = "white"
+
+//5 Days in milliseconds = 432000000
+const val REFRESH_TOKEN_LIMIT = 432000000
+
+
 
 
 

@@ -25,6 +25,9 @@ interface UserMangaListDao {
     @Query("DELETE FROM user_manga_list")
     fun clear()
 
+    @Query("DELETE FROM user_manga_list WHERE mangaId LIKE :id")
+    fun deleteUserMangaById(id: Int)
+
     @Query("DELETE FROM user_manga_list WHERE `offset` LIKE :offset")
     fun deleteUserMangaListByOffset(offset: Int)
 

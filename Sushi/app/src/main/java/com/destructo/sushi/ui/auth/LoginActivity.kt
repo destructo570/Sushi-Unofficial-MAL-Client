@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -14,6 +16,7 @@ import com.destructo.sushi.CLIENT_ID
 import com.destructo.sushi.MainActivity
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.ActivityLoginBinding
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginButton: Button
     private lateinit var loginProgress: ProgressBar
+    private lateinit var welcomeTxt:TextView
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -34,7 +38,39 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (sessionManager.checkLogin()) {
-            onLoginSuccess()
+            if(sessionManager.isTokenExpired()){
+                binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
+                loginButton = binding.malLoginButton
+                loginButton.visibility = View.GONE
+                loginProgress = binding.loginProgress
+                welcomeTxt = binding.welcomeTxt
+                welcomeTxt.visibility = View.GONE
+
+                loginViewModel.refreshAuthToken(sessionManager.getLatestRefreshToken())
+
+                Toast.makeText(this, "Please wait refreshing token", Toast.LENGTH_LONG).show()
+
+                loginViewModel.refreshComplete.observe(this){resource ->
+                    when(resource.status){
+                        Status.LOADING->{
+                            loginProgress.visibility = View.VISIBLE
+                        }
+                        Status.SUCCESS->{
+                            onLoginSuccess()
+                        }
+                        Status.ERROR->{
+                            Toast.makeText(this, "Failed to refresh token", Toast.LENGTH_LONG).show()
+                        }
+
+                    }
+                }
+
+
+            }else{
+                onLoginSuccess()
+            }
+
         } else {
             binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 

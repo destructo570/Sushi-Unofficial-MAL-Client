@@ -8,15 +8,14 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListener
-import com.destructo.sushi.network.Status
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.network.Status
 import timber.log.Timber
 
 
@@ -29,7 +28,7 @@ class UserAnimeWatching : Fragment() {
     private lateinit var userAnimeRecycler: RecyclerView
     private lateinit var userAnimeProgressbar:ProgressBar
     private lateinit var userAnimePaginationProgressbar: ProgressBar
-    private var position = 0
+    private var calledOnce = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,52 +43,45 @@ class UserAnimeWatching : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserAnimeListBinding
-            .inflate(inflater, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-        }
-
-        userAnimeRecycler = binding.userAnimeRecycler
-        userAnimeRecycler.setHasFixedSize(true)
-        userAnimeRecycler.itemAnimator = null
-        userAnimeProgressbar = binding.userAnimeListProgressbar
-        userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
-
-        userAnimeRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    position = (recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstVisibleItemPosition()
+            binding = FragmentUserAnimeListBinding
+                .inflate(inflater, container, false).apply {
+                    lifecycleOwner = viewLifecycleOwner
                 }
-            }
-        })
+
+            userAnimeRecycler = binding.userAnimeRecycler
+            userAnimeRecycler.setHasFixedSize(true)
+            userAnimeRecycler.itemAnimator = null
+            userAnimeProgressbar = binding.userAnimeListProgressbar
+            userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
+
+            userAnimeAdapter = UserAnimeListAdapter(
+                AddEpisodeListener { anime ->
+                    val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
+                    val animeId = anime?.id
+                    if (episodes != null && animeId != null) {
+                        userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1)
+                    }
+                },
+                MalIdListener {
+                    it?.let {
+                        navigateToAnimeDetails(it)
+                    }
+                }, true
+            )
+            userAnimeAdapter.setListEndListener(object : ListEndListener {
+                override fun onEndReached(position: Int) {
+                    userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
+                }
+
+            })
+            Timber.e("Adapter Set")
+            userAnimeRecycler.adapter = userAnimeAdapter
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userAnimeAdapter = UserAnimeListAdapter(
-            AddEpisodeListener { anime ->
-            val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-            val animeId = anime?.id
-            if (episodes != null && animeId != null) {
-                userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1)
-            }
-        },
-            MalIdListener {
-                it?.let {
-                    navigateToAnimeDetails(it)
-                }
-            }, true
-        )
-        userAnimeAdapter.setListEndListener(object : ListEndListener {
-            override fun onEndReached(position: Int) {
-                userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
-            }
 
-        })
-        userAnimeRecycler.adapter = userAnimeAdapter
-        userAnimeRecycler.scrollToPosition(position)
 
         userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
@@ -145,10 +137,11 @@ class UserAnimeWatching : Fragment() {
     override fun onResume() {
         super.onResume()
         //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
-
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
+        calledOnce = true
+
         this.findNavController().navigate(
             MyAnimeListFragmentDirections.actionMyAnimeListFragmentToAnimeDetailFragment(animeMalId)
         )

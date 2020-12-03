@@ -140,7 +140,8 @@ constructor(
 
     private fun loadPage(
         animeStatus: String,
-        offset:String?
+        offset:String?,
+        animeId:Int
     ) {
         if(!offset.isNullOrBlank()){
             GlobalScope.launch {
@@ -151,7 +152,7 @@ constructor(
                     val userAnime = getUserAnimeDeferred.await()
                     val userAnimeList = userAnime.data
                     setUserAnimeData(userAnime)
-                    userAnimeListDao.deleteUserAnimeListByOffset(offset.toInt())
+                    userAnimeListDao.deleteUserAnimeById(animeId)
                     userAnimeListDao.insertUseAnimeList(userAnimeList!!)
 
                 }catch (e:Exception){
@@ -198,7 +199,7 @@ constructor(
                 val animeStatus = addEpisodeDeferred.await()
 
                 val anime = userAnimeListDao.getUserAnimeById(animeId.toInt())
-                anime.status?.let { loadPage(it, anime.offset) }
+                anime.status?.let { loadPage(it, anime.offset, animeId.toInt()) }
 
                 withContext(Dispatchers.Main){
                     userAnimeStatus.value = Resource.success(animeStatus)

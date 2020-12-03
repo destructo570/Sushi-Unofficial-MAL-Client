@@ -135,7 +135,8 @@ constructor(private val malApi: MalApi,
 
     private fun loadPage(
         mangaStatus: String,
-        offset:String?
+        offset:String?,
+        mangaId:Int
     ) {
         if(!offset.isNullOrBlank()){
             GlobalScope.launch {
@@ -146,7 +147,7 @@ constructor(private val malApi: MalApi,
                     val userManga = getUserMangaDeferred.await()
                     val userMangaList = userManga.data
                     setUserMangaData(userManga)
-                    userMangaListDao.deleteUserMangaListByOffset(offset.toInt())
+                    userMangaListDao.deleteUserMangaById(mangaId)
                     userMangaListDao.insertUseMangaList(userMangaList!!)
 
                 }catch (e: java.lang.Exception){
@@ -192,7 +193,7 @@ constructor(private val malApi: MalApi,
             try {
                 val mangaStatus = addChapterDeferred.await()
                 val manga = userMangaListDao.getUserMangaById(mangaId.toInt())
-                mangaStatus.status?.let { loadPage(it, manga.offset) }
+                mangaStatus.status?.let { loadPage(it, manga.offset, mangaId.toInt()) }
                 withContext(Dispatchers.Main){
                     userMangaStatus.value = Resource.success(mangaStatus)
                 }

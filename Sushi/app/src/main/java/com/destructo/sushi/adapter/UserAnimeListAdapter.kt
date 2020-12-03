@@ -67,7 +67,7 @@ class UserAnimeListAdapter(
 
 class UserAnimeDiffUtil : DiffUtil.ItemCallback<UserAnimeData>() {
     override fun areItemsTheSame(oldItem: UserAnimeData, newItem: UserAnimeData): Boolean {
-        return oldItem.anime?.id == newItem.anime?.id
+        return oldItem.anime.id == newItem.anime.id
     }
 
     override fun areContentsTheSame(oldItem: UserAnimeData, newItem: UserAnimeData): Boolean {

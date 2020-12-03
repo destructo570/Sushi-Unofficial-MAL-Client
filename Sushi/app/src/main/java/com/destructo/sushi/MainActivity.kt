@@ -15,10 +15,13 @@ import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.enum.AppTheme
+import com.destructo.sushi.util.SessionManager
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
+import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
      private val appBarConfig by lazy {
         AppBarConfiguration(

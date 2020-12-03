@@ -66,6 +66,7 @@ constructor(
         myAnimeListRepo.anime_sort_type = sort_by
     }
 
+
     fun getUserAnimeByStatus(animeStatus:String): LiveData<List<UserAnimeData>>{
         return userAnimeListDao.getUserAnimeListByStatus(animeStatus)
     }

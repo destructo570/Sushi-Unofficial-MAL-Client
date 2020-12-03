@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import com.destructo.sushi.AR_GRANT_CODE
 import com.destructo.sushi.CLIENT_ID
+import com.destructo.sushi.REFRESH_TOKEN_LIMIT
 import com.destructo.sushi.model.mal.auth.AuthToken
 import com.destructo.sushi.network.MalAuthApi
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,6 +21,7 @@ const val EXPIRES_IN = "ExpiresIn"
 const val ACCESS_TOKEN = "AccessToken"
 const val TOKEN_TYPE = "TokenType"
 const val REFRESH_TOKEN = "RefreshToken"
+const val SAVED_TIME = "SavedTime"
 const val PKCE = "CodeVerifier"
 
 @Singleton
@@ -61,21 +63,20 @@ constructor(
         editor.putString(ACCESS_TOKEN, authToken.accessToken)
         editor.putString(TOKEN_TYPE, authToken.tokenType)
         editor.putString(REFRESH_TOKEN, authToken.refreshToken)
+        editor.putLong(SAVED_TIME, System.currentTimeMillis())
+
         editor.commit()
 
     }
 
     fun getSession(): HashMap<String, String>{
-//        Timber.e("Access Token: %s",sharedPreferences.getString(ACCESS_TOKEN, null))
-//        Timber.e("Token Type: %s",sharedPreferences.getString(TOKEN_TYPE, null))
-//        Timber.e("Refresh Token: %s",sharedPreferences.getString(REFRESH_TOKEN, null))
-//        Timber.e("PKCE: %s",sharedPreferences.getString(PKCE, null))
 
         val currentSession = HashMap<String, String>()
         currentSession[EXPIRES_IN] = sharedPreferences.getInt(EXPIRES_IN, 0).toString()
         currentSession[ACCESS_TOKEN] = sharedPreferences.getString(ACCESS_TOKEN, null) ?: ""
         currentSession[TOKEN_TYPE] = sharedPreferences.getString(TOKEN_TYPE, null) ?: ""
         currentSession[REFRESH_TOKEN] = sharedPreferences.getString(REFRESH_TOKEN, null) ?: ""
+        currentSession[SAVED_TIME] = sharedPreferences.getLong(SAVED_TIME, 0).toString()
         currentSession[PKCE] = sharedPreferences.getString(PKCE, null) ?: ""
 
         return currentSession
@@ -83,6 +84,10 @@ constructor(
 
     fun getLatestToken(): String?{
         return sharedPreferences.getString(ACCESS_TOKEN, null)
+    }
+
+    fun getLatestRefreshToken(): String?{
+        return sharedPreferences.getString(REFRESH_TOKEN, null)
     }
 
     fun generatePkce(){
@@ -102,6 +107,12 @@ constructor(
 
     fun checkLogin(): Boolean {
         return this.isLoggedIn()
+    }
+
+    fun isTokenExpired():Boolean{
+        val currentTime = System.currentTimeMillis()
+        val savedTime = sharedPreferences.getLong(SAVED_TIME, 0)
+        return currentTime.minus(savedTime) >= REFRESH_TOKEN_LIMIT
     }
 
     private fun isLoggedIn(): Boolean {
