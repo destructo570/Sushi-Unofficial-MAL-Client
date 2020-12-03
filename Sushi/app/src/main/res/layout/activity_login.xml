@@ -11,39 +11,51 @@
         android:layout_height="match_parent"
         tools:context="com.destructo.sushi.ui.auth.LoginFragment">
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="172dp"
-            android:layout_height="172dp"
-            android:src="@drawable/test_img"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/welcome_image"
+                android:scaleType="centerCrop"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_gradient" />
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/welcome_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="@string/welcome_text"
-            android:textAppearance="@style/TextAppearance.Sushi.B3"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Sushi.H3"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.63" />
 
         <Button
             android:id="@+id/mal_login_button"
+            style="@style/SushiPrimaryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:stateListAnimator="@null"
             android:text="@string/login_button_text"
-            style="@style/SushiPrimaryButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/welcome_txt" />

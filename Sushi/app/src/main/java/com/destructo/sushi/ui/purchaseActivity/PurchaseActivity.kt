@@ -53,10 +53,9 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         purchaseButton.isEnabled = false
 
         val images = listOf(
-            R.drawable.test_img,
-            R.drawable.ic_add_fill,
-            R.drawable.ic_bar_chart_fill,
-            R.drawable.ic_anime_line
+            R.drawable.app_promo_1,
+            R.drawable.app_promo_2,
+            R.drawable.app_promo_3,
         )
         imagePagerAdapter = ImagePagerAdapter(images)
         promoViewPager.adapter = imagePagerAdapter
