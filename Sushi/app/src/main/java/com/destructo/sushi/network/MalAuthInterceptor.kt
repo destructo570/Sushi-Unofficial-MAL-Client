@@ -33,6 +33,8 @@ class MalAuthInterceptor(
                 }
                 401 -> {
                     try {
+                        Timber.e("Too many requests, Retrying in 3 seconds...")
+                        Thread.sleep(3000L)
                         requestBuilder = chain.request().newBuilder()
                         requestBuilder.addHeader("Authorization","Bearer ${sessionManager.getLatestToken()}")
                     }catch (e:InterruptedException){
