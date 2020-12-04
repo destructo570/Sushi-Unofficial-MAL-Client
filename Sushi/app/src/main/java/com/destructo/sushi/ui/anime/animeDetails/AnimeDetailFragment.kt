@@ -232,11 +232,11 @@ class AnimeDetailFragment : Fragment(),
             it?.let { openUrl(it) }
         })
         reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
-            //it?.let { it.url?.let { it1 -> openUrl(it1) } }
-            it?.let {
-                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
-                reviewDialog.show(childFragmentManager, "anime_review_dialog")
-            }
+            it?.let { it.url?.let { it1 -> openUrl(it1) } }
+//            it?.let {
+//                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
+//                reviewDialog.show(childFragmentManager, "anime_review_dialog")
+//            }
 
 
         })
