@@ -139,6 +139,9 @@
         <action
             android:id="@+id/action_mangaDetailsFragment_self"
             app:destination="@id/mangaDetailsFragment" />
+        <action
+            android:id="@+id/action_mangaDetailsFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
         android:id="@+id/myAnimeListFragment"

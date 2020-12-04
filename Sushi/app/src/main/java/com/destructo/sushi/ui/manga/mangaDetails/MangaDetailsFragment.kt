@@ -201,6 +201,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
         characterAdapter = MangaCharacterAdapter(MangaCharacterListener {
             it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            //it?.let { it.malId?.let { it1 -> navigateToCharacterDetails(it1) } }
 
         })
 
@@ -367,6 +368,12 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private fun navigateToMangaDetails(malId: Int) {
         this.findNavController().navigate(
             MangaDetailsFragmentDirections.actionMangaDetailsFragmentSelf(malId)
+        )
+    }
+
+    private fun navigateToCharacterDetails(character: Int) {
+        this.findNavController().navigate(
+            MangaDetailsFragmentDirections.actionMangaDetailsFragmentToCharacterFragment(character)
         )
     }
 

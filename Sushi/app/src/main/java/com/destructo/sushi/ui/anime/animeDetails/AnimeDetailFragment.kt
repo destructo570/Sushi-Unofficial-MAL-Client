@@ -289,6 +289,7 @@ class AnimeDetailFragment : Fragment(),
                     resources.data?.let {
 
                         characterAdapter.submitList(it.characters)
+                        Timber.e("Data: ${it.characters?.get(0).toString()}")
                         staffAdapter.submitList(it.staff)
                         characterRecycler.adapter = characterAdapter
                         staffRecycler.adapter = staffAdapter
