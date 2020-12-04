@@ -217,7 +217,7 @@ class AnimeDetailFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
-            it?.let { navigateToCharacterDetails(it) }
+            //it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
             it?.let { it.url?.let { it1 -> openUrl(it1) } }
