@@ -12,177 +12,75 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:id="@+id/toolbar"
-            app:layout_scrollFlags="scroll|enterAlways"
-            style="@style/ToolBarWithNavigationBack"
-            app:title="@string/title_character_details"
-            app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-            />
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/anime_collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentScrim="?attr/colorPrimary"
+            android:layout_height="@dimen/collapsing_toobar_height"
+            app:contentScrim="?colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
+            app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
+            app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
+            app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
+            app:title="@{characterEntity.name}"
             >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                app:layout_scrollFlags="scroll"
-                tools:context="com.destructo.sushi.ui.anime.characterDetails.CharacterFragment">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/imageView"
-                android:layout_width="133dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="16dp"
-                app:cardUseCompatPadding="true"
-                android:elevation="0dp"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/anime_desc_cover_img"
                     imageUrl="@{characterEntity.imageUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:foreground="@color/foregroundTintDarkPrimary"
                     android:scaleType="centerCrop"
                     android:src="@drawable/test_img" />
-            </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_small"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/character_name"
-                    android:textAppearance="@style/TextAppearance.Sushi.B3"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="16dp"
-                android:text="@{characterEntity.name}"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView15"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView15" />
-
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginTop="4dp"
-                android:text="@string/character_name_kanji"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="16dp"
-                android:text="@{characterEntity.nameKanji}"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView25"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView25" />
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginTop="4dp"
-                android:text="@string/character_nick_names"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-            <TextView
-                android:id="@+id/textView28"
-                characterNickName="@{characterEntity.nicknames}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView27"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView27" />
-
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginTop="4dp"
-                android:text="@string/character_member_fav"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="16dp"
-                android:text="@{characterEntity.memberFavorites.toString()}"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView29"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView29" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                style="@style/ToolBarWithNavigationBack"
+                android:background="@null"
+                app:layout_collapseMode="pin"
+                />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:behavior_overlapTop="?actionBarSize"
+            >
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/character_tab_layout"
             style="@style/TabLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="8dp"
             android:paddingBottom="@dimen/margin_micro"
             app:layout_collapseMode="pin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
- />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-
+            />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/character_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
+        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
@@ -23,6 +25,7 @@ class CharacterFragment() : Fragment() {
     private lateinit var characterTabLayout: TabLayout
     private var characterArg: Int = 0
     private lateinit var characterTabMediator:TabLayoutMediator
+    private lateinit var toolbar: Toolbar
 
     private val characterViewModel: CharacterViewModel by viewModels()
 
@@ -43,9 +46,9 @@ class CharacterFragment() : Fragment() {
             .inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+        toolbar = binding.toolbar
         characterPager = binding.characterViewPager
         characterTabLayout = binding.characterTabLayout
-
 
         characterTabMediator = TabLayoutMediator(characterTabLayout, characterPager) { tab, position ->
             when (position) {
@@ -68,6 +71,8 @@ class CharacterFragment() : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        setupToolbar()
 
         characterViewModel.character.observe(viewLifecycleOwner) { character ->
             binding.characterEntity = character
@@ -92,6 +97,12 @@ class CharacterFragment() : Fragment() {
         characterPager.adapter = characterPagerAdapter
         characterTabMediator.attach()
 
+    }
+
+    fun setupToolbar(){
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
 
