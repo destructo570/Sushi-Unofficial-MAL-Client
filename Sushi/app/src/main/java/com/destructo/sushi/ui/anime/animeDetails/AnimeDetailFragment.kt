@@ -235,7 +235,7 @@ class AnimeDetailFragment : Fragment(),
             //it?.let { it.url?.let { it1 -> openUrl(it1) } }
             it?.let {
                 val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
-                reviewDialog.show(childFragmentManager, "review_dialog")
+                reviewDialog.show(childFragmentManager, "anime_review_dialog")
             }
 
 

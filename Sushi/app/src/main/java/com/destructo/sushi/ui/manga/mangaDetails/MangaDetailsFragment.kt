@@ -205,7 +205,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         })
 
         reviewAdapter = MangaReviewAdapter(MangaReviewListener {
-            it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            //it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            it?.let {
+                val reviewDialog = MangaReviewBottomSheetFragment.newInstance(it)
+                reviewDialog.show(childFragmentManager, "manga_review_dialog")
+            }
         })
 
 

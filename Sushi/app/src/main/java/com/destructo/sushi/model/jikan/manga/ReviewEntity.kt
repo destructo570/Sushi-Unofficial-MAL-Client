@@ -1,7 +1,10 @@
 package com.destructo.sushi.model.jikan.manga
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 class ReviewEntity(
     @Json(name = "content")
     val content: String?=null,
@@ -14,7 +17,7 @@ class ReviewEntity(
     @Json(name = "reviewer")
     val reviewer: Reviewer?=null,
     @Json(name = "type")
-    val type: Any?=null,
+    val type: String?=null,
     @Json(name = "url")
     val url: String?=null
-)
+):Parcelable

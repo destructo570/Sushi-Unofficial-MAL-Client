@@ -1,29 +1,31 @@
-package com.destructo.sushi.ui.anime.animeDetails
+package com.destructo.sushi.ui.manga.mangaDetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentAnimeReviewBottomSheetBinding
-import com.destructo.sushi.model.jikan.common.Review
-import com.destructo.sushi.model.jikan.common.ReviewScores
+import com.destructo.sushi.databinding.FragmentMangaReviewBottomSheetBinding
+import com.destructo.sushi.model.jikan.manga.ReviewEntity
+import com.destructo.sushi.model.jikan.manga.Scores
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import timber.log.Timber
 
-private const val ANIME_REVIEW = "anime_review_object"
+private const val MANGA_REVIEW = "manga_review_object"
 
-class AnimeReviewBottomSheetFragment : BottomSheetDialogFragment() {
+class MangaReviewBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private var review: Review? = null
-    private lateinit var binding: FragmentAnimeReviewBottomSheetBinding
-    private lateinit var scoreChipGroup:ChipGroup
+    private var review: ReviewEntity? = null
+    private lateinit var binding: FragmentMangaReviewBottomSheetBinding
+    private lateinit var scoreChipGroup: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            review = it.getParcelable(ANIME_REVIEW)
+            review = it.getParcelable(MANGA_REVIEW)
+            Timber.e("Review: ${review.toString()}")
         }
     }
 
@@ -32,14 +34,14 @@ class AnimeReviewBottomSheetFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentAnimeReviewBottomSheetBinding.inflate(inflater, container, false).apply {
+        binding = FragmentMangaReviewBottomSheetBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
 
         scoreChipGroup =  binding.scoreChipGroup
 
         review?.let {
-            it.reviewer?.reviewScores?.let { scores -> setScoreChips(scores) }
+            it.reviewer?.scores?.let { scores -> setScoreChips(scores) }
             binding.review = it
         }
 
@@ -49,21 +51,20 @@ class AnimeReviewBottomSheetFragment : BottomSheetDialogFragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(review: Review) =
-            AnimeReviewBottomSheetFragment().apply {
+        fun newInstance(review: ReviewEntity) =
+            MangaReviewBottomSheetFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(ANIME_REVIEW, review)
+                    putParcelable(MANGA_REVIEW, review)
                 }
             }
     }
 
-    private fun setScoreChips(reviewScores: ReviewScores){
+
+    private fun setScoreChips(reviewScores: Scores){
         reviewScores.art?.let {createChip(getString(R.string.art) + " " + it )}
-        reviewScores.animation?.let {createChip(getString(R.string.animation) + " " + it)}
         reviewScores.character?.let {createChip(getString(R.string.character) + " " + it)}
         reviewScores.enjoyment?.let {createChip(getString(R.string.enjoyment) + " " + it)}
         reviewScores.overall?.let {createChip(getString(R.string.overall) + " " + it)}
-        reviewScores.sound?.let {createChip(getString(R.string.sound) + " " + it)}
         reviewScores.story?.let {createChip(getString(R.string.story) + " " + it)}
     }
 

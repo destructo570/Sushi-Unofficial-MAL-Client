@@ -1,8 +1,11 @@
 package com.destructo.sushi.model.jikan.manga
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Scores(
     @Json(name = "art")
     val art: Int?=null,
@@ -14,4 +17,4 @@ data class Scores(
     val overall: Int?=null,
     @Json(name = "story")
     val story: Int?=null
-)
+): Parcelable
