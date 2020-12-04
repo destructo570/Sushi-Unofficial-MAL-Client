@@ -270,4 +270,14 @@
     <string name="theme_amoled_cyan">Amoled Cyan</string>
 
 
+    <!-- Anime Review Score -->
+    <string name="animation">Animation: </string>
+    <string name="art">Art: </string>
+    <string name="character">Character: </string>
+    <string name="enjoyment">Enjoyment: </string>
+    <string name="overall">Overall: </string>
+    <string name="sound">Sound: </string>
+    <string name="story">Story: </string>
+
+
 </resources>

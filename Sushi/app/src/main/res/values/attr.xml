@@ -20,5 +20,6 @@
     <attr name="colorCardBackground" format="color" />
     <attr name="colorAccentSecondary" format="color" />
     <attr name="popupBackgroundColor" format="color" />
+    <attr name="customChipStyle" format="reference" />
 
 </resources>

@@ -232,7 +232,13 @@ class AnimeDetailFragment : Fragment(),
             it?.let { openUrl(it) }
         })
         reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
-            it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            //it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            it?.let {
+                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
+                reviewDialog.show(childFragmentManager, "review_dialog")
+            }
+
+
         })
 
         animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
@@ -373,17 +379,8 @@ class AnimeDetailFragment : Fragment(),
         genreChipGroup.removeAllViews()
         genreList.forEach { genre ->
             genre?.let {
-                val chip = Chip(context)
+                val chip = Chip(context, null, R.attr.customChipStyle)
                 chip.text = it.name
-                chip.isClickable = false
-                chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-                chip.chipBackgroundColor =
-                    context?.let { it1 ->
-                        AppCompatResources.getColorStateList(
-                            it1,
-                            R.color.chip_bg_color
-                        )
-                    }
                 genreChipGroup.addView(chip)
             }
         }

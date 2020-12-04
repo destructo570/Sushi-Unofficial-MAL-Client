@@ -325,18 +325,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         genreChipGroup.removeAllViews()
         genreList.forEach { genre ->
             genre?.let {
-                val chip = Chip(context)
+                val chip = Chip(context, null, R.attr.customChipStyle)
                 chip.text = it.name
-                chip.isClickable = false
-                chip.setTextAppearance(R.style.TextAppearance_Sushi_ByLine2)
-
-                chip.chipBackgroundColor =
-                    context?.let { it1 ->
-                        AppCompatResources.getColorStateList(
-                            it1,
-                            R.color.chip_bg_color
-                        )
-                    }
                 genreChipGroup.addView(chip)
             }
         }

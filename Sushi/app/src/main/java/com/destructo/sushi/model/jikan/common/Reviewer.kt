@@ -1,8 +1,11 @@
-package com.destructo.jikanplay.model.common
+package com.destructo.sushi.model.jikan.common
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Reviewer(
     @Json(name = "episodes_seen")
     val episodesSeen: Int?=null,
@@ -14,4 +17,4 @@ data class Reviewer(
     val url: String?=null,
     @Json(name = "username")
     val username: String?=null
-)
+):Parcelable

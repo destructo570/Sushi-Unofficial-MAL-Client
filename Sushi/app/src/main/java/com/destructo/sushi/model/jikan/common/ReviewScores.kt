@@ -1,8 +1,11 @@
-package com.destructo.jikanplay.model.common
+package com.destructo.sushi.model.jikan.common
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ReviewScores(
     @Json(name = "art")
     val art: Int?=null,
@@ -18,4 +21,4 @@ data class ReviewScores(
     val sound: Int?=null,
     @Json(name = "story")
     val story: Int?=null
-)
+):Parcelable

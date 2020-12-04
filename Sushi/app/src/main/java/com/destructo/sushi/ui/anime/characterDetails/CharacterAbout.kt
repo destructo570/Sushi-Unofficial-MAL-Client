@@ -28,7 +28,7 @@ class CharacterAbout : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
         characterAbout?.let {
-            binding.characterAboutTxt.text = it
+            binding.characterAboutTxt.text = it.replace("\\n", "\n")
         }
 
         return binding.root

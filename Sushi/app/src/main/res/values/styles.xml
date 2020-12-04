@@ -33,6 +33,7 @@
         <item name="colorMenuTextSelected">@color/colorMenuTextSelected</item>
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="popupBackgroundColor">@color/colorPopupBackground</item>
+        <item name="customChipStyle">@style/CustomChipChoice</item>
 
     </style>
 
@@ -169,8 +170,14 @@
         <item name="android:textAppearance">@style/TextAppearance.Sushi.H1</item>
     </style>
 
+    <!-- Custom Chip Choice -->
     <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@color/chip_bg_color</item>
+        <item name="chipBackgroundColor">?attr/contentBackground</item>
+        <item name="android:clickable">false</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.ByLine2</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="android:textColor">?attr/textColorTertiary</item>
+
     </style>
 
     <!-- Info -->

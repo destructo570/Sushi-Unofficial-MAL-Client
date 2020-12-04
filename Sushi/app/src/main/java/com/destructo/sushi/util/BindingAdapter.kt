@@ -68,6 +68,13 @@ fun TextView.setMangaButtonState(data: MyMangaListStatus?) {
     }
 }
 
+@BindingAdapter("formattedLineBreakText")
+fun TextView.replaceLineBreak(data: String?) {
+    data?.let {
+            text = data.replace("\\n", "\n")
+    }
+}
+
 @BindingAdapter("smallTitleFormatted")
 fun TextView.setCharacterTitle(data: String?) {
     data?.let {
