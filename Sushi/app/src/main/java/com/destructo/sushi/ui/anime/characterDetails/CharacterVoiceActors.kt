@@ -43,7 +43,7 @@ class CharacterVoiceActors(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         voiceAdapter = VoiceActorAdapter(MalIdListener{
-            it?.let {navigateToPersonFragment(it)}
+            //it?.let {navigateToPersonFragment(it)}
         })
 
         characterViewModel.character.observe(viewLifecycleOwner){character->

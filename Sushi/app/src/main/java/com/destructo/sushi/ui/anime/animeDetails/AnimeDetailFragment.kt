@@ -220,9 +220,8 @@ class AnimeDetailFragment : Fragment(),
             it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
-            //it?.let { it.url?.let { it1 -> openUrl(it1) } }
-            it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
- 
+            it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            //it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
 
         })
         recommAdapter = AnimeRecommListAdapter(MalIdListener {
