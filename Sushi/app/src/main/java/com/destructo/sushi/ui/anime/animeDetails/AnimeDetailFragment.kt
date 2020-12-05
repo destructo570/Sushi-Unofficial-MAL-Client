@@ -220,7 +220,10 @@ class AnimeDetailFragment : Fragment(),
             it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
-            it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            //it?.let { it.url?.let { it1 -> openUrl(it1) } }
+            it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
+ 
+
         })
         recommAdapter = AnimeRecommListAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
@@ -429,6 +432,12 @@ class AnimeDetailFragment : Fragment(),
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
             AnimeDetailFragmentDirections.actionAnimeDetailFragmentToCharacterFragment(character)
+        )
+    }
+
+    private fun navigateToPersonDetails(malId: Int) {
+        this.findNavController().navigate(
+            AnimeDetailFragmentDirections.actionAnimeDetailFragmentToPersonFragment(malId)
         )
     }
 
