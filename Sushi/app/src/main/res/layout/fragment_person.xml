@@ -1,0 +1,87 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="personEntity"
+            type="com.destructo.sushi.model.jikan.person.PersonEntity" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/person_collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/collapsing_toobar_height"
+                app:contentScrim="?colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
+                app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
+                app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
+                app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
+                app:title="@{personEntity.name}"
+                >
+
+                <ImageView
+                    imageUrl="@{personEntity.imageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:foreground="@color/foregroundTintDarkPrimary"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test_img" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    style="@style/ToolBarWithNavigationBack"
+                    android:background="@null"
+                    app:layout_collapseMode="pin"
+                    />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:behavior_overlapTop="?actionBarSize"
+            >
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/person_tab_layout"
+                style="@style/TabLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:paddingBottom="@dimen/margin_micro"
+                app:layout_collapseMode="pin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/person_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

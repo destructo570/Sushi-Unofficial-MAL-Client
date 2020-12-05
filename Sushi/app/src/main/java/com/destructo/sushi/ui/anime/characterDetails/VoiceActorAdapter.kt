@@ -6,16 +6,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemVoiceActorBinding
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.anime.support.VoiceActor
 
-class VoiceActorAdapter :
+class VoiceActorAdapter (
+    val malIdListener: MalIdListener
+        ):
     ListAdapter<VoiceActor, VoiceActorAdapter.ViewHolder>(VoiceActorDiffUtil()) {
 
     class ViewHolder private constructor(val binding: ListItemVoiceActorBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(voiceActor: VoiceActor) {
+        fun bind(voiceActor: VoiceActor, malIdListener: MalIdListener) {
             binding.voiceActor = voiceActor
+            binding.listener = malIdListener
         }
 
         companion object {
@@ -36,7 +40,7 @@ class VoiceActorAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val person = getItem(position)
-        holder.bind(person)
+        holder.bind(person,malIdListener)
     }
 
 }

@@ -279,5 +279,11 @@
     <string name="sound">Sound: </string>
     <string name="story">Story: </string>
 
+    <!-- Person Section -->
+    <string name="about">About</string>
+    <string name="voice_acting">Voice Acting</string>
+    <string name="anime_staff_role">Anime Staff</string>
+
+
 
 </resources>

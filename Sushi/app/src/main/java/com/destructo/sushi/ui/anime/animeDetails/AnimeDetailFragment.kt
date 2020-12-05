@@ -217,7 +217,7 @@ class AnimeDetailFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
-            //it?.let { navigateToCharacterDetails(it) }
+            it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
             it?.let { it.url?.let { it1 -> openUrl(it1) } }
@@ -289,7 +289,6 @@ class AnimeDetailFragment : Fragment(),
                     resources.data?.let {
 
                         characterAdapter.submitList(it.characters)
-                        Timber.e("Data: ${it.characters?.get(0).toString()}")
                         staffAdapter.submitList(it.staff)
                         characterRecycler.adapter = characterAdapter
                         staffRecycler.adapter = staffAdapter

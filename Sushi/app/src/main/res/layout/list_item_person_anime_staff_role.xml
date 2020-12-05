@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="voiceActor"
-            type="com.destructo.sushi.model.jikan.anime.support.VoiceActor" />
+            name="animeStaff"
+            type="com.destructo.sushi.model.jikan.person.AnimeStaffPosition" />
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalIdListener" />
@@ -16,15 +16,16 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{()-> listener.onClick(voiceActor.malId)}"
         style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="@{() -> listener.onClick(animeStaff.anime.malId)}"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -33,7 +34,7 @@
                 android:layout_height="@dimen/item_card_image_height"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{voiceActor.imageUrl}"
+                app:imageUrl="@{animeStaff.anime.imageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -45,15 +46,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/item_card_text_margin_normal"
                 android:layout_marginBottom="@dimen/item_card_text_margin_small"
-                android:ellipsize="end"
-                android:maxEms="7"
-                android:text="@{voiceActor.language}"
+                android:text="@{animeStaff.position}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@string/fake_anime_type" />
+
 
             <TextView
                 android:id="@+id/list_anime_title"
@@ -62,16 +62,16 @@
                 android:layout_marginStart="@dimen/item_card_text_margin_normal"
                 android:layout_marginTop="@dimen/item_card_text_margin_small"
                 android:layout_marginEnd="@dimen/item_card_text_margin_normal"
-                android:layout_marginBottom="@dimen/item_card_text_margin_normal"
+                android:layout_marginBottom="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:minLines="2"
-                android:text="@{voiceActor.name}"
+                android:text="@{animeStaff.anime.name}"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_anime_cover"
+                app:layout_constraintVertical_bias="0.39"
                 app:layout_constraintVertical_chainStyle="spread_inside"
                 tools:text="@string/fake_anime_title" />
 

@@ -2,7 +2,7 @@ package com.destructo.sushi.model.jikan
 
 import com.squareup.moshi.Json
 
-class MALSubEntity(
+data class MALSubEntity(
     @Json(name = "image_url")
     val imageUrl: String,
     @Json(name = "mal_id")
