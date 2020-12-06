@@ -74,7 +74,6 @@ class UserAnimeWatching : Fragment() {
                 }
 
             })
-            Timber.e("Adapter Set")
             userAnimeRecycler.adapter = userAnimeAdapter
 
         return binding.root
