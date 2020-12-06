@@ -105,8 +105,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         }else{
             mangaIdArg = MangaDetailsFragmentArgs.fromBundle(requireArguments()).mangaId
             mangaDetailViewModel.getMangaDetail(mangaIdArg, false)
-            mangaDetailViewModel.getMangaCharacters(mangaIdArg)
-            mangaDetailViewModel.getMangaReviews(mangaIdArg)
+//            mangaDetailViewModel.getMangaCharacters(mangaIdArg)
+//            mangaDetailViewModel.getMangaReviews(mangaIdArg)
         }
 
     }
@@ -223,6 +223,9 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                 Status.SUCCESS -> {
                     mangaDetailProgressBar.visibility = View.GONE
                     resource.data?.let { manga ->
+                        mangaDetailViewModel.getMangaCharacters(mangaIdArg)
+                        mangaDetailViewModel.getMangaReviews(mangaIdArg)
+
                         binding.mangaEntity = manga
 
                         if (manga.myMangaListStatus != null) {

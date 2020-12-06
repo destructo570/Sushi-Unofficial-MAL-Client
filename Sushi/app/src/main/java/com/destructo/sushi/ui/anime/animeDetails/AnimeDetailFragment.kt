@@ -111,9 +111,9 @@ class AnimeDetailFragment : Fragment(),
         }else{
             animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
             animeDetailViewModel.getAnimeDetail(animeIdArg, false)
-            animeDetailViewModel.getAnimeCharacters(animeIdArg)
-            animeDetailViewModel.getAnimeVideos(animeIdArg)
-            animeDetailViewModel.getAnimeReviews(animeIdArg)
+//            animeDetailViewModel.getAnimeCharacters(animeIdArg)
+//            animeDetailViewModel.getAnimeVideos(animeIdArg)
+//            animeDetailViewModel.getAnimeReviews(animeIdArg)
 
         }
     }
@@ -251,6 +251,9 @@ class AnimeDetailFragment : Fragment(),
                 Status.SUCCESS -> {
                     animeDetailProgressBar.visibility = View.GONE
                     resources.data?.let { animeEntity ->
+                        animeDetailViewModel.getAnimeCharacters(animeIdArg)
+                        animeDetailViewModel.getAnimeVideos(animeIdArg)
+                        animeDetailViewModel.getAnimeReviews(animeIdArg)
 
                         binding.animeEntity = animeEntity
 
