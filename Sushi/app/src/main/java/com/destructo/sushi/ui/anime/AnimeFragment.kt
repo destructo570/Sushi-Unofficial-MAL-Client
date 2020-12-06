@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeHomeAdapter
-import com.destructo.sushi.adapter.SeasonAnimeHomeAdapter
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
@@ -35,26 +34,18 @@ class AnimeFragment : Fragment() {
     private val animeViewModel: AnimeViewModel by viewModels()
     private lateinit var binding: FragmentAnimeBinding
 
-    private lateinit var topAnimeRecycler: RecyclerView
     private lateinit var upcomingAnimeRecycler: RecyclerView
     private lateinit var currentAiringRecycler: RecyclerView
-    private lateinit var seasonalAnimeRecycler: RecyclerView
 
-    private lateinit var topAnimeAdapter: AnimeHomeAdapter
     private lateinit var upcomingAnimeAdapter: AnimeHomeAdapter
     private lateinit var currentlyAiringAdapter: AnimeHomeAdapter
-    private lateinit var seasonalAnimeAdapter: SeasonAnimeHomeAdapter
 
-    private lateinit var topAnimeSeeMore: TextView
     private lateinit var upcomingAnimeSeeMore: TextView
     private lateinit var currentlyAiringMore: TextView
-    private lateinit var seasonalAnimeMore: TextView
 
     private lateinit var toolbar: Toolbar
-    private lateinit var topAnimeProgressBar:LinearLayout
     private lateinit var airingAnimeProgressBar:LinearLayout
     private lateinit var upcomingAnimeProgressBar:LinearLayout
-    private lateinit var seasonAnimeProgressBar:LinearLayout
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var topAnimeCard: MaterialCardView

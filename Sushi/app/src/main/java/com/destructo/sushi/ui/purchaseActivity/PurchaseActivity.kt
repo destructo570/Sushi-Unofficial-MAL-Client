@@ -102,13 +102,13 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         val result = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
         if (result.purchasesList.isNullOrEmpty()){
             Toast.makeText(this,"No existing purchases found.", Toast.LENGTH_LONG).show()
+            sharedPref.edit()?.putBoolean(IS_PRO_USER, false)?.apply()
         }else{
             Timber.e("Existing Purchases: ${result.purchasesList}")
             val purchaseList = result.purchasesList
             purchaseList?.let {
                 for (purchase in purchaseList){
                     if (purchase.sku == PRODUCT_ID
-                        && purchase.isAcknowledged
                         && purchase.purchaseState == Purchase.PurchaseState.PURCHASED
                         ){
                         sharedPref.edit()?.putBoolean(IS_PRO_USER, true)?.apply()

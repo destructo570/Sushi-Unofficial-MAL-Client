@@ -36,8 +36,10 @@ const val PRODUCT_ID = "sushi_pro_key"
 
 const val NSFW_WHITE = "white"
 
+//1 Days in milliseconds = 86400000
 //5 Days in milliseconds = 432000000
 const val REFRESH_TOKEN_LIMIT = 432000000
+
 
 
 

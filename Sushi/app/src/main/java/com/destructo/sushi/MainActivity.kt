@@ -20,7 +20,6 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,11 +28,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment:NavHostFragment
     private lateinit var navController:NavController
 
-    private lateinit var navView2:NavigationView
     private lateinit var navView:NavigationView
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
+
 
     @Inject
     lateinit var sessionManager: SessionManager
