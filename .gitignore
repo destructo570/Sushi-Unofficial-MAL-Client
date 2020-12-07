@@ -83,3 +83,5 @@ lint/tmp/
 
 # lint/reports/
 
+#Config
+Sushi/app/src/main/java/com/destructo/sushi/Config.kt
