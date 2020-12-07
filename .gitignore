@@ -84,3 +84,6 @@ lint/tmp/
 
 # Config file
 Sushi/app/src/main/java/com/destructo/sushi/Config.kt
+
+# Test file
+Sushi/app/src/main/java/com/destructo/sushi/Test.kt
