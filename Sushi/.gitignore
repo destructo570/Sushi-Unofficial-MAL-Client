@@ -12,3 +12,5 @@
 /captures
 .externalNativeBuild
 .cxx
+
+/app/src/main/java/com/destructo/sushi/Config.kt
