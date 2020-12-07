@@ -10,6 +10,7 @@ const val BASE_JIKAN_URL = "https://api.jikan.moe/v3/"
 const val BASE_MAL_AUTH_URL = "https://myanimelist.net/"
 const val BASE_MAL_API_URL = "https://api.myanimelist.net/v2/"
 
+const val CLIENT_ID = "b36882f5abbf25c157570c921e946b08"
 const val REDIRECT_URL ="com.destructo.sushi://oauth"
 const val AUTH_CODE_URL = "https://myanimelist.net/v1/oauth2/authorize"
 const val AC_GRANT_CODE = "authorization_code"
