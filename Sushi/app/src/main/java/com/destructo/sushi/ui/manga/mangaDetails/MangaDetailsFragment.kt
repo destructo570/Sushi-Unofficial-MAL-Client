@@ -200,17 +200,16 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         })
 
         characterAdapter = MangaCharacterAdapter(MangaCharacterListener {
-            it?.let { it.url?.let { it1 -> openUrl(it1) } }
-            //it?.let { it.malId?.let { it1 -> navigateToCharacterDetails(it1) } }
+            it?.let { it.malId?.let { it1 -> navigateToCharacterDetails(it1) } }
 
         })
 
         reviewAdapter = MangaReviewAdapter(MangaReviewListener {
             it?.let { it.url?.let { it1 -> openUrl(it1) } }
-//            it?.let {
-//                val reviewDialog = MangaReviewBottomSheetFragment.newInstance(it)
-//                reviewDialog.show(childFragmentManager, "manga_review_dialog")
-//            }
+            it?.let {
+                val reviewDialog = MangaReviewBottomSheetFragment.newInstance(it)
+                reviewDialog.show(childFragmentManager, "manga_review_dialog")
+            }
         })
 
 

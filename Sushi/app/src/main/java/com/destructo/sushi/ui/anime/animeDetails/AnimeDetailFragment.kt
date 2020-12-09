@@ -220,9 +220,7 @@ class AnimeDetailFragment : Fragment(),
             it?.let { navigateToCharacterDetails(it) }
         })
         staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
-            it?.let { it.url?.let { it1 -> openUrl(it1) } }
-            //it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
-
+            it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
         })
         recommAdapter = AnimeRecommListAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
@@ -234,11 +232,10 @@ class AnimeDetailFragment : Fragment(),
             it?.let { openUrl(it) }
         })
         reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
-            it?.let { it.url?.let { it1 -> openUrl(it1) } }
-//            it?.let {
-//                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
-//                reviewDialog.show(childFragmentManager, "anime_review_dialog")
-//            }
+            it?.let {
+                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
+                reviewDialog.show(childFragmentManager, "anime_review_dialog")
+            }
 
 
         })
