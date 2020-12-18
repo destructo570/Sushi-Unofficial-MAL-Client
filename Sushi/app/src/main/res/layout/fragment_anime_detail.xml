@@ -183,26 +183,6 @@
                                 bind:animeEntity="@{animeEntity}"
                                 />
                         </LinearLayout>
-                        <LinearLayout
-                            android:id="@+id/anime_ost_est"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_more_info"
-                            >
-
-                            <include
-                                layout="@layout/inc_opening_ending_song_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_small"
-                                android:layout_marginBottom="@dimen/margin_small"
-                                bind:animeEntity="@{animeEntity}"
-                                />
-                        </LinearLayout>
 
                         <include
                             android:id="@+id/anime_videos"
@@ -213,7 +193,7 @@
                             android:layout_marginBottom="@dimen/margin_normal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_ost_est" />
+                            app:layout_constraintTop_toBottomOf="@+id/anime_more_info" />
 
                         <include
                             android:id="@+id/anime_characters"

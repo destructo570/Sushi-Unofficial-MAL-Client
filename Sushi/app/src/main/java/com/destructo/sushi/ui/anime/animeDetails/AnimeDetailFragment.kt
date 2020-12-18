@@ -45,7 +45,6 @@ import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
 import kotlinx.android.synthetic.main.inc_more_anime_detail.view.*
 import kotlinx.android.synthetic.main.inc_my_anime_status.view.*
-import kotlinx.android.synthetic.main.inc_opening_ending_song_detail.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_anime.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
@@ -55,6 +54,8 @@ import timber.log.Timber
 private const val ANIME_IN_USER_LIST = 1
 private const val ANIME_NOT_IN_USER_LIST = 0
 private const val USER_ANIME_LIST_DEFAULT = -1
+private const val ANIME_ID_ARG = "animeId"
+private const val IS_IN_USER_LIST_ARG = "isInUserList"
 
 @AndroidEntryPoint
 class AnimeDetailFragment : Fragment(),
@@ -80,7 +81,6 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var myListEpisode:TextView
     private lateinit var myListCurrentStatus:TextView
     private lateinit var myListRewatching:TextView
-    private lateinit var animeSongsLayout: ConstraintLayout
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
     private lateinit var animeAltTitleLayout: ConstraintLayout
 
@@ -106,22 +106,18 @@ class AnimeDetailFragment : Fragment(),
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null) {
-            animeIdArg = savedInstanceState.getInt("animeId")
-            isInUserList = savedInstanceState.getInt("isInUserList")
+            animeIdArg = savedInstanceState.getInt(ANIME_ID_ARG)
+            isInUserList = savedInstanceState.getInt(IS_IN_USER_LIST_ARG)
         }else{
             animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
             animeDetailViewModel.getAnimeDetail(animeIdArg, false)
-//            animeDetailViewModel.getAnimeCharacters(animeIdArg)
-//            animeDetailViewModel.getAnimeVideos(animeIdArg)
-//            animeDetailViewModel.getAnimeReviews(animeIdArg)
-
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("animeId", animeIdArg)
-        outState.putInt("isInUserList", isInUserList)
+        outState.putInt(ANIME_ID_ARG, animeIdArg)
+        outState.putInt(IS_IN_USER_LIST_ARG, isInUserList)
     }
 
     override fun onCreateView(
@@ -137,17 +133,14 @@ class AnimeDetailFragment : Fragment(),
         coverView = binding.root.anime_desc_cover_img
         genreChipGroup = binding.root.genre_chip_group
         addToListButton = binding.root.add_anime_to_list
-
         myListStatus = binding.myAnimeStatus
         myListCurrentStatus = binding.root.user_anime_status_text
         myListEpisode = binding.root.user_anime_episode_text
         myListScore = binding.root.user_anime_score_text
         myListRewatching = binding.root.user_anime_rewatching_text
         animeDetailProgressBar = binding.animeDetailProgress
-        animeSongsLayout = binding.root.anime_opening_ending
         moreAnimeInfoLayout = binding.root.anime_more_detail
         animeAltTitleLayout = binding.root.anime_alt_title_layout
-
         characterRecycler = binding.root.characterRecycler
         characterRecycler.setHasFixedSize(true)
         staffRecycler = binding.root.staffRecycler
@@ -165,51 +158,10 @@ class AnimeDetailFragment : Fragment(),
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
 
-        toolbar.setNavigationOnClickListener { view ->
-            view.findNavController().navigateUp()
-        }
-
-        addToListButton.setOnClickListener {
-
-            when(isInUserList){
-                USER_ANIME_LIST_DEFAULT->{
-                }
-                ANIME_IN_USER_LIST->{
-                    val myDialog = AnimeUpdateDialog
-                        .newInstance(null, animeStatus,animeEpisodes,animeScore ?: 0)
-                    myDialog.show(childFragmentManager, "animeUpdateDialog")
-                }
-                ANIME_NOT_IN_USER_LIST->{
-                    changeButtonState(it as Button,false)
-                    animeDetailViewModel.updateUserAnimeStatus(animeId = animeIdArg.toString())
-                }
-            }
-        }
-
-        animeSongsLayout.setOnClickListener {
-            if(it.anime_ost_view.visibility != View.VISIBLE){
-                    it.anime_ost_view.visibility = View.VISIBLE
-                }else{
-                it.anime_ost_view.visibility = View.GONE
-            }
-        }
-
-        moreAnimeInfoLayout.setOnClickListener {
-            if(it.anime_more_detail_view.visibility != View.VISIBLE){
-                it.anime_more_detail_view.visibility = View.VISIBLE
-            }else{
-                it.anime_more_detail_view.visibility = View.GONE
-            }
-        }
-        animeAltTitleLayout.setOnClickListener {
-            if(it.anime_alt_title_view.visibility != View.VISIBLE){
-                it.anime_alt_title_view.visibility = View.VISIBLE
-            }else{
-                it.anime_alt_title_view.visibility = View.GONE
-            }
-        }
-
-
+        setupToolbar()
+        setAddToListClickListener()
+        setMoreAnimeInfoClickListener()
+        setAnimeAltTitleClickListener()
 
         return binding.root
     }
@@ -236,7 +188,6 @@ class AnimeDetailFragment : Fragment(),
                 val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
                 reviewDialog.show(childFragmentManager, "anime_review_dialog")
             }
-
 
         })
 
@@ -273,8 +224,6 @@ class AnimeDetailFragment : Fragment(),
 
                         animeEntity.mainPicture?.medium?.let { setScoreCardColor(it) }
 
-
-
                     }
                 }
                 Status.ERROR -> {
@@ -283,18 +232,17 @@ class AnimeDetailFragment : Fragment(),
             }
 
         }
+
         animeDetailViewModel.animeCharacterAndStaff.observe(viewLifecycleOwner) { resources ->
             when (resources.status) {
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
                     resources.data?.let {
-
                         characterAdapter.submitList(it.characters)
                         staffAdapter.submitList(it.staff)
                         characterRecycler.adapter = characterAdapter
                         staffRecycler.adapter = staffAdapter
-
                     }
                 }
                 Status.ERROR -> {
@@ -321,7 +269,6 @@ class AnimeDetailFragment : Fragment(),
             }
 
         }
-
 
         animeDetailViewModel.animeReview.observe(viewLifecycleOwner) { resource ->
 
@@ -410,23 +357,18 @@ class AnimeDetailFragment : Fragment(),
                         palette?.vibrantSwatch?.titleTextColor?.let {
                             scoreTextView.setTextColor(it)
                         }
-
                     }
                 }
-
                 override fun onLoadCleared(placeholder: Drawable?) {
-
                 }
             })
     }
-
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
             AnimeDetailFragmentDirections.actionAnimeDetailFragmentSelf(animeMalId)
         )
     }
-
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
@@ -504,6 +446,50 @@ class AnimeDetailFragment : Fragment(),
         }else{
             button.isEnabled = false
             button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+        }
+    }
+
+    private fun setupToolbar() {
+        toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
+    }
+
+    private fun setAnimeAltTitleClickListener() {
+        animeAltTitleLayout.setOnClickListener {
+            if (it.anime_alt_title_view.visibility != View.VISIBLE) {
+                it.anime_alt_title_view.visibility = View.VISIBLE
+            } else {
+                it.anime_alt_title_view.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setMoreAnimeInfoClickListener() {
+        moreAnimeInfoLayout.setOnClickListener {
+            if (it.anime_more_detail_view.visibility != View.VISIBLE) {
+                it.anime_more_detail_view.visibility = View.VISIBLE
+            } else {
+                it.anime_more_detail_view.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setAddToListClickListener() {
+        addToListButton.setOnClickListener {
+            when (isInUserList) {
+                USER_ANIME_LIST_DEFAULT -> {
+                }
+                ANIME_IN_USER_LIST -> {
+                    val myDialog = AnimeUpdateDialog
+                        .newInstance(null, animeStatus, animeEpisodes, animeScore ?: 0)
+                    myDialog.show(childFragmentManager, "animeUpdateDialog")
+                }
+                ANIME_NOT_IN_USER_LIST -> {
+                    changeButtonState(it as Button, false)
+                    animeDetailViewModel.updateUserAnimeStatus(animeId = animeIdArg.toString())
+                }
+            }
         }
     }
 
