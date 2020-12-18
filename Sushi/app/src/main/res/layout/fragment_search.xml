@@ -47,7 +47,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="8dp"
-                android:paddingBottom="@dimen/margin_micro"
                 app:layout_collapseMode="pin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

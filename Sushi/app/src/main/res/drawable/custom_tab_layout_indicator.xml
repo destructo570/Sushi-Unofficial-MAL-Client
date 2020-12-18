@@ -5,7 +5,10 @@
         android:start="10dp"
         >
         <shape android:shape="rectangle">
-            <corners android:radius="10dp" />
+            <corners
+                android:topLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                />
             <solid android:color="?attr/colorPrimaryDark" />
         </shape>
     </item>
