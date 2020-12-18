@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="season_sort_type">
-        <item>@string/season_sort_type_score</item>
-        <item>@string/season_sort_type_numListUser</item>
+        <item>@string/score</item>
+        <item>@string/number_of_users</item>
     </string-array>
 </resources>

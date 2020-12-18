@@ -155,7 +155,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        toolbar.title = getString(R.string.title_user_profile)
+        toolbar.title = getString(R.string.user_profile)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }

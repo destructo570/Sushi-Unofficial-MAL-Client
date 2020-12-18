@@ -63,7 +63,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="@dimen/margin_normal"
                         android:gravity="center_vertical"
-                        android:text="@string/title_top_anime" />
+                        android:text="@string/top_anime" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -100,7 +100,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="@dimen/margin_normal"
                         android:gravity="center_vertical"
-                        android:text="@string/title_seasonal_anime" />
+                        android:text="@string/seasonal_anime" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

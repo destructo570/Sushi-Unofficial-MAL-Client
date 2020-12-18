@@ -58,15 +58,15 @@ class AnimeScheduleFragment : Fragment(){
 
         scheduleTabMediator = TabLayoutMediator(scheduleTabLayout, scheduleViewPager) { tab, position ->
             when(position){
-                0 ->{tab.text = getString(R.string.string_monday)}
-                1 ->{tab.text = getString(R.string.string_tuesday)}
-                2 ->{tab.text = getString(R.string.string_wednesday)}
-                3 ->{tab.text = getString(R.string.string_thursday)}
-                4 ->{tab.text = getString(R.string.string_friday)}
-                5 ->{tab.text = getString(R.string.string_saturday)}
-                6 ->{tab.text = getString(R.string.string_sunday)}
-                7 ->{tab.text = getString(R.string.string_other)}
-                8 ->{tab.text = getString(R.string.string_unknown)}
+                0 ->{tab.text = getString(R.string.monday)}
+                1 ->{tab.text = getString(R.string.tuesday)}
+                2 ->{tab.text = getString(R.string.wednesday)}
+                3 ->{tab.text = getString(R.string.thursday)}
+                4 ->{tab.text = getString(R.string.friday)}
+                5 ->{tab.text = getString(R.string.saturday)}
+                6 ->{tab.text = getString(R.string.sunday)}
+                7 ->{tab.text = getString(R.string.other)}
+                8 ->{tab.text = getString(R.string.unknown)}
             }
         }
 

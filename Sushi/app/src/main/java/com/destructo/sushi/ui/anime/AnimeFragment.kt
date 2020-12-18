@@ -54,6 +54,7 @@ class AnimeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+
         if (savedInstanceState == null) {
             setHasOptionsMenu(true)
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -188,7 +189,7 @@ class AnimeFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        toolbar.title = getString(R.string.title_browse_anime)
+        toolbar.title = getString(R.string.browse_anime)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }

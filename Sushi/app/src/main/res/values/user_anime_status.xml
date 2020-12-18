@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string-array name="user_anime_status">
-    <item>@string/user_anime_status_watching</item>
-    <item>@string/user_anime_status_completed</item>
-    <item>@string/user_anime_status_plan_to_watch</item>
-    <item>@string/user_anime_status_on_hold</item>
-    <item>@string/user_anime_status_dropped</item>
+    <item>@string/watching</item>
+    <item>@string/completed</item>
+    <item>@string/plan_to_watch</item>
+    <item>@string/on_hold</item>
+    <item>@string/dropped</item>
 </string-array>
 </resources>

@@ -23,7 +23,7 @@
             android:id="@+id/toolbar"
             app:layout_scrollFlags="scroll|enterAlways"
             style="@style/ToolBarWithNavigationBack"
-            app:title="@string/title_top_anime"
+            app:title="@string/top_anime"
             app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
             />
 

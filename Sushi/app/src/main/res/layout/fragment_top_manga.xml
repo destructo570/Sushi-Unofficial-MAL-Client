@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="@string/title_top_manga"
+                app:title="@string/top_manga"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

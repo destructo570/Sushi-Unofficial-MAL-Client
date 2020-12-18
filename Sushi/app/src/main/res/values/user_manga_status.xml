@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="user_manga_status">
-        <item>@string/user_manga_status_reading</item>
-        <item>@string/user_manga_status_completed</item>
-        <item>@string/user_manga_status_plan_to_read</item>
-        <item>@string/user_manga_status_on_hold</item>
-        <item>@string/user_manga_status_dropped</item>
+        <item>@string/reading</item>
+        <item>@string/completed</item>
+        <item>@string/plan_to_read</item>
+        <item>@string/on_hold</item>
+        <item>@string/dropped</item>
     </string-array>
 </resources>

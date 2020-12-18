@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
         val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
 
         setApplicationTheme(currentTheme)
-
         setContentView(R.layout.activity_main)
+
 
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragemnt) as NavHostFragment

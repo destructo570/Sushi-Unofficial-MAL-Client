@@ -141,15 +141,15 @@ class TopMangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.manga_ranking_all) -> { loadSelectedMangaList(ALL.value) }
-            getString(R.string.manga_ranking_manga) -> { loadSelectedMangaList(MANGA.value) }
-            getString(R.string.manga_ranking_novels) -> { loadSelectedMangaList(NOVELS.value) }
-            getString(R.string.manga_ranking_oneshots) -> { loadSelectedMangaList(ONESHOTS.value) }
-            getString(R.string.manga_ranking_doujin) -> { loadSelectedMangaList(DOUJIN.value) }
-            getString(R.string.manga_ranking_manhwa) -> { loadSelectedMangaList(MANHWA.value) }
-            getString(R.string.manga_ranking_manhua) -> { loadSelectedMangaList(MANHUA.value) }
-            getString(R.string.manga_ranking_popularity) -> { loadSelectedMangaList(BY_POPULARITY.value) }
-            getString(R.string.manga_ranking_favorites) -> { loadSelectedMangaList(FAVORITE.value) }
+            getString(R.string.all) -> { loadSelectedMangaList(ALL.value) }
+            getString(R.string.manga) -> { loadSelectedMangaList(MANGA.value) }
+            getString(R.string.novels) -> { loadSelectedMangaList(NOVELS.value) }
+            getString(R.string.oneshots) -> { loadSelectedMangaList(ONESHOTS.value) }
+            getString(R.string.doujin) -> { loadSelectedMangaList(DOUJIN.value) }
+            getString(R.string.manhwa) -> { loadSelectedMangaList(MANHWA.value) }
+            getString(R.string.manhua) -> { loadSelectedMangaList(MANHUA.value) }
+            getString(R.string.popularity) -> { loadSelectedMangaList(BY_POPULARITY.value) }
+            getString(R.string.favorites) -> { loadSelectedMangaList(FAVORITE.value) }
         }
     }
 

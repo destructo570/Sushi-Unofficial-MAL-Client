@@ -53,16 +53,16 @@ class CharacterFragment() : Fragment() {
         characterTabMediator = TabLayoutMediator(characterTabLayout, characterPager) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = getString(R.string.character_about)
+                    tab.text = getString(R.string.about)
                 }
                 1 -> {
-                    tab.text = getString(R.string.character_voice_actor)
+                    tab.text = getString(R.string.voice_actor)
                 }
                 2 -> {
-                    tab.text = getString(R.string.character_animeography)
+                    tab.text = getString(R.string.animeography)
                 }
                 3 -> {
-                    tab.text = getString(R.string.character_mangaography)
+                    tab.text = getString(R.string.mangaography)
                 }
             }
         }

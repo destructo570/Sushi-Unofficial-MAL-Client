@@ -3,10 +3,10 @@
     <group android:checkableBehavior="single">
     <item
         android:id="@+id/myAnimeListFragment"
-        android:title="@string/title_my_anime_list" />
+        android:title="@string/my_anime_list" />
     <item
         android:id="@+id/myMangaListFragment"
-        android:title="@string/title_my_manga_list" />
+        android:title="@string/my_manga_list" />
     </group>
 
     <item android:title="@string/title_anime"
@@ -16,11 +16,11 @@
                 <item
                     android:id="@+id/animeFragment"
                     android:icon="@drawable/ic_anime_line"
-                    android:title="@string/title_browse_anime" />
+                    android:title="@string/browse_anime" />
                 <item
                     android:id="@+id/scheduleFragment"
                     android:icon="@drawable/ic_schedule_line"
-                    android:title="@string/title_anime_schedule" />
+                    android:title="@string/anime_schedule" />
 
             </group>
         </menu>
@@ -34,7 +34,7 @@
                 <item
                     android:id="@+id/mangaFragment"
                     android:icon="@drawable/ic_manga_line"
-                    android:title="@string/title_browse_manga" />
+                    android:title="@string/browse_manga" />
             </group>
         </menu>
 
@@ -85,7 +85,7 @@
                 <item
                     android:id="@+id/settingsFragment"
                     android:icon="@drawable/ic_settings_line"
-                    android:title="@string/title_settings" />
+                    android:title="@string/settings" />
             </group>
         </menu>
 

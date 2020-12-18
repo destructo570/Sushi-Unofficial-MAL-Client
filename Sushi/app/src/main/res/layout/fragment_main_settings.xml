@@ -24,7 +24,7 @@
                 style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="@string/title_settings"
+                app:title="@string/settings"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
         </com.google.android.material.appbar.AppBarLayout>

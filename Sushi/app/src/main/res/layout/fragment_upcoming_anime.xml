@@ -18,7 +18,7 @@
          app:layout_constraintTop_toTopOf="parent"
          style="@style/ToolBarWithNavigationBack"
          app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-         app:title="@string/title_upcoming_anime"
+         app:title="@string/upcoming_anime"
          />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

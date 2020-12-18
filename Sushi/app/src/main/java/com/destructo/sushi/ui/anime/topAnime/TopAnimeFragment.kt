@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.AnimeRankingAdapter
 import com.destructo.sushi.databinding.FragmentTopAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType.*
-import com.destructo.sushi.network.Status
-import com.destructo.sushi.adapter.AnimeRankingAdapter
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -145,15 +145,15 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, pos: Int, p3: Long) {
         when(parent?.getItemAtPosition(pos).toString()){
-            getString(R.string.anime_ranking_all) -> { loadSelectedAnimeList(ALL.value) }
-            getString(R.string.anime_ranking_airing)-> { loadSelectedAnimeList(AIRING.value)}
-            getString(R.string.anime_ranking_upcoming) -> { loadSelectedAnimeList(UPCOMING.value)}
-            getString(R.string.anime_ranking_tv) -> { loadSelectedAnimeList(TV.value)}
-            getString(R.string.anime_ranking_ova) -> { loadSelectedAnimeList(OVA.value)}
-            getString(R.string.anime_ranking_movie) -> { loadSelectedAnimeList(MOVIE.value)}
-            getString(R.string.anime_ranking_special) -> { loadSelectedAnimeList(SPECIAL.value)}
-            getString(R.string.anime_ranking_popularity) -> { loadSelectedAnimeList(BY_POPULARITY.value)}
-            getString(R.string.anime_ranking_favorites) -> { loadSelectedAnimeList(FAVORITE.value)}
+            getString(R.string.all) -> { loadSelectedAnimeList(ALL.value) }
+            getString(R.string.airing)-> { loadSelectedAnimeList(AIRING.value)}
+            getString(R.string.upcoming) -> { loadSelectedAnimeList(UPCOMING.value)}
+            getString(R.string.tv) -> { loadSelectedAnimeList(TV.value)}
+            getString(R.string.ova) -> { loadSelectedAnimeList(OVA.value)}
+            getString(R.string.movie) -> { loadSelectedAnimeList(MOVIE.value)}
+            getString(R.string.special) -> { loadSelectedAnimeList(SPECIAL.value)}
+            getString(R.string.by_popularity) -> { loadSelectedAnimeList(BY_POPULARITY.value)}
+            getString(R.string.favorites) -> { loadSelectedAnimeList(FAVORITE.value)}
 
         }
     }

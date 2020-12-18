@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/animeFragment"
         android:name="com.destructo.sushi.ui.anime.AnimeFragment"
-        android:label="@string/title_browse_anime"
+        android:label="@string/browse_anime"
         tools:layout="@layout/fragment_anime" >
         <action
             android:id="@+id/action_animeFragment_to_topAnimeFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.destructo.sushi.ui.animeSchedule.AnimeScheduleFragment"
-        android:label="@string/title_anime_schedule"
+        android:label="@string/anime_schedule"
         tools:layout="@layout/fragment_anime_schedule" >
         <action
             android:id="@+id/action_scheduleFragment_to_animeDetailFragment"
@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/mangaFragment"
         android:name="com.destructo.sushi.ui.manga.topManga.TopMangaFragment"
-        android:label="@string/title_browse_manga"
+        android:label="@string/browse_manga"
         tools:layout="@layout/fragment_top_manga" >
         <action
             android:id="@+id/action_mangaFragment_to_mangaDetailsFragment"
@@ -47,28 +47,28 @@
     <fragment
         android:id="@+id/clubFragment"
         android:name="com.destructo.sushi.ui.other.clubs.ClubFragment"
-        android:label="@string/title_clubs"
+        android:label="@string/clubs"
         tools:layout="@layout/fragment_club" />
     <fragment
         android:id="@+id/forumFragment"
         android:name="com.destructo.sushi.ui.other.forums.forumFragment"
-        android:label="@string/title_forum"
+        android:label="@string/forum"
         tools:layout="@layout/fragment_forum" />
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.destructo.sushi.ui.other.news.NewsFragment"
-        android:label="@string/title_news"
+        android:label="@string/news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/promotionFragment"
         android:name="com.destructo.sushi.ui.other.promotional.PromotionFragment"
-        android:label="@string/title_promotion"
+        android:label="@string/promotion"
         tools:layout="@layout/fragment_promotion" />
 
     <fragment
         android:id="@+id/topAnimeFragment"
         android:name="com.destructo.sushi.ui.anime.topAnime.TopAnimeFragment"
-        android:label="@string/title_top_anime"
+        android:label="@string/top_anime"
         tools:layout="@layout/fragment_top_anime">
         <action
             android:id="@+id/action_topAnimeFragment_to_animeDetailFragment"
@@ -77,7 +77,7 @@
     <fragment
         android:id="@+id/upcomingAnimeFragment"
         android:name="com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragment"
-        android:label="@string/title_upcoming_anime"
+        android:label="@string/upcoming_anime"
         tools:layout="@layout/fragment_upcoming_anime">
         <action
             android:id="@+id/action_upcomingAnimeFragment_to_animeDetailFragment"
@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/currentlyAiring"
         android:name="com.destructo.sushi.ui.anime.currentlyAiring.CurrentlyAiringFragment"
-        android:label="@string/title_currently_airing"
+        android:label="@string/currently_airing"
         tools:layout="@layout/fragment_currently_airing" >
         <action
             android:id="@+id/action_currentlyAiring_to_animeDetailFragment"
@@ -95,7 +95,7 @@
     <fragment
         android:id="@+id/seasonalAnime"
         android:name="com.destructo.sushi.ui.anime.seasonalAnime.SeasonalAnimeFragment"
-        android:label="@string/title_seasonal_anime"
+        android:label="@string/seasonal_anime"
         tools:layout="@layout/fragment_seasonal_anime" >
         <action
             android:id="@+id/action_seasonalAnime_to_animeDetailFragment"

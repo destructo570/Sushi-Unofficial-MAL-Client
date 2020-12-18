@@ -91,10 +91,10 @@ class SearchFragment : Fragment() {
         resultTabMediator = TabLayoutMediator(resultTabLayout, resultPager) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = getString(R.string.title_search_anime)
+                    tab.text = getString(R.string.search_anime)
                 }
                 1 -> {
-                    tab.text = getString(R.string.title_search_manga)
+                    tab.text = getString(R.string.search_manga)
                 }
             }
         }

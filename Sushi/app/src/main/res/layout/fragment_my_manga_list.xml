@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="@string/title_my_manga_list"
+                app:title="@string/my_manga_list"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
             <com.google.android.material.tabs.TabLayout

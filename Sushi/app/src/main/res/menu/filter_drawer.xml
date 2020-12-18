@@ -6,11 +6,11 @@
         <item
             android:id="@+id/menuone"
             android:icon="@drawable/ic_anime_line"
-            android:title="@string/title_browse_anime" />
+            android:title="@string/browse_anime" />
         <item
             android:id="@+id/menutwo"
             android:icon="@drawable/ic_schedule_line"
-            android:title="@string/title_anime_schedule" />
+            android:title="@string/anime_schedule" />
     </menu>
     </item>
 

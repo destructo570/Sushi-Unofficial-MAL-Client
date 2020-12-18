@@ -19,7 +19,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="@string/title_about_app"
+                app:title="@string/about_app"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"

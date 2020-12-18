@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="@string/title_my_anime_list"
+                app:title="@string/my_anime_list"
                 app:popupTheme="@style/PopupMenu"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 

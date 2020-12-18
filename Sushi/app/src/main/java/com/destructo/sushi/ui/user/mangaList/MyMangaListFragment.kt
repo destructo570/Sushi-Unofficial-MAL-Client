@@ -50,19 +50,19 @@ class MyMangaListFragment : Fragment() {
             TabLayoutMediator(myMangaListTabLayout, myMangaListViewPager) { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = getString(R.string.manga_list_tab_reading)
+                        tab.text = getString(R.string.reading)
                     }
                     1 -> {
-                        tab.text = getString(R.string.manga_list_tab_completed)
+                        tab.text = getString(R.string.completed)
                     }
                     2 -> {
-                        tab.text = getString(R.string.manga_list_tab_onhold)
+                        tab.text = getString(R.string.on_hold)
                     }
                     3 -> {
-                        tab.text = getString(R.string.manga_list_tab_dropped)
+                        tab.text = getString(R.string.dropped)
                     }
                     4 -> {
-                        tab.text = getString(R.string.manga_list_tab_ptr)
+                        tab.text = getString(R.string.plan_to_read)
                     }
                 }
             }

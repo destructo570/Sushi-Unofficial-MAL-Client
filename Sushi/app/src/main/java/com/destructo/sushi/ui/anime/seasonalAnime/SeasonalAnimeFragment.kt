@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
-import com.destructo.sushi.R.string.season_sort_type_numListUser
-import com.destructo.sushi.R.string.season_sort_type_score
+import com.destructo.sushi.R.string.number_of_users
+import com.destructo.sushi.R.string.score
 import com.destructo.sushi.adapter.SeasonAnimeAdapter
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
 import com.destructo.sushi.enum.mal.SeasonalSortType.NUM_LIST_USER
@@ -254,10 +254,10 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     private fun getSortType(selectedItem: String): String {
         var sortType = ""
         when (selectedItem) {
-            getString(season_sort_type_score) -> {
+            getString(score) -> {
                 sortType = SCORE.value
             }
-            getString(season_sort_type_numListUser) -> {
+            getString(number_of_users) -> {
                 sortType = NUM_LIST_USER.value
             }
         }

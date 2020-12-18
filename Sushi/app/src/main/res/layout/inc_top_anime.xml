@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:textAppearance="@style/TextAppearance.Sushi.H1"
-            android:text="@string/title_top_anime"
+            android:text="@string/top_anime"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

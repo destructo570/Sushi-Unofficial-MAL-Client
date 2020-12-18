@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                android:text="@string/anime_detail_status"
+                android:text="@string/status"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover" />
 

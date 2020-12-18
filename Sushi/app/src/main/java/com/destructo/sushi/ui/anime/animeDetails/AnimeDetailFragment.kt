@@ -312,7 +312,7 @@ class AnimeDetailFragment : Fragment(),
             when(it.status){
                 Status.ERROR->{}
                 Status.SUCCESS -> {
-                    addToListButton.text = getString(R.string.anime_detail_add_to_list)
+                    addToListButton.text = getString(R.string.add_to_list)
                     addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
                     myListStatus.visibility = View.GONE
                     animeDetailViewModel.getAnimeDetail(animeIdArg, true)
@@ -430,11 +430,11 @@ class AnimeDetailFragment : Fragment(),
         var status = ""
 
         when(data){
-            getString(R.string.user_anime_status_watching)->{status = WATCHING.value}
-            getString(R.string.user_anime_status_completed)->{status = COMPLETED.value}
-            getString(R.string.user_anime_status_plan_to_watch)->{status = PLAN_TO_WATCH.value}
-            getString(R.string.user_anime_status_dropped)->{status = DROPPED.value}
-            getString(R.string.user_anime_status_on_hold)->{status = ON_HOLD.value}
+            getString(R.string.watching)->{status = WATCHING.value}
+            getString(R.string.completed)->{status = COMPLETED.value}
+            getString(R.string.plan_to_watch)->{status = PLAN_TO_WATCH.value}
+            getString(R.string.dropped)->{status = DROPPED.value}
+            getString(R.string.on_hold)->{status = ON_HOLD.value}
         }
         return status
     }

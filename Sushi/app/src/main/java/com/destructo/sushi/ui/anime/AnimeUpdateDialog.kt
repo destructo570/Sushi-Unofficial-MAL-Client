@@ -174,11 +174,11 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
         val adapter = spinner.adapter as ArrayAdapter<String>
         val array = resources.getStringArray(R.array.user_anime_status)
         when(item?.trim()){
-            getString(R.string.user_anime_status_watching)->{spinner.setSelection(adapter.getPosition(array[0]))}
-            getString(R.string.user_anime_status_completed)->{spinner.setSelection(adapter.getPosition(array[1]))}
-            getString(R.string.user_anime_status_plan_to_watch)->{spinner.setSelection(adapter.getPosition(array[2]))}
-            getString(R.string.user_anime_status_on_hold)->{spinner.setSelection(adapter.getPosition(array[3]))}
-            getString(R.string.user_anime_status_dropped)->{spinner.setSelection(adapter.getPosition(array[4]))}
+            getString(R.string.watching)->{spinner.setSelection(adapter.getPosition(array[0]))}
+            getString(R.string.completed)->{spinner.setSelection(adapter.getPosition(array[1]))}
+            getString(R.string.plan_to_watch)->{spinner.setSelection(adapter.getPosition(array[2]))}
+            getString(R.string.on_hold)->{spinner.setSelection(adapter.getPosition(array[3]))}
+            getString(R.string.dropped)->{spinner.setSelection(adapter.getPosition(array[4]))}
         }
 
     }
@@ -195,17 +195,17 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
     private fun updateSeekBarProgress(progress: Int, textView: TextView){
 
         when(progress){
-            0->{textView.text = getString(R.string.user_score_null)}
-            1->{textView.text = getString(R.string.user_score_one)}
-            2->{textView.text = getString(R.string.user_score_two)}
-            3->{textView.text = getString(R.string.user_score_three)}
-            4->{textView.text = getString(R.string.user_score_four)}
-            5->{textView.text = getString(R.string.user_score_five)}
-            6->{textView.text = getString(R.string.user_score_six)}
-            7->{textView.text = getString(R.string.user_score_seven)}
-            8->{textView.text = getString(R.string.user_score_eight)}
-            9->{textView.text = getString(R.string.user_score_nine)}
-            10->{textView.text = getString(R.string.user_score_ten)}
+            0->{textView.text = getString(R.string.nothing)}
+            1->{textView.text = getString(R.string.score_one)}
+            2->{textView.text = getString(R.string.score_two)}
+            3->{textView.text = getString(R.string.score_three)}
+            4->{textView.text = getString(R.string.score_four)}
+            5->{textView.text = getString(R.string.score_five)}
+            6->{textView.text = getString(R.string.score_six)}
+            7->{textView.text = getString(R.string.score_seven)}
+            8->{textView.text = getString(R.string.score_eight)}
+            9->{textView.text = getString(R.string.score_nine)}
+            10->{textView.text = getString(R.string.score_ten)}
         }
     }
     }

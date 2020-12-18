@@ -116,7 +116,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_normal"
-                                android:text="@string/title_synopsis"
+                                android:text="@string/synopsis"
                                 android:textAppearance="@style/TextAppearance.Sushi.H2"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"

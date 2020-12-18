@@ -23,7 +23,7 @@
                 style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="@string/title_user_profile"
+                app:title="@string/user_profile"
                 app:layout_scrollFlags="scroll|snap"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
@@ -284,7 +284,7 @@
                     android:layout_marginBottom="16dp"
                     style="@style/Widget.Sushi.OutlinedButton"
                     android:stateListAnimator="@null"
-                    android:text="@string/title_logout"
+                    android:text="@string/logout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

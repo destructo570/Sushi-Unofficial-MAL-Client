@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        >
 
         <androidx.fragment.app.FragmentContainerView
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -31,7 +32,7 @@
             app:headerLayout="@layout/profile_header_layout"
             app:menu="@menu/drawer_menu"
             style="@style/Widget.Custom.NavigationView"
-            android:fitsSystemWindows="true" />
+             />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

@@ -310,7 +310,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             when(it.status){
                 Status.ERROR->{}
                 Status.SUCCESS -> {
-                    addToListButton.text = getString(R.string.anime_detail_add_to_list)
+                    addToListButton.text = getString(R.string.add_to_list)
                     addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
                     myListStatus.visibility = View.GONE
                     mangaDetailViewModel.getMangaDetail(mangaIdArg, true)
@@ -392,11 +392,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         var status = ""
 
         when(data){
-            getString(R.string.user_manga_status_reading)->{status = UserMangaStatus.READING.value}
-            getString(R.string.user_manga_status_completed)->{status = UserMangaStatus.COMPLETED.value}
-            getString(R.string.user_manga_status_plan_to_read)->{status = UserMangaStatus.PLAN_TO_READ.value}
-            getString(R.string.user_manga_status_dropped)->{status = UserMangaStatus.DROPPED.value}
-            getString(R.string.user_manga_status_on_hold)->{status = UserMangaStatus.ON_HOLD.value}
+            getString(R.string.reading)->{status = UserMangaStatus.READING.value}
+            getString(R.string.completed)->{status = UserMangaStatus.COMPLETED.value}
+            getString(R.string.plan_to_read)->{status = UserMangaStatus.PLAN_TO_READ.value}
+            getString(R.string.dropped)->{status = UserMangaStatus.DROPPED.value}
+            getString(R.string.on_hold)->{status = UserMangaStatus.ON_HOLD.value}
         }
         return status
     }

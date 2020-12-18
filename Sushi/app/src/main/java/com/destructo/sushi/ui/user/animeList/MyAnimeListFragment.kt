@@ -53,19 +53,19 @@ class MyAnimeListFragment : Fragment(){
             TabLayoutMediator(myAnimeListTabLayout, myAnimeListViewPager) { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = getString(R.string.anime_list_tab_watching)
+                        tab.text = getString(R.string.watching)
                     }
                     1 -> {
-                        tab.text = getString(R.string.anime_list_tab_completed)
+                        tab.text = getString(R.string.completed)
                     }
                     2 -> {
-                        tab.text = getString(R.string.anime_list_tab_onhold)
+                        tab.text = getString(R.string.on_hold)
                     }
                     3 -> {
-                        tab.text = getString(R.string.anime_list_tab_dropped)
+                        tab.text = getString(R.string.dropped)
                     }
                     4 -> {
-                        tab.text = getString(R.string.anime_list_tab_ptw)
+                        tab.text = getString(R.string.plan_to_watch)
                     }
                 }
             }

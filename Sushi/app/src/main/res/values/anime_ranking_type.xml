@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="anime_ranking_type">
-        <item>@string/anime_ranking_all</item>
-        <item>@string/anime_ranking_airing</item>
-        <item>@string/anime_ranking_upcoming</item>
-        <item>@string/anime_ranking_tv</item>
-        <item>@string/anime_ranking_ova</item>
-        <item>@string/anime_ranking_movie</item>
-        <item>@string/anime_ranking_special</item>
-        <item>@string/anime_ranking_popularity</item>
-        <item>@string/anime_ranking_favorites</item>
+        <item>@string/all</item>
+        <item>@string/airing</item>
+        <item>@string/upcoming</item>
+        <item>@string/tv</item>
+        <item>@string/ova</item>
+        <item>@string/movie</item>
+        <item>@string/special</item>
+        <item>@string/by_popularity</item>
+        <item>@string/favorites</item>
     </string-array>
 </resources>
