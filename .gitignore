@@ -85,3 +85,4 @@ lint/tmp/
 
 #Config
 Sushi/app/src/main/java/com/destructo/sushi/Config.kt
+Sushi/app/src/main/java/google-services.json
