@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
@@ -163,6 +164,10 @@ dependencies {
     //Google Api(open source license)
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
 
 kapt {

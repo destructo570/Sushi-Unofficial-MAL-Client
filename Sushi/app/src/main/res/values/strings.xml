@@ -283,6 +283,9 @@
     <string name="about">About</string>
     <string name="voice_acting">Voice Acting</string>
     <string name="anime_staff_role">Anime Staff</string>
+    <string name="notification_channel_name">Update Notification</string>
+    <string name="notification_channel_desc">Notifications regarding latest updates</string>
+    <string name="notification_channel_id">1</string>
 
 
 

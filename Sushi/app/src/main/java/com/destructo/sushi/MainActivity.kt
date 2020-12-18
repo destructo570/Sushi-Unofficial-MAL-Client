@@ -1,5 +1,8 @@
 package com.destructo.sushi
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
 import javax.inject.Inject
+
+const val CHANNEL_ID = "001"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -79,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
 
         mainViewModel.getUserInfo("anime_statistics")
-
+        createNotificationChannel()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
                 R.id.profileFragment -> {
@@ -127,6 +132,19 @@ class MainActivity : AppCompatActivity() {
                     )
                     .into(profileHeader.header_user_image)
             }
+        }
+
+    }
+
+    private fun createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_channel_name)
+            val descriptionText = getString(R.string.notification_channel_desc)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
+            mChannel.description = descriptionText
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(mChannel)
         }
 
     }
