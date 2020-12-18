@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/margin_small"
+        android:padding="@dimen/margin_normal"
         tools:context="com.destructo.sushi.ui.anime.characterDetails.CharacterAbout">
 
         <androidx.core.widget.NestedScrollView
