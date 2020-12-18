@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Night theme. -->
     <style name="AppTheme.Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
         <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
         <item name="android:textColor">@color/textColorPrimaryNight</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@android:color/black</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="colorPrimary">@color/colorPrimaryNight</item>
@@ -36,13 +37,13 @@
 
     </style>
 
-
-    <!-- Amoled theme. -->
     <style name="AppTheme.Amoled" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
         <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
         <item name="android:textColor">@color/textColorPrimaryNight</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@android:color/black</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="colorPrimary">@color/colorPrimaryAmoled</item>
@@ -71,29 +72,5 @@
 
 
     </style>
-
-    <style name="AppTheme.Amoled.Lime" parent="AppTheme.Amoled">
-        <item name="colorPrimary">@color/colorPrimaryAmoledLime</item>
-        <item name="colorAccent">@color/colorAccentAmoledLime</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryAmoledLime</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoledLime</item>
-        <item name="colorMenuSelected">@color/colorMenuSelectedAmoled</item>
-        <item name="colorMenuPressed">@color/colorMenuPressedAmoled</item>
-    </style>
-
-    <style name="AppTheme.Amoled.Sakura" parent="AppTheme.Amoled">
-        <item name="colorPrimary">@color/colorPrimaryAmoledSakura</item>
-        <item name="colorAccent">@color/colorAccentAmoledSakura</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryAmoledSakura</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoledSakura</item>
-    </style>
-
-    <style name="AppTheme.Amoled.Cyan" parent="AppTheme.Amoled">
-        <item name="colorPrimary">@color/colorPrimaryAmoledCyan</item>
-        <item name="colorAccent">@color/colorAccentAmoledCyan</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryAmoledCyan</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoledCyan</item>
-    </style>
-
 
 </resources>
