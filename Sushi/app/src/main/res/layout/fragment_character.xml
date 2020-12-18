@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp"
         >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -72,12 +73,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
+            android:elevation="4dp"
             />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/character_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
