@@ -2,6 +2,8 @@ package com.destructo.sushi.ui.anime.animeDetails
 
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
+import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
+import com.destructo.sushi.DETAILS_CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.model.database.AnimeCharacterListEntity
 import com.destructo.sushi.model.database.AnimeDetailEntity
 import com.destructo.sushi.model.database.AnimeReviewsEntity
@@ -58,7 +60,7 @@ constructor(
 
             if (animeDetailCache != null){
 
-                    if((System.currentTimeMillis() - animeDetailCache.time) > 20000
+                    if((System.currentTimeMillis() - animeDetailCache.time) > DETAILS_CACHE_EXPIRE_TIME_LIMIT
                         || isEdited) {
                         animeDetailCall(malId)
                     }else{
@@ -80,7 +82,7 @@ constructor(
 
             if (animeCharacterListCache != null){
 
-                if((System.currentTimeMillis() - animeCharacterListCache.time) > 30000) {
+                if((System.currentTimeMillis() - animeCharacterListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     animeCharacterCall(malId)
                 }else{
                     val mAnime = animeCharacterListCache.characterAndStaffList
@@ -103,7 +105,7 @@ constructor(
 
             if (animeVideosListCache != null){
 
-                if((System.currentTimeMillis() - animeVideosListCache.time) > 30000) {
+                if((System.currentTimeMillis() - animeVideosListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     animeVideoCall(malId)
                 }else{
                     val mAnime = animeVideosListCache.videosAndEpisodes
@@ -125,7 +127,7 @@ constructor(
 
             if (animeReviewListCache != null){
 
-                if((System.currentTimeMillis() - animeReviewListCache.time) > 30000) {
+                if((System.currentTimeMillis() - animeReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     animeReviewCall(malId)
                 }else{
                     val mAnime = animeReviewListCache.reviewList

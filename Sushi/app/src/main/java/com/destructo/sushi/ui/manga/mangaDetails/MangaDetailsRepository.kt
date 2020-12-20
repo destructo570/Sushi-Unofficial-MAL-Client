@@ -2,6 +2,8 @@ package com.destructo.sushi.ui.manga.mangaDetails
 
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_MANGA_FIELDS
+import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
+import com.destructo.sushi.DETAILS_CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.model.database.MangaCharacterListEntity
 import com.destructo.sushi.model.database.MangaDetailsEntity
 import com.destructo.sushi.model.database.MangaReviewsEntity
@@ -52,7 +54,7 @@ constructor(
 
             if (mangaDetailCache != null){
 
-                if((System.currentTimeMillis() - mangaDetailCache.time) > 20000
+                if((System.currentTimeMillis() - mangaDetailCache.time) > DETAILS_CACHE_EXPIRE_TIME_LIMIT
                     || isEdited) {
                     mangaDetailsCall(malId)
                 }else{
@@ -75,7 +77,7 @@ constructor(
 
             if (mangaCharacterListCache != null){
 
-                if((System.currentTimeMillis() - mangaCharacterListCache.time) > 20000) {
+                if((System.currentTimeMillis() - mangaCharacterListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     mangaCharactersCall(malId)
                 }else{
                     val mangaCharacterList = mangaCharacterListCache.mangaCharacterList
@@ -97,7 +99,7 @@ constructor(
 
             if (mangaReviewListCache != null){
 
-                if((System.currentTimeMillis() - mangaReviewListCache.time) > 20000) {
+                if((System.currentTimeMillis() - mangaReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     mangaReviewsCall(malId)
                 }else{
                     val mangaCharacterList = mangaReviewListCache.reviewList

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.model.database.AnimeReviewsEntity
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.network.JikanApi
@@ -35,7 +36,7 @@ constructor(
 
             if (animeReviewListCache != null){
 
-                if((System.currentTimeMillis() - animeReviewListCache.time) > 30000) {
+                if((System.currentTimeMillis() - animeReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     animeReviewCall(malId)
                 }else{
                     val mAnime = animeReviewListCache.reviewList

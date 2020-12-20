@@ -24,6 +24,8 @@ const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
 
 const val DEFAULT_PAGE_LIMIT = "60"
 const val DEFAULT_USER_LIST_PAGE_LIMIT = "20"
+const val DETAILS_CACHE_EXPIRE_TIME_LIMIT = 120000
+const val CACHE_EXPIRE_TIME_LIMIT = 900000
 
 //Shared Pref Key
 const val CURRENT_THEME = "current_theme"
@@ -35,7 +37,7 @@ const val PRODUCT_ID = "sushi_pro_key"
 
 const val NSFW_WHITE = "white"
 
-//1 Days in milliseconds = 86400000
+//1 Day in milliseconds = 86400000
 //5 Days in milliseconds = 432000000
 const val REFRESH_TOKEN_LIMIT = 432000000
 

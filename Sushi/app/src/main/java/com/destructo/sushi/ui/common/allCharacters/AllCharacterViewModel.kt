@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.model.database.AnimeCharacterListEntity
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.network.JikanApi
@@ -37,7 +38,7 @@ class AllCharacterViewModel
 
             if (animeCharacterListCache != null){
 
-                if((System.currentTimeMillis() - animeCharacterListCache.time) > 30000) {
+                if((System.currentTimeMillis() - animeCharacterListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     animeCharacterCall(malId)
                 }else{
                     val mAnime = animeCharacterListCache.characterAndStaffList
