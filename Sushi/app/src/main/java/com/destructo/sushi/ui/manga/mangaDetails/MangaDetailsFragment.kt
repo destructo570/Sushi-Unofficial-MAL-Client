@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -79,6 +80,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private var isInUserList:Int = USER_MANGA_LIST_DEFAULT
     private lateinit var mangaMoreInfoLayout:ConstraintLayout
     private lateinit var mangaAltTitleLayout:ConstraintLayout
+    private lateinit var characterSeeMore:TextView
+    private lateinit var reviewSeeMore:TextView
 
 
     private lateinit var characterAdapter: MangaCharacterAdapter
@@ -105,8 +108,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         }else{
             mangaIdArg = MangaDetailsFragmentArgs.fromBundle(requireArguments()).mangaId
             mangaDetailViewModel.getMangaDetail(mangaIdArg, false)
-//            mangaDetailViewModel.getMangaCharacters(mangaIdArg)
-//            mangaDetailViewModel.getMangaReviews(mangaIdArg)
         }
 
     }
@@ -144,10 +145,18 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         scoreTextView = binding.mangaScoreTxt
         coverView = binding.root.manga_desc_cover_img
         genreChipGroup = binding.root.genre_chip_group
+        characterSeeMore = binding.root.charactersMore
+        reviewSeeMore = binding.root.reviewsMore
+
+        characterSeeMore.setOnClickListener {
+            findNavController().navigate(R.id.allMangaCharacters, bundleOf(Pair("malId", mangaIdArg)))
+        }
+        reviewSeeMore.setOnClickListener {
+            findNavController().navigate(R.id.allMangaReviews, bundleOf(Pair("mangaId", mangaIdArg)))
+        }
 
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
-
         }
 
         addToListButton.setOnClickListener {

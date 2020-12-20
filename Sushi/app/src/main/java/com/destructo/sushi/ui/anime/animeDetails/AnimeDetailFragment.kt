@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -102,6 +103,11 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var videoRecycler: RecyclerView
     private lateinit var reviewRecycler: RecyclerView
 
+    private lateinit var characterMore:TextView
+    private lateinit var reviewMore:TextView
+    private lateinit var staffMore:TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -153,6 +159,9 @@ class AnimeDetailFragment : Fragment(),
         videoRecycler.setHasFixedSize(true)
         reviewRecycler = binding.root.reviewsRecycler
         reviewRecycler.setHasFixedSize(true)
+        characterMore = binding.root.charactersMore
+        reviewMore = binding.root.reviewsMore
+        staffMore = binding.root.staffMore
 
         toolbar = binding.animeDescToolbar
         appBar = binding.animeAppBar
@@ -162,6 +171,16 @@ class AnimeDetailFragment : Fragment(),
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
         setAnimeAltTitleClickListener()
+
+        characterMore.setOnClickListener {
+            findNavController().navigate(R.id.allCharactersFragment, bundleOf(Pair("malId", animeIdArg)))
+        }
+        reviewMore.setOnClickListener {
+            findNavController().navigate(R.id.allReviewsFragment, bundleOf(Pair("animeId", animeIdArg)))
+        }
+        staffMore.setOnClickListener {
+            findNavController().navigate(R.id.allAnimeStaffFragment, bundleOf(Pair("malId", animeIdArg)))
+        }
 
         return binding.root
     }

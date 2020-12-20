@@ -23,7 +23,6 @@
             android:id="@+id/staffMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:text="@string/see_all"
             style="@style/Widget.Sushi.SeeMoreText"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"

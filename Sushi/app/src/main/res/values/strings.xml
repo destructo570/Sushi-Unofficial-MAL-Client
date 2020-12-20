@@ -30,6 +30,9 @@
     <string name="upcoming_anime">Upcoming Anime</string>
     <string name="seasonal_anime">Seasonal</string>
     <string name="see_all">See All</string>
+    <string name="all_characters">All Characters</string>
+    <string name="all_reviews">All Reviews</string>
+
 
     <!-- Fake Test Data -->
     <string name="fake_anime_title">Jujutsu Kaisen</string>
@@ -245,7 +248,6 @@
     <string name="notification_channel_name">Update Notification</string>
     <string name="notification_channel_desc">Notifications regarding latest updates</string>
     <string name="notification_channel_id">1</string>
-
 
 
 </resources>

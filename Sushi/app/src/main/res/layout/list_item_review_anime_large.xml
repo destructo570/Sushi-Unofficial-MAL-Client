@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="review"
+            type="com.destructo.sushi.model.jikan.common.Review" />
+
+        <variable
+            name="reviewListener"
+            type="com.destructo.sushi.listener.AnimeReviewListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/review_card_height"
+        style="@style/Widget.Sushi.ItemCardView"
+        app:cardUseCompatPadding="true"
+        android:onClick="@{() -> reviewListener.onClick(review)}"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/anime_score_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/review_card_margin_normal"
+                android:layout_marginTop="@dimen/review_card_margin_normal"
+                style="@style/Widget.Sushi.ItemCardView"
+                app:cardCornerRadius="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    imageUrl="@{review.reviewer.imageUrl}"
+                    android:layout_width="@dimen/reviewer_img_size"
+                    android:layout_height="@dimen/reviewer_img_size"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test_img" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="@dimen/review_card_margin_normal"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxEms="7"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@{review.reviewer.username}"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/fake_anime_title" />
+
+            <TextView
+                android:id="@+id/textView10"
+                formatReviewOverview="@{review}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/review_card_margin_normal"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                tools:text="@string/fake_anime_title" />
+
+            <TextView
+                android:id="@+id/textView13"
+                formatReviewHelpful="@{review}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:textAppearance="@style/TextAppearance.Sushi.B1"
+                app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/review_card_margin_normal"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:scrollbars="none"
+                android:text="@{review.content}"
+                android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+                android:textColor="?attr/textColorSecondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/anime_score_fab"
+                tools:text="@string/fake_anime_desc" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
