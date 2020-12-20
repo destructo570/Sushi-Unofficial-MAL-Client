@@ -27,7 +27,7 @@
                 android:layout_height="?actionBarSize"
                 android:id="@+id/toolbar"
                 style="@style/ToolBarWithNavigationBack"
-                app:title="@string/all_reviews"
+                app:title="@string/all_anime_staff"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
                 />
 
