@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemReviewAnimeLargeBinding
 import com.destructo.sushi.listener.AnimeReviewListener
+import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.model.jikan.common.Review
 
 class AllAnimeReviewsAdapter(private val animeReviewListener: AnimeReviewListener) :
     ListAdapter<Review, AllAnimeReviewsAdapter.ViewHolder>(AllAnimeReviewDiffUtil()) {
+
+    private var listEndListener: ListEndListener? = null
 
     class ViewHolder private constructor(val binding: ListItemReviewAnimeLargeBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,6 +44,13 @@ class AllAnimeReviewsAdapter(private val animeReviewListener: AnimeReviewListene
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animeEntity = getItem(position)
         holder.bind(animeEntity, animeReviewListener)
+        if (position == currentList.size - 1) run {
+            listEndListener?.onEndReached(position)
+        }
+    }
+
+    fun setListEndListener(listEndListener: ListEndListener){
+        this.listEndListener = listEndListener
     }
 
 

@@ -40,8 +40,8 @@ constructor(
         mangaDetailsRepo.getMangaCharacters(malId)
     }
 
-    fun getMangaReviews(malId: Int) {
-        mangaDetailsRepo.getMangaReviews(malId)
+    fun getMangaReviews(malId: Int, page: String) {
+        mangaDetailsRepo.getMangaReviews(malId, page)
     }
 
     fun removeAnime(mangaId:Int){

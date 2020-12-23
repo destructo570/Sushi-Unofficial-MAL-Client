@@ -11,5 +11,5 @@ data class MangaReview(
     @Json(name = "request_hash")
     val requestHash: String?=null,
     @Json(name = "reviews")
-    val reviews: List<ReviewEntity?>?=null
+    val reviews: MutableList<ReviewEntity?>?=null
 )

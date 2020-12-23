@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.adapter.AllMangaReviewAdapter
 import com.destructo.sushi.databinding.FragmentAllMangaReviewsBinding
+import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MangaReviewListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.mangaDetails.MangaReviewBottomSheetFragment
@@ -34,7 +35,7 @@ class AllMangaReviews : Fragment() {
             mangaIdArg = savedInstanceState.getInt("mangaId")
         }else{
             mangaIdArg = AllMangaReviewsArgs.fromBundle(requireArguments()).mangaId
-            allReviewsViewModel.getMangaReviews(mangaIdArg)
+            allReviewsViewModel.getMangaReviews(mangaIdArg, "1")
         }
     }
 
@@ -51,7 +52,7 @@ class AllMangaReviews : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
         reviewsRecyclerView = binding.reviewRecycler
-        reviewsRecyclerView.layoutManager = LinearLayoutManager(context)
+        reviewsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         toolbar = binding.toolbar
 
         setupToolbar()
@@ -67,16 +68,24 @@ class AllMangaReviews : Fragment() {
                 reviewDialog.show(childFragmentManager, "manga_review_dialog")
             }
         })
+        reviewsAdapter.setListEndListener(object : ListEndListener {
+            override fun onEndReached(position: Int) {
+                allReviewsViewModel.loadNextPage(mangaIdArg)
+            }
+        })
         reviewsRecyclerView.adapter = reviewsAdapter
 
         allReviewsViewModel.mangaReview.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
                 Status.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
+                    binding.progressBar.visibility = View.GONE
                     resource.data?.let { mangaReviews ->
-                        reviewsAdapter.submitList(mangaReviews.reviews)
+                        reviewsAdapter
+                            .submitList(allReviewsViewModel.getReviewListById(mangaIdArg)?.reviews)
                     }
                 }
                 Status.ERROR -> {

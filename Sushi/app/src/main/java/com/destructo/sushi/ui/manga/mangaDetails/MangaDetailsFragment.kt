@@ -231,7 +231,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     mangaDetailProgressBar.visibility = View.GONE
                     resource.data?.let { manga ->
                         mangaDetailViewModel.getMangaCharacters(mangaIdArg)
-                        mangaDetailViewModel.getMangaReviews(mangaIdArg)
+                        mangaDetailViewModel.getMangaReviews(mangaIdArg, "1")
 
                         binding.mangaEntity = manga
 

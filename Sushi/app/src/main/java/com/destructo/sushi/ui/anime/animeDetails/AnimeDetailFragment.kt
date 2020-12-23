@@ -220,7 +220,7 @@ class AnimeDetailFragment : Fragment(),
                     resources.data?.let { animeEntity ->
                         animeDetailViewModel.getAnimeCharacters(animeIdArg)
                         animeDetailViewModel.getAnimeVideos(animeIdArg)
-                        animeDetailViewModel.getAnimeReviews(animeIdArg)
+                        animeDetailViewModel.getAnimeReviews(animeIdArg, "1")
 
                         binding.animeEntity = animeEntity
 

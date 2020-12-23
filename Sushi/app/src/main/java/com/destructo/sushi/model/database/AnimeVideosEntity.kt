@@ -8,5 +8,5 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 data class AnimeVideosEntity(
     val videosAndEpisodes: AnimeVideo?,
     val id:Int,
-    val time: Long
+    val time: Long,
 )

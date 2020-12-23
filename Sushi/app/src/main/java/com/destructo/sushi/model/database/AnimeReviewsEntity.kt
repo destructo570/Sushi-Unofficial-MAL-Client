@@ -7,5 +7,7 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 data class AnimeReviewsEntity(
     val reviewList: AnimeReviews?,
     val id:Int,
-    val time: Long
-)
+    val time: Long,
+    val currentPage: String,
+
+    )

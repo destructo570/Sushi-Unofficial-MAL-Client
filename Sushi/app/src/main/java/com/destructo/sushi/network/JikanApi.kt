@@ -70,16 +70,18 @@ interface JikanApi {
     ): Deferred<AnimeVideo>
 
 
-    @GET("anime/{animeId}/reviews")
+    @GET("anime/{animeId}/reviews/{page}")
     fun getAnimeReviewsAsync(
         @Path("animeId") animeId: String,
-    ): Deferred<AnimeReviews>
+        @Path("page") page: String,
+        ): Deferred<AnimeReviews>
 
 
-    @GET("manga/{mangaId}/reviews")
+    @GET("manga/{mangaId}/reviews/{page}")
     fun getMangaReviewsAsync(
         @Path("mangaId") mangaId: String,
-    ): Deferred<MangaReview>
+        @Path("page") page: String,
+        ): Deferred<MangaReview>
 
 
     @GET("character/{characterId}")

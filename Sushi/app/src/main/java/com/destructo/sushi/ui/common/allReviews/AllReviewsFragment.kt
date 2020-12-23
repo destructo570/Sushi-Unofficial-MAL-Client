@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.adapter.AllAnimeReviewsAdapter
 import com.destructo.sushi.databinding.FragmentAllReviewsBinding
 import com.destructo.sushi.listener.AnimeReviewListener
+import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.room.AnimeReviewListDao
 import com.destructo.sushi.ui.anime.animeDetails.AnimeReviewBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AllReviewsFragment : Fragment() {
@@ -28,6 +31,10 @@ class AllReviewsFragment : Fragment() {
     private lateinit var reviewsAdapter: AllAnimeReviewsAdapter
     private lateinit var toolbar: Toolbar
 
+    @Inject
+    lateinit var animeReviewsDao: AnimeReviewListDao
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,7 +42,8 @@ class AllReviewsFragment : Fragment() {
             animeIdArg = savedInstanceState.getInt("animeId")
         }else{
             animeIdArg = AllReviewsFragmentArgs.fromBundle(requireArguments()).animeId
-            allReviewsViewModel.getAnimeReviews(animeIdArg)
+            allReviewsViewModel.getAnimeReviews(animeIdArg, "1")
+
         }
     }
 
@@ -53,7 +61,7 @@ class AllReviewsFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
         reviewsRecyclerView = binding.reviewRecycler
-        reviewsRecyclerView.layoutManager = LinearLayoutManager(context)
+        reviewsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         toolbar = binding.toolbar
 
         setupToolbar()
@@ -69,16 +77,25 @@ class AllReviewsFragment : Fragment() {
             }
 
         })
+        reviewsAdapter.setListEndListener(object : ListEndListener{
+            override fun onEndReached(position: Int) {
+                allReviewsViewModel.loadNextPage(animeIdArg)
+            }
+        })
+
         reviewsRecyclerView.adapter = reviewsAdapter
 
         allReviewsViewModel.animeReview.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
                 Status.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    resource.data?.let { animeReviews ->
-                        reviewsAdapter.submitList(animeReviews.reviews)
+                    binding.progressBar.visibility = View.GONE
+                    resource.data?.let {
+                        reviewsAdapter
+                            .submitList(allReviewsViewModel.getReviewListById(animeIdArg)?.reviews)
                     }
                 }
                 Status.ERROR -> {

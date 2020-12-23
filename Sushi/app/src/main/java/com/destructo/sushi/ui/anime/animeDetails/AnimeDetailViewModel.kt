@@ -44,8 +44,8 @@ constructor(
         animeDetailsRepo.getAnimeVideos(malId)
     }
 
-    fun getAnimeReviews(malId: Int) {
-        animeDetailsRepo.getAnimeReviews(malId)
+    fun getAnimeReviews(malId: Int, page: String ) {
+        animeDetailsRepo.getAnimeReviews(malId, page)
     }
 
     fun updateUserAnimeStatus(animeId:String,status:String?=null,
@@ -62,5 +62,7 @@ constructor(
     fun removeAnime(animeId:Int){
         animeDetailsRepo.removeAnimeFromList(animeId.toString())
     }
+
+
 
 }

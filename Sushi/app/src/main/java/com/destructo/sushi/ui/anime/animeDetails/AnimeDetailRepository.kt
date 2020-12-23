@@ -11,6 +11,7 @@ import com.destructo.sushi.model.database.AnimeVideosEntity
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
+import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.network.JikanApi
@@ -120,7 +121,7 @@ constructor(
     }
 
 
-    fun getAnimeReviews(malId: Int) {
+    fun getAnimeReviews(malId: Int, page: String) {
         animeReview.value = Resource.loading(null)
         GlobalScope.launch {
             val animeReviewListCache = animeReviewsDao.getAnimeReviewsById(malId)
@@ -128,7 +129,7 @@ constructor(
             if (animeReviewListCache != null){
 
                 if((System.currentTimeMillis() - animeReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    animeReviewCall(malId)
+                    animeReviewCall(malId, page)
                 }else{
                     val mAnime = animeReviewListCache.reviewList
                     withContext(Dispatchers.Main) {
@@ -136,7 +137,7 @@ constructor(
                     }
                 }
             }else{
-                animeReviewCall(malId)
+                animeReviewCall(malId, page)
             }
         }
     }
@@ -238,7 +239,8 @@ constructor(
             val animeVideoListEntity = AnimeVideosEntity(
                 videosAndEpisodes = animeVideosList,
                 time = System.currentTimeMillis(),
-                id = malId
+                id = malId,
+
             )
             animeVideosDao.insertAnimeVideos(animeVideoListEntity)
             withContext(Dispatchers.Main) {
@@ -253,15 +255,16 @@ constructor(
         }
     }
 
-    suspend fun animeReviewCall(malId:Int) {
+    suspend fun animeReviewCall(malId:Int, page:String) {
         val animeId: String = malId.toString()
-        val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId)
+        val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId, page)
         try {
             val animeReviews = getAnimeReviewsDeferred.await()
             val animeReviewListEntity = AnimeReviewsEntity(
                 reviewList = animeReviews,
                 time = System.currentTimeMillis(),
-                id = malId
+                id = malId,
+                currentPage = page
             )
             animeReviewsDao.insertAnimeReviews(animeReviewListEntity)
             withContext(Dispatchers.Main) {

@@ -91,7 +91,7 @@ constructor(
         }
     }
 
-    fun getMangaReviews(malId: Int) {
+    fun getMangaReviews(malId: Int, page: String) {
         mangaReview.value = Resource.loading(null)
 
         GlobalScope.launch {
@@ -100,7 +100,7 @@ constructor(
             if (mangaReviewListCache != null){
 
                 if((System.currentTimeMillis() - mangaReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    mangaReviewsCall(malId)
+                    mangaReviewsCall(malId, page)
                 }else{
                     val mangaCharacterList = mangaReviewListCache.reviewList
                     withContext(Dispatchers.Main) {
@@ -108,7 +108,7 @@ constructor(
                     }
                 }
             }else{
-                mangaReviewsCall(malId)
+                mangaReviewsCall(malId, page)
             }
         }
     }
@@ -199,15 +199,16 @@ constructor(
             }
         }
     }
-    private suspend fun mangaReviewsCall(malId:Int) {
+    private suspend fun mangaReviewsCall(malId:Int, page:String) {
         val mangaId: String = malId.toString()
-        val getMangaReviewsDeferred = jikanApi.getMangaReviewsAsync(mangaId)
+        val getMangaReviewsDeferred = jikanApi.getMangaReviewsAsync(mangaId, page)
         try {
             val mangaCharacterList = getMangaReviewsDeferred.await()
             val mangaReviewRequest = MangaReviewsEntity(
                 reviewList = mangaCharacterList,
                 id = malId,
-                time = System.currentTimeMillis()
+                time = System.currentTimeMillis(),
+                currentPage = page
             )
             mangaReviewListDao.insertMangaReviews(mangaReviewRequest)
             withContext(Dispatchers.Main) {

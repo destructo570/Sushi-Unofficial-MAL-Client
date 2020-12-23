@@ -13,5 +13,5 @@ data class AnimeReviews(
     @Json(name = "request_cache_expiry")
     override val requestCacheExpiry: Int?=null,
     @Json(name = "reviews")
-    val reviews: List<Review?>?=null
+    var reviews: MutableList<Review?>?=null
 ): JikanEntity
