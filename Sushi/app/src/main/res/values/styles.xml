@@ -154,6 +154,7 @@
         <item name="tabIndicator">@drawable/custom_tab_layout_indicator</item>
         <item name="tabMode">scrollable</item>
         <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabIndicatorFullWidth">false</item>
 
     </style>
 
