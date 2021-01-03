@@ -11,18 +11,6 @@
         android:label="@string/browse_anime"
         tools:layout="@layout/fragment_anime" >
         <action
-            android:id="@+id/action_animeFragment_to_topAnimeFragment"
-            app:destination="@id/topAnimeFragment" />
-        <action
-            android:id="@+id/action_animeFragment_to_upcomingAnimeFragment"
-            app:destination="@id/upcomingAnimeFragment" />
-        <action
-            android:id="@+id/action_animeFragment_to_currentlyAiring"
-            app:destination="@id/currentlyAiring" />
-        <action
-            android:id="@+id/action_animeFragment_to_seasonalAnime"
-            app:destination="@id/seasonalAnime" />
-        <action
             android:id="@+id/action_animeFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
     </fragment>

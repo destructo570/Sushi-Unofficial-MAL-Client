@@ -159,27 +159,19 @@ class AnimeFragment : Fragment() {
     }
 
     private fun navigateToTopAnime() {
-        this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToTopAnimeFragment()
-        )
+        this.findNavController().navigate(R.id.topAnimeFragment)
     }
 
     private fun navigateToUpcomingAnime() {
-        this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToUpcomingAnimeFragment()
-        )
+        this.findNavController().navigate(R.id.upcomingAnimeFragment)
     }
 
     private fun navigateToCurrentlyAiring() {
-        this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToCurrentlyAiring()
-        )
+        this.findNavController().navigate(R.id.currentlyAiring)
     }
 
     private fun navigateToSeasonalAnime() {
-        this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToSeasonalAnime()
-        )
+        this.findNavController().navigate(R.id.seasonalAnime)
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
