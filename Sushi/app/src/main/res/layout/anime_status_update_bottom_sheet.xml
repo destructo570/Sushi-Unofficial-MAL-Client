@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textAppearance="@style/TextAppearance.Sushi.B2"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
             android:text="@string/status"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
