@@ -22,8 +22,6 @@
     <color name="colorCardBackground">#ffffff</color>
     <color name="colorPopupBackground">#ffffff</color>
 
-
-
     <!-- Night Theme -->
     <color name="colorPrimaryNight">#111016</color>
     <color name="colorPrimaryDarkNight">#000000</color>
@@ -62,24 +60,10 @@
     <color name="colorMenuPressedDarkTheme">#1E1E1E</color>
     <color name="colorPopupBackgroundDarkTheme">#1E1E1E</color>
 
-
-    <!-- Amoled Lime Theme -->
-    <color name="colorPrimaryAmoledLime">#000000</color>
-    <color name="colorAccentAmoledLime">#5cc066</color>
-    <color name="colorAccentSecondaryAmoledLime">#5cc066</color>
-    <color name="contentBackgroundAmoledLime">#141c15</color>
-
-    <!-- Amoled Sakura Theme -->
-    <color name="colorPrimaryAmoledSakura">#000000</color>
-    <color name="colorAccentAmoledSakura">#c05c9f</color>
-    <color name="colorAccentSecondaryAmoledSakura">#c05c9f</color>
-    <color name="contentBackgroundAmoledSakura">#1c141a</color>
-
-    <!-- Amoled Cyan Theme -->
-    <color name="colorPrimaryAmoledCyan">#000000</color>
-    <color name="colorAccentAmoledCyan">#3fffbf</color>
-    <color name="colorAccentSecondaryAmoledCyan">#3fffbf</color>
-    <color name="contentBackgroundAmoledCyan">#141c1b</color>
+    <!-- Accent Choices -->
+    <color name="colorAccentLime">#5cc066</color>
+    <color name="colorAccentSakura">#c05c9f</color>
+    <color name="colorAccentCyan">#3fffbf</color>
 
     <color name="colorWatching">#00e676</color>
     <color name="colorCompleted">#3d5afe</color>

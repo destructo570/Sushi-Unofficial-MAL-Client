@@ -1,8 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="BaseTheme.Light"/>
+
+    <style name="BaseTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>
@@ -33,7 +34,6 @@
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="popupBackgroundColor">@color/colorPopupBackground</item>
         <item name="customChipStyle">@style/CustomChipChoice</item>
-
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">

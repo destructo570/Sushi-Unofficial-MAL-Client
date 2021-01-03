@@ -2,78 +2,15 @@
 <resources>
 
     <!-- Night theme. -->
-    <style name="AppTheme.Night" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
-        <item name="android:windowBackground">?attr/colorPrimary</item>
-        <item name="android:textColor">@color/textColorPrimaryNight</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
-        <item name="colorPrimary">@color/colorPrimaryNight</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
-        <item name="colorAccent">@color/colorAccentNight</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryNight</item>
-        <item name="colorNavigationItem">@color/menu_item_color_state</item>
-        <item name="colorScoreCardBackground">@color/colorScoreCardBackgroundNight</item>
-        <item name="textColorPrimary">@color/textColorPrimaryNight</item>
-        <item name="textColorSecondary">@color/textColorSecondaryNight</item>
-        <item name="textColorTertiary">@color/textColorTertiaryNight</item>
-        <item name="textColorOnPrimary">@color/textColorOnPrimaryNight</item>
-        <item name="contentBackground">@color/contentBackgroundNight</item>
-        <item name="iconTintPrimary">@color/iconTintPrimaryNight</item>
-        <item name="iconTintOnPrimary">@color/iconTintOnPrimaryNight</item>
-        <item name="iconTintSecondary">@color/iconTintSecondaryNight</item>
-        <item name="foregroundTintDarkPrimary">@color/foregroundTintDarkPrimaryNight</item>
-        <item name="foregroundTintDarkSecondary">@color/foregroundTintDarkSecondaryNight</item>
-        <item name="colorNavigationItemSelected">@color/colorMenuTextSelectedNight</item>
-        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
-        <item name="colorMenuSelected">@color/colorMenuSelectedNight</item>
-        <item name="colorMenuPressed">@color/colorMenuPressedNight</item>
-        <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
-        <item name="colorCardBackground">@color/colorCardBackgroundNight</item>
-        <item name="popupBackgroundColor">@color/colorPopupBackgroundNight</item>
-
-
-    </style>
-
+    <style name="AppTheme.Night" parent="BaseTheme.Night"/>
 
     <!-- Amoled theme. -->
-    <style name="AppTheme.Amoled" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
-        <item name="android:windowBackground">?attr/colorPrimary</item>
-        <item name="android:textColor">@color/textColorPrimaryNight</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
-        <item name="colorPrimary">@color/colorPrimaryAmoled</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
-        <item name="colorAccent">@color/colorAccentNight</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryNight</item>
-        <item name="colorNavigationItem">@color/menu_item_color_state</item>
-        <item name="colorScoreCardBackground">@color/colorScoreCardBackgroundNight</item>
-        <item name="textColorPrimary">@color/textColorPrimaryNight</item>
-        <item name="textColorSecondary">@color/textColorSecondaryNight</item>
-        <item name="textColorTertiary">@color/textColorTertiaryNight</item>
-        <item name="textColorOnPrimary">@color/textColorOnPrimaryNight</item>
-        <item name="contentBackground">@color/contentBackgroundAmoled</item>
-        <item name="iconTintPrimary">@color/iconTintPrimaryNight</item>
-        <item name="iconTintOnPrimary">@color/iconTintOnPrimaryNight</item>
-        <item name="iconTintSecondary">@color/iconTintSecondaryNight</item>
-        <item name="foregroundTintDarkPrimary">@color/foregroundTintDarkPrimaryNight</item>
-        <item name="foregroundTintDarkSecondary">@color/foregroundTintDarkSecondaryNight</item>
-        <item name="colorNavigationItemSelected">@color/colorMenuTextSelectedNight</item>
-        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
-        <item name="colorMenuSelected">@color/colorMenuSelectedAmoled</item>
-        <item name="colorMenuPressed">@color/colorMenuPressedAmoled</item>
-        <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoled</item>
-        <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
-
-    </style>
-
+    <style name="AppTheme.Amoled" parent="BaseTheme.Amoled"/>
 
     <!-- Dark theme. -->
-    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme.Dark" parent="BaseTheme.Dark"/>
+
+    <style name="BaseTheme.Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
         <item name="android:windowBackground">@color/colorPrimaryDarkDarkTheme</item>
         <item name="android:textColor">@color/textColorPrimaryNight</item>
@@ -103,11 +40,71 @@
         <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
         <item name="colorCardBackground">@color/contentBackgroundDarkTheme</item>
         <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
+    </style>
+
+    <style name="BaseTheme.Night" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/textColorPrimaryNight</item>
+        <item name="android:statusBarColor">@color/colorPrimaryNight</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="colorAccentSecondary">@color/colorAccentSecondaryNight</item>
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorScoreCardBackground">@color/colorScoreCardBackgroundNight</item>
+        <item name="textColorPrimary">@color/textColorPrimaryNight</item>
+        <item name="textColorSecondary">@color/textColorSecondaryNight</item>
+        <item name="textColorTertiary">@color/textColorTertiaryNight</item>
+        <item name="textColorOnPrimary">@color/textColorOnPrimaryNight</item>
+        <item name="contentBackground">@color/contentBackgroundNight</item>
+        <item name="iconTintPrimary">@color/iconTintPrimaryNight</item>
+        <item name="iconTintOnPrimary">@color/iconTintOnPrimaryNight</item>
+        <item name="iconTintSecondary">@color/iconTintSecondaryNight</item>
+        <item name="foregroundTintDarkPrimary">@color/foregroundTintDarkPrimaryNight</item>
+        <item name="foregroundTintDarkSecondary">@color/foregroundTintDarkSecondaryNight</item>
+        <item name="colorNavigationItemSelected">@color/colorMenuTextSelectedNight</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <item name="colorMenuSelected">@color/colorMenuSelectedNight</item>
+        <item name="colorMenuPressed">@color/colorMenuPressedNight</item>
+        <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
+        <item name="colorCardBackground">@color/colorCardBackgroundNight</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackgroundNight</item>
 
     </style>
 
-
-
-
+    <style name="BaseTheme.Amoled" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/textColorPrimaryNight</item>
+        <item name="android:statusBarColor">@color/colorPrimaryAmoled</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
+        <item name="colorPrimary">@color/colorPrimaryAmoled</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="colorAccentSecondary">@color/colorAccentSecondaryNight</item>
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorScoreCardBackground">@color/colorScoreCardBackgroundNight</item>
+        <item name="textColorPrimary">@color/textColorPrimaryNight</item>
+        <item name="textColorSecondary">@color/textColorSecondaryNight</item>
+        <item name="textColorTertiary">@color/textColorTertiaryNight</item>
+        <item name="textColorOnPrimary">@color/textColorOnPrimaryNight</item>
+        <item name="contentBackground">@color/contentBackgroundAmoled</item>
+        <item name="iconTintPrimary">@color/iconTintPrimaryNight</item>
+        <item name="iconTintOnPrimary">@color/iconTintOnPrimaryNight</item>
+        <item name="iconTintSecondary">@color/iconTintSecondaryNight</item>
+        <item name="foregroundTintDarkPrimary">@color/foregroundTintDarkPrimaryNight</item>
+        <item name="foregroundTintDarkSecondary">@color/foregroundTintDarkSecondaryNight</item>
+        <item name="colorNavigationItemSelected">@color/colorMenuTextSelectedNight</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <item name="colorMenuSelected">@color/colorMenuSelectedAmoled</item>
+        <item name="colorMenuPressed">@color/colorMenuPressedAmoled</item>
+        <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
+        <item name="colorCardBackground">@color/contentBackgroundAmoled</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
+    </style>
 
 </resources>
