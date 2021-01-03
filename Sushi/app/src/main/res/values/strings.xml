@@ -219,6 +219,7 @@
 
 
     <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
     <string name="theme_light_lime">Light Lime</string>
     <string name="theme_light_sakura">Light Sakura</string>
     <string name="theme_light_cyan">Light Cyan</string>

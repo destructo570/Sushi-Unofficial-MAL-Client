@@ -54,6 +54,14 @@
     <color name="colorMenuPressedAmoled">#14141c</color>
     <color name="colorPopupBackgroundAmoled">#14141c</color>
 
+    <!-- Dark Theme -->
+    <color name="colorPrimaryDarkTheme">#252525</color>
+    <color name="colorPrimaryDarkDarkTheme">#1E1E1E</color>
+    <color name="contentBackgroundDarkTheme">#2e2e2e</color>
+    <color name="colorMenuSelectedDarkTheme">#1E1E1E</color>
+    <color name="colorMenuPressedDarkTheme">#1E1E1E</color>
+    <color name="colorPopupBackgroundDarkTheme">#1E1E1E</color>
+
 
     <!-- Amoled Lime Theme -->
     <color name="colorPrimaryAmoledLime">#000000</color>

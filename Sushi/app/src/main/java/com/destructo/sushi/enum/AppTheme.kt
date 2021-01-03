@@ -2,6 +2,7 @@ package com.destructo.sushi.enum
 
 enum class AppTheme(val value: String) {
     LIGHT("default_theme"),
+    DARK("dark_theme"),
     NIGHT("night_theme"),
     NIGHT_LIME("night_lime_theme"),
     NIGHT_SAKURA("night_sakura_theme"),

@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Night theme. -->
-    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme.Night" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
         <item name="android:windowBackground">?attr/colorPrimary</item>
         <item name="android:textColor">@color/textColorPrimaryNight</item>
@@ -69,31 +69,45 @@
         <item name="colorCardBackground">@color/contentBackgroundAmoled</item>
         <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
 
+    </style>
+
+
+    <!-- Dark theme. -->
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColorSecondary">@color/textColorSecondaryNight</item>
+        <item name="android:windowBackground">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="android:textColor">@color/textColorPrimaryNight</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDarkTheme</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
+        <item name="colorPrimary">@color/colorPrimaryDarkTheme</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkDarkTheme</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="colorAccentSecondary">@color/colorAccentSecondaryNight</item>
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorScoreCardBackground">@color/colorScoreCardBackgroundNight</item>
+        <item name="textColorPrimary">@color/textColorPrimaryNight</item>
+        <item name="textColorSecondary">@color/textColorSecondaryNight</item>
+        <item name="textColorTertiary">@color/textColorTertiaryNight</item>
+        <item name="textColorOnPrimary">@color/textColorOnPrimaryNight</item>
+        <item name="contentBackground">@color/contentBackgroundDarkTheme</item>
+        <item name="iconTintPrimary">@color/iconTintPrimaryNight</item>
+        <item name="iconTintOnPrimary">@color/iconTintOnPrimaryNight</item>
+        <item name="iconTintSecondary">@color/iconTintSecondaryNight</item>
+        <item name="foregroundTintDarkPrimary">@color/foregroundTintDarkPrimaryNight</item>
+        <item name="foregroundTintDarkSecondary">@color/foregroundTintDarkSecondaryNight</item>
+        <item name="colorNavigationItemSelected">@color/colorMenuTextSelectedNight</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+        <item name="colorMenuSelected">@color/colorMenuSelectedDarkTheme</item>
+        <item name="colorMenuPressed">@color/colorMenuPressedDarkTheme</item>
+        <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
+        <item name="colorCardBackground">@color/contentBackgroundDarkTheme</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
 
     </style>
 
-    <style name="AppTheme.Amoled.Lime" parent="AppTheme.Amoled">
-        <item name="colorPrimary">@color/colorPrimaryAmoledLime</item>
-        <item name="colorAccent">@color/colorAccentAmoledLime</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryAmoledLime</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoledLime</item>
-        <item name="colorMenuSelected">@color/colorMenuSelectedAmoled</item>
-        <item name="colorMenuPressed">@color/colorMenuPressedAmoled</item>
-    </style>
 
-    <style name="AppTheme.Amoled.Sakura" parent="AppTheme.Amoled">
-        <item name="colorPrimary">@color/colorPrimaryAmoledSakura</item>
-        <item name="colorAccent">@color/colorAccentAmoledSakura</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryAmoledSakura</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoledSakura</item>
-    </style>
 
-    <style name="AppTheme.Amoled.Cyan" parent="AppTheme.Amoled">
-        <item name="colorPrimary">@color/colorPrimaryAmoledCyan</item>
-        <item name="colorAccent">@color/colorAccentAmoledCyan</item>
-        <item name="colorAccentSecondary">@color/colorAccentSecondaryAmoledCyan</item>
-        <item name="colorCardBackground">@color/contentBackgroundAmoledCyan</item>
-    </style>
 
 
 </resources>
