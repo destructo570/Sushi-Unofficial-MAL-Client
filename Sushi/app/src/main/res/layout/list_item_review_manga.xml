@@ -88,7 +88,9 @@
                 android:layout_marginStart="@dimen/review_card_margin_normal"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                tools:text="@string/fake_anime_title"
+                />
 
             <TextView
                 android:id="@+id/textView14"
@@ -106,7 +108,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/anime_score_fab"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
                 tools:text="@string/fake_anime_desc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

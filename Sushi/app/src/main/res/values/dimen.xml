@@ -84,8 +84,8 @@
 
     <!-- Review Card-->
     <dimen name="review_card_height">200dp</dimen>
-    <dimen name="review_card_width">300dp</dimen>
-    <dimen name="reviewer_img_size">48dp</dimen>
+    <dimen name="review_card_width">350dp</dimen>
+    <dimen name="reviewer_img_size">56dp</dimen>
     <dimen name="reviewer_img_size_large">112dp</dimen>
     <dimen name="review_card_margin_normal">8dp</dimen>
     <dimen name="review_card_margin_small">4dp</dimen>

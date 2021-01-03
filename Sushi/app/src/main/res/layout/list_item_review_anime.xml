@@ -88,7 +88,9 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                tools:text="@string/fake_anime_title"
+                />
 
             <TextView
                 android:id="@+id/textView14"
@@ -98,15 +100,15 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:ellipsize="end"
-                android:scrollbars="none"
                 android:maxLines="8"
+                android:scrollbars="none"
                 android:text="@{review.content}"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/anime_score_fab"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
                 tools:text="@string/fake_anime_desc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

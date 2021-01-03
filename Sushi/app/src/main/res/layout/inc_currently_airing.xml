@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
-            android:textAppearance="@style/TextAppearance.Sushi.H1"
+            android:textAppearance="@style/TextAppearance.Sushi.H2"
             android:text="@string/currently_airing"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
