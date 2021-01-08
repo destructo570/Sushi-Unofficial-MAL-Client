@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.databinding.DataBindingUtil
 import com.destructo.sushi.AUTH_CODE_URL
 import com.destructo.sushi.CLIENT_ID
@@ -115,8 +116,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun launchBrowser(pkce: String){
-        val intent = Intent(
-            Intent.ACTION_VIEW,
+
+        val builder = CustomTabsIntent.Builder()
+        val customTabIntent = builder.build()
+        customTabIntent.launchUrl(
+            this,
             Uri.parse(
                 AUTH_CODE_URL
                         + "?response_type=code"
@@ -124,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
                         + "&code_challenge=$pkce"
             )
         )
-        startActivity(intent)
+
     }
 
     private fun onLoginSuccess() {
