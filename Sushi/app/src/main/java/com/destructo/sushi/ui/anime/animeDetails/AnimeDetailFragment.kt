@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -63,6 +64,7 @@ class AnimeDetailFragment : Fragment(),
     AppBarLayout.OnOffsetChangedListener, AnimeUpdateListener {
 
     private val animeDetailViewModel: AnimeDetailViewModel by viewModels()
+    private val args: AnimeDetailFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentAnimeDetailBinding
     private var animeIdArg: Int = 0
@@ -112,7 +114,8 @@ class AnimeDetailFragment : Fragment(),
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null) {
-            animeIdArg = savedInstanceState.getInt(ANIME_ID_ARG)
+            val animeIdArgument = args.animeId.toInt()
+            animeIdArg = animeIdArgument
             isInUserList = savedInstanceState.getInt(IS_IN_USER_LIST_ARG)
         }else{
             animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId

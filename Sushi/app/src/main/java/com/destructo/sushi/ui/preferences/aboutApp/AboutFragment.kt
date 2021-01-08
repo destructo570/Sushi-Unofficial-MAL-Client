@@ -11,16 +11,15 @@ import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.BuildConfig
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AboutFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutBinding

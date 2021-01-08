@@ -9,7 +9,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment(){
 
     private lateinit var navHostFragment: NavHostFragment

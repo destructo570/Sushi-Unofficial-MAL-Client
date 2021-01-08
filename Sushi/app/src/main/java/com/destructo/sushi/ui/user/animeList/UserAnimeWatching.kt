@@ -16,9 +16,10 @@ import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-
+@AndroidEntryPoint
 class UserAnimeWatching : Fragment() {
 
     private lateinit var binding: FragmentUserAnimeListBinding

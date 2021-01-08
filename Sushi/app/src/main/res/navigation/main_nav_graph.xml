@@ -93,10 +93,11 @@
         android:id="@+id/animeDetailFragment"
         android:name="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragment"
         android:label="fragment_anime_detail"
-        tools:layout="@layout/fragment_anime_detail" >
+        tools:layout="@layout/fragment_anime_detail">
 
-        <argument android:name="animeId"
-            app:argType="integer"/>
+        <argument
+            android:name="animeId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_animeDetailFragment_self"
             app:destination="@id/animeDetailFragment" />
@@ -106,6 +107,7 @@
         <action
             android:id="@+id/action_animeDetailFragment_to_personFragment"
             app:destination="@id/personFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
@@ -127,9 +129,10 @@
         android:id="@+id/mangaDetailsFragment"
         android:name="com.destructo.sushi.ui.manga.mangaDetails.MangaDetailsFragment"
         android:label="fragment_manga_details"
-        tools:layout="@layout/fragment_manga_details" >
-        <argument android:name="mangaId"
-            app:argType="integer"/>
+        tools:layout="@layout/fragment_manga_details">
+        <argument
+            android:name="mangaId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_mangaDetailsFragment_self"
             app:destination="@id/mangaDetailsFragment" />
@@ -145,6 +148,7 @@
         <action
             android:id="@+id/action_myAnimeListFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/myMangaListFragment"

@@ -52,10 +52,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.scheduleFragment,
                 R.id.mangaFragment,
                 R.id.searchFragment,
-                //R.id.clubFragment,
-                //R.id.forumFragment,
-                //R.id.newsFragment,
-                //R.id.promotionFragment,
                 R.id.settingsFragment,
             ), drawer_layout
         )
@@ -171,10 +167,11 @@ class MainActivity : AppCompatActivity() {
             AppTheme.DARK.value ->{setTheme(R.style.AppTheme_Dark)}
             AppTheme.NIGHT.value ->{setTheme(R.style.AppTheme_Night)}
             AppTheme.AMOLED.value ->{setTheme(R.style.AppTheme_Amoled)}
-
             else ->{setTheme(R.style.AppTheme)}
         }
     }
+
+
 
 
 }

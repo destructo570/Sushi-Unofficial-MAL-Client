@@ -16,10 +16,12 @@ import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.PRODUCT_ID
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.ActivityPurchaseBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@AndroidEntryPoint
 class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
     private lateinit var billingClient: BillingClient
