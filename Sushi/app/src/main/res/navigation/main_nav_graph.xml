@@ -49,6 +49,9 @@
         <deepLink
             android:id="@+id/deepLink8"
             app:uri="https://myanimelist.net/topanime/" />
+        <deepLink
+            android:id="@+id/deepLink6"
+            app:uri="https://myanimelist.net/topanime" />
     </fragment>
     <fragment
         android:id="@+id/upcomingAnimeFragment"
@@ -67,6 +70,9 @@
         tools:layout="@layout/fragment_seasonal_anime">
         <deepLink
             android:id="@+id/deepLink9"
+            app:uri="https://myanimelist.net/anime/season/" />
+        <deepLink
+            android:id="@+id/deepLink7"
             app:uri="https://myanimelist.net/anime/season" />
     </fragment>
     <fragment
@@ -82,6 +88,9 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="https://myanimelist.net/anime/{animeId}/.*" />
+        <deepLink
+            android:id="@+id/deepLink14"
+            app:uri="https://myanimelist.net/anime/{animeId}" />
 
     </fragment>
     <fragment
@@ -94,6 +103,9 @@
         <deepLink
             android:id="@+id/deepLink3"
             app:uri="https://myanimelist.net/character/{characterId}/.*" />
+        <deepLink
+            android:id="@+id/deepLink15"
+            app:uri="https://myanimelist.net/character/{characterId}" />
     </fragment>
     <fragment
         android:id="@+id/mangaDetailsFragment"
@@ -106,6 +118,9 @@
         <deepLink
             android:id="@+id/deepLink2"
             app:uri="https://myanimelist.net/manga/{mangaId}/.*" />
+        <deepLink
+            android:id="@+id/deepLink16"
+            app:uri="https://myanimelist.net/manga/{mangaId}" />
     </fragment>
     <fragment
         android:id="@+id/myAnimeListFragment"
@@ -115,6 +130,9 @@
         <deepLink
             android:id="@+id/deepLink10"
             app:uri="https://myanimelist.net/animelist/.*" />
+        <deepLink
+            android:id="@+id/deepLink17"
+            app:uri="https://myanimelist.net/animelist" />
     </fragment>
     <fragment
         android:id="@+id/myMangaListFragment"
@@ -124,6 +142,9 @@
         <deepLink
             android:id="@+id/deepLink11"
             app:uri="https://myanimelist.net/mangalist/.*" />
+        <deepLink
+            android:id="@+id/deepLink18"
+            app:uri="https://myanimelist.net/mangalist" />
     </fragment>
 
     <fragment
@@ -154,6 +175,9 @@
         <deepLink
             android:id="@+id/deepLink13"
             app:uri="https://myanimelist.net/profile/.*" />
+        <deepLink
+            android:id="@+id/deepLink19"
+            app:uri="https://myanimelist.net/profile" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -173,6 +197,9 @@
         <deepLink
             android:id="@+id/deepLink12"
             app:uri="https://myanimelist.net/people/{personId}/.*" />
+        <deepLink
+            android:id="@+id/deepLink20"
+            app:uri="https://myanimelist.net/people/{personId}" />
     </fragment>
     <fragment
         android:id="@+id/allCharactersFragment"
