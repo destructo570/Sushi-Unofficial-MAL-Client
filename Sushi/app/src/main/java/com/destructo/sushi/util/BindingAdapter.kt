@@ -4,11 +4,13 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.common.Review
@@ -19,7 +21,6 @@ import com.destructo.sushi.model.mal.manga.Author
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.manga.Serialization
-import com.destructo.sushi.ui.animeSchedule.AnimeScheduleFragmentDirections
 import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import java.text.NumberFormat
 import java.util.*
@@ -366,7 +367,7 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
     recyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
     val adapter = ScheduleAdapter(MalIdListener { malId->
         malId?.let{recyclerView.findNavController().navigate(
-            AnimeScheduleFragmentDirections.actionScheduleFragmentToAnimeDetailFragment(malId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, it))
         )}
     })
     recyclerView.adapter = adapter

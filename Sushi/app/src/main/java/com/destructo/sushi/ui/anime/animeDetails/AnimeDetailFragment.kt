@@ -24,6 +24,8 @@ import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.destructo.sushi.CHARACTER_ID_ARG
+import com.destructo.sushi.PERSON_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.*
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
@@ -388,19 +390,19 @@ class AnimeDetailFragment : Fragment(),
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            AnimeDetailFragmentDirections.actionAnimeDetailFragmentSelf(animeMalId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            AnimeDetailFragmentDirections.actionAnimeDetailFragmentToCharacterFragment(character)
+            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
         )
     }
 
-    private fun navigateToPersonDetails(malId: Int) {
+    private fun navigateToPersonDetails(personId: Int) {
         this.findNavController().navigate(
-            AnimeDetailFragmentDirections.actionAnimeDetailFragmentToPersonFragment(malId)
+            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
         )
     }
 

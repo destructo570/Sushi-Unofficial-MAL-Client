@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeHomeAdapter
@@ -176,7 +178,7 @@ class AnimeFragment : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            AnimeFragmentDirections.actionAnimeFragmentToAnimeDetailFragment(animeMalId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
     }
 

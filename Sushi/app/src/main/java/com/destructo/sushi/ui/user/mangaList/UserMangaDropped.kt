@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+import com.destructo.sushi.MANGA_ID_ARG
+import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserMangaListAdapter
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.listener.AddChapterListener
-import com.destructo.sushi.network.Status
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.network.Status
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -129,9 +132,9 @@ class UserMangaDropped : Fragment() {
         super.onResume()
     }
 
-    private fun navigateToMangaDetails(mangaMalId: Int){
+    private fun navigateToMangaDetails(mangaIdArg: Int){
         this.findNavController().navigate(
-            MyMangaListFragmentDirections.actionMyMangaListFragmentToMangaDetailsFragment(mangaMalId)
+            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaIdArg))
         )
     }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -14,13 +15,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
-import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
-import com.destructo.sushi.network.Status
+import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeRankingAdapter
+import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
@@ -125,8 +128,7 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
-            UpcomingAnimeFragmentDirections
-                .actionUpcomingAnimeFragmentToAnimeDetailFragment(animeMalId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
     }
 

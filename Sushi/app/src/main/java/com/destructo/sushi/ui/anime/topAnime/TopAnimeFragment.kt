@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -15,6 +16,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
@@ -163,7 +165,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
-            TopAnimeFragmentDirections.actionTopAnimeFragmentToAnimeDetailFragment(animeMalId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
     }
 

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.PERSON_ID_ARG
+import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterVoiceActorsBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
@@ -52,10 +55,10 @@ class CharacterVoiceActors(
         }
     }
 
-    private fun navigateToPersonFragment(malId:Int){
+    private fun navigateToPersonFragment(personId:Int){
 
         this.findNavController().navigate(
-            CharacterFragmentDirections.actionCharacterFragmentToPersonFragment(malId)
+            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
         )
 
     }

@@ -19,10 +19,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.destructo.sushi.CHARACTER_ID_ARG
+import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.MangaCharacterAdapter
 import com.destructo.sushi.adapter.MangaRecommListAdapter
@@ -64,6 +67,8 @@ private const val USER_MANGA_LIST_DEFAULT = -1
 class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOffsetChangedListener {
 
     private val mangaDetailViewModel: MangaDetailViewModel by viewModels()
+    private val args: MangaDetailsFragmentArgs by navArgs()
+
     private lateinit var binding: FragmentMangaDetailsBinding
     private var mangaIdArg: Int = 0
 
@@ -106,7 +111,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             mangaIdArg = savedInstanceState.getInt("mangaId")
             isInUserList = savedInstanceState.getInt("isInUserList")
         }else{
-            mangaIdArg = MangaDetailsFragmentArgs.fromBundle(requireArguments()).mangaId
+            mangaIdArg = args.mangaId
             mangaDetailViewModel.getMangaDetail(mangaIdArg, false)
         }
 
@@ -152,7 +157,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             findNavController().navigate(R.id.allMangaCharacters, bundleOf(Pair("malId", mangaIdArg)))
         }
         reviewSeeMore.setOnClickListener {
-            findNavController().navigate(R.id.allMangaReviews, bundleOf(Pair("mangaId", mangaIdArg)))
+            findNavController().navigate(R.id.allMangaReviews, bundleOf(Pair(MANGA_ID_ARG, mangaIdArg)))
         }
 
         toolbar.setNavigationOnClickListener { view ->
@@ -377,13 +382,13 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     private fun navigateToMangaDetails(malId: Int) {
         this.findNavController().navigate(
-            MangaDetailsFragmentDirections.actionMangaDetailsFragmentSelf(malId)
+            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, malId))
         )
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            MangaDetailsFragmentDirections.actionMangaDetailsFragmentToCharacterFragment(character)
+                    R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
         )
     }
 

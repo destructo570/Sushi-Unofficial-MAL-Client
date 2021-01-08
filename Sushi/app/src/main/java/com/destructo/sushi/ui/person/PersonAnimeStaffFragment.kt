@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.ANIME_ID_ARG
+import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentPersonAnimeStaffBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
@@ -72,9 +75,9 @@ class PersonAnimeStaffFragment : Fragment() {
 
     }
 
-    private fun navigateToAnimeDetail(malId:Int){
+    private fun navigateToAnimeDetail(animeMalId:Int){
         this.findNavController().navigate(
-            PersonFragmentDirections.actionPersonFragmentToAnimeDetailFragment(malId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
 
     }

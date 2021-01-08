@@ -6,6 +6,7 @@ import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
 import com.destructo.sushi.R.string.number_of_users
@@ -281,7 +283,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            SeasonalAnimeFragmentDirections.actionSeasonalAnimeToAnimeDetailFragment(animeMalId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
     }
 

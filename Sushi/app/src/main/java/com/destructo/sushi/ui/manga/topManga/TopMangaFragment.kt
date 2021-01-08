@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
+import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.MangaRankingAdapter
@@ -158,7 +160,7 @@ class TopMangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
     private fun navigateToMangaDetails(mangaMalId: Int){
         this.findNavController().navigate(
-            TopMangaFragmentDirections.actionMangaFragmentToMangaDetailsFragment(mangaMalId)
+            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
         )
     }
 

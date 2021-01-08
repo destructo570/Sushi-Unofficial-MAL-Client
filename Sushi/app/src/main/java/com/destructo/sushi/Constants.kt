@@ -41,6 +41,10 @@ const val NSFW_WHITE = "white"
 //5 Days in milliseconds = 432000000
 const val REFRESH_TOKEN_LIMIT = 432000000
 
+const val MANGA_ID_ARG = "mangaId"
+const val ANIME_ID_ARG = "animeId"
+const val CHARACTER_ID_ARG = "characterId"
+const val PERSON_ID_ARG = "personId"
 
 
 

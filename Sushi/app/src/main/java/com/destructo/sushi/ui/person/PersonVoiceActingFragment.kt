@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.ANIME_ID_ARG
+import com.destructo.sushi.CHARACTER_ID_ARG
+import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentPersonVoiceActingBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
@@ -72,16 +76,15 @@ class PersonVoiceActingFragment : Fragment() {
 
     }
 
-    private fun navigateToAnimeDetail(malId:Int){
+    private fun navigateToAnimeDetail(animeMalId:Int){
         this.findNavController().navigate(
-            PersonFragmentDirections.actionPersonFragmentToAnimeDetailFragment(malId)
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
         )
     }
 
-    private fun navigateToCharacterDetail(malId:Int){
+    private fun navigateToCharacterDetail(characterId:Int){
         this.findNavController().navigate(
-            PersonFragmentDirections.actionPersonFragmentToCharacterFragment(malId)
-
+            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, characterId))
         )
     }
 

@@ -6,19 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.ALL_MANGA_FIELDS
-import com.destructo.sushi.DEFAULT_PAGE_LIMIT
-import com.destructo.sushi.NSFW_TAG
+import com.destructo.sushi.*
 import com.destructo.sushi.databinding.FragmentResultBinding
-import com.destructo.sushi.network.Status
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -105,7 +104,7 @@ class MangaResultFragment : Fragment() {
 
     private fun navigateToMangaDetails(mangaMalId: Int){
         this.findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToMangaDetailsFragment(mangaMalId)
+            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
         )
     }
 
