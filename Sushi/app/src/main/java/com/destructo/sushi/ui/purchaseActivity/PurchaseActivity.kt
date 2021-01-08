@@ -142,7 +142,6 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
                 Timber.e("No Sku Found")
             }
         }
-
     }
 
     private fun launchPurchaseFlow(skuDetails: SkuDetails){
@@ -161,8 +160,8 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
                         .setPurchaseToken(purchase.purchaseToken)
                     billingClient.acknowledgePurchase(acknowledgePurchaseParams.build())
                     sharedPref.edit()?.putBoolean(IS_PRO_USER, true)?.apply()
-                    showToast("Purchase successful.\nThank you for your support!")
                     finish()
+                    //Add a toast to tell user purchase is complete.
                 }
             }
         }
@@ -180,8 +179,5 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         }
     }
 
-    private fun showToast(message: String){
-        Toast.makeText(this,message, Toast.LENGTH_LONG).show()
-    }
 
 }
