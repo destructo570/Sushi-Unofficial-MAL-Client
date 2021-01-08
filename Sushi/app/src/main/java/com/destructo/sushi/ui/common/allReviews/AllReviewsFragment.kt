@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.adapter.AllAnimeReviewsAdapter
@@ -26,6 +27,7 @@ class AllReviewsFragment : Fragment() {
 
     private lateinit var binding: FragmentAllReviewsBinding
     private val allReviewsViewModel: AllReviewViewModel by viewModels()
+    private val args: AllReviewsFragmentArgs by navArgs()
     private var animeIdArg: Int = 0
     private lateinit var reviewsRecyclerView: RecyclerView
     private lateinit var reviewsAdapter: AllAnimeReviewsAdapter
@@ -39,9 +41,9 @@ class AllReviewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null){
-            animeIdArg = savedInstanceState.getInt("animeId")
+            animeIdArg = args.animeId
         }else{
-            animeIdArg = AllReviewsFragmentArgs.fromBundle(requireArguments()).animeId
+            animeIdArg = args.animeId
             allReviewsViewModel.getAnimeReviews(animeIdArg, "1")
 
         }

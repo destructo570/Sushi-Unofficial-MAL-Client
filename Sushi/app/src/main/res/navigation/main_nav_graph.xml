@@ -45,7 +45,11 @@
         android:id="@+id/topAnimeFragment"
         android:name="com.destructo.sushi.ui.anime.topAnime.TopAnimeFragment"
         android:label="@string/top_anime"
-        tools:layout="@layout/fragment_top_anime"/>
+        tools:layout="@layout/fragment_top_anime">
+        <deepLink
+            android:id="@+id/deepLink8"
+            app:uri="https://myanimelist.net/topanime/" />
+    </fragment>
     <fragment
         android:id="@+id/upcomingAnimeFragment"
         android:name="com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragment"
@@ -60,7 +64,11 @@
         android:id="@+id/seasonalAnime"
         android:name="com.destructo.sushi.ui.anime.seasonalAnime.SeasonalAnimeFragment"
         android:label="@string/seasonal_anime"
-        tools:layout="@layout/fragment_seasonal_anime" />
+        tools:layout="@layout/fragment_seasonal_anime">
+        <deepLink
+            android:id="@+id/deepLink9"
+            app:uri="https://myanimelist.net/anime/season" />
+    </fragment>
     <fragment
         android:id="@+id/animeDetailFragment"
         android:name="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragment"
@@ -71,13 +79,21 @@
             android:name="animeId"
             app:argType="integer" />
 
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://myanimelist.net/anime/{animeId}/.*" />
+
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.destructo.sushi.ui.anime.characterDetails.CharacterFragment"
-        android:label="CharacterFragment" >
-        <argument android:name="characterId"
-            app:argType="integer"/>
+        android:label="CharacterFragment">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:uri="https://myanimelist.net/character/{characterId}/.*" />
     </fragment>
     <fragment
         android:id="@+id/mangaDetailsFragment"
@@ -87,17 +103,28 @@
         <argument
             android:name="mangaId"
             app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="https://myanimelist.net/manga/{mangaId}/.*" />
     </fragment>
     <fragment
         android:id="@+id/myAnimeListFragment"
         android:name="com.destructo.sushi.ui.user.animeList.MyAnimeListFragment"
         android:label="fragment_my_anime_list"
-        tools:layout="@layout/fragment_my_anime_list" />
+        tools:layout="@layout/fragment_my_anime_list">
+        <deepLink
+            android:id="@+id/deepLink10"
+            app:uri="https://myanimelist.net/animelist/.*" />
+    </fragment>
     <fragment
         android:id="@+id/myMangaListFragment"
         android:name="com.destructo.sushi.ui.user.mangaList.MyMangaListFragment"
         android:label="fragment_my_manga_list"
-        tools:layout="@layout/fragment_my_manga_list" />
+        tools:layout="@layout/fragment_my_manga_list">
+        <deepLink
+            android:id="@+id/deepLink11"
+            app:uri="https://myanimelist.net/mangalist/.*" />
+    </fragment>
 
     <fragment
         android:id="@+id/userAnimeCompleted"
@@ -123,7 +150,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.destructo.sushi.ui.user.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment">
+        <deepLink
+            android:id="@+id/deepLink13"
+            app:uri="https://myanimelist.net/profile/.*" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.destructo.sushi.ui.search.SearchFragment"
@@ -135,25 +166,35 @@
     <fragment
         android:id="@+id/personFragment"
         android:name="com.destructo.sushi.ui.person.PersonFragment"
-        android:label="PersonFragment" >
-        <argument android:name="personId"
-            app:argType="integer"/>
+        android:label="PersonFragment">
+        <argument
+            android:name="personId"
+            app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink12"
+            app:uri="https://myanimelist.net/people/{personId}/.*" />
     </fragment>
     <fragment
         android:id="@+id/allCharactersFragment"
         android:name="com.destructo.sushi.ui.common.allCharacters.AllCharactersFragment"
         android:label="fragment_all_characters"
-        tools:layout="@layout/fragment_all_characters" >
-        <argument android:name="malId"
-            app:argType="integer"/>
+        tools:layout="@layout/fragment_all_characters">
+        <argument
+            android:name="malId"
+            app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink4"
+            app:uri="https://myanimelist.net/anime/{malId}/.*/characters" />
     </fragment>
     <fragment
         android:id="@+id/allReviewsFragment"
         android:name="com.destructo.sushi.ui.common.allReviews.AllReviewsFragment"
-        android:label="AllReviewsFragment" >
+        android:label="AllReviewsFragment">
 
-        <argument android:name="animeId"
-            app:argType="integer"/>
+        <argument
+            android:name="animeId"
+            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/allMangaCharacters"
@@ -162,6 +203,9 @@
         >
         <argument android:name="mangaId"
             app:argType="integer"/>
+        <deepLink
+            android:id="@+id/deepLink5"
+            app:uri="https://myanimelist.net/manga/{mangaId}/.*/characters" />
     </fragment>
     <fragment
         android:id="@+id/allMangaReviews"

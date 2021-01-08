@@ -116,7 +116,7 @@ class AnimeDetailFragment : Fragment(),
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null) {
-            val animeIdArgument = args.animeId.toInt()
+            val animeIdArgument = args.animeId
             animeIdArg = animeIdArgument
             isInUserList = savedInstanceState.getInt(IS_IN_USER_LIST_ARG)
         }else{
