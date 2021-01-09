@@ -279,7 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.Sushi.H2"
-                android:textColor="?attr/textColorOnPrimary"
+                android:textColor="?attr/scoreCardText"
                 tools:text="8.0" />
         </com.google.android.material.card.MaterialCardView>
 
