@@ -21,6 +21,8 @@
     <color name="colorMenuTextSelected">#212121</color>
     <color name="colorCardBackground">#ffffff</color>
     <color name="colorPopupBackground">#ffffff</color>
+    <color name="scoreCardBackground">#90a4ae</color>
+    <color name="scoreCardText">#455a64</color>
 
     <!-- Night Theme -->
     <color name="colorPrimaryNight">#111016</color>

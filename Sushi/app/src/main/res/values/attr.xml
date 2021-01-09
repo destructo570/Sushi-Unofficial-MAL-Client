@@ -18,6 +18,8 @@
     <attr name="colorMenuPressed" format="color" />
     <attr name="colorMenuTextSelected" format="color" />
     <attr name="colorCardBackground" format="color" />
+    <attr name="scoreCardBackground" format="color" />
+    <attr name="scoreCardText" format="color" />
     <attr name="colorAccentSecondary" format="color" />
     <attr name="popupBackgroundColor" format="color" />
     <attr name="customChipStyle" format="reference" />

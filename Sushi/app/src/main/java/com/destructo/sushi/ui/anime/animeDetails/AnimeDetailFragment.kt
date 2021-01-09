@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
+import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -375,11 +377,21 @@ class AnimeDetailFragment : Fragment(),
                     transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
                 ) {
                     Palette.from(resource).generate { palette: Palette? ->
-                        palette?.vibrantSwatch?.rgb?.let { color ->
-                            scoreCardView.setCardBackgroundColor(color)
-                        }
-                        palette?.vibrantSwatch?.titleTextColor?.let {
-                            scoreTextView.setTextColor(it)
+                        Log.e("AnimeDetail","CardColor: ${palette?.vibrantSwatch}")
+
+                        if ( palette?.vibrantSwatch != null){
+                            palette.vibrantSwatch?.rgb?.let { color ->
+                                scoreCardView.setCardBackgroundColor(color)
+                            }
+                            palette.vibrantSwatch?.titleTextColor?.let {
+                                scoreTextView.setTextColor(it)
+                            }
+                        }else{
+                            context?.let {
+                                scoreCardView.setCardBackgroundColor(it.getColorFromAttr(R.attr.scoreCardBackground))
+                                scoreTextView.setTextColor(it.getColorFromAttr(R.attr.scoreCardText))
+                            }
+
                         }
                     }
                 }

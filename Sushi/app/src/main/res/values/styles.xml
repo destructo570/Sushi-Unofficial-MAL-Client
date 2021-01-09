@@ -33,7 +33,10 @@
         <item name="colorMenuTextSelected">@color/colorMenuTextSelected</item>
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="popupBackgroundColor">@color/colorPopupBackground</item>
+        <item name="scoreCardBackground">@color/scoreCardBackground</item>
+        <item name="scoreCardText">@color/scoreCardText</item>
         <item name="customChipStyle">@style/CustomChipChoice</item>
+
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
