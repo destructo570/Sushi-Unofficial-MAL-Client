@@ -40,6 +40,7 @@ import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
+import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -353,7 +354,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     }
 
     private fun setScoreCardColor(imgUrl: String) {
-
         Glide.with(this)
             .asBitmap()
             .load(imgUrl)
@@ -363,11 +363,19 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
                 ) {
                     Palette.from(resource).generate { palette: Palette? ->
-                        palette?.vibrantSwatch?.rgb?.let { color ->
-                            scoreCardView.setCardBackgroundColor(color)
-                        }
-                        palette?.vibrantSwatch?.titleTextColor?.let {
-                            scoreTextView.setTextColor(it)
+
+                        if ( palette?.vibrantSwatch != null){
+                            palette.vibrantSwatch?.rgb?.let { color ->
+                                scoreCardView.setCardBackgroundColor(color)
+                            }
+                            palette.vibrantSwatch?.titleTextColor?.let {
+                                scoreTextView.setTextColor(it)
+                            }
+                        }else{
+                            context?.let {
+                                scoreCardView.setCardBackgroundColor(it.getColorFromAttr(R.attr.scoreCardBackground))
+                                scoreTextView.setTextColor(it.getColorFromAttr(R.attr.scoreCardText))
+                            }
                         }
 
                     }

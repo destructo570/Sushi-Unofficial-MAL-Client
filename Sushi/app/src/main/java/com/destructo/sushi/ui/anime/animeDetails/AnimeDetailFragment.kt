@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -377,7 +376,6 @@ class AnimeDetailFragment : Fragment(),
                     transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
                 ) {
                     Palette.from(resource).generate { palette: Palette? ->
-                        Log.e("AnimeDetail","CardColor: ${palette?.vibrantSwatch}")
 
                         if ( palette?.vibrantSwatch != null){
                             palette.vibrantSwatch?.rgb?.let { color ->
