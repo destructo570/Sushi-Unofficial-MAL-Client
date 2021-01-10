@@ -47,6 +47,12 @@ const val CHARACTER_ID_ARG = "characterId"
 const val PERSON_ID_ARG = "personId"
 
 
+const val BASE_MAL_ANIME_URL = "https://myanimelist.net/anime/"
+const val BASE_MAL_MANGA_URL = "https://myanimelist.net/manga/"
+const val BASE_MAL_CHARACTER_URL = "https://myanimelist.net/character/"
+const val BASE_MAL_PEOPLE_URL = "https://myanimelist.net/people/"
+
+
 
 
 

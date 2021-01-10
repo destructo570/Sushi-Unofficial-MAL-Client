@@ -6,11 +6,13 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -24,6 +26,7 @@ import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.destructo.sushi.BASE_MAL_ANIME_URL
 import com.destructo.sushi.CHARACTER_ID_ARG
 import com.destructo.sushi.PERSON_ID_ARG
 import com.destructo.sushi.R
@@ -417,14 +420,24 @@ class AnimeDetailFragment : Fragment(),
     }
 
     private fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
+            val builder = CustomTabsIntent.Builder()
+            val customTabIntent = builder.build()
+            customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+    }
+
+    private fun shareUrl(url: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        val title = animeDetailViewModel.animeDetail.value?.data?.title
+        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, data)
+        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         if(verticalOffset == 0){
             var drawable: Drawable? = toolbar.navigationIcon
+
             drawable?.let {
                 drawable = DrawableCompat.wrap(drawable!!)
                 context?.let { it1 -> ContextCompat.getColor(it1,R.color.iconTintOnPrimary) }?.let { it2 ->
@@ -433,9 +446,12 @@ class AnimeDetailFragment : Fragment(),
                     )
                 }
                 toolbar.navigationIcon = drawable
+
             }
 
+
         }else{
+
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
         }
     }
@@ -487,6 +503,25 @@ class AnimeDetailFragment : Fragment(),
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
+        toolbar.inflateMenu(R.menu.detail_menu_options)
+        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+
+                when(item?.itemId){
+                    R.id.share_item ->{
+                        val url = BASE_MAL_ANIME_URL + animeIdArg
+                        shareUrl(url)
+                    }
+                    R.id.open_in_browser ->{
+                        val url = BASE_MAL_ANIME_URL + animeIdArg
+                        openUrl(url)
+                    }
+                }
+
+                return false
+            }
+
+        })
     }
 
     private fun setAnimeAltTitleClickListener() {
@@ -526,5 +561,7 @@ class AnimeDetailFragment : Fragment(),
             }
         }
     }
+
+
 
 }

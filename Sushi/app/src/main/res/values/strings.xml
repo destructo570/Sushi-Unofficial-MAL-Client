@@ -251,5 +251,12 @@
     <string name="notification_channel_desc">Notifications regarding latest updates</string>
     <string name="notification_channel_id">1</string>
 
+    <string name="share_item">Share</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="share_using">Share using</string>
+    <string name="share_anime_template">Checkout this anime</string>
+
+
+
 
 </resources>

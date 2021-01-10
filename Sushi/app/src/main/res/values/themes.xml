@@ -39,7 +39,7 @@
         <item name="colorMenuPressed">@color/colorMenuPressedDarkTheme</item>
         <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
         <item name="colorCardBackground">@color/contentBackgroundDarkTheme</item>
-        <item name="popupBackgroundColor">@color/colorPopupBackgroundAmoled</item>
+        <item name="popupBackgroundColor">@color/colorPopupBackgroundDarkTheme</item>
     </style>
 
     <style name="BaseTheme.Night" parent="Theme.MaterialComponents.Light.NoActionBar">

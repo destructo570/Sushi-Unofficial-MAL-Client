@@ -1,15 +1,20 @@
 package com.destructo.sushi.ui.anime.characterDetails
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.destructo.sushi.BASE_MAL_CHARACTER_URL
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterBinding
 import com.google.android.material.tabs.TabLayout
@@ -103,6 +108,42 @@ class CharacterFragment() : Fragment() {
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        toolbar.inflateMenu(R.menu.detail_menu_options)
+        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+
+                when(item?.itemId){
+                    R.id.share_item ->{
+                        val url = BASE_MAL_CHARACTER_URL + characterArg
+                        shareUrl(url)
+                    }
+                    R.id.open_in_browser ->{
+                        val url = BASE_MAL_CHARACTER_URL + characterArg
+                        openUrl(url)
+                    }
+                }
+
+                return false
+            }
+
+        })
+    }
+
+    private fun openUrl(url: String) {
+
+        val builder = CustomTabsIntent.Builder()
+        val customTabIntent = builder.build()
+        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+    }
+
+    private fun shareUrl(url: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        val title = characterViewModel.character.value?.name
+        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, data)
+        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
     }
 
 

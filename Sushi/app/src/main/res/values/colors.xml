@@ -24,6 +24,7 @@
     <color name="scoreCardBackground">#90a4ae</color>
     <color name="scoreCardText">#455a64</color>
 
+
     <!-- Night Theme -->
     <color name="colorPrimaryNight">#111016</color>
     <color name="colorPrimaryDarkNight">#000000</color>

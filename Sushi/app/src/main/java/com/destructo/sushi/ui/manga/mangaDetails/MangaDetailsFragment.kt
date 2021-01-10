@@ -6,11 +6,13 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -24,6 +26,7 @@ import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.destructo.sushi.BASE_MAL_MANGA_URL
 import com.destructo.sushi.CHARACTER_ID_ARG
 import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.R
@@ -206,6 +209,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        setupToolbar()
+
         recommAdapter = MangaRecommListAdapter(MalIdListener {
             it?.let { navigateToMangaDetails(it) }
         })
@@ -337,9 +342,19 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         }
     }
     private fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
+
+        val builder = CustomTabsIntent.Builder()
+        val customTabIntent = builder.build()
+        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+    }
+
+    private fun shareUrl(url: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        val title = mangaDetailViewModel.mangaDetail.value?.data?.title
+        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, data)
+        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
     }
 
     private fun setGenreChips(genreList: List<Genre?>) {
@@ -474,6 +489,34 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
         }
     }
+
+
+    private fun setupToolbar() {
+        toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
+
+        toolbar.inflateMenu(R.menu.detail_menu_options)
+        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
+            override fun onMenuItemClick(item: MenuItem?): Boolean {
+
+                when(item?.itemId){
+                    R.id.share_item ->{
+                        val url = BASE_MAL_MANGA_URL + mangaIdArg
+                        shareUrl(url)
+                    }
+                    R.id.open_in_browser ->{
+                        val url = BASE_MAL_MANGA_URL + mangaIdArg
+                        openUrl(url)
+                    }
+                }
+
+                return false
+            }
+
+        })
+    }
+
 
 
 }
