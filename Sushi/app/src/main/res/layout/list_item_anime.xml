@@ -10,7 +10,6 @@
         <variable
             name="animeListener"
             type="com.destructo.sushi.listener.MalIdListener" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
