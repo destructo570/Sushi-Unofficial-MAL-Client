@@ -25,7 +25,7 @@ data class PersonEntity(
     @Json(name = "name")
     val name: String?=null,
     @Json(name = "published_manga")
-    val publishedManga: List<String?>?=null,
+    val publishedManga: List<PublishedManga?>?=null,
     @Json(name = "request_cache_expiry")
     val requestCacheExpiry: Int?=null,
     @Json(name = "request_cached")

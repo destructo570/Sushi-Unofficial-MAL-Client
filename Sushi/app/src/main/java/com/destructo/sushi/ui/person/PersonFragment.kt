@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -101,8 +102,8 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     )
                     setupViewPager(fragmentList)
                 }
-                Status.ERROR->{
-
+                Status.ERROR -> {
+                    Log.e("PersonFragment", "Error: ${resource.message}")
                 }
 
             }
