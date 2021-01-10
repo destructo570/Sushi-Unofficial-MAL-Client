@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class PublishedManga(
     @Json(name = "manga")
-    val anime: MALSubEntity?=null,
+    val manga: MALSubEntity?=null,
     @Json(name = "position")
     val position: String?=null
 )

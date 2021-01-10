@@ -245,6 +245,8 @@
     <!-- Person Section -->
     <string name="voice_acting">Voice Acting</string>
     <string name="anime_staff_role">Anime Staff</string>
+    <string name="published_manga">Published Manga</string>
+
 
     <!-- Notification Channels -->
     <string name="notification_channel_name">Update Notification</string>

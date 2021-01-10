@@ -78,6 +78,9 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 2 -> {
                     tab.text = getString(R.string.anime_staff_role)
                 }
+                3 -> {
+                    tab.text = getString(R.string.published_manga)
+                }
             }
         }
         return binding.root
@@ -98,7 +101,8 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     val fragmentList = arrayListOf(
                         PersonAboutFragment(),
                         PersonVoiceActingFragment(),
-                        PersonAnimeStaffFragment()
+                        PersonAnimeStaffFragment(),
+                        PublishedMangaFragment()
                     )
                     setupViewPager(fragmentList)
                 }
