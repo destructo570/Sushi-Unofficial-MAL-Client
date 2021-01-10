@@ -224,7 +224,7 @@ class ProfileFragment : Fragment() {
         val  completedStr = "Completed: $completed"
         val  onHoldStr = "On Hold: $onHold"
         val  droppedStr = "Dropped: $dropped"
-        val  planToWatchStr = "Plan To Watch: $planToWatch"
+        val  planToWatchStr = "PTW: $planToWatch"
         val totalStr = "Total: $total"
         val daysStr = "$animeDays \nDays"
         val episodeStr = "$animeEp \nEpisodes"

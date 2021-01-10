@@ -106,7 +106,7 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     setupViewPager(fragmentList)
                 }
                 Status.ERROR -> {
-                    
+
                 }
 
             }
