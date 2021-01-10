@@ -63,7 +63,7 @@ constructor(
     }
 
     fun setSortType(sort_by:String){
-        myAnimeListRepo.anime_sort_type = sort_by
+        myAnimeListRepo.animeSortType = sort_by
     }
 
 

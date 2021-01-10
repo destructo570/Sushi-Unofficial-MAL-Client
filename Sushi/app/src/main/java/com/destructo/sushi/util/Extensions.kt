@@ -38,7 +38,7 @@ fun View.showSoftKeyboard() {
     post {
         if (this.requestFocus()) {
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
         }
     }
 }
@@ -47,7 +47,7 @@ fun View.hideSoftKeyboard() {
     post {
         if (this.requestFocus()) {
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm?.showSoftInput(this, InputMethodManager.HIDE_IMPLICIT_ONLY)
+            imm.showSoftInput(this, InputMethodManager.HIDE_IMPLICIT_ONLY)
         }
     }
 }

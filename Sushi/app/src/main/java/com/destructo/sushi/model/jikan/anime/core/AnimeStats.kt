@@ -1,7 +1,7 @@
 package com.destructo.sushi.model.jikan.anime.core
 
 
-import com.destructo.jikanplay.model.common.StatScores
+import com.destructo.sushi.model.jikan.common.StatScores
 import com.destructo.sushi.model.jikan.JikanEntity
 import com.squareup.moshi.Json
 

@@ -1,7 +1,7 @@
 package com.destructo.sushi.model.jikan.anime.core
 
 
-import com.destructo.jikanplay.model.common.TimeInterval
+import com.destructo.sushi.model.jikan.common.TimeInterval
 import com.destructo.sushi.model.jikan.JikanEntity
 import com.destructo.sushi.model.jikan.MALEntity
 import com.destructo.sushi.model.jikan.anime.support.RelatedAnime

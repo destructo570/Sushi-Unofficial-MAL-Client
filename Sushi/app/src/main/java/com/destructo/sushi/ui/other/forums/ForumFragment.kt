@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.destructo.sushi.R
 
-class forumFragment : Fragment() {
+class ForumFragment : Fragment() {
       override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

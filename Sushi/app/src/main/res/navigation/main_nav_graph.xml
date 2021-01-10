@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_club" />
     <fragment
         android:id="@+id/forumFragment"
-        android:name="com.destructo.sushi.ui.other.forums.forumFragment"
+        android:name="com.destructo.sushi.ui.other.forums.ForumFragment"
         android:label="@string/forum"
         tools:layout="@layout/fragment_forum" />
     <fragment

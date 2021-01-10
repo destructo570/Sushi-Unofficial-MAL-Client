@@ -1,6 +1,7 @@
-package com.destructo.jikanplay.model.common
+package com.destructo.sushi.model.jikan.common
 
 
+import com.destructo.sushi.model.jikan.common.StatScoreData
 import com.squareup.moshi.Json
 
 data class StatScores(

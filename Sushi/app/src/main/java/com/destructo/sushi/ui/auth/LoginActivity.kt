@@ -2,25 +2,27 @@ package com.destructo.sushi.ui.auth
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.databinding.DataBindingUtil
-import com.destructo.sushi.AUTH_CODE_URL
-import com.destructo.sushi.CLIENT_ID
-import com.destructo.sushi.MainActivity
-import com.destructo.sushi.R
+import com.destructo.sushi.*
 import com.destructo.sushi.databinding.ActivityLoginBinding
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -35,8 +37,11 @@ class LoginActivity : AppCompatActivity() {
     @Inject
     lateinit var sessionManager: SessionManager
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         if (sessionManager.checkLogin()) {
             if(sessionManager.isTokenExpired()){
@@ -52,16 +57,17 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Please wait refreshing token", Toast.LENGTH_LONG).show()
 
-                loginViewModel.refreshComplete.observe(this){resource ->
+                loginViewModel.refreshComplete.observe(this){ resource ->
                     when(resource.status){
-                        Status.LOADING->{
+                        Status.LOADING -> {
                             loginProgress.visibility = View.VISIBLE
                         }
-                        Status.SUCCESS->{
+                        Status.SUCCESS -> {
                             onLoginSuccess()
                         }
-                        Status.ERROR->{
-                            Toast.makeText(this, "Failed to refresh token", Toast.LENGTH_LONG).show()
+                        Status.ERROR -> {
+                            Toast.makeText(this, "Failed to refresh token", Toast.LENGTH_LONG)
+                                .show()
                         }
 
                     }

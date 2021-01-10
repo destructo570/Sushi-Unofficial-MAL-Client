@@ -39,7 +39,7 @@ abstract class SushiDatabase: RoomDatabase() {
 
     companion object{
 
-        val DATABASE_NAME = "sushi_database"
+        const val DATABASE_NAME = "sushi_database"
 
     }
 }
