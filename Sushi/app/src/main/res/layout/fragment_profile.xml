@@ -208,7 +208,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="Plan To Watch: "
+                            android:text="PTW: "
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorPlanToWatch"
