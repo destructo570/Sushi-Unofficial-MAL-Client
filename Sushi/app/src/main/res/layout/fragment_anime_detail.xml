@@ -270,6 +270,7 @@
             android:elevation="@dimen/fab_elevation"
             app:cardCornerRadius="200dp"
             app:layout_anchor="@id/anime_detail_cardview"
+            app:cardBackgroundColor="@color/scoreCardBackground"
             app:layout_anchorGravity="top|right|end">
 
             <TextView

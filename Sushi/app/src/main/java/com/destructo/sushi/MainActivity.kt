@@ -122,10 +122,7 @@ class MainActivity : AppCompatActivity() {
 
                 Glide.with(profileHeader.header_user_image.context)
                     .load(userInfo.picture)
-                    .apply(
-                        RequestOptions()
-                            .placeholder(R.drawable.test_img)
-                    )
+                    .apply(RequestOptions.placeholderOf(R.drawable.test_img))
                     .into(profileHeader.header_user_image)
             }
         }

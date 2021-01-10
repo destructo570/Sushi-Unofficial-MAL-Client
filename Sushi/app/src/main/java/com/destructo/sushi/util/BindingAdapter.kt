@@ -34,11 +34,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
-            .load(imgUri)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.test_img)
-            )
+            .load(imgUrl)
+            .apply(RequestOptions.placeholderOf(R.drawable.test_img))
             .into(imgView)
     }
 }
