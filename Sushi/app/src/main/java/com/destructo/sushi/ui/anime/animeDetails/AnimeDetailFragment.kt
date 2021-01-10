@@ -441,18 +441,16 @@ class AnimeDetailFragment : Fragment(),
             drawable?.let {
                 drawable = DrawableCompat.wrap(drawable!!)
                 context?.let { it1 -> ContextCompat.getColor(it1,R.color.iconTintOnPrimary) }?.let { it2 ->
-                    DrawableCompat.setTint(drawable!!.mutate(),
-                        it2
-                    )
+                    DrawableCompat.setTint(drawable!!.mutate(), it2)
                 }
                 toolbar.navigationIcon = drawable
-
+                toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill_light)
             }
 
-
         }else{
-
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
+            toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill)
+
         }
     }
 

@@ -1,6 +1,7 @@
 package com.destructo.sushi.ui.anime.characterDetails
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,12 +20,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.BASE_MAL_CHARACTER_URL
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterBinding
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterFragment() : Fragment() {
+class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private lateinit var binding: FragmentCharacterBinding
     private lateinit var characterPager: ViewPager2
@@ -31,6 +35,8 @@ class CharacterFragment() : Fragment() {
     private var characterArg: Int = 0
     private lateinit var characterTabMediator:TabLayoutMediator
     private lateinit var toolbar: Toolbar
+    private lateinit var appBar: AppBarLayout
+
 
     private val characterViewModel: CharacterViewModel by viewModels()
 
@@ -54,6 +60,7 @@ class CharacterFragment() : Fragment() {
         toolbar = binding.toolbar
         characterPager = binding.characterViewPager
         characterTabLayout = binding.characterTabLayout
+        appBar = binding.appbar
 
         characterTabMediator = TabLayoutMediator(characterTabLayout, characterPager) { tab, position ->
             when (position) {
@@ -93,6 +100,11 @@ class CharacterFragment() : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        appBar.addOnOffsetChangedListener(this)
+    }
+
     private fun setupViewPager(fragmentList:ArrayList<Fragment>){
         characterPagerAdapter = CharacterPagerAdapter(
             fragmentList,
@@ -128,6 +140,26 @@ class CharacterFragment() : Fragment() {
             }
 
         })
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        if(verticalOffset == 0){
+            var drawable: Drawable? = toolbar.navigationIcon
+            drawable?.let {
+                drawable = DrawableCompat.wrap(drawable!!)
+                context?.let { it1 -> ContextCompat.getColor(it1,R.color.iconTintOnPrimary) }?.let { it2 ->
+                    DrawableCompat.setTint(drawable!!.mutate(),
+                        it2
+                    )
+                }
+                toolbar.navigationIcon = drawable
+                toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill_light)
+            }
+
+        }else{
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
+            toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill)
+        }
     }
 
     private fun openUrl(url: String) {
