@@ -23,6 +23,8 @@
     <color name="colorPopupBackground">#ffffff</color>
     <color name="scoreCardBackground">#90a4ae</color>
     <color name="scoreCardText">#455a64</color>
+    <color name="colorDivider">#9e9e9e</color>
+
 
 
     <!-- Night Theme -->
