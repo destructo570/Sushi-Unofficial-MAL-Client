@@ -47,6 +47,10 @@
                     android:id="@+id/searchFragment"
                     android:icon="@drawable/ic_search_line"
                     android:title="@string/title_search_mal" />
+                <item
+                    android:id="@+id/forumFragment"
+                    android:icon="@drawable/ic_forum_line"
+                    android:title="@string/forum" />
 
             </group>
         </menu>

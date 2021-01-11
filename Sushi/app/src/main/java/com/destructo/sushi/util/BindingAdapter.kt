@@ -12,11 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.ForumBoardAdapter
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.model.mal.anime.*
+import com.destructo.sushi.model.mal.forum.Board
 import com.destructo.sushi.model.mal.manga.Author
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
@@ -366,6 +368,14 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
         malId?.let{recyclerView.findNavController().navigate(
             R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, it))
         )}
+    })
+    recyclerView.adapter = adapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("forumCategoryData")
+fun bindCategoryRecycler(recyclerView: RecyclerView, data: List<Board?>?) {
+    val adapter = ForumBoardAdapter(MalIdListener {
     })
     recyclerView.adapter = adapter
     adapter.submitList(data)

@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.scheduleFragment,
                 R.id.mangaFragment,
                 R.id.searchFragment,
+                R.id.forumFragment,
                 R.id.settingsFragment,
             ), drawer_layout
         )
@@ -99,6 +100,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.searchFragment -> {
                     navView.setCheckedItem(R.id.searchFragment)
+                }
+                R.id.forumFragment -> {
+                    navView.setCheckedItem(R.id.forumFragment)
                 }
                 R.id.mangaFragment -> {
                     navView.setCheckedItem(R.id.mangaFragment)

@@ -4,6 +4,9 @@ import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRecom.SuggestedAnime
+import com.destructo.sushi.model.mal.forum.ForumBoard
+import com.destructo.sushi.model.mal.forum.ForumTopicDetail
+import com.destructo.sushi.model.mal.forum.ForumTopics
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.mangaList.MangaList
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
@@ -189,5 +192,26 @@ interface MalApi {
         @Query("nsfw") nsfw:Boolean
 
     ): Deferred<SuggestedAnime>
+
+
+    @GET("forum/boards")
+    fun getForumBoardsAsync(): Deferred<ForumBoard>
+
+    @GET("forum/topic/{topic_id}")
+    fun getForumTopicDetailAsync(
+        @Path("topic_id") topic_id:String
+    ): Deferred<ForumTopicDetail>
+
+    @GET("forum/topics")
+    fun getForumTopicsAsync(
+        @Query("board_id") board_id:String?,
+        @Query("subboard_id") sub_board_id:String?,
+        @Query("limit") limit:String?,
+        @Query("offset") offset:Boolean,
+        @Query("sort") sort:String?,
+        @Query("q") q:String?,
+        @Query("topic_user_name") topic_user_name:Boolean,
+        @Query("user_name") user_name:String?,
+        ): Deferred<ForumTopics>
 
 }
