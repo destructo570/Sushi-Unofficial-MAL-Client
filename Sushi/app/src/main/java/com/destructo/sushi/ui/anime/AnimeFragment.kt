@@ -19,6 +19,7 @@ import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeHomeAdapter
+import com.destructo.sushi.adapter.AnimeHomeRecomAdapter
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
@@ -27,6 +28,7 @@ import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*
+import kotlinx.android.synthetic.main.inc_anime_recoms.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
 
@@ -38,16 +40,21 @@ class AnimeFragment : Fragment() {
 
     private lateinit var upcomingAnimeRecycler: RecyclerView
     private lateinit var currentAiringRecycler: RecyclerView
+    private lateinit var animeRecomRecycler: RecyclerView
 
     private lateinit var upcomingAnimeAdapter: AnimeHomeAdapter
     private lateinit var currentlyAiringAdapter: AnimeHomeAdapter
+    private lateinit var animeRecomAdapter: AnimeHomeRecomAdapter
 
     private lateinit var upcomingAnimeSeeMore: TextView
     private lateinit var currentlyAiringMore: TextView
+    private lateinit var animeRecomMore: TextView
+
 
     private lateinit var toolbar: Toolbar
     private lateinit var airingAnimeProgressBar:LinearLayout
     private lateinit var upcomingAnimeProgressBar:LinearLayout
+    private lateinit var animeRecommProgressBar:LinearLayout
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var topAnimeCard: MaterialCardView
@@ -63,6 +70,8 @@ class AnimeFragment : Fragment() {
             animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
             animeViewModel.getCurrentlyAiringAnime(AnimeRankingType.AIRING.value, null,"25", sharedPreferences.getBoolean(
+                NSFW_TAG, false))
+            animeViewModel.getAnimeRecomm(null,"25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
         }
 
@@ -80,16 +89,20 @@ class AnimeFragment : Fragment() {
         upcomingAnimeRecycler.setHasFixedSize(true)
         currentAiringRecycler = binding.root.currentlyAiringRecycler
         currentAiringRecycler.setHasFixedSize(true)
+        animeRecomRecycler = binding.root.animeRecomRecycler
+        animeRecomRecycler.setHasFixedSize(true)
 
 
         toolbar = binding.root.anime_frag_toolbar
         airingAnimeProgressBar = binding.root.airing_anime_progress
         upcomingAnimeProgressBar = binding.root.upcoming_anime_progress
+        animeRecommProgressBar = binding.root.anime_recom_progress
 
         topAnimeCard = binding.topAnimeButton
         seasonalAnimeCard = binding.seasonalAnimeButton
         upcomingAnimeSeeMore = binding.root.upcomingAnimeMore
         currentlyAiringMore = binding.root.currentlyAiringMore
+        animeRecomMore = binding.root.animeRecomMore
 
         topAnimeCard.setOnClickListener {
             navigateToTopAnime()
@@ -103,6 +116,9 @@ class AnimeFragment : Fragment() {
         currentlyAiringMore.setOnClickListener {
             navigateToCurrentlyAiring()
         }
+        animeRecomMore.setOnClickListener {
+            navigateToAnimeRecom()
+        }
 
         return binding.root
     }
@@ -115,6 +131,9 @@ class AnimeFragment : Fragment() {
             it?.let { navigateToAnimeDetails(it) }
         })
         currentlyAiringAdapter = AnimeHomeAdapter(MalIdListener {
+            it?.let { navigateToAnimeDetails(it) }
+        })
+        animeRecomAdapter = AnimeHomeRecomAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
         })
 
@@ -157,6 +176,25 @@ class AnimeFragment : Fragment() {
 
         }
 
+        animeViewModel.animeRecom.observe(viewLifecycleOwner) { resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                    animeRecommProgressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let {
+                        animeRecommProgressBar.visibility = View.GONE
+                        animeRecomAdapter.submitList(it)
+                        animeRecomRecycler.adapter = animeRecomAdapter
+                    }
+                }
+                Status.ERROR -> {
+                }
+            }
+
+        }
+
 
     }
 
@@ -175,6 +213,11 @@ class AnimeFragment : Fragment() {
     private fun navigateToSeasonalAnime() {
         this.findNavController().navigate(R.id.seasonalAnime)
     }
+
+    private fun navigateToAnimeRecom() {
+        this.findNavController().navigate(R.id.animeRecomFragment)
+    }
+
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(

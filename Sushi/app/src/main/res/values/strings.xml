@@ -28,6 +28,7 @@
     <string name="top_manga">Top Manga</string>
     <string name="currently_airing">Currently Airing</string>
     <string name="upcoming_anime">Upcoming Anime</string>
+    <string name="user_anime_recom">Anime Recommendations</string>
     <string name="seasonal_anime">Seasonal</string>
     <string name="see_all">See All</string>
     <string name="all_characters">All Characters</string>
@@ -257,8 +258,6 @@
     <string name="open_in_browser">Open in browser</string>
     <string name="share_using">Share using</string>
     <string name="share_anime_template">Checkout this anime</string>
-
-
 
 
 </resources>

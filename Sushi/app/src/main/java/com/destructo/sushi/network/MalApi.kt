@@ -3,6 +3,7 @@ package com.destructo.sushi.network
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.animeRecom.SuggestedAnime
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.mangaList.MangaList
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
@@ -178,5 +179,15 @@ interface MalApi {
         @Query("nsfw") nsfw:Boolean
 
         ): Deferred<MangaList>
+
+
+    @GET("anime/suggestions")
+    fun getAnimeRecomAsync(
+        @Query("limit") limit:String?,
+        @Query("offset") offset:String?,
+        @Query("fields") fields:String?,
+        @Query("nsfw") nsfw:Boolean
+
+    ): Deferred<SuggestedAnime>
 
 }

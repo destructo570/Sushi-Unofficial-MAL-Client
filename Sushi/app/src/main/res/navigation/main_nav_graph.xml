@@ -248,5 +248,9 @@
         <argument android:name="malId"
             app:argType="integer"/>
     </fragment>
+    <fragment
+        android:id="@+id/animeRecomFragment"
+        android:name="com.destructo.sushi.ui.anime.animeRecom.AnimeRecomFragment"
+        android:label="AnimeRecomFragment" />
 
 </navigation>
