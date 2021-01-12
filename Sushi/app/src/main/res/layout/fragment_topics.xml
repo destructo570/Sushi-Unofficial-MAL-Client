@@ -21,41 +21,23 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                style="@style/ToolBarWithNavigationBack"
+                app:title="Topics"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetEnd="0dp"
-                app:contentInsetEndWithActions="0dp"
-                app:contentInsetStartWithNavigation="0dp"
-                app:titleMarginStart="0dp"
-                >
-
-                <androidx.appcompat.widget.SearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/forum_search_view"
-                    app:searchIcon="@drawable/ic_search_line"
-                    app:closeIcon="@drawable/ic_close_fill"
-                    app:queryHint="Search forum topics"
-                    app:iconifiedByDefault="false"
-                    app:queryBackground="@android:color/transparent"
-                    />
-
-            </androidx.appcompat.widget.Toolbar>
+                />
 
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <ProgressBar
-            android:id="@+id/forum_progressbar"
+            android:id="@+id/topic_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/forumRecyclerMain"
+            android:id="@+id/topicRecyclerMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

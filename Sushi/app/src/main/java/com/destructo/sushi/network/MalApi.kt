@@ -204,14 +204,22 @@ interface MalApi {
 
     @GET("forum/topics")
     fun getForumTopicsAsync(
-        @Query("board_id") board_id:String?,
-        @Query("subboard_id") sub_board_id:String?,
-        @Query("limit") limit:String?,
-        @Query("offset") offset:Boolean,
+        @Query("board_id") board_id:Int?,
+        @Query("subboard_id") sub_board_id:Int?,
+        @Query("limit") limit:Int?,
+        @Query("offset") offset:Int,
         @Query("sort") sort:String?,
         @Query("q") q:String?,
-        @Query("topic_user_name") topic_user_name:Boolean,
+        @Query("topic_user_name") topic_user_name:String?,
         @Query("user_name") user_name:String?,
         ): Deferred<ForumTopics>
+
+    @GET("forum/topics")
+    fun getForumTopicsBasicAsync(
+        @Query("board_id") board_id:Int?,
+        @Query("limit") limit:Int?,
+        @Query("offset") offset:Int,
+        @Query("sort") sort:String?
+    ): Deferred<ForumTopics>
 
 }

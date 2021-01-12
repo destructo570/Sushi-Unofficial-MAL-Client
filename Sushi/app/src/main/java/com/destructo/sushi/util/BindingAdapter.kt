@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.ANIME_ID_ARG
+import com.destructo.sushi.BOARD_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.ForumBoardAdapter
 import com.destructo.sushi.listener.MalIdListener
@@ -376,6 +377,8 @@ fun bindScheduleRecycler(recyclerView: RecyclerView, data: List<AnimeSubEntity?>
 @BindingAdapter("forumCategoryData")
 fun bindCategoryRecycler(recyclerView: RecyclerView, data: List<Board?>?) {
     val adapter = ForumBoardAdapter(MalIdListener {
+        boardId-> recyclerView.findNavController().navigate(R.id.topicsFragment, bundleOf(
+        Pair(BOARD_ID_ARG, boardId)))
     })
     recyclerView.adapter = adapter
     adapter.submitList(data)

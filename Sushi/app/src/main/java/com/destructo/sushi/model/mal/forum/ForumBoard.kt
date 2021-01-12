@@ -5,5 +5,5 @@ import com.squareup.moshi.Json
 
 data class ForumBoard(
     @Json(name = "categories")
-    val categories: List<Category>
+    val categories: List<Category?>?=null
 )

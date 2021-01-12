@@ -6,7 +6,7 @@ import com.squareup.moshi.Json
 
 data class ForumTopicDetail(
     @Json(name = "data")
-    val postData: PostData,
+    val postData: PostData?=null,
     @Json(name = "paging")
-    val paging: Paging
+    val paging: Paging?=null
 )

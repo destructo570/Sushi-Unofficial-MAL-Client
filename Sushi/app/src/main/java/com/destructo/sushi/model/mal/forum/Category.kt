@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class Category(
     @Json(name = "boards")
-    val boards: List<Board>,
+    val boards: List<Board?>?=null,
     @Json(name = "title")
-    val title: String
+    val title: String?=null
 )

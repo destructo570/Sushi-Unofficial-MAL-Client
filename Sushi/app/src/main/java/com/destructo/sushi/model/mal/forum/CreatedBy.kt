@@ -5,9 +5,9 @@ import com.squareup.moshi.Json
 
 data class CreatedBy(
     @Json(name = "forum_avator")
-    val forumAvator: String,
+    val forumAvator: String?=null,
     @Json(name = "id")
-    val id: Int,
+    val id: Int?=null,
     @Json(name = "name")
-    val name: String
+    val name: String?=null
 )

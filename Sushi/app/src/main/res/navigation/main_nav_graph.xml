@@ -252,5 +252,13 @@
         android:id="@+id/animeRecomFragment"
         android:name="com.destructo.sushi.ui.anime.animeRecom.AnimeRecomFragment"
         android:label="AnimeRecomFragment" />
+    <fragment
+        android:id="@+id/topicsFragment"
+        android:name="com.destructo.sushi.ui.other.forums.topics.TopicsFragment"
+        android:label="TopicsFragment" >
+        <argument
+            android:name="boardId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

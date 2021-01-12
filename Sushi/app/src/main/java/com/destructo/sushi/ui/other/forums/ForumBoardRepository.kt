@@ -17,7 +17,9 @@ constructor(
     val malApi: MalApi
 ) {
 
-    fun getForumBoards(): MutableLiveData<Resource<ForumBoard>> {
+    fun getForumBoards(
+
+    ): MutableLiveData<Resource<ForumBoard>> {
 
         val result = MutableLiveData<Resource<ForumBoard>>()
         result.value = Resource.loading(null)
@@ -38,4 +40,5 @@ constructor(
         }
         return result
     }
+
 }

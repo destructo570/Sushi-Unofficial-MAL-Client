@@ -45,6 +45,7 @@ const val MANGA_ID_ARG = "mangaId"
 const val ANIME_ID_ARG = "animeId"
 const val CHARACTER_ID_ARG = "characterId"
 const val PERSON_ID_ARG = "personId"
+const val BOARD_ID_ARG = "boardId"
 
 
 const val BASE_MAL_ANIME_URL = "https://myanimelist.net/anime/"

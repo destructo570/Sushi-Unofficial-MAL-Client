@@ -7,7 +7,7 @@ import com.destructo.sushi.databinding.ListItemForumCategoryBinding
 import com.destructo.sushi.model.mal.forum.Category
 
 class ForumCategoryAdapter(
-    private val categoryList:List<Category>
+    private val categoryList:List<Category?>
 ) :
     RecyclerView.Adapter<ForumCategoryAdapter.ViewHolder>() {
 
@@ -38,7 +38,9 @@ class ForumCategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = categoryList[position]
-        holder.bind(category)
+        if (category != null) {
+            holder.bind(category)
+        }
     }
 
     override fun getItemCount(): Int {

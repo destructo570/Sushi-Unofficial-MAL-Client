@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class PostData(
     @Json(name = "posts")
-    val posts: List<Post>,
+    val posts: List<Post?>?=null,
     @Json(name = "title")
-    val title: String
+    val title: String?=null
 )

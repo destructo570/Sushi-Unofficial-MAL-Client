@@ -5,11 +5,11 @@ import com.squareup.moshi.Json
 
 data class Board(
     @Json(name = "description")
-    val description: String,
+    val description: String?=null,
     @Json(name = "id")
-    val id: Int,
+    val id: Int?=null,
     @Json(name = "subboards")
-    val subboards: List<Subboard>,
+    val subboards: List<Subboard?>?=null,
     @Json(name = "title")
-    val title: String
+    val title: String?=null
 )
