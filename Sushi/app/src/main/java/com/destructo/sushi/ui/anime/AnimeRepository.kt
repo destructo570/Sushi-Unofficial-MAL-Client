@@ -154,11 +154,15 @@ constructor(
                     val newsUrl = titleClass[0].getElementsByTag("a")[0].absUrl("href")
                     val description = newsUnitRight[0].getElementsByClass("text")[0].text()
 
+                    val information = newsUnitRight[0].getElementsByClass("information")
+                    val dateCreated = information[0].getElementsByClass("info di-ib")[0].text()
+
                     newsList.add(
                         NewsItem(
                             title = title,
                             img_url = imgFinal,
                             small_description = description,
+                            date_created = dateCreated,
                             url = newsUrl
                         )
                     )

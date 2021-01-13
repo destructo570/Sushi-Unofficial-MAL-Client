@@ -53,7 +53,6 @@ class AnimeFragment : Fragment() {
     private lateinit var newsRecycler: RecyclerView
     private lateinit var promotionRecycler: RecyclerView
 
-
     private lateinit var upcomingAnimeAdapter: AnimeHomeAdapter
     private lateinit var currentlyAiringAdapter: AnimeHomeAdapter
     private lateinit var animeRecomAdapter: AnimeHomeRecomAdapter

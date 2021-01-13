@@ -64,6 +64,21 @@
                     android:id="@+id/news_sub_title"
                     style="@style/TextAppearance.Sushi.ByLine2"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{newsItem.date_created}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/news_cover_img"
+                    app:layout_constraintTop_toBottomOf="@+id/news_title"
+                    tools:text="Jan 10, 11:47 PM by " />
+
+                <TextView
+                    android:id="@+id/news_desc"
+                    style="@style/TextAppearance.Sushi.ByLine2"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -74,7 +89,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/news_cover_img"
-                    app:layout_constraintTop_toBottomOf="@+id/news_title"
+                    app:layout_constraintTop_toBottomOf="@+id/news_sub_title"
                     tools:text="This is an aawesome news title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
