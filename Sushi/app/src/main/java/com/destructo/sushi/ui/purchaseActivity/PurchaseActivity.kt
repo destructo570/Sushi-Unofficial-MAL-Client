@@ -1,10 +1,7 @@
 package com.destructo.sushi.ui.purchaseActivity
 
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -39,12 +36,6 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            val window = window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.BLACK
-            }
-
         createBillingClient()
         initiateBillingProcess()
 
@@ -58,6 +49,10 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
             R.drawable.app_promo_1,
             R.drawable.app_promo_2,
             R.drawable.app_promo_3,
+            R.drawable.app_promo_4,
+            R.drawable.app_promo_5,
+            R.drawable.app_promo_6
+
         )
         imagePagerAdapter = ImagePagerAdapter(images)
         promoViewPager.adapter = imagePagerAdapter
