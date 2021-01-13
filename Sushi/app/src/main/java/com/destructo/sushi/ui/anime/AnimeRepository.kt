@@ -6,6 +6,7 @@ import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRecom.SuggestedAnime
 import com.destructo.sushi.model.mal.news.NewsItem
+import com.destructo.sushi.model.mal.promotion.PromotionalItem
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -137,7 +138,7 @@ constructor(
                 val newslist = newsListM[0].getElementsByClass("news-unit clearfix rect")
 
 
-                for ((index, news) in newslist.withIndex()) {
+                for ((index) in newslist.withIndex()) {
 
                     val a = newslist[index].getElementsByTag("a")
                     val imgUrl = a[0].getElementsByTag("img")[0].absUrl("src")
@@ -159,6 +160,61 @@ constructor(
                             img_url = imgFinal,
                             small_description = description,
                             url = newsUrl
+                        )
+                    )
+
+                }
+
+                withContext(Dispatchers.Main) {
+                    result.value = Resource.success(newsList)
+                }
+            } catch (e: Exception) {
+                result.value = Resource.error(e.message ?: "", null)
+            }
+        }
+
+        return result
+
+    }
+
+
+
+    fun getLatestPromotional(): MutableLiveData<Resource<MutableList<PromotionalItem>>> {
+
+        val result = MutableLiveData<Resource<MutableList<PromotionalItem>>>()
+        result.value = Resource.loading(null)
+        val newsList = mutableListOf<PromotionalItem>()
+        GlobalScope.launch{
+            try {
+                val doc = Jsoup.connect("https://myanimelist.net/watch/promotion").get()
+
+                val myanimelist = doc.getElementById("myanimelist")
+                val wrapper = myanimelist.getElementsByClass("wrapper")
+                val contentWrapper = wrapper[0].getElementById("contentWrapper")
+                val newsContentBlock = contentWrapper.getElementById("content")
+                val clearFix = newsContentBlock.getElementsByClass("watch-anime-list watch-video ml12 clearfix")
+                val videoBlock = clearFix[0].getElementsByClass("video-block")
+                val videoList = videoBlock[0].getElementsByClass("video-list-outer-vertical")
+
+                for ((index) in videoList.withIndex()) {
+
+                    val ytLink = videoList[index].getElementsByTag("a")[0].absUrl("href")
+                    val dataTitle = videoList[index].getElementsByTag("a")[0].absUrl("data-title")
+                    val ytId = ytLink.substringAfter("embed/").substringBefore("?enable")
+                    val baseUrl = "http://i.ytimg.com/vi/"
+                    val baseUrlEnd = "/hqdefault.jpg"
+                    val imgUrl = baseUrl + ytId + baseUrlEnd
+                    val description = dataTitle.substringAfter("watch/")
+
+                    val videoInfo = videoList[index].getElementsByClass("video-info-title")
+                    val title = videoInfo[0].getElementsByClass("mr4")[0].text()
+
+                    newsList.add(
+                        PromotionalItem(
+                            title = title,
+                            img_url = imgUrl,
+                            small_description = description,
+                            url = ytLink
                         )
                     )
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.news.NewsItem
+import com.destructo.sushi.model.mal.promotion.PromotionalItem
 import com.destructo.sushi.network.Resource
 
 class AnimeViewModel
@@ -34,6 +35,10 @@ constructor(
     val newsList:MutableLiveData<Resource<MutableList<NewsItem>>>
         get() = _newsList
 
+    private var _promotionList:MutableLiveData<Resource<MutableList<PromotionalItem>>> = MutableLiveData()
+    val promotionList:MutableLiveData<Resource<MutableList<PromotionalItem>>>
+        get() = _promotionList
+
 
     fun getUpcomingAnime(ranking_type:String,offset:String?, limit:String?,
                          nsfw: Boolean) {
@@ -51,6 +56,10 @@ constructor(
 
     fun getNews() {
         _newsList = animeRepo.getLatestNews()
+    }
+
+    fun getLatestPromotional() {
+        _promotionList = animeRepo.getLatestPromotional()
     }
 
 

@@ -111,10 +111,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/includeAiring"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seasonal_anime_button" />
+
+            <include
+                android:id="@+id/includePromotional"
+                layout="@layout/inc_promotional_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/includeAiring"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/includeNews" />
 
             <include
                 android:id="@+id/includeAiring"
@@ -125,7 +135,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/includeUpcoming"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeNews" />
+                app:layout_constraintTop_toBottomOf="@+id/includePromotional" />
 
             <include
                 android:id="@+id/includeUpcoming"

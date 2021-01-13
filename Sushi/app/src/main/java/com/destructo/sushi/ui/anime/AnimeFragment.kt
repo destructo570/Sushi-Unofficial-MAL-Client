@@ -24,6 +24,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeHomeAdapter
 import com.destructo.sushi.adapter.AnimeHomeRecomAdapter
 import com.destructo.sushi.adapter.NewsItemAdapter
+import com.destructo.sushi.adapter.PromotionItemAdapter
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
@@ -37,6 +38,7 @@ import kotlinx.android.synthetic.main.inc_anime_recoms.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.currentlyAiringMore
 import kotlinx.android.synthetic.main.inc_latest_news_home.view.*
+import kotlinx.android.synthetic.main.inc_promotional_home.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
 
 @AndroidEntryPoint
@@ -49,11 +51,15 @@ class AnimeFragment : Fragment() {
     private lateinit var currentAiringRecycler: RecyclerView
     private lateinit var animeRecomRecycler: RecyclerView
     private lateinit var newsRecycler: RecyclerView
+    private lateinit var promotionRecycler: RecyclerView
+
 
     private lateinit var upcomingAnimeAdapter: AnimeHomeAdapter
     private lateinit var currentlyAiringAdapter: AnimeHomeAdapter
     private lateinit var animeRecomAdapter: AnimeHomeRecomAdapter
     private lateinit var latestNewsAdapter: NewsItemAdapter
+    private lateinit var promotionAdapter: PromotionItemAdapter
+
 
     private lateinit var upcomingAnimeSeeMore: TextView
     private lateinit var currentlyAiringMore: TextView
@@ -65,6 +71,7 @@ class AnimeFragment : Fragment() {
     private lateinit var upcomingAnimeProgressBar:LinearLayout
     private lateinit var animeRecommProgressBar:LinearLayout
     private lateinit var newsProgressBar:LinearLayout
+    private lateinit var promotionProgressBar:LinearLayout
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var topAnimeCard: MaterialCardView
@@ -84,6 +91,7 @@ class AnimeFragment : Fragment() {
             animeViewModel.getAnimeRecomm(null,"25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
             animeViewModel.getNews()
+            animeViewModel.getLatestPromotional()
         }
 
     }
@@ -106,12 +114,17 @@ class AnimeFragment : Fragment() {
         newsRecycler = binding.root.newsRecycler
         newsRecycler.setHasFixedSize(true)
         snapHelper.attachToRecyclerView(newsRecycler)
+        promotionRecycler = binding.root.promotionRecycler
+        val snapHelper2 = PagerSnapHelper()
+        promotionRecycler.setHasFixedSize(true)
+        snapHelper2.attachToRecyclerView(promotionRecycler)
 
         toolbar = binding.root.anime_frag_toolbar
         airingAnimeProgressBar = binding.root.airing_anime_progress
         upcomingAnimeProgressBar = binding.root.upcoming_anime_progress
         animeRecommProgressBar = binding.root.anime_recom_progress
         newsProgressBar = binding.root.news_progress
+        promotionProgressBar = binding.root.promotion_progress
 
         topAnimeCard = binding.topAnimeButton
         seasonalAnimeCard = binding.seasonalAnimeButton
@@ -152,10 +165,10 @@ class AnimeFragment : Fragment() {
             it?.let { navigateToAnimeDetails(it) }
         })
         latestNewsAdapter = NewsItemAdapter(MalUrlListener {
-            it?.let {
-                openUrl(it)
-            }
-
+            it?.let { openUrl(it) }
+        })
+        promotionAdapter = PromotionItemAdapter(MalUrlListener {
+            it?.let { openUrl(it) }
         })
 
         animeViewModel.upcomingAnime.observe(viewLifecycleOwner) { resource ->
@@ -227,6 +240,26 @@ class AnimeFragment : Fragment() {
                         newsProgressBar.visibility = View.GONE
                         latestNewsAdapter.submitList(it)
                         newsRecycler.adapter = latestNewsAdapter
+                    }
+                }
+                Status.ERROR -> {
+                }
+            }
+
+        }
+
+
+        animeViewModel.promotionList.observe(viewLifecycleOwner) { resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                    promotionProgressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let {
+                        promotionProgressBar.visibility = View.GONE
+                        promotionAdapter.submitList(it)
+                        promotionRecycler.adapter = promotionAdapter
                     }
                 }
                 Status.ERROR -> {

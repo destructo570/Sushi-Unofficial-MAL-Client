@@ -30,6 +30,7 @@
     <string name="top_manga">Top Manga</string>
     <string name="currently_airing">Currently Airing</string>
     <string name="latest_news">Latest News</string>
+    <string name="latest_promotional_content">Latest Promotional</string>
     <string name="upcoming_anime">Upcoming Anime</string>
     <string name="user_anime_recom">Anime Recommendations</string>
     <string name="seasonal_anime">Seasonal</string>
@@ -261,6 +262,9 @@
     <string name="open_in_browser">Open in browser</string>
     <string name="share_using">Share using</string>
     <string name="share_anime_template">Checkout this anime</string>
+
+    <!-- Do not change these -->
+    <string name="iytimg_base">http://i.ytimg.com/vi/%1$s/hqdefault.jpg</string>
 
 
 </resources>
