@@ -53,7 +53,7 @@ class MyMangaListFragment : Fragment() {
                         tab.text = getString(R.string.reading)
                     }
                     1 -> {
-                        tab.text = getString(R.string.completed)
+                        tab.text = getString(R.string.plan_to_read)
                     }
                     2 -> {
                         tab.text = getString(R.string.on_hold)
@@ -62,7 +62,7 @@ class MyMangaListFragment : Fragment() {
                         tab.text = getString(R.string.dropped)
                     }
                     4 -> {
-                        tab.text = getString(R.string.plan_to_read)
+                        tab.text = getString(R.string.completed)
                     }
                 }
             }
@@ -74,13 +74,13 @@ class MyMangaListFragment : Fragment() {
         setupToolbar()
 
         val fragmentList = arrayListOf(
-            //UserMangaAll(),
             UserMangaReading(),
-            UserMangaCompleted(),
+            UserMangaPlanToRead(),
             UserMangaOnHold(),
             UserMangaDropped(),
-            UserMangaPlanToRead()
-        )
+            UserMangaCompleted()
+
+            )
 
         myMangaListPagerAdapter =
             FragmentPagerAdapter(fragmentList, childFragmentManager, lifecycle)
