@@ -23,6 +23,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -166,8 +167,10 @@ class AnimeDetailFragment : Fragment(),
         relatedRecycler.setHasFixedSize(true)
         videoRecycler = binding.root.animeVideoRecycler
         videoRecycler.setHasFixedSize(true)
+        val snapHelper = PagerSnapHelper()
         reviewRecycler = binding.root.reviewsRecycler
         reviewRecycler.setHasFixedSize(true)
+        snapHelper.attachToRecyclerView(reviewRecycler)
         characterMore = binding.root.charactersMore
         reviewMore = binding.root.reviewsMore
         staffMore = binding.root.staffMore

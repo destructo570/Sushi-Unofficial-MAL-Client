@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
+import com.destructo.sushi.model.mal.news.NewsItem
 import com.destructo.sushi.network.Resource
 
 class AnimeViewModel
@@ -29,6 +30,10 @@ constructor(
     val animeRecom:MutableLiveData<Resource<List<Anime>>>
         get() = _animeRecom
 
+    private var _newsList:MutableLiveData<Resource<MutableList<NewsItem>>> = MutableLiveData()
+    val newsList:MutableLiveData<Resource<MutableList<NewsItem>>>
+        get() = _newsList
+
 
     fun getUpcomingAnime(ranking_type:String,offset:String?, limit:String?,
                          nsfw: Boolean) {
@@ -42,6 +47,10 @@ constructor(
 
     fun getAnimeRecomm(offset:String?, limit:String?, nsfw: Boolean) {
         _animeRecom = animeRepo.getAnimeRecom(offset, limit, nsfw)
+    }
+
+    fun getNews() {
+        _newsList = animeRepo.getLatestNews()
     }
 
 

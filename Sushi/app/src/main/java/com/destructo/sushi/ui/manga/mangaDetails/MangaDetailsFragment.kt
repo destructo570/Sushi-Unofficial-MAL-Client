@@ -23,6 +23,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -109,6 +110,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private lateinit var reviewRecycler: RecyclerView
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
@@ -136,9 +138,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         binding = FragmentMangaDetailsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+        val snapHelper = PagerSnapHelper()
 
         characterRecycler = binding.root.characterRecycler
         reviewRecycler = binding.root.reviewsRecycler
+        snapHelper.attachToRecyclerView(reviewRecycler)
         relatedRecycler = binding.root.relatedMangaRecycler
         recommRecycler = binding.root.recommRecycler
         myListStatus = binding.root.my_manga_status

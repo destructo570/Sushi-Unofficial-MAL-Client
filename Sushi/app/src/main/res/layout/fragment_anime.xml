@@ -106,15 +106,26 @@
             </com.google.android.material.card.MaterialCardView>
 
             <include
+                android:id="@+id/includeNews"
+                layout="@layout/inc_latest_news_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/includeAiring"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seasonal_anime_button" />
+
+            <include
                 android:id="@+id/includeAiring"
                 layout="@layout/inc_currently_airing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/includeUpcoming"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seasonal_anime_button" />
+                app:layout_constraintTop_toBottomOf="@+id/includeNews" />
 
             <include
                 android:id="@+id/includeUpcoming"

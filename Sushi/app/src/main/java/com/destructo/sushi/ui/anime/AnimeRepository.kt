@@ -5,6 +5,7 @@ import com.destructo.sushi.BASIC_ANIME_FIELDS
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRecom.SuggestedAnime
+import com.destructo.sushi.model.mal.news.NewsItem
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jsoup.Jsoup
 import javax.inject.Inject
 
 class AnimeRepository
@@ -113,6 +115,65 @@ constructor(
                 animeList.add(anime) }
         }
         return animeList
+    }
+
+
+    fun getLatestNews(): MutableLiveData<Resource<MutableList<NewsItem>>> {
+
+        val result = MutableLiveData<Resource<MutableList<NewsItem>>>()
+        result.value = Resource.loading(null)
+        val newsList = mutableListOf<NewsItem>()
+        GlobalScope.launch{
+            try {
+                val doc = Jsoup.connect("https://myanimelist.net/news").get()
+
+                val myanimelist = doc.getElementById("myanimelist")
+                val wrapper = myanimelist.getElementsByClass("wrapper")
+                val contentWrapper = wrapper[0].getElementById("contentWrapper")
+                val newsContentBlock = contentWrapper.getElementById("content")
+                val contentLeft = newsContentBlock.getElementsByClass("content-left")
+                val scrollfix = contentLeft[0].getElementsByClass("js-scrollfix-bottom-rel")
+                val newsListM = scrollfix[0].getElementsByClass("news-list mt16 mr8")
+                val newslist = newsListM[0].getElementsByClass("news-unit clearfix rect")
+
+
+                for ((index, news) in newslist.withIndex()) {
+
+                    val a = newslist[index].getElementsByTag("a")
+                    val imgUrl = a[0].getElementsByTag("img")[0].absUrl("src")
+                    val first = imgUrl.substringBefore("r")
+                    val second = imgUrl.substringAfter("/s/")
+                    val imgFinal = first + "s/"+ second
+
+
+                    val newsUnitRight = newslist[index].getElementsByClass("news-unit-right")
+
+                    val titleClass = newsUnitRight[0].getElementsByClass("title")
+                    val title = titleClass[0].getElementsByTag("a")[0].text()
+                    val newsUrl = titleClass[0].getElementsByTag("a")[0].absUrl("href")
+                    val description = newsUnitRight[0].getElementsByClass("text")[0].text()
+
+                    newsList.add(
+                        NewsItem(
+                            title = title,
+                            img_url = imgFinal,
+                            small_description = description,
+                            url = newsUrl
+                        )
+                    )
+
+                }
+
+                withContext(Dispatchers.Main) {
+                    result.value = Resource.success(newsList)
+                }
+            } catch (e: Exception) {
+                result.value = Resource.error(e.message ?: "", null)
+            }
+        }
+
+        return result
+
     }
 
 

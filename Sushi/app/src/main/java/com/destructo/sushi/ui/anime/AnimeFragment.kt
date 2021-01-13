@@ -1,6 +1,7 @@
 package com.destructo.sushi.ui.anime
 
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,21 +9,25 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeHomeAdapter
 import com.destructo.sushi.adapter.AnimeHomeRecomAdapter
+import com.destructo.sushi.adapter.NewsItemAdapter
 import com.destructo.sushi.databinding.FragmentAnimeBinding
 import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +35,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*
 import kotlinx.android.synthetic.main.inc_anime_recoms.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
+import kotlinx.android.synthetic.main.inc_currently_airing.view.currentlyAiringMore
+import kotlinx.android.synthetic.main.inc_latest_news_home.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
 
 @AndroidEntryPoint
@@ -41,10 +48,12 @@ class AnimeFragment : Fragment() {
     private lateinit var upcomingAnimeRecycler: RecyclerView
     private lateinit var currentAiringRecycler: RecyclerView
     private lateinit var animeRecomRecycler: RecyclerView
+    private lateinit var newsRecycler: RecyclerView
 
     private lateinit var upcomingAnimeAdapter: AnimeHomeAdapter
     private lateinit var currentlyAiringAdapter: AnimeHomeAdapter
     private lateinit var animeRecomAdapter: AnimeHomeRecomAdapter
+    private lateinit var latestNewsAdapter: NewsItemAdapter
 
     private lateinit var upcomingAnimeSeeMore: TextView
     private lateinit var currentlyAiringMore: TextView
@@ -55,6 +64,7 @@ class AnimeFragment : Fragment() {
     private lateinit var airingAnimeProgressBar:LinearLayout
     private lateinit var upcomingAnimeProgressBar:LinearLayout
     private lateinit var animeRecommProgressBar:LinearLayout
+    private lateinit var newsProgressBar:LinearLayout
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var topAnimeCard: MaterialCardView
@@ -73,6 +83,7 @@ class AnimeFragment : Fragment() {
                 NSFW_TAG, false))
             animeViewModel.getAnimeRecomm(null,"25", sharedPreferences.getBoolean(
                 NSFW_TAG, false))
+            animeViewModel.getNews()
         }
 
     }
@@ -91,12 +102,16 @@ class AnimeFragment : Fragment() {
         currentAiringRecycler.setHasFixedSize(true)
         animeRecomRecycler = binding.root.animeRecomRecycler
         animeRecomRecycler.setHasFixedSize(true)
-
+        val snapHelper = PagerSnapHelper()
+        newsRecycler = binding.root.newsRecycler
+        newsRecycler.setHasFixedSize(true)
+        snapHelper.attachToRecyclerView(newsRecycler)
 
         toolbar = binding.root.anime_frag_toolbar
         airingAnimeProgressBar = binding.root.airing_anime_progress
         upcomingAnimeProgressBar = binding.root.upcoming_anime_progress
         animeRecommProgressBar = binding.root.anime_recom_progress
+        newsProgressBar = binding.root.news_progress
 
         topAnimeCard = binding.topAnimeButton
         seasonalAnimeCard = binding.seasonalAnimeButton
@@ -135,6 +150,12 @@ class AnimeFragment : Fragment() {
         })
         animeRecomAdapter = AnimeHomeRecomAdapter(MalIdListener {
             it?.let { navigateToAnimeDetails(it) }
+        })
+        latestNewsAdapter = NewsItemAdapter(MalUrlListener {
+            it?.let {
+                openUrl(it)
+            }
+
         })
 
         animeViewModel.upcomingAnime.observe(viewLifecycleOwner) { resource ->
@@ -195,6 +216,25 @@ class AnimeFragment : Fragment() {
 
         }
 
+        animeViewModel.newsList.observe(viewLifecycleOwner) { resource ->
+
+            when (resource.status) {
+                Status.LOADING -> {
+                    newsProgressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    resource.data?.let {
+                        newsProgressBar.visibility = View.GONE
+                        latestNewsAdapter.submitList(it)
+                        newsRecycler.adapter = latestNewsAdapter
+                    }
+                }
+                Status.ERROR -> {
+                }
+            }
+
+        }
+
 
     }
 
@@ -230,6 +270,12 @@ class AnimeFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
+    }
+
+    private fun openUrl(url: String) {
+        val builder = CustomTabsIntent.Builder()
+        val customTabIntent = builder.build()
+        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
 }
