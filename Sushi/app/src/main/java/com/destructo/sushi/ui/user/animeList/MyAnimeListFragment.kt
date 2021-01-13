@@ -56,7 +56,7 @@ class MyAnimeListFragment : Fragment(){
                         tab.text = getString(R.string.watching)
                     }
                     1 -> {
-                        tab.text = getString(R.string.completed)
+                        tab.text = getString(R.string.plan_to_watch)
                     }
                     2 -> {
                         tab.text = getString(R.string.on_hold)
@@ -65,7 +65,7 @@ class MyAnimeListFragment : Fragment(){
                         tab.text = getString(R.string.dropped)
                     }
                     4 -> {
-                        tab.text = getString(R.string.plan_to_watch)
+                        tab.text = getString(R.string.completed)
                     }
                 }
             }
@@ -79,11 +79,11 @@ class MyAnimeListFragment : Fragment(){
 
         val fragmentList = arrayListOf(
             UserAnimeWatching(),
-            UserAnimeCompleted(),
+            UserAnimePlanToWatch(),
             UserAnimeOnHold(),
             UserAnimeDropped(),
-            UserAnimePlanToWatch()
-        )
+            UserAnimeCompleted()
+            )
 
         myAnimeListPagerAdapter =
             FragmentPagerAdapter(fragmentList, childFragmentManager, lifecycle)
