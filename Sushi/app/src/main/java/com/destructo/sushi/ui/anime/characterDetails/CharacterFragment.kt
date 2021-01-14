@@ -1,5 +1,8 @@
 package com.destructo.sushi.ui.anime.characterDetails
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -8,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -129,6 +133,14 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
                     R.id.share_item ->{
                         val url = BASE_MAL_CHARACTER_URL + characterArg
                         shareUrl(url)
+                    }
+                    R.id.copy_title ->{
+                        val title = characterViewModel.character.value?.name
+                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clipData = ClipData.newPlainText("text", title)
+                        clipboard.setPrimaryClip(clipData)
+
+                        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
                     }
                     R.id.open_in_browser ->{
                         val url = BASE_MAL_CHARACTER_URL + characterArg

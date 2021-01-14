@@ -1,5 +1,8 @@
 package com.destructo.sushi.ui.manga.mangaDetails
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -529,6 +532,14 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     R.id.share_item ->{
                         val url = BASE_MAL_MANGA_URL + mangaIdArg
                         shareUrl(url)
+                    }
+                    R.id.copy_title ->{
+                        val title = mangaDetailViewModel.mangaDetail.value?.data?.title
+                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clipData = ClipData.newPlainText("text", title)
+                        clipboard.setPrimaryClip(clipData)
+
+                        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
                     }
                     R.id.open_in_browser ->{
                         val url = BASE_MAL_MANGA_URL + mangaIdArg
