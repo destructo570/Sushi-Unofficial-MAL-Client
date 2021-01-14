@@ -15,6 +15,9 @@ interface MangaDetailsDao {
     @Delete
     fun deleteAllMangaDetails(mangaDetails: MutableList<MangaDetailsEntity>)
 
+    @Query("DELETE FROM manga_details WHERE id LIKE :mangaId ")
+    fun deleteMangaDetailById(mangaId: Int)
+
     @Delete
     fun deleteMangaDetails(mangaDetails: MangaDetailsEntity)
 

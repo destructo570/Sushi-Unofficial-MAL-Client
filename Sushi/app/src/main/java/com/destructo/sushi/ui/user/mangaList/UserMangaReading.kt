@@ -66,6 +66,7 @@ class UserMangaReading : Fragment() {
                 val totalChapters = manga?.numChapters
                 val mangaId = manga?.id
 
+                mangaId?.let { userMangaViewModel.clearMangaDetail(it) }
                 if (chapters != null && mangaId != null && totalChapters != null  && chapters.plus(1) >= totalChapters) {
                     userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, UserMangaStatus.COMPLETED.value)
                 }else if(chapters != null && mangaId != null){

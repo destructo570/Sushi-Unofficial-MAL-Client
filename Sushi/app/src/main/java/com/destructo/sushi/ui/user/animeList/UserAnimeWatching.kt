@@ -67,6 +67,7 @@ class UserAnimeWatching : Fragment() {
                     val totalEpisodes = anime?.numEpisodes
                     val animeId = anime?.id
 
+                    animeId?.let { userAnimeViewModel.clearAnimeDetails(it) }
                     if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
                             1
                         ) >= totalEpisodes

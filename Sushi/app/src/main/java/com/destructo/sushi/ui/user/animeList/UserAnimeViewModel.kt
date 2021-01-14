@@ -7,6 +7,7 @@ import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeListDao
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,8 @@ constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
     private val myAnimeListRepo: MyAnimeListRepository,
-    private val userAnimeListDao: UserAnimeListDao
+    private val userAnimeListDao: UserAnimeListDao,
+    private val animeDetailsDao: AnimeDetailsDao
 ) : ViewModel() {
 
     val userAnimeListAll: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListAll
@@ -73,6 +75,10 @@ constructor(
 
     fun clearList(){
         viewModelScope.launch{userAnimeListDao.clear()}
+    }
+
+    fun clearAnimeDetails(animeId:Int){
+        viewModelScope.launch{animeDetailsDao.deleteAnimeDetailById(animeId)}
     }
 
 }

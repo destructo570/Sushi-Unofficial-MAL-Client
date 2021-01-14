@@ -7,6 +7,7 @@ import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userMangaList.UserMangaData
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.Resource
+import com.destructo.sushi.room.MangaDetailsDao
 import com.destructo.sushi.room.UserMangaListDao
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,8 @@ constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
     private val myMangaListRepo:MyMangaListRepository,
-    private val userMangaListDao: UserMangaListDao
+    private val userMangaListDao: UserMangaListDao,
+    private val mangaDetailsDao: MangaDetailsDao
 ) : ViewModel() {
 
     val userMangaListAll: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaListAll
@@ -65,6 +67,10 @@ constructor(
 
     fun clearList(){
         viewModelScope.launch{userMangaListDao.clear()}
+    }
+
+    fun clearMangaDetail(mangaId: Int){
+        viewModelScope.launch{mangaDetailsDao.deleteMangaDetailById(mangaId)}
     }
 
 }
