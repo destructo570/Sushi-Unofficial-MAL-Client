@@ -27,10 +27,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
-import com.destructo.sushi.BASE_MAL_ANIME_URL
-import com.destructo.sushi.CHARACTER_ID_ARG
-import com.destructo.sushi.PERSON_ID_ARG
-import com.destructo.sushi.R
+import com.destructo.sushi.*
 import com.destructo.sushi.adapter.*
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
@@ -41,6 +38,9 @@ import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
@@ -115,6 +115,8 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var characterMore:TextView
     private lateinit var reviewMore:TextView
     private lateinit var staffMore:TextView
+    private lateinit var adView: AdView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,6 +185,23 @@ class AnimeDetailFragment : Fragment(),
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
         setAnimeAltTitleClickListener()
+
+        adView = binding.adView
+        if(!SushiApplication.getContext().queryPurchases()){
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+
+            adView.adListener = object: AdListener(){
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    adView.visibility = View.VISIBLE
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    adView.visibility = View.GONE
+                }
+            }
+        }
 
         characterMore.setOnClickListener {
             findNavController().navigate(R.id.allCharactersFragment, bundleOf(Pair("malId", animeIdArg)))

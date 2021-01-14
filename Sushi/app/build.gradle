@@ -179,6 +179,9 @@ dependencies {
     //Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 
+    //Google admob
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
+
 
 }
 

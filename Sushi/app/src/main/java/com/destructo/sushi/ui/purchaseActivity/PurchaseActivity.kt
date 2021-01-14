@@ -46,6 +46,7 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         purchaseButton.isEnabled = false
 
         val images = listOf(
+            R.drawable.app_promo_0,
             R.drawable.app_promo_1,
             R.drawable.app_promo_2,
             R.drawable.app_promo_3,

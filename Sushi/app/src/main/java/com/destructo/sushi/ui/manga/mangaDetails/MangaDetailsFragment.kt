@@ -27,10 +27,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
-import com.destructo.sushi.BASE_MAL_MANGA_URL
-import com.destructo.sushi.CHARACTER_ID_ARG
-import com.destructo.sushi.MANGA_ID_ARG
-import com.destructo.sushi.R
+import com.destructo.sushi.*
 import com.destructo.sushi.adapter.MangaCharacterAdapter
 import com.destructo.sushi.adapter.MangaRecommListAdapter
 import com.destructo.sushi.adapter.MangaRelatedListAdapter
@@ -46,6 +43,9 @@ import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
@@ -108,6 +108,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private lateinit var relatedRecycler: RecyclerView
     private lateinit var recommRecycler: RecyclerView
     private lateinit var reviewRecycler: RecyclerView
+    private lateinit var adView:AdView
 
 
 
@@ -160,6 +161,24 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         genreChipGroup = binding.root.genre_chip_group
         characterSeeMore = binding.root.charactersMore
         reviewSeeMore = binding.root.reviewsMore
+
+
+        adView = binding.adView
+        if(!SushiApplication.getContext().queryPurchases()){
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+
+            adView.adListener = object: AdListener(){
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    adView.visibility = View.VISIBLE
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    adView.visibility = View.GONE
+                }
+            }
+        }
 
         characterSeeMore.setOnClickListener {
             findNavController().navigate(R.id.allMangaCharacters, bundleOf(Pair("malId", mangaIdArg)))

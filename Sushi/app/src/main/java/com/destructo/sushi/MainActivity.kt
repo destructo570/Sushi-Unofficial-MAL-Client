@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.util.SessionManager
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var adView:AdView
 
 
     @Inject
@@ -68,6 +71,9 @@ class MainActivity : AppCompatActivity() {
 
         setApplicationTheme(currentTheme)
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this@MainActivity)
+
 
 
         navHostFragment = supportFragmentManager

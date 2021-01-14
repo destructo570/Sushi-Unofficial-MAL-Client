@@ -19,12 +19,16 @@ import androidx.fragment.app.viewModels
 import app.futured.donut.DonutProgressView
 import app.futured.donut.DonutSection
 import com.destructo.sushi.R
+import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentProfileBinding
 import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.auth.LoginActivity
 import com.destructo.sushi.util.SessionManager
 import com.destructo.sushi.util.getColorFromAttr
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,6 +54,7 @@ class ProfileFragment : Fragment() {
     private lateinit var logoutButton: Button
     private lateinit var profileHeader:ConstraintLayout
     private lateinit var navView: NavigationView
+    private lateinit var adView:AdView
 
 
     private lateinit var animeDaysTxt:TextView
@@ -91,6 +96,24 @@ class ProfileFragment : Fragment() {
         animeEpisodesTxt =  binding.animeEpisodesWatched
         animeRewatchTxt = binding.animeRewatchValue
         logoutButton = binding.malLogoutButton
+
+
+        adView = binding.adView
+        if(!SushiApplication.getContext().queryPurchases()){
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+
+            adView.adListener = object: AdListener(){
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    adView.visibility = View.VISIBLE
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    adView.visibility = View.GONE
+                }
+            }
+        }
 
         navView = requireActivity().navigationView
         profileHeader = navView.getHeaderView(0) as ConstraintLayout

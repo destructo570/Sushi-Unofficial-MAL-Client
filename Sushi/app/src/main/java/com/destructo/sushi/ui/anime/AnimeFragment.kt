@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
+import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.adapter.AnimeHomeAdapter
 import com.destructo.sushi.adapter.AnimeHomeRecomAdapter
 import com.destructo.sushi.adapter.NewsItemAdapter
@@ -30,6 +31,9 @@ import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -75,6 +79,7 @@ class AnimeFragment : Fragment() {
 
     private lateinit var topAnimeCard: MaterialCardView
     private lateinit var seasonalAnimeCard: MaterialCardView
+    private lateinit var adView:AdView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,6 +135,23 @@ class AnimeFragment : Fragment() {
         upcomingAnimeSeeMore = binding.root.upcomingAnimeMore
         currentlyAiringMore = binding.root.currentlyAiringMore
         animeRecomMore = binding.root.animeRecomMore
+
+        adView = binding.adView
+        if(!SushiApplication.getContext().queryPurchases()){
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+
+            adView.adListener = object: AdListener(){
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    adView.visibility = View.VISIBLE
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    adView.visibility = View.GONE
+                }
+            }
+        }
 
         topAnimeCard.setOnClickListener {
             navigateToTopAnime()
