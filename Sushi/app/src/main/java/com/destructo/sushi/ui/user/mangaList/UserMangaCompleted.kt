@@ -33,6 +33,7 @@ class UserMangaCompleted  : Fragment() {
     private lateinit var userMangaRecycler: RecyclerView
     private lateinit var userMangaProgress: ProgressBar
     private lateinit var userMangaPaginationProgress: ProgressBar
+    private var calledOnce = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +48,10 @@ class UserMangaCompleted  : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        if(!calledOnce) {
+            calledOnce = true
+
         binding = FragmentUserMangaListBinding
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
@@ -58,28 +63,30 @@ class UserMangaCompleted  : Fragment() {
         userMangaProgress = binding.userMangaListProgressbar
         userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
 
+            userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
+                val chapters = manga?.myMangaListStatus?.numChaptersRead
+                val mangaId = manga?.id
+                if (chapters != null && mangaId != null){
+                    userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, null)
+                }
+            }, MalIdListener {
+                it?.let{navigateToMangaDetails(it)}
+            }, false)
+            userMangaAdapter.setListEndListener(object : ListEndListener {
+                override fun onEndReached(position: Int) {
+                    userMangaViewModel.getNextPage(UserMangaStatus.COMPLETED.value)
+                }
+
+            })
+            userMangaAdapter.stateRestorationPolicy = ALLOW
+            userMangaRecycler.adapter = userMangaAdapter
+        }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
-            val chapters = manga?.myMangaListStatus?.numChaptersRead
-            val mangaId = manga?.id
-            if (chapters != null && mangaId != null){
-                userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
-            }
-        }, MalIdListener {
-            it?.let{navigateToMangaDetails(it)}
-        }, false)
-        userMangaAdapter.setListEndListener(object : ListEndListener {
-            override fun onEndReached(position: Int) {
-                userMangaViewModel.getNextPage(UserMangaStatus.COMPLETED.value)
-            }
 
-        })
-        userMangaAdapter.stateRestorationPolicy = ALLOW
-        userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaListCompleted.observe(viewLifecycleOwner) { resource ->
             when(resource.status){

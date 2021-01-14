@@ -40,6 +40,7 @@ class MyAnimeListFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentMyAnimeListBinding
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner

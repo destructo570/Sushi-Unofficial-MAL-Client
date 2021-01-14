@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserMangaListAdapter
@@ -33,7 +32,7 @@ class UserMangaReading : Fragment() {
     private lateinit var userMangaRecycler: RecyclerView
     private lateinit var userMangaProgress: ProgressBar
     private lateinit var userMangaPaginationProgress: ProgressBar
-
+    private var calledOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,41 +46,49 @@ class UserMangaReading : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserMangaListBinding
-            .inflate(inflater, container, false).apply {
-                lifecycleOwner = viewLifecycleOwner
-            }
 
-        userMangaRecycler = binding.userMangaRecycler
-        userMangaRecycler.setHasFixedSize(true)
-        userMangaRecycler.itemAnimator = null
-        userMangaProgress = binding.userMangaListProgressbar
-        userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
+        if(!calledOnce) {
+            calledOnce = true
+            binding = FragmentUserMangaListBinding
+                .inflate(inflater, container, false).apply {
+                    lifecycleOwner = viewLifecycleOwner
+                }
+
+            userMangaRecycler = binding.userMangaRecycler
+            userMangaRecycler.setHasFixedSize(true)
+            userMangaRecycler.itemAnimator = null
+            userMangaProgress = binding.userMangaListProgressbar
+            userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
 
 
+            userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
+                val chapters = manga?.myMangaListStatus?.numChaptersRead
+                val totalChapters = manga?.numChapters
+                val mangaId = manga?.id
 
+                if (chapters != null && mangaId != null && totalChapters != null  && chapters.plus(1) >= totalChapters) {
+                    userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, UserMangaStatus.COMPLETED.value)
+                }else if(chapters != null && mangaId != null){
+                    userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, null)
+                }
+
+
+            }, MalIdListener { it?.let{navigateToMangaDetails(it)} }, true)
+
+            userMangaAdapter.setListEndListener(object : ListEndListener {
+                override fun onEndReached(position: Int) {
+                    userMangaViewModel.getNextPage(UserMangaStatus.READING.value)
+                }
+
+            })
+
+            userMangaRecycler.adapter = userMangaAdapter
+
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
-            val chapters = manga?.myMangaListStatus?.numChaptersRead
-            val mangaId = manga?.id
-            if (chapters != null && mangaId != null){
-                userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
-            }
-        }, MalIdListener { it?.let{navigateToMangaDetails(it)} }, true)
-
-        userMangaAdapter.setListEndListener(object : ListEndListener {
-            override fun onEndReached(position: Int) {
-                userMangaViewModel.getNextPage(UserMangaStatus.READING.value)
-            }
-
-        })
-
-        userMangaAdapter.stateRestorationPolicy = ALLOW
-        userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaListReading.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
@@ -131,9 +138,7 @@ class UserMangaReading : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
+
 
     private fun navigateToMangaDetails(mangaIdArg: Int){
         this.findNavController().navigate(

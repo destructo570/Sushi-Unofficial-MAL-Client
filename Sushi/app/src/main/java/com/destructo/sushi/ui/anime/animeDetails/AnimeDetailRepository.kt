@@ -1,8 +1,10 @@
 package com.destructo.sushi.ui.anime.animeDetails
 
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
 import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
+import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
 import com.destructo.sushi.DETAILS_CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.model.database.AnimeCharacterListEntity
 import com.destructo.sushi.model.database.AnimeDetailEntity
@@ -11,16 +13,13 @@ import com.destructo.sushi.model.database.AnimeVideosEntity
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
-import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
+import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
-import com.destructo.sushi.room.AnimeCharacterListDao
-import com.destructo.sushi.room.AnimeDetailsDao
-import com.destructo.sushi.room.AnimeReviewListDao
-import com.destructo.sushi.room.AnimeVideoListDao
+import com.destructo.sushi.room.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,7 +35,8 @@ constructor(
     private val animeDetailsDao: AnimeDetailsDao,
     private val animeCharacterListDao: AnimeCharacterListDao,
     private val animeVideosDao: AnimeVideoListDao,
-    private val animeReviewsDao: AnimeReviewListDao
+    private val animeReviewsDao: AnimeReviewListDao,
+    private val userAnimeListDao: UserAnimeListDao
 
 ) {
 
@@ -156,6 +156,7 @@ constructor(
                 priority,num_times_rewatched,rewatch_value,tags,comments)
             try {
                 val animeStatus = addEpisodeDeferred.await()
+                updateUserAnimeList(animeId.toInt())
                 withContext(Dispatchers.Main){
                     userAnimeStatus.value = Resource.success(animeStatus)
                 }
@@ -277,6 +278,87 @@ constructor(
             }
         }
     }
+
+    private fun updateUserAnimeList(animeId: Int){
+        val anime = userAnimeListDao.getUserAnimeById(animeId)
+        anime.status?.let {
+            loadPage(it, anime.offset, animeId.toInt())
+        }
+    }
+
+    private fun loadPage(
+        animeStatus: String,
+        offset:String?,
+        animeId:Int
+    ) {
+        if(!offset.isNullOrBlank()){
+            GlobalScope.launch {
+                val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
+                    "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
+                    animeStatus, null, offset,ALL_ANIME_FIELDS)
+                try {
+                    val userAnime = getUserAnimeDeferred.await()
+                    val userAnimeList = userAnime.data
+                    setUserAnimeData(userAnime)
+                    userAnimeListDao.deleteUserAnimeById(animeId)
+                    userAnimeListDao.insertUseAnimeList(userAnimeList!!)
+
+                }catch (e:Exception){
+                    withContext(Dispatchers.Main){
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setUserAnimeData(userAnime: UserAnimeList){
+        val userAnimeList = userAnime.data
+        if (userAnimeList != null) {
+            for (anime in userAnimeList){
+                anime?.status = anime?.anime?.myAnimeListStatus?.status
+                anime?.title =  anime?.anime?.title
+                anime?.animeId = anime?.anime?.id
+                val next = userAnime.paging?.next
+                val prev = userAnime.paging?.previous
+                anime?.offset = calcOffset(next, prev)
+            }
+        }
+    }
+
+    private fun calcOffset(nextPage: String?, prevPage:String?): String{
+        var currentOffset = "0"
+        if(!nextPage.isNullOrBlank()){
+            val nextOffset = getOffset(nextPage)
+            if (!nextOffset.isNullOrBlank()){
+                val temp = nextOffset.toInt().minus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
+                if (temp>=0){
+                    currentOffset = temp.toString()
+                }
+            }
+            return currentOffset
+        }else{
+            val prevOffset = getOffset(prevPage)
+            if (!prevOffset.isNullOrBlank()){
+                val temp = prevOffset.toInt().plus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
+                if (temp>=0){
+                    currentOffset = temp.toString()
+                }
+            }
+            return currentOffset
+        }
+
+    }
+
+    private fun getOffset(url: String?): String?{
+
+        if (!url.isNullOrBlank()){
+            val uri = url.toUri()
+            return uri.getQueryParameter("offset").toString()
+        }else{
+            return null
+        }
+    }
+
 
 
     }

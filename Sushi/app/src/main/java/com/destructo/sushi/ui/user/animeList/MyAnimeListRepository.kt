@@ -188,12 +188,12 @@ constructor(
         }
     }
 
-    fun addEpisode(animeId:String,numberOfEp:Int?) {
+    fun addEpisode(animeId:String,numberOfEp:Int?,status: String?) {
         userAnimeStatus.value = Resource.loading(null)
 
         GlobalScope.launch {
             val addEpisodeDeferred = malApi.updateUserAnime(animeId,
-                null,null,null,numberOfEp,
+                status,null,null,numberOfEp,
                 null,null,null,null,null)
             try {
                 val animeStatus = addEpisodeDeferred.await()

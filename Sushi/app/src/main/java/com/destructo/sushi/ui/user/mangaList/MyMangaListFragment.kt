@@ -31,7 +31,9 @@ class MyMangaListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userMangaViewModel.clearList()
+        if(savedInstanceState == null){
+            userMangaViewModel.clearList()
+        }
     }
 
     override fun onCreateView(

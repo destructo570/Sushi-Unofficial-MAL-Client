@@ -182,12 +182,12 @@ constructor(private val malApi: MalApi,
         }
     }
 
-    fun addChapter(mangaId:String,numberOfCh:Int?){
+    fun addChapter(mangaId:String,numberOfCh:Int?, status: String?){
         userMangaStatus.value = Resource.loading(null)
 
         GlobalScope.launch {
             val addChapterDeferred = malApi.updateUserManga(mangaId,
-                null,null,null,null,
+                status,null,null,null,
                 numberOfCh,null,null,
                 null,null,null)
             try {

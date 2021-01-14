@@ -33,7 +33,7 @@ class UserAnimePlanToWatch : Fragment() {
     private lateinit var userAnimeRecycler: RecyclerView
     private lateinit var userAnimeProgressbar: ProgressBar
     private lateinit var userAnimePaginationProgressbar: ProgressBar
-
+    private var calledOnce = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,40 +47,48 @@ class UserAnimePlanToWatch : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserAnimeListBinding
-            .inflate(inflater,container,false).apply {
-            lifecycleOwner = viewLifecycleOwner
-        }
 
-        userAnimeRecycler = binding.userAnimeRecycler
-        userAnimeRecycler.setHasFixedSize(true)
-        userAnimeRecycler.itemAnimator = null
-        userAnimeProgressbar = binding.userAnimeListProgressbar
-        userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
+        if(!calledOnce) {
+            calledOnce = true
+
+            binding = FragmentUserAnimeListBinding
+                .inflate(inflater, container, false).apply {
+                    lifecycleOwner = viewLifecycleOwner
+                }
+
+            userAnimeRecycler = binding.userAnimeRecycler
+            userAnimeRecycler.setHasFixedSize(true)
+            userAnimeRecycler.itemAnimator = null
+            userAnimeProgressbar = binding.userAnimeListProgressbar
+            userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
+
+            userAnimeAdapter = UserAnimeListAdapter(
+                AddEpisodeListener { anime ->
+                    val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
+                    val animeId = anime?.id
+                    if (episodes != null && animeId != null){
+                        userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1, null)
+                    }
+                },
+                MalIdListener {
+                    it?.let{
+                        navigateToAnimeDetails(it)
+                    }
+                }, false)
+            userAnimeAdapter.setListEndListener(object : ListEndListener {
+                override fun onEndReached(position: Int) {
+                    userAnimeViewModel.getNextPage(UserAnimeStatus.PLAN_TO_WATCH.value)
+                }
+
+            })
+        }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userAnimeAdapter = UserAnimeListAdapter(
-            AddEpisodeListener { anime ->
-            val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-            val animeId = anime?.id
-            if (episodes != null && animeId != null){
-                userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1)
-            }
-        },
-            MalIdListener {
-                it?.let{
-                    navigateToAnimeDetails(it)
-                }
-            }, false)
-        userAnimeAdapter.setListEndListener(object : ListEndListener {
-            override fun onEndReached(position: Int) {
-                userAnimeViewModel.getNextPage(UserAnimeStatus.PLAN_TO_WATCH.value)
-            }
 
-        })
+
 
         userAnimeAdapter.stateRestorationPolicy = ALLOW
         userAnimeRecycler.adapter = userAnimeAdapter
@@ -129,7 +137,8 @@ class UserAnimePlanToWatch : Fragment() {
                     Timber.e("Error: %s", resource.message)
                 }
             }
-        }
+
+    }
 
     }
 

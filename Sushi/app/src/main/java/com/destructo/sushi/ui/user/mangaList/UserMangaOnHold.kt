@@ -33,7 +33,7 @@ class UserMangaOnHold : Fragment() {
     private lateinit var userMangaRecycler: RecyclerView
     private lateinit var userMangaProgress: ProgressBar
     private lateinit var userMangaPaginationProgress: ProgressBar
-
+    private var calledOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,41 +47,44 @@ class UserMangaOnHold : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserMangaListBinding
-            .inflate(inflater, container, false).apply {
-                lifecycleOwner = viewLifecycleOwner
-            }
 
-        userMangaRecycler = binding.userMangaRecycler
-        userMangaRecycler.setHasFixedSize(true)
-        userMangaRecycler.itemAnimator = null
-        userMangaProgress = binding.userMangaListProgressbar
-        userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
+        if(!calledOnce) {
+            calledOnce = true
+            binding = FragmentUserMangaListBinding
+                .inflate(inflater, container, false).apply {
+                    lifecycleOwner = viewLifecycleOwner
+                }
 
+            userMangaRecycler = binding.userMangaRecycler
+            userMangaRecycler.setHasFixedSize(true)
+            userMangaRecycler.itemAnimator = null
+            userMangaProgress = binding.userMangaListProgressbar
+            userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
 
+            userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
+                val chapters = manga?.myMangaListStatus?.numChaptersRead
+                val mangaId = manga?.id
+                if (chapters != null && mangaId != null){
+                    userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, null)
+                }
+            }, MalIdListener {
+                it?.let{navigateToMangaDetails(it)}
+            }, false)
+            userMangaAdapter.setListEndListener(object : ListEndListener {
+                override fun onEndReached(position: Int) {
+                    userMangaViewModel.getNextPage(UserMangaStatus.ON_HOLD.value)
+                }
 
+            })
+
+            userMangaAdapter.stateRestorationPolicy = ALLOW
+            userMangaRecycler.adapter = userMangaAdapter
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
-            val chapters = manga?.myMangaListStatus?.numChaptersRead
-            val mangaId = manga?.id
-            if (chapters != null && mangaId != null){
-                userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1)
-            }
-        }, MalIdListener {
-            it?.let{navigateToMangaDetails(it)}
-        }, false)
-        userMangaAdapter.setListEndListener(object : ListEndListener {
-            override fun onEndReached(position: Int) {
-                userMangaViewModel.getNextPage(UserMangaStatus.ON_HOLD.value)
-            }
 
-        })
-
-        userMangaAdapter.stateRestorationPolicy = ALLOW
-        userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaListOnHold.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
@@ -130,9 +133,7 @@ class UserMangaOnHold : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
+
 
     private fun navigateToMangaDetails(mangaIdArg: Int){
         this.findNavController().navigate(

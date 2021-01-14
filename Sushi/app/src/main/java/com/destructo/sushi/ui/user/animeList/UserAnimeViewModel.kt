@@ -50,8 +50,8 @@ constructor(
     var userAnimeList = userAnimeListDao.getUserAnimeList()
 
 
-    fun addEpisodeAnime(animeId:String,numberOfEp:Int?){
-        myAnimeListRepo.addEpisode(animeId, numberOfEp)
+    fun addEpisodeAnime(animeId:String,numberOfEp:Int?, status:String?){
+        myAnimeListRepo.addEpisode(animeId, numberOfEp, status)
     }
 
     fun getUserAnimeList(animeStatus:String?){

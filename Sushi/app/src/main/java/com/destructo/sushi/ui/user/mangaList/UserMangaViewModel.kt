@@ -10,7 +10,8 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.UserMangaListDao
 import kotlinx.coroutines.launch
 
-class UserMangaViewModel@ViewModelInject
+class UserMangaViewModel
+@ViewModelInject
 constructor(
     @Assisted
     savedStateHandle: SavedStateHandle,
@@ -46,8 +47,8 @@ constructor(
 
     var userMangaList = userMangaListDao.getUserMangaList()
 
-    fun addChapterManga(mangaId:String,numberOfCh:Int?){
-        myMangaListRepo.addChapter(mangaId, numberOfCh)
+    fun addChapterManga(mangaId:String,numberOfCh:Int?, status:String?){
+        myMangaListRepo.addChapter(mangaId, numberOfCh, status)
     }
 
     fun getUserMangaList(mangaStatus:String?){

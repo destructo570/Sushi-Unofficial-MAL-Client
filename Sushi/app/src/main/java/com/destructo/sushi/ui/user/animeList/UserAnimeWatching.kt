@@ -47,6 +47,9 @@ class UserAnimeWatching : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        if(!calledOnce){
+            calledOnce = true
             binding = FragmentUserAnimeListBinding
                 .inflate(inflater, container, false).apply {
                     lifecycleOwner = viewLifecycleOwner
@@ -61,10 +64,22 @@ class UserAnimeWatching : Fragment() {
             userAnimeAdapter = UserAnimeListAdapter(
                 AddEpisodeListener { anime ->
                     val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
+                    val totalEpisodes = anime?.numEpisodes
                     val animeId = anime?.id
-                    if (episodes != null && animeId != null) {
-                        userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1)
+
+                    if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
+                            1
+                        ) >= totalEpisodes
+                    ) {
+                        userAnimeViewModel.addEpisodeAnime(
+                            animeId.toString(),
+                            episodes + 1,
+                            UserAnimeStatus.COMPLETED.value
+                        )
+                    } else if (episodes != null && animeId != null) {
+                        userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
                     }
+
                 },
                 MalIdListener {
                     it?.let {
@@ -72,6 +87,8 @@ class UserAnimeWatching : Fragment() {
                     }
                 }, true
             )
+            userAnimeAdapter.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.ALLOW
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
                     userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
@@ -79,12 +96,12 @@ class UserAnimeWatching : Fragment() {
 
             })
             userAnimeRecycler.adapter = userAnimeAdapter
+        }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
@@ -137,10 +154,6 @@ class UserAnimeWatching : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
-    }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         calledOnce = true
