@@ -139,6 +139,7 @@
                 android:layout_height="@dimen/user_icon_size_normal"
                 android:layout_marginStart="@dimen/user_icon_margin_normal"
                 android:layout_marginBottom="@dimen/user_icon_margin_small"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView37"
                 app:srcCompat="@drawable/ic_volume_line" />
@@ -158,6 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_small"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView37"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
