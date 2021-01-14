@@ -25,6 +25,7 @@ import com.destructo.sushi.BASE_MAL_CHARACTER_URL
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterBinding
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,7 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private lateinit var characterTabMediator:TabLayoutMediator
     private lateinit var toolbar: Toolbar
     private lateinit var appBar: AppBarLayout
+    private lateinit var collapToolbar:CollapsingToolbarLayout
 
 
     private val characterViewModel: CharacterViewModel by viewModels()
@@ -65,6 +67,11 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
         characterPager = binding.characterViewPager
         characterTabLayout = binding.characterTabLayout
         appBar = binding.appbar
+        collapToolbar = binding.animeCollapsingToolbar
+        collapToolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
 
         characterTabMediator = TabLayoutMediator(characterTabLayout, characterPager) { tab, position ->
             when (position) {
@@ -121,6 +128,10 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
     }
 
     fun setupToolbar(){
+        toolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -135,12 +146,7 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         shareUrl(url)
                     }
                     R.id.copy_title ->{
-                        val title = characterViewModel.character.value?.name
-                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clipData = ClipData.newPlainText("text", title)
-                        clipboard.setPrimaryClip(clipData)
-
-                        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+                        copyToClipBoard()
                     }
                     R.id.open_in_browser ->{
                         val url = BASE_MAL_CHARACTER_URL + characterArg
@@ -152,6 +158,16 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
             }
 
         })
+    }
+
+    private fun copyToClipBoard() {
+        val title = characterViewModel.character.value?.name
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", title)
+        clipboard.setPrimaryClip(clipData)
+
+        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

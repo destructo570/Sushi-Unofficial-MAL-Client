@@ -94,6 +94,7 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var myListEpisode:TextView
     private lateinit var myListCurrentStatus:TextView
     private lateinit var myListRewatching:TextView
+    private lateinit var animeTitleTextView:TextView
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
     private lateinit var animeAltTitleLayout: ConstraintLayout
 
@@ -180,10 +181,14 @@ class AnimeDetailFragment : Fragment(),
         reviewMore = binding.root.reviewsMore
         staffMore = binding.root.staffMore
 
+
         toolbar = binding.animeDescToolbar
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
-
+        collapToolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
         setupToolbar()
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
@@ -526,6 +531,10 @@ class AnimeDetailFragment : Fragment(),
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
+        toolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
         toolbar.inflateMenu(R.menu.detail_menu_options)
         toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
             override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -536,12 +545,7 @@ class AnimeDetailFragment : Fragment(),
                         shareUrl(url)
                     }
                     R.id.copy_title ->{
-                        val title = animeDetailViewModel.animeDetail.value?.data?.title
-                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clipData = ClipData.newPlainText("text", title)
-                        clipboard.setPrimaryClip(clipData)
-
-                        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+                        copyToClipBoard()
                     }
                     R.id.open_in_browser ->{
                         val url = BASE_MAL_ANIME_URL + animeIdArg
@@ -553,6 +557,16 @@ class AnimeDetailFragment : Fragment(),
             }
 
         })
+    }
+
+    private fun copyToClipBoard() {
+        val title = animeDetailViewModel.animeDetail.value?.data?.title
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", title)
+        clipboard.setPrimaryClip(clipData)
+
+        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
     }
 
     private fun setAnimeAltTitleClickListener() {

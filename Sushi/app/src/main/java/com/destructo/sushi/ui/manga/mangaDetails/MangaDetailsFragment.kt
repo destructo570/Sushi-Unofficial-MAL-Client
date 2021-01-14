@@ -158,6 +158,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         toolbar = binding.mangaDescToolbar
         appBar = binding.mangaAppBar
         collapToolbar = binding.mangaCollapsingToolbar
+        collapToolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
+
         scoreCardView = binding.mangaScoreFab
         scoreTextView = binding.mangaScoreTxt
         coverView = binding.root.manga_desc_cover_img
@@ -520,6 +525,10 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
 
     private fun setupToolbar() {
+        toolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
@@ -534,12 +543,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                         shareUrl(url)
                     }
                     R.id.copy_title ->{
-                        val title = mangaDetailViewModel.mangaDetail.value?.data?.title
-                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clipData = ClipData.newPlainText("text", title)
-                        clipboard.setPrimaryClip(clipData)
-
-                        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+                        copyToClipBoard()
                     }
                     R.id.open_in_browser ->{
                         val url = BASE_MAL_MANGA_URL + mangaIdArg
@@ -553,6 +557,15 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         })
     }
 
+    private fun copyToClipBoard() {
+        val title = mangaDetailViewModel.mangaDetail.value?.data?.title
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", title)
+        clipboard.setPrimaryClip(clipData)
+
+        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+    }
 
 
 }

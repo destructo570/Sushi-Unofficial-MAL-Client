@@ -27,6 +27,7 @@ import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentPersonBinding
 import com.destructo.sushi.network.Status
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,7 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private lateinit var personTabMediator: TabLayoutMediator
     private lateinit var toolbar: Toolbar
     private lateinit var appBar: AppBarLayout
+    private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +71,11 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         personPager = binding.personViewPager
         personTabLayout = binding.personTabLayout
         appBar = binding.appbar
+        collapsingToolbarLayout = binding.personCollapsingToolbar
+        collapsingToolbarLayout.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
 
         personTabMediator = TabLayoutMediator(personTabLayout, personPager) { tab, position ->
             when (position) {
@@ -138,7 +145,10 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             findNavController().navigateUp()
         }
 
-
+        toolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
         toolbar.inflateMenu(R.menu.detail_menu_options)
         toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
             override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -149,12 +159,7 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         shareUrl(url)
                     }
                     R.id.copy_title ->{
-                        val title = personViewModel.personData.value?.data?.name
-                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clipData = ClipData.newPlainText("text", title)
-                        clipboard.setPrimaryClip(clipData)
-
-                        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+                        copyToClipBoard()
                     }
                     R.id.open_in_browser ->{
                         val url = BASE_MAL_PEOPLE_URL + personArg
@@ -166,6 +171,16 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             }
 
         })
+    }
+
+    private fun copyToClipBoard() {
+        val title = personViewModel.personData.value?.data?.name
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", title)
+        clipboard.setPrimaryClip(clipData)
+
+        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
     }
 
 
