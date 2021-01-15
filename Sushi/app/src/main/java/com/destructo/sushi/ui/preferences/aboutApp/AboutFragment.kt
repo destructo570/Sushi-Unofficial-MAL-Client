@@ -116,7 +116,7 @@ class AboutFragment : Fragment() {
 
     private fun showChangelog(){
         val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
-            .setTitle("Version ${getString(R.string.changelog_app_version)} changelog")
+            .setTitle("Changelog")
             .setMessage(getString(R.string.latest_changelog))
             .setNegativeButton(R.string.close
             ) { _, _ -> }
