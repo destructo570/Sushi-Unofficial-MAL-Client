@@ -26,19 +26,19 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/reviewer_image"
                 style="@style/Widget.Sushi.ItemCardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/reviewer_img_size_large"
+                android:layout_height="@dimen/reviewer_img_size_large"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="200dp"
+                app:cardCornerRadius="56dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView3"
                     imageUrl="@{review.reviewer.imageUrl}"
-                    android:layout_width="@dimen/reviewer_img_size_large"
-                    android:layout_height="@dimen/reviewer_img_size_large"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/test_img" />
 

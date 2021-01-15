@@ -44,7 +44,7 @@
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    imageUrl="@{review.reviewer.imageUrl}"
+                    app:imageUrl="@{review.reviewer.imageUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
