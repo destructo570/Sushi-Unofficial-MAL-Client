@@ -270,18 +270,19 @@
     <string name="iytimg_base">http://i.ytimg.com/vi/%1$s/hqdefault.jpg</string>
     <string name="changelog_app_version">1.0.8</string>
     <string name="latest_changelog">
+        \n• Fixed crashes on android 6.0 devices causing app to crash on start.
         \n• Fixed profile images and score not loading on some devices.
-        \n• Added latest news and promotions to home section.
+        \n• Fixed some inconsistent ep/ch numbers in user anime/manga lists when navigating between detail screens.
+        \n Added anime recommendations on browse anime section.
+        \n• Added latest news and promotions to browse anime section.
         \n• Added option to copy titles in the options menu or
         you can also long press on the title name to copy it to clipboard.
         \n• Added ads to the app (Pro users won\'t get any ads)
         \n• In user anime/manga list after coming back from detail section scroll position is remembered.
-        \n• Fixed some inconsistent ep/ch numbers in user anime/manga lists when navigating between detail screens.
         \n• Now when a anime/manga ep/ch is increased in list section to max value it will automatically update to completed status.
         \n• Reordered user anime and manga list sections.
         \n• Changed default status when adding to user list to PTW/PTR instead of watching.
         \n• Updated purchase screens to show promo screens of all themes in pro version.
-
     </string>
 
 
