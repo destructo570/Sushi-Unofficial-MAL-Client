@@ -65,12 +65,12 @@
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/lead_dev_image"
                             style="@style/Widget.Sushi.ItemCardView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/header_profile_img_size"
+                            android:layout_height="@dimen/header_profile_img_size"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
-                            app:cardCornerRadius="200dp"
+                            app:cardCornerRadius="36dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -78,8 +78,8 @@
                             <ImageView
                                 android:id="@+id/header_user_image"
                                 app:imageUrl="@{String.format(@string/dev_profile_image)}"
-                                android:layout_width="@dimen/header_profile_img_size"
-                                android:layout_height="@dimen/header_profile_img_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/test_img" />
 

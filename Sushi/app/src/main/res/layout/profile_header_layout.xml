@@ -10,20 +10,20 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/anime_score_fab"
         style="@style/Widget.Sushi.ItemCardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/header_profile_img_size"
+        android:layout_height="@dimen/header_profile_img_size"
         android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="8dp"
-        app:cardCornerRadius="200dp"
+        app:cardCornerRadius="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/header_user_image"
-            android:layout_width="@dimen/header_profile_img_size"
-            android:layout_height="@dimen/header_profile_img_size"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/test_img" />
 

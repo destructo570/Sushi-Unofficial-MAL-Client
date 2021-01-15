@@ -282,7 +282,7 @@
             android:layout_height="@dimen/fab_size"
             android:layout_marginEnd="16dp"
             android:elevation="@dimen/fab_elevation"
-            app:cardCornerRadius="200dp"
+            app:cardCornerRadius="24dp"
             app:layout_anchor="@id/anime_detail_cardview"
             app:cardBackgroundColor="@color/scoreCardBackground"
             app:layout_anchorGravity="top|right|end">
