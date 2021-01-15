@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.os.bundleOf
@@ -163,6 +164,7 @@ class AnimeFragment : Fragment() {
             navigateToUpcomingAnime()
         }
         currentlyAiringMore.setOnClickListener {
+            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
             navigateToCurrentlyAiring()
         }
         animeRecomMore.setOnClickListener {
