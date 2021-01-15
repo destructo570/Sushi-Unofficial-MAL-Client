@@ -156,9 +156,9 @@ constructor(
                 priority,num_times_rewatched,rewatch_value,tags,comments)
             try {
                 val animeStatus = addEpisodeDeferred.await()
-                updateUserAnimeList(animeId.toInt())
                 withContext(Dispatchers.Main){
                     userAnimeStatus.value = Resource.success(animeStatus)
+                    updateUserAnimeList(animeId.toInt())
                 }
             }catch (e: java.lang.Exception){
                 withContext(Dispatchers.Main){

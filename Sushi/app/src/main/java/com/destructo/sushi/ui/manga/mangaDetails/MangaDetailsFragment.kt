@@ -340,8 +340,10 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
         mangaDetailViewModel.userMangaStatus.observe(viewLifecycleOwner){resource->
             when(resource.status){
-                Status.LOADING->{}
+                Status.LOADING->{
+                }
                 Status.SUCCESS->{
+
                     changeButtonState(addToListButton, true)
                     isInUserList = MANGA_IN_USER_LIST
                     resource.data?.let {mangaStatus->

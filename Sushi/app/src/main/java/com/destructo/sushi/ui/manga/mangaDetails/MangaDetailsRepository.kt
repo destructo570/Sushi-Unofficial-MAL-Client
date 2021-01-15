@@ -133,9 +133,9 @@ constructor(
                 priority,num_times_reread,reread_value,tags,comments)
             try {
                 val mangaStatus = addEpisodeDeferred.await()
-                updateUserMangaList(mangaId.toInt())
                 withContext(Dispatchers.Main){
                     userMangaStatus.value = Resource.success(mangaStatus)
+                    updateUserMangaList(mangaId.toInt())
                 }
             }catch (e: java.lang.Exception){
                 withContext(Dispatchers.Main){
