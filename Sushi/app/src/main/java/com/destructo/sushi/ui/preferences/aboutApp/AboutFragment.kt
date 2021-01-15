@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.preferences.aboutApp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,11 +12,13 @@ import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.BuildConfig
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
+import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +33,7 @@ class AboutFragment : Fragment() {
     private lateinit var discordButton:ConstraintLayout
     private lateinit var rateAppButton:ConstraintLayout
     private lateinit var openSourceLicense:ConstraintLayout
+    private lateinit var changelogButton:ConstraintLayout
     private lateinit var appVersionTxt:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +60,7 @@ class AboutFragment : Fragment() {
         discordButton = binding.joinDiscord
         openSourceLicense = binding.openSourceLicense
         appVersionTxt = binding.appVersionDescText
+        changelogButton = binding.changelog
 
         appVersionTxt.text = BuildConfig.VERSION_NAME
 
@@ -76,6 +81,9 @@ class AboutFragment : Fragment() {
         }
         openSourceLicense.setOnClickListener {
             startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+        }
+        changelogButton.setOnClickListener {
+            showChangelog()
         }
 
         return binding.root
@@ -104,6 +112,27 @@ class AboutFragment : Fragment() {
                 "?subject=" + Uri.encode("Sushi - Unofficial MAL client")
         intent.data = Uri.parse(uriText)
         startActivity(Intent.createChooser(intent, "Send Feedback"))
+    }
+
+    private fun showChangelog(){
+        val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
+            .setTitle("Version ${getString(R.string.changelog_app_version)} changelog")
+            .setMessage(getString(R.string.latest_changelog))
+            .setNegativeButton(R.string.close
+            ) { _, _ -> }
+            .create()
+
+        dialog.setOnShowListener {
+
+            val view = dialog.window
+            view?.setBackgroundDrawable(context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg) })
+            context?.let {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
+            }
+        }
+
+        dialog.show()
     }
 
 }

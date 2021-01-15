@@ -249,6 +249,7 @@
         <item name="android:textColor">?attr/textColorPrimary</item>
         <item name="dialogCornerRadius">8dp</item>
         <item name="android:textColorPrimary">?attr/textColorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Sushi.B3</item>
 
     </style>
 

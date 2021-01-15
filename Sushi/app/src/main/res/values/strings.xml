@@ -163,6 +163,7 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="close">Close</string>
 
     <string name="number_of_users">Number Of List User</string>
     <string name="fake_anime_desc">In a world where demons feed on unsuspecting humans, fragments of the legendary and feared demon Ryoumen Sukuna were lost and scattered about. Should any demon consume Sukuna\'s body parts, the power they gain could destroy the world as we know it. Fortunately, there exists a mysterious school of Jujutsu Sorcerers who exist to protect the precarious existence of the living from the undead!  Yuuji Itadori is high schooler who spends his days visiting his bedridden grandfather. Although he looks like your average teenager, his immense physical strength is something to behold! Every sports club wants him to join, but Itadori would rather hang out with the school outcasts in the Occult Club. One day, the club manages to get their hands on a sealed cursed object, but little do they know the terror they\'ll unleash when they break the seal...  (Source: VIZ Media, edited)</string>
@@ -211,6 +212,8 @@
     <string name="pref_title_discord">Join The Discord Server</string>
     <string name="pref_desc_discord">To report bugs, feature requests/suggestions etc.</string>
     <string name="pref_title_rate_app">Rate And Review App</string>
+    <string name="pref_changelog_title">Changelog</string>
+    <string name="pref_changelog_desc">See the complete changelog of the current version</string>
     <string name="pref_desc_rate_app">Please leave a rating and review if you liked the app.</string>
     <string name="pref_title_send_feedback">Send Feedback</string>
     <string name="pref_desc_send_feedback">Send your feedback and suggestions.</string>
@@ -266,6 +269,21 @@
 
     <!-- Do not change these -->
     <string name="iytimg_base">http://i.ytimg.com/vi/%1$s/hqdefault.jpg</string>
+    <string name="changelog_app_version">1.0.8</string>
+    <string name="latest_changelog">
+        \n• Fixed profile images and score not loading on some devices.
+        \n• Added latest news and promotions to home section.
+        \n• Added option to copy titles in the options menu or
+        you can also long press on the title name to copy it to clipboard.
+        \n• Added ads to the app (Pro users won\'t get any ads)
+        \n• In user anime/manga list after coming back from detail section scroll position is remembered.
+        \n• Fixed some inconsistent ep/ch numbers in user anime/manga lists when navigating between detail screens.
+        \n• Now when a anime/manga ep/ch is increased in list section to max value it will automatically update to completed status.
+        \n• Reordered user anime and manga list sections.
+        \n• Changed default status when adding to user list to PTW/PTR instead of watching.
+        \n• Updated purchase screens to show promo screens of all themes in pro version.
+
+    </string>
 
 
 </resources>
