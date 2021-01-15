@@ -31,24 +31,30 @@
 
     <TextView
         android:id="@+id/header_user_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="John Doe"
         android:textAppearance="@style/TextAppearance.Sushi.B3"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/header_user_location"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text="New York"
-        android:textColor="?attr/textColorSecondary"
         android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
+        android:textColor="?attr/textColorSecondary"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
         app:layout_constraintTop_toBottomOf="@+id/header_user_name" />
 
