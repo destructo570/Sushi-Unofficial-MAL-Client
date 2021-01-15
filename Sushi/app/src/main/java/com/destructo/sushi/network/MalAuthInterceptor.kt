@@ -14,39 +14,22 @@ class MalAuthInterceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        var requestBuilder = chain.request().newBuilder()
+        val requestBuilder = chain.request().newBuilder()
             requestBuilder.addHeader("Authorization","Bearer ${currentSession[ACCESS_TOKEN]}")
 
-        var response = chain.proceed(requestBuilder.build())
+        val response = chain.proceed(requestBuilder.build())
 
         if(!response.isSuccessful){
             when(response.code){
                 429 -> {
-                    try {
                         Timber.e("Too many requests, Retrying in 3 seconds...")
-                        Thread.sleep(3000L)
-                        requestBuilder = chain.request().newBuilder()
-                        requestBuilder.addHeader("Authorization","Bearer ${currentSession[ACCESS_TOKEN]}")
-                    }catch (e:InterruptedException){
-
-                    }
                 }
                 401 -> {
-                    try {
                         Timber.e("Too many requests, Retrying in 3 seconds...")
-                        Thread.sleep(3000L)
-                        requestBuilder = chain.request().newBuilder()
-                        requestBuilder.addHeader("Authorization","Bearer ${sessionManager.getLatestToken()}")
-                    }catch (e:InterruptedException){
-
-                    }
-                    finally {
-                        response.close()
-                    }
                 }
 
             }
-            response = chain.proceed(requestBuilder.build())
+            
         }
 
         return response
