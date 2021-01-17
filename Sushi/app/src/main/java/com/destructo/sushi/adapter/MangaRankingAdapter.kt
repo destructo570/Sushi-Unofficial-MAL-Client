@@ -54,13 +54,13 @@ class MangaRankingAdapter(private val malIdListener: MalIdListener) :
 
 class MangaDiffUtil : DiffUtil.ItemCallback<MangaRankingData>() {
     override fun areItemsTheSame(oldItem: MangaRankingData, newItem: MangaRankingData): Boolean {
-        return oldItem.manga?.id == newItem.manga?.id
+        return oldItem.manga.id == newItem.manga.id
 
     }
 
     override fun areContentsTheSame(oldItem: MangaRankingData, newItem: MangaRankingData): Boolean {
-        return oldItem.manga?.id == newItem.manga?.id
-                && oldItem.manga?.title == newItem.manga?.title
+        return oldItem.manga.id == newItem.manga.id
+                && oldItem.manga.title == newItem.manga.title
     }
 
 }

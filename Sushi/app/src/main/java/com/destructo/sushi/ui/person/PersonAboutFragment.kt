@@ -16,15 +16,10 @@ class PersonAboutFragment : Fragment() {
     private val personViewModel: PersonViewModel by viewModels(ownerProducer = {requireParentFragment()})
     private lateinit var binding: FragmentPersonAboutBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPersonAboutBinding
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner

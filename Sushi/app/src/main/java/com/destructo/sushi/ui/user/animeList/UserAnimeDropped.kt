@@ -47,7 +47,7 @@ class UserAnimeDropped : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         if(!calledOnce) {
             calledOnce = true
@@ -146,11 +146,6 @@ class UserAnimeDropped : Fragment() {
             }
 
     }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
     }
 
 

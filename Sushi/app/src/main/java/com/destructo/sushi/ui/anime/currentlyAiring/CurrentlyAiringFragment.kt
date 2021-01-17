@@ -59,7 +59,7 @@ class CurrentlyAiringFragment : Fragment(), ListEndListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentCurrentlyAiringBinding
             .inflate(inflater, container, false).apply {

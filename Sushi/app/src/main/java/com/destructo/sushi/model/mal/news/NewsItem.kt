@@ -8,5 +8,4 @@ data class NewsItem(
     val date_created: String?=null,
     val url: String?=null,
 
-    ) {
-}
+    )

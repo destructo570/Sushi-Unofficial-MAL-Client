@@ -17,7 +17,7 @@ import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterMangaography() : Fragment() {
+class CharacterMangaography : Fragment() {
 
     private lateinit var mangaoAdapter: PersonAdapter
     private lateinit var mangaoRecyclerView: RecyclerView
@@ -27,7 +27,7 @@ class CharacterMangaography() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding =
             FragmentCharacterMangaographyBinding
                 .inflate(inflater, container, false).apply {

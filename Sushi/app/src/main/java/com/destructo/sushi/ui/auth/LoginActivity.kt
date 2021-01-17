@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.VmPolicy
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -16,7 +14,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.databinding.DataBindingUtil
-import com.destructo.sushi.*
+import com.destructo.sushi.AUTH_CODE_URL
+import com.destructo.sushi.CLIENT_ID
+import com.destructo.sushi.MainActivity
+import com.destructo.sushi.R
 import com.destructo.sushi.databinding.ActivityLoginBinding
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.SessionManager

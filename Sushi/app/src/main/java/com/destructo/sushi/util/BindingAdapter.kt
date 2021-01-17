@@ -181,20 +181,20 @@ fun TextView.setMangaAltTitles(data: Manga?) {
 
 @BindingAdapter("formattedInteger")
 fun TextView.formatNumber(num:Int?){
-    if(num != null && num >= 0) {
+    text = if(num != null && num >= 0) {
 
-        text = NumberFormat.getNumberInstance(Locale.US).format(num)
+        NumberFormat.getNumberInstance(Locale.US).format(num)
     }else{
-        text = "N/A"
+        "N/A"
     }
 }
 @BindingAdapter("formattedRank")
 fun TextView.formatRank(num:Int?){
-    if(num != null && num >= 0) {
+    text = if(num != null && num >= 0) {
         val finalStr = NumberFormat.getNumberInstance(Locale.US).format(num)
-        text = "#$finalStr"
+        "#$finalStr"
     }else{
-        text = "N/A"
+        "N/A"
     }
 }
 
@@ -269,10 +269,10 @@ fun TextView.setReviewHelpful(data: ReviewEntity?) {
 @BindingAdapter("animeScore")
 fun TextView.setAnimeScore(data: String?) {
 
-    if (data == null || data == " " || data.isEmpty()) {
-        text = "N/A"
+    text = if (data == null || data == " " || data.isEmpty()) {
+        "N/A"
     } else {
-        text = data
+        data
     }
 }
 
@@ -345,12 +345,12 @@ fun setMangaVolume(textView: TextView,volume: String?, total:String?) {
 @BindingAdapter("characterNickName")
 fun TextView.formatCharacterNickName(data: List<String?>?) {
 
-    if (data != null ) {
+    text = if (data != null ) {
         val finalStr = StringBuilder()
         data.forEach{ finalStr.append("$it ") }
-        text = finalStr
+        finalStr
     } else {
-        text = "Not Available"
+        "Not Available"
     }
 }
 
@@ -387,10 +387,10 @@ fun bindCategoryRecycler(recyclerView: RecyclerView, data: List<Board?>?) {
 private fun formatSmallTitleText(text: String): String {
     var title = if (text.length > 7) text.take(7) else return text
 
-    if (title.takeLast(1) == " ") {
-        title = "${title.take(7)}.."
+    title = if (title.takeLast(1) == " ") {
+        "${title.take(7)}.."
     } else {
-        title = "$title.."
+        "$title.."
     }
     return title
 }

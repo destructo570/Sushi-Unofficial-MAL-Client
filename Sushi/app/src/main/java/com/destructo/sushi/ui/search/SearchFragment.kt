@@ -36,15 +36,10 @@ class SearchFragment : Fragment() {
     private lateinit var resultTabMediator: TabLayoutMediator
     private lateinit var searchEditText: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentSearchBinding
             .inflate(inflater, container, false).apply {
@@ -53,7 +48,7 @@ class SearchFragment : Fragment() {
 
         searchView = binding.searchView
         searchView.setIconifiedByDefault(false)
-        searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text)
         context?.let{
             searchEditText.setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
             searchEditText.setHintTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
@@ -65,7 +60,7 @@ class SearchFragment : Fragment() {
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    if (!it.isBlank()) {
+                    if (it.isNotBlank()) {
                         if (it.length >= 3){
                             searchViewModel.clearMangaList()
                             searchViewModel.clearAnimeList()

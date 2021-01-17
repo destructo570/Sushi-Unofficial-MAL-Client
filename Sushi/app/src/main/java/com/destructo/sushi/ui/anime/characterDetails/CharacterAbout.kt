@@ -22,7 +22,7 @@ class CharacterAbout : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentCharacterAboutBinding
             .inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner

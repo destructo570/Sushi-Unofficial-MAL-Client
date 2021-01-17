@@ -187,7 +187,7 @@ constructor(
 
     }
 
-    suspend fun animeDetailCall(malId:Int){
+    private suspend fun animeDetailCall(malId:Int){
 
         val animeId: String = malId.toString()
         val getAnimeByIdDeferred = malApi.getAnimeByIdAsync(animeId, ALL_ANIME_FIELDS)
@@ -256,7 +256,7 @@ constructor(
         }
     }
 
-    suspend fun animeReviewCall(malId:Int, page:String) {
+    private suspend fun animeReviewCall(malId:Int, page:String) {
         val animeId: String = malId.toString()
         val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId, page)
         try {
@@ -282,7 +282,7 @@ constructor(
     private fun updateUserAnimeList(animeId: Int){
         val anime = userAnimeListDao.getUserAnimeById(animeId)
         anime.status?.let {
-            loadPage(it, anime.offset, animeId.toInt())
+            loadPage(it, anime.offset, animeId)
         }
     }
 
@@ -351,11 +351,11 @@ constructor(
 
     private fun getOffset(url: String?): String?{
 
-        if (!url.isNullOrBlank()){
+        return if (!url.isNullOrBlank()){
             val uri = url.toUri()
-            return uri.getQueryParameter("offset").toString()
+            uri.getQueryParameter("offset").toString()
         }else{
-            return null
+            null
         }
     }
 

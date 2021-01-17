@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.os.bundleOf
@@ -41,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_anime.view.*
 import kotlinx.android.synthetic.main.inc_anime_recoms.view.*
 import kotlinx.android.synthetic.main.inc_currently_airing.view.*
-import kotlinx.android.synthetic.main.inc_currently_airing.view.currentlyAiringMore
 import kotlinx.android.synthetic.main.inc_latest_news_home.view.*
 import kotlinx.android.synthetic.main.inc_promotional_home.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
@@ -104,7 +102,7 @@ class AnimeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAnimeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }

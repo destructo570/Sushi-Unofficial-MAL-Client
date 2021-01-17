@@ -158,8 +158,8 @@ constructor(private val malApi: MalApi,
         }
     }
 
-    fun getUserMangaList(mangaStatus:String?,
-                         mangaList: MutableLiveData<Resource<UserMangaList>>) {
+    private fun getUserMangaList(mangaStatus:String?,
+                                 mangaList: MutableLiveData<Resource<UserMangaList>>) {
 
         mangaList.value = Resource.loading(null)
 
@@ -257,11 +257,11 @@ constructor(private val malApi: MalApi,
 
     private fun getOffset(url: String?): String?{
 
-        if (!url.isNullOrBlank()){
+        return if (!url.isNullOrBlank()){
             val uri = url.toUri()
-            return uri.getQueryParameter("offset").toString()
+            uri.getQueryParameter("offset").toString()
         }else{
-            return null
+            null
         }
     }
 

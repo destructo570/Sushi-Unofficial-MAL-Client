@@ -7,7 +7,7 @@ import okhttp3.Response
 import timber.log.Timber
 
 class MalAuthInterceptor(
-    private val sessionManager: SessionManager
+    sessionManager: SessionManager
 ): Interceptor {
 
     private val currentSession = sessionManager.getSession()

@@ -24,15 +24,10 @@ class PublishedMangaFragment: Fragment(){
     private lateinit var publishedMangaAdapter: PublishedMangaAdapter
     private lateinit var publishedMangaRecyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPersonAnimeStaffBinding
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner

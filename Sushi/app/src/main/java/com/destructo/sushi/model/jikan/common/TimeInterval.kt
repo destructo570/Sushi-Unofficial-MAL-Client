@@ -1,6 +1,5 @@
 package com.destructo.sushi.model.jikan.common
 
-import com.destructo.sushi.model.jikan.common.Prop
 import com.squareup.moshi.Json
 
 

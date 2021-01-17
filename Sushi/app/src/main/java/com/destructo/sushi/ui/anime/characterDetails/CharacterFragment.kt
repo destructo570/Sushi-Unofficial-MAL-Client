@@ -31,7 +31,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
+class CharacterFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private lateinit var binding: FragmentCharacterBinding
     private lateinit var characterPager: ViewPager2
@@ -58,7 +58,7 @@ class CharacterFragment() : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCharacterBinding
             .inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner

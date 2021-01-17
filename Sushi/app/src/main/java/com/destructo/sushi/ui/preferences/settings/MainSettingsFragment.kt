@@ -36,7 +36,7 @@ class MainSettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainSettingsBinding.inflate(inflater,container,false).apply {
             lifecycleOwner = viewLifecycleOwner }
 
@@ -75,7 +75,7 @@ class MainSettingsFragment : Fragment() {
     }
 
 
-    fun startPurchaseActivity(){
+    private fun startPurchaseActivity(){
         val intent = Intent(context, PurchaseActivity::class.java)
         startActivity(intent)
     }

@@ -8,10 +8,9 @@ import com.destructo.sushi.R
 import kotlinx.android.synthetic.main.list_item_purchase_promo.view.*
 
 class ImagePagerAdapter(
-    val imageList: List<Int>
+    private val imageList: List<Int>
 ) :RecyclerView.Adapter<ImagePagerAdapter.ViewPagerViewHolder>(){
-    inner class ViewPagerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    }
+    inner class ViewPagerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         val view  = LayoutInflater.from(parent.context).inflate(R.layout.list_item_purchase_promo, parent,false)

@@ -77,7 +77,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentSeasonalAnimeBinding
             .inflate(inflater, container, false).apply {

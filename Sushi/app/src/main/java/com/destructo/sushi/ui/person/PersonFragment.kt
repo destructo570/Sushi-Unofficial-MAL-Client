@@ -62,7 +62,7 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPersonBinding
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner

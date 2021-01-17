@@ -26,15 +26,10 @@ class PersonAnimeStaffFragment : Fragment() {
     private lateinit var animeStaffAdapter: AnimeStaffRoleAdapter
     private lateinit var animeStaffRecyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPersonAnimeStaffBinding
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner

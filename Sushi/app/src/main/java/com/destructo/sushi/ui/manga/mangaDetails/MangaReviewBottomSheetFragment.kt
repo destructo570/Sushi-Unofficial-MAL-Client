@@ -32,7 +32,7 @@ class MangaReviewBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMangaReviewBottomSheetBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner

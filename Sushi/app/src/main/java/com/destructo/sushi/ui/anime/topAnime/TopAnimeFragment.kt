@@ -73,7 +73,7 @@ class TopAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding  = FragmentTopAnimeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner

@@ -291,11 +291,11 @@ constructor(
 
     private fun getOffset(url: String?): String?{
 
-        if (!url.isNullOrBlank()){
+        return if (!url.isNullOrBlank()){
             val uri = url.toUri()
-            return uri.getQueryParameter("offset").toString()
+            uri.getQueryParameter("offset").toString()
         }else{
-            return null
+            null
         }
     }
 

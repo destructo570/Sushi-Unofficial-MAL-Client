@@ -36,14 +36,10 @@ class AboutFragment : Fragment() {
     private lateinit var changelogButton:ConstraintLayout
     private lateinit var appVersionTxt:TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAboutBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }

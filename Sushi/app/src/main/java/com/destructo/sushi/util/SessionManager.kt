@@ -34,10 +34,10 @@ constructor(
 ){
     private var sharedPreferences: SharedPreferences
     private var editor: Editor
-    private var PRIVATE_MODE = 0
+    private var privateMode = 0
 
     init {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, PRIVATE_MODE)
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, privateMode)
         editor = sharedPreferences.edit()
         generatePkce()
     }

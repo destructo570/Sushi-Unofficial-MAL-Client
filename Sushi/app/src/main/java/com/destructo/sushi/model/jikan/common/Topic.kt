@@ -1,7 +1,6 @@
 package com.destructo.sushi.model.jikan.common
 
 
-import com.destructo.sushi.model.jikan.common.LastPost
 import com.squareup.moshi.Json
 
 data class Topic(

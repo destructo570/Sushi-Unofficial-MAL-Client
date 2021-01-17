@@ -54,7 +54,7 @@ constructor(
         }
     }
 
-    suspend fun animeReviewCall(malId:Int, page: String) {
+    private suspend fun animeReviewCall(malId:Int, page: String) {
         val animeId: String = malId.toString()
         val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId, page)
         try {

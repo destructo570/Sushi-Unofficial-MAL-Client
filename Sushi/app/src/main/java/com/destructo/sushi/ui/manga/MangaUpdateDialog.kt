@@ -66,7 +66,7 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = MangaStatusUpdateBottomSheetBinding.inflate(inflater, container, false)
 
         mangaStatusSpinner = binding.mangaStatusSpinner

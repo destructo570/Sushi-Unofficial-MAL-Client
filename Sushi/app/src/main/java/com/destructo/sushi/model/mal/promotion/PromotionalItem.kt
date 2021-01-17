@@ -5,5 +5,4 @@ class PromotionalItem(
     val img_url: String?=null,
     val small_description: String?=null,
     val url: String?=null,
-    ) {
-}
+    )

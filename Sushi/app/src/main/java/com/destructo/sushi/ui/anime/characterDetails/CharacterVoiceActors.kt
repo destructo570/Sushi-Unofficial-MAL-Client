@@ -18,8 +18,7 @@ import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterVoiceActors(
-) : Fragment() {
+class CharacterVoiceActors : Fragment() {
 
     private lateinit var voiceAdapter: VoiceActorAdapter
     private lateinit var voiceRecyclerView: RecyclerView
@@ -29,7 +28,7 @@ class CharacterVoiceActors(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding =
             FragmentCharacterVoiceActorsBinding
                 .inflate(inflater, container, false).apply {

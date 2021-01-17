@@ -11,8 +11,6 @@
     <string name="browse_manga">Browse Manga</string>
     <string name="clubs">Clubs</string>
     <string name="forum">Forum</string>
-    <string name="forum_boards">Forum Boards</string>
-    <string name="forum_topics">Forum Topics</string>
     <string name="news">News/Articles</string>
     <string name="promotion">Promotional Content</string>
     <string name="settings">Settings</string>
@@ -111,17 +109,12 @@
     <string name="season">Season</string>
     <string name="synopsis">Synopsis</string>
     <string name="characters">Characters</string>
-    <string name="genre">Genre</string>
-    <string name="my_list_status">My List Status</string>
     <string name="staff">Staff</string>
     <string name="reviews">Reviews</string>
     <string name="related_anime">Related Anime</string>
     <string name="related_manga">Related Manga</string>
     <string name="recommendations">Recommendations</string>
     <string name="videos">Videos</string>
-    <string name="details_and_stats">Details And Stats</string>
-    <string name="opening_and_ending">Opening anf Ending Songs</string>
-    <string name="character_details">Character Details</string>
 
     <string name="watching">Watching</string>
     <string name="completed">Completed</string>
@@ -133,10 +126,6 @@
 
 
     <!-- Character Section Titles -->
-    <string name="name">Name: </string>
-    <string name="name_kanji">Name(kanji): </string>
-    <string name="nick_names">Nick Names: </string>
-    <string name="member_fav">Member Favorite: </string>
     <string name="about">About</string>
     <string name="voice_actor">Voice Actors</string>
     <string name="animeography">Animeography</string>
@@ -181,11 +170,8 @@
 
     <!-- Developer Social Links -->
     <string name="social_twitter">Twitter</string>
-    <string name="social_instagram">Instagram</string>
     <string name="social_dribbble">Dribbble</string>
-    <string name="social_discord">Join The Discord Server</string>
     <string name="social_twitter_link">https://twitter.com/iamvishalkashi</string>
-    <string name="social_instagram_link">https://www.instagram.com/vishal.kashi/</string>
     <string name="dev_email_id">dev.destructo570@gmail.com</string>
     <string name="social_dribbble_link">https://dribbble.com/VishalKashi</string>
     <string name="social_discord_link">https://discord.gg/n5GmTKAJHs</string>
@@ -194,12 +180,9 @@
     <!-- Login screen -->
     <string name="welcome_text">Welcome to Sushi!\nYour new friend to help you browse MyAnimeList and manage your Anime/Manga Library.\n Let\'s get started!.</string>
     <string name="login_button_text">Log In With MyAnimeList</string>
-    <string name="log_out_confirmation">Are you sure you want to logout?</string>
 
     <!-- Preference -->
     <string name="pref_title_general">General</string>
-    <string name="pref_title_credits">Log In With MyAnimeList</string>
-    <string name="pref_title_other">Other</string>
     <string name="pref_nsfw">Show NSFW content</string>
     <string name="pref_nsfw_description">Show/Hide NSFW content</string>
     <string name="pref_theme">Theme</string>
@@ -221,24 +204,12 @@
     <string name="pref_desc_open_source_license">List of open source licenses.</string>
     <string name="pref_title_app_version">App Version</string>
     <string name="title_buy_now">Buy Pro To Unlock</string>
-    <string name="sushui_pro_perk_one">Dark theme</string>
-    <string name="sushui_pro_perk_two">Amoled theme</string>
-    <string name="sushui_pro_perk_three">Support the developer.</string>
 
 
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
-    <string name="theme_light_lime">Light Lime</string>
-    <string name="theme_light_sakura">Light Sakura</string>
-    <string name="theme_light_cyan">Light Cyan</string>
     <string name="theme_night">Night</string>
-    <string name="theme_night_lime">Night Lime</string>
-    <string name="theme_night_sakura">Night Sakura</string>
-    <string name="theme_night_cyan">Night Cyan</string>
     <string name="theme_amoled">Amoled</string>
-    <string name="theme_amoled_lime">Amoled Lime</string>
-    <string name="theme_amoled_sakura">Amoled Sakura</string>
-    <string name="theme_amoled_cyan">Amoled Cyan</string>
 
 
     <!-- Anime Review Score Strings-->
@@ -259,7 +230,6 @@
     <!-- Notification Channels -->
     <string name="notification_channel_name">Update Notification</string>
     <string name="notification_channel_desc">Notifications regarding latest updates</string>
-    <string name="notification_channel_id">1</string>
 
     <string name="share_item">Share</string>
     <string name="copy_title">Copy title</string>
@@ -267,7 +237,6 @@
     <string name="share_using">Share using</string>
 
     <!-- Do not change these -->
-    <string name="iytimg_base">http://i.ytimg.com/vi/%1$s/hqdefault.jpg</string>
     <string name="latest_changelog">
         \n• Version 1.0.9
         \n• Fixed crashes on android 6.0 devices causing app to crash on look and feel section.

@@ -9,6 +9,4 @@ data class UserInfoEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val userInfo: UserInfo
-) {
-
-}
+)

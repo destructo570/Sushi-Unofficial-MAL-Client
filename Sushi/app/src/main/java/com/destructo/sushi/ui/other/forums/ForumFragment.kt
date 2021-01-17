@@ -43,13 +43,13 @@ class ForumFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentForumBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
 
         searchView = binding.forumSearchView
-        searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text)
         context?.let{
             searchEditText.setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
             searchEditText.setHintTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
@@ -60,7 +60,7 @@ class ForumFragment : Fragment() {
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    if (!it.isBlank()) {
+                    if (it.isNotBlank()) {
                         if (it.length >= 3){
 //                            searchViewModel.clearMangaList()
 //                            searchViewModel.clearAnimeList()
@@ -97,7 +97,7 @@ class ForumFragment : Fragment() {
                     forumProgressBar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    resource.data?.let {
+                    resource.data?.let { it ->
                         forumProgressBar.visibility = View.GONE
                         it.categories?.let {
                             forumCategoryAdapter = ForumCategoryAdapter(it)

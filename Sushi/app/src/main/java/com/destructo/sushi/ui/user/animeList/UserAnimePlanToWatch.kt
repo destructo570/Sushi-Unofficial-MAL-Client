@@ -46,7 +46,7 @@ class UserAnimePlanToWatch : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         if(!calledOnce) {
             calledOnce = true
@@ -140,11 +140,6 @@ class UserAnimePlanToWatch : Fragment() {
 
     }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {

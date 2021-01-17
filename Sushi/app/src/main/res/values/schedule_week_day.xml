@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="weekDay_array">
-        <item>@string/monday</item>
-        <item>@string/tuesday</item>
-        <item>@string/wednesday</item>
-        <item>@string/thursday</item>
-        <item>@string/friday</item>
-        <item>@string/saturday</item>
-        <item>@string/sunday</item>
-        <item>@string/other</item>
-        <item>@string/unknown</item>
-    </string-array>
-</resources>
+<resources />

@@ -39,7 +39,7 @@ class SchedulePagerAdapter:
 }
 
 
-class AnimeScheduleDiffUtil():DiffUtil.ItemCallback<List<AnimeSubEntity?>?>(){
+class AnimeScheduleDiffUtil :DiffUtil.ItemCallback<List<AnimeSubEntity?>?>(){
     override fun areItemsTheSame(
         oldItem: List<AnimeSubEntity?>,
         newItem: List<AnimeSubEntity?>

@@ -46,7 +46,7 @@ class UserAnimeOnHold : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         if(!calledOnce) {
             calledOnce = true
@@ -145,11 +145,6 @@ class UserAnimeOnHold : Fragment() {
                     }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {

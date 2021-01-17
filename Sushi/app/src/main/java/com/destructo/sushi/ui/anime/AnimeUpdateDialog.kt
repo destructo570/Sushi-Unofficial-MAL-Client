@@ -60,7 +60,7 @@ class AnimeUpdateDialog: BottomSheetDialogFragment(), AdapterView.OnItemSelected
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = AnimeStatusUpdateBottomSheetBinding.inflate(inflater, container, false)
 
         animeStatusSpinner = binding.animeStatusSpinner

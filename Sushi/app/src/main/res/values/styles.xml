@@ -254,10 +254,6 @@
     </style>
 
     <!-- Search bar -->
-    <style name="SearchBarStyle" parent="Widget.AppCompat.SeekBar.Discrete">
-        <item name="android:editTextColor">?attr/textColorPrimary</item>
-        <item name="android:textColorHint">?attr/textColorSecondary</item>
-    </style>
 
 
 </resources>

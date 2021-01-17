@@ -13,7 +13,7 @@ import timber.log.Timber
 @HiltAndroidApp
 class SushiApplication: Application(), PurchasesUpdatedListener {
 
-    lateinit var billingClient: BillingClient
+    private lateinit var billingClient: BillingClient
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate() {
@@ -56,7 +56,7 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
         val result = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
         if (result.purchasesList.isNullOrEmpty()){
             sharedPref.edit()?.putBoolean(IS_PRO_USER, false)?.apply()
-            sharedPref?.edit()?.putString(CURRENT_THEME, AppTheme.LIGHT.value)?.apply()
+            sharedPref.edit()?.putString(CURRENT_THEME, AppTheme.LIGHT.value)?.apply()
             return false
         }else{
             val purchaseList = result.purchasesList

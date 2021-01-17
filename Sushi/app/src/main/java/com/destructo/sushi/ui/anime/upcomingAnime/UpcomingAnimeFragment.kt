@@ -57,7 +57,7 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentUpcomingAnimeBinding
             .inflate(inflater, container, false).apply {

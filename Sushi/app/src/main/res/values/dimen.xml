@@ -5,8 +5,6 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_micro">4dp</dimen>
     <dimen name="margin_large">24dp</dimen>
-    <dimen name="spacing_normal">8dp</dimen>
-    <dimen name="spacing_micro">4dp</dimen>
 
     <!-- Common Text Header -->
     <dimen name="text_size_h1">20sp</dimen>
@@ -16,7 +14,6 @@
 
 
     <!-- Common Text Body -->
-    <dimen name="text_size_b1">16sp</dimen>
     <dimen name="text_size_b2">13sp</dimen>
     <dimen name="text_size_b3">12sp</dimen>
     <dimen name="text_size_b4">10sp</dimen>
@@ -26,42 +23,33 @@
     <dimen name="item_card_image_height">144dp</dimen>
     <dimen name="item_card_text_margin_normal">8dp</dimen>
     <dimen name="item_card_text_margin_small">4dp</dimen>
-    <dimen name="item_card_text_margin_micro">2dp</dimen>
     <dimen name="card_icon_margin_normal">8dp</dimen>
     <dimen name="card_icon_margin_micro">1dp</dimen>
 
     <!-- User Anime/Manga Card Item -->
     <dimen name="user_card_image_width">116dp</dimen>
-    <dimen name="user_card_image_height">144dp</dimen>
     <dimen name="user_card_margin_normal">8dp</dimen>
     <dimen name="user_card_margin_small">4dp</dimen>
-    <dimen name="user_card_margin_micro">2dp</dimen>
     <dimen name="user_icon_margin_normal">8dp</dimen>
     <dimen name="user_icon_size_normal">16dp</dimen>
     <dimen name="user_icon_size_small">14dp</dimen>
     <dimen name="user_icon_margin_small">6dp</dimen>
-    <dimen name="user_icon_margin_micro">4dp</dimen>
 
     <!-- See More Text-->
     <dimen name="see_more_padding_normal">8dp</dimen>
     <dimen name="see_more_padding_small">4dp</dimen>
 
     <!-- Spinners-->
-    <dimen name="spinner_margin_large">16dp</dimen>
     <dimen name="spinner_margin_normal">8dp</dimen>
-    <dimen name="spinner_marging_micro">4dp</dimen>
     <dimen name="spinner_min_height">32dp</dimen>
-    <dimen name="spinner_max_height">4dp</dimen>
     <dimen name="spinner_min_width">72dp</dimen>
     <dimen name="spinner_min_width_large">104dp</dimen>
     <dimen name="spinner_min_width_xlarge">112dp</dimen>
-    <dimen name="spinner_max_width">4dp</dimen>
     <dimen name="spinner_popup_elevation">6dp</dimen>
 
     <!-- Character Section-->
     <dimen name="character_img_height">56dp</dimen>
     <dimen name="character_img_width">56dp</dimen>
-    <dimen name="card_padding_micro">4dp</dimen>
 
     <!-- Common Card Dimensions -->
     <dimen name="default_corner_radius">8dp</dimen>
@@ -81,8 +69,6 @@
     <dimen name="video_card_height">150dp</dimen>
     <dimen name="video_card_width">300dp</dimen>
     <dimen name="video_card_margin_normal">8dp</dimen>
-    <dimen name="video_card_margin_small">4dp</dimen>
-    <dimen name="video_card_margin_micro">2dp</dimen>
 
     <!-- Review Card-->
     <dimen name="review_card_height">200dp</dimen>
@@ -90,24 +76,13 @@
     <dimen name="reviewer_img_size">56dp</dimen>
     <dimen name="reviewer_img_size_large">112dp</dimen>
     <dimen name="review_card_margin_normal">8dp</dimen>
-    <dimen name="review_card_margin_small">4dp</dimen>
-    <dimen name="review_card_margin_micro">2dp</dimen>
 
     <!-- Recyclerview Grid-->
-    <dimen name="portrait_grid_view_span">3</dimen>
-    <dimen name="portrait_grid_view_spacing">25</dimen>
 
     <!-- Character Recycler Grid-->
-    <dimen name="portrait_character_grid_view_span">3</dimen>
-    <dimen name="portrait_character_grid_view_spacing">25</dimen>
 
     <!-- Nav Header -->
     <dimen name="header_profile_img_size">72dp</dimen>
-
-    <dimen name="recycler_margin_start">4dp</dimen>
-    <dimen name="recycler_margin_end">4dp</dimen>
-    <dimen name="recycler_margin_top">4dp</dimen>
-    <dimen name="recycler_margin_bottom">4dp</dimen>
 
     <!-- Add Episode/Chapter/Volume Button-->
     <dimen name="add_button_height">36dp</dimen>
