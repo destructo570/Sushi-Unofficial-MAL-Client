@@ -164,7 +164,6 @@ class AnimeFragment : Fragment() {
             navigateToUpcomingAnime()
         }
         currentlyAiringMore.setOnClickListener {
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
             navigateToCurrentlyAiring()
         }
         animeRecomMore.setOnClickListener {
