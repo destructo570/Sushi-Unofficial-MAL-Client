@@ -70,7 +70,6 @@
     <string name="special">Special</string>
     <string name="by_popularity">By Popularity</string>
 
-
     <string name="type">Type: </string>
     <string name="status">Status: </string>
     <string name="rating">Rating: </string>
@@ -217,40 +216,4 @@
     <string name="copy_title">Copy title</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="share_using">Share using</string>
-
-    <!-- Do not edit anything below these -->
-    <string name="latest_changelog">
-        \n• Version 1.0.9
-        \n• Fixed crashes on android 6.0 devices causing app to crash on look and feel section.
-        \n• Fixed profile images not showing in all reviews section.
-        \n• Fixed currently airing section not opening.
-
-        \n\n• Version 1.0.8
-        \n• Fixed profile images and score not loading on some devices.
-        \n• Fixed crashes on android 6.0 devices causing app to crash on start.
-        \n• Fixed profile images and score not loading on some devices.
-        \n• Fixed some inconsistent ep/ch numbers in user anime/manga lists when navigating between detail screens.
-        \n Added anime recommendations on browse anime section.
-        \n• Added latest news and promotions to browse anime section.
-        \n• Added option to copy titles in the options menu or
-        you can also long press on the title name to copy it to clipboard.
-        \n• Added ads to the app (Pro users won\'t get any ads)
-        \n• In user anime/manga list after coming back from detail section scroll position is remembered.
-        \n• Now when a anime/manga ep/ch is increased in list section to max value it will automatically update to completed status.
-        \n• Reordered user anime and manga list sections.
-        \n• Changed default status when adding to user list to PTW/PTR instead of watching.
-        \n• Updated purchase screens to show promo screens of all themes in pro version.
-    </string>
-
-    <!-- Theme Titles -->
-    <string name="theme_light">Light</string>
-    <string name="theme_dark">Dark</string>
-    <string name="theme_night">Night</string>
-    <string name="theme_amoled">Amoled</string>
-
-    <!-- Notification Channels -->
-    <string name="notification_channel_name">Update Notification</string>
-    <string name="notification_channel_desc">Notifications regarding latest updates</string>
-
-
 </resources>

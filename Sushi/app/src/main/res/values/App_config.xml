@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme Titles -->
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_night">Night</string>
+    <string name="theme_amoled">Amoled</string>
+
+    <!-- Notification Channels -->
+    <string name="notification_channel_name">Update Notification</string>
+    <string name="notification_channel_desc">Notifications regarding latest updates</string>
+</resources>
