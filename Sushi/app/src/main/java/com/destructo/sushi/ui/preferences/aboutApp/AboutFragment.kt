@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.BuildConfig
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
+import com.destructo.sushi.ui.preferences.donation.DonationActivity
 import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +35,7 @@ class AboutFragment : Fragment() {
     private lateinit var rateAppButton:ConstraintLayout
     private lateinit var openSourceLicense:ConstraintLayout
     private lateinit var changelogButton:ConstraintLayout
+    private lateinit var donateButton:ConstraintLayout
     private lateinit var appVersionTxt:TextView
 
     override fun onCreateView(
@@ -57,6 +59,7 @@ class AboutFragment : Fragment() {
         openSourceLicense = binding.openSourceLicense
         appVersionTxt = binding.appVersionDescText
         changelogButton = binding.changelog
+        donateButton = binding.donations
 
         appVersionTxt.text = BuildConfig.VERSION_NAME
 
@@ -74,6 +77,9 @@ class AboutFragment : Fragment() {
         }
         discordButton.setOnClickListener {
             openUrl(getString(R.string.social_discord_link))
+        }
+        donateButton.setOnClickListener {
+            openDonationActivity()
         }
         openSourceLicense.setOnClickListener {
             startActivity(Intent(context, OssLicensesMenuActivity::class.java))
@@ -99,6 +105,11 @@ class AboutFragment : Fragment() {
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
+
+    private fun openDonationActivity() {
+        val intent = Intent(context, DonationActivity::class.java)
         startActivity(intent)
     }
 

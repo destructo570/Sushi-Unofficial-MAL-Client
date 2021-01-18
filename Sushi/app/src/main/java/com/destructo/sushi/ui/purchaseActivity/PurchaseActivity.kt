@@ -59,12 +59,6 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         promoViewPager.adapter = imagePagerAdapter
 
         restoreButton.setOnClickListener { queryPurchases() }
-        purchaseButton.setOnClickListener {
-            if (billingClient.isReady && sushiSkuMap.containsKey(PRODUCT_ID)){
-                sushiSkuMap[PRODUCT_ID]?.let { it1 -> launchPurchaseFlow(it1) }
-            }
-
-        }
 
     }
 
@@ -126,10 +120,15 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
             .setType(BillingClient.SkuType.INAPP)
 
         billingClient.querySkuDetailsAsync(params.build()
-        ) { billingResult, skuDetails ->
-            if (skuDetails != null) {
-                for (skuDetail in skuDetails) {
-                        sushiSkuMap[skuDetail.sku] = skuDetail
+        ) { billingResult, skuDetailsList ->
+            if (skuDetailsList != null) {
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList.isNotEmpty()) {
+                    for (skuDetails in skuDetailsList) {
+                        if (skuDetails.sku == PRODUCT_ID) {
+                            purchaseButton.setOnClickListener {
+                                launchPurchaseFlow(skuDetails)
+                            }
+                        }
                 }
                 restoreButton.isEnabled = true
                 purchaseButton.isEnabled = true
@@ -138,6 +137,7 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
                 Timber.e("No Sku Found")
             }
         }
+    }
     }
 
     private fun launchPurchaseFlow(skuDetails: SkuDetails){

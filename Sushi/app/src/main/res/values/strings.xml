@@ -21,6 +21,8 @@
     <string name="title_other">OTHER</string>
     <string name="title_preferences">APP SETTINGS</string>
     <string name="title_search_mal">Search MAL</string>
+    <string name="title_support_development">Support development</string>
+
 
     <!-- Anime Section Titles -->
     <string name="top_anime">Top Anime</string>
@@ -194,6 +196,8 @@
     <string name="pref_desc_rate_app">Please leave a rating and review if you like the app.</string>
     <string name="pref_title_send_feedback">Send Feedback</string>
     <string name="pref_desc_send_feedback">Send your feedback and suggestions.</string>
+    <string name="pref_title_donation">Donate</string>
+    <string name="pref_desc_donate_desc">If you want to support me and the development you can donate here</string>
     <string name="pref_title_open_source_license">Open Source License</string>
     <string name="pref_desc_open_source_license">List of open source licenses.</string>
     <string name="pref_title_app_version">App Version</string>
@@ -216,4 +220,6 @@
     <string name="copy_title">Copy title</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="share_using">Share using</string>
+    <string name="donation_succesfull">Thank you for your support!</string>
+
 </resources>

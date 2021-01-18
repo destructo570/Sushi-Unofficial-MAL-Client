@@ -24,7 +24,6 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         createBillingClient()
         initiateBillingProcess()
-
     }
 
     private fun createBillingClient(){
@@ -86,7 +85,6 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
             return instance?.queryPurchases()!!
         }
 
-
     }
 
 
@@ -108,12 +106,7 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
             for (purchase in purchases){
                 handlePurchase(purchase)
             }
-        }else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED){
-            Timber.e("User cancelled the purchase flow.")
-        }else{
-            Timber.e("onPurchaseUpdatedError : ${billingResult.responseCode}")
         }
     }
-
 
 }

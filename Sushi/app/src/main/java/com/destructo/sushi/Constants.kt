@@ -34,6 +34,14 @@ const val IS_PRO_USER = "is_pro_user"
 
 //ProductId
 const val PRODUCT_ID = "sushi_pro_key"
+const val DONATE_COOKIE_ID = "donate_cookie"
+const val DONATE_COKE_ID = "donate_coke"
+const val DONATE_COFFEE_ID = "donate_coffee"
+const val DONATE_BEER_ID = "donate_beer"
+const val DONATE_LUNCH_ID = "donate_lunch"
+const val DONATE_GIFT_ID = "donate_gift"
+
+
 
 const val NSFW_WHITE = "white"
 
