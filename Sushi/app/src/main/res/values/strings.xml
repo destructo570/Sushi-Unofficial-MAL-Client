@@ -22,7 +22,6 @@
     <string name="title_preferences">APP SETTINGS</string>
     <string name="title_search_mal">Search MAL</string>
 
-
     <!-- Anime Section Titles -->
     <string name="top_anime">Top Anime</string>
     <string name="top_manga">Top Manga</string>
@@ -36,7 +35,6 @@
     <string name="all_characters">All Characters</string>
     <string name="all_reviews">All Reviews</string>
     <string name="all_anime_staff">All Anime Staff</string>
-
 
     <!-- Fake Test Data -->
     <string name="fake_anime_title">Jujutsu Kaisen</string>
@@ -101,7 +99,6 @@
     <string name="popularity">Popularity</string>
     <string name="favorites">Favorites</string>
 
-
     <string name="content_description_filter">Filter the list by year and seasons.</string>
 
     <!-- Seasonal Anime String -->
@@ -124,7 +121,6 @@
     <string name="reading">Reading</string>
     <string name="plan_to_read">Plan To Read</string>
 
-
     <!-- Character Section Titles -->
     <string name="about">About</string>
     <string name="voice_actor">Voice Actors</string>
@@ -139,7 +135,7 @@
 
     <!-- User Anime/Manga Score -->
     <string name="nothing">--</string>
-    <string name="score_one">1 (Appaling)</string>
+    <string name="score_one">1 (Appalling)</string>
     <string name="score_two">2 (Horrible)</string>
     <string name="score_three">3 (Very Bad)</string>
     <string name="score_four">4 (Bad)</string>
@@ -155,7 +151,6 @@
     <string name="close">Close</string>
 
     <string name="number_of_users">Number Of List User</string>
-    <string name="fake_anime_desc">In a world where demons feed on unsuspecting humans, fragments of the legendary and feared demon Ryoumen Sukuna were lost and scattered about. Should any demon consume Sukuna\'s body parts, the power they gain could destroy the world as we know it. Fortunately, there exists a mysterious school of Jujutsu Sorcerers who exist to protect the precarious existence of the living from the undead!  Yuuji Itadori is high schooler who spends his days visiting his bedridden grandfather. Although he looks like your average teenager, his immense physical strength is something to behold! Every sports club wants him to join, but Itadori would rather hang out with the school outcasts in the Occult Club. One day, the club manages to get their hands on a sealed cursed object, but little do they know the terror they\'ll unleash when they break the seal...  (Source: VIZ Media, edited)</string>
 
     <!-- Search fragment -->
     <string name="search_anime">Anime</string>
@@ -197,20 +192,13 @@
     <string name="pref_title_rate_app">Rate And Review App</string>
     <string name="pref_changelog_title">Changelog</string>
     <string name="pref_changelog_desc">See the complete changelog of the current version</string>
-    <string name="pref_desc_rate_app">Please leave a rating and review if you liked the app.</string>
+    <string name="pref_desc_rate_app">Please leave a rating and review if you like the app.</string>
     <string name="pref_title_send_feedback">Send Feedback</string>
     <string name="pref_desc_send_feedback">Send your feedback and suggestions.</string>
     <string name="pref_title_open_source_license">Open Source License</string>
     <string name="pref_desc_open_source_license">List of open source licenses.</string>
     <string name="pref_title_app_version">App Version</string>
     <string name="title_buy_now">Buy Pro To Unlock</string>
-
-
-    <string name="theme_light">Light</string>
-    <string name="theme_dark">Dark</string>
-    <string name="theme_night">Night</string>
-    <string name="theme_amoled">Amoled</string>
-
 
     <!-- Anime Review Score Strings-->
     <string name="animation">Animation: </string>
@@ -225,18 +213,12 @@
     <string name="voice_acting">Voice Acting</string>
     <string name="anime_staff_role">Anime Staff</string>
     <string name="published_manga">Published Manga</string>
-
-
-    <!-- Notification Channels -->
-    <string name="notification_channel_name">Update Notification</string>
-    <string name="notification_channel_desc">Notifications regarding latest updates</string>
-
     <string name="share_item">Share</string>
     <string name="copy_title">Copy title</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="share_using">Share using</string>
 
-    <!-- Do not change these -->
+    <!-- Do not edit anything below these -->
     <string name="latest_changelog">
         \n• Version 1.0.9
         \n• Fixed crashes on android 6.0 devices causing app to crash on look and feel section.
@@ -259,6 +241,16 @@
         \n• Changed default status when adding to user list to PTW/PTR instead of watching.
         \n• Updated purchase screens to show promo screens of all themes in pro version.
     </string>
+
+    <!-- Theme Titles -->
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_night">Night</string>
+    <string name="theme_amoled">Amoled</string>
+
+    <!-- Notification Channels -->
+    <string name="notification_channel_name">Update Notification</string>
+    <string name="notification_channel_desc">Notifications regarding latest updates</string>
 
 
 </resources>

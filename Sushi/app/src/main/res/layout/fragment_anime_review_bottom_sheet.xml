@@ -73,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/score_chip_group"
-            tools:text="@string/fake_anime_desc" />
+            tools:text="@tools:sample/lorem/random" />
 
         <TextView
             android:id="@+id/reviewer_name"
