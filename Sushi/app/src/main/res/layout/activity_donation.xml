@@ -26,13 +26,14 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cookie_card"
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/coke_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/donation_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/textView88">
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
@@ -63,6 +64,7 @@
             android:id="@+id/cookie_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,6 +80,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coke_card"
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -85,7 +88,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cookie_card"
-        app:layout_constraintTop_toBottomOf="@+id/donation_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/textView88">
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
@@ -116,6 +119,7 @@
             android:id="@+id/coke_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -135,6 +139,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintEnd_toStartOf="@+id/beer_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cookie_card">
@@ -168,6 +173,7 @@
             android:id="@+id/coffee_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -188,6 +194,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/coffee_card"
         app:layout_constraintTop_toBottomOf="@+id/coke_card">
@@ -221,6 +228,7 @@
             android:id="@+id/beer_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -238,6 +246,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintEnd_toStartOf="@+id/gift_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/coffee_card">
@@ -271,6 +280,7 @@
             android:id="@+id/lunch_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -290,6 +300,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lunch_card"
         app:layout_constraintTop_toBottomOf="@+id/beer_card">
@@ -323,6 +334,7 @@
             android:id="@+id/gift_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -333,6 +345,19 @@
       </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textView88"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/buy_me_a"
+        android:textAppearance="@style/TextAppearance.Sushi.H3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/donation_toolbar" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

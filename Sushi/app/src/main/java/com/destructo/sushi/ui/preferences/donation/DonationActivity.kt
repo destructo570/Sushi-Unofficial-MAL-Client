@@ -11,6 +11,7 @@ import androidx.preference.PreferenceManager
 import com.android.billingclient.api.*
 import com.destructo.sushi.*
 import com.destructo.sushi.databinding.ActivityDonationBinding
+import com.destructo.sushi.enum.AppTheme
 import com.google.android.material.card.MaterialCardView
 import timber.log.Timber
 
@@ -38,10 +39,13 @@ class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
+        setApplicationTheme(currentTheme)
+
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_donation)
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
         createBillingClient()
         initiateBillingProcess()
@@ -185,6 +189,16 @@ class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
             }
         }else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED){
             Timber.e("User cancelled the purchase flow.")
+        }
+    }
+
+    private fun setApplicationTheme(theme: String?){
+        when(theme){
+            AppTheme.LIGHT.value ->{setTheme(R.style.AppTheme)}
+            AppTheme.DARK.value ->{setTheme(R.style.AppTheme_Dark)}
+            AppTheme.NIGHT.value ->{setTheme(R.style.AppTheme_Night)}
+            AppTheme.AMOLED.value ->{setTheme(R.style.AppTheme_Amoled)}
+            else ->{setTheme(R.style.AppTheme)}
         }
     }
 

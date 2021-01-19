@@ -221,5 +221,7 @@
     <string name="open_in_browser">Open in browser</string>
     <string name="share_using">Share using</string>
     <string name="donation_succesfull">Thank you for your support!</string>
+    <string name="buy_me_a">Buy me a:</string>
+
 
 </resources>
