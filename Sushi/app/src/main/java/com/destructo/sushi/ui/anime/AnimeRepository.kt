@@ -173,7 +173,9 @@ constructor(
                     result.value = Resource.success(newsList)
                 }
             } catch (e: Exception) {
-                result.value = Resource.error(e.message ?: "", null)
+                withContext(Dispatchers.Main) {
+                    result.value = Resource.error(e.message ?: "", null)
+                }
             }
         }
 
@@ -228,7 +230,9 @@ constructor(
                     result.value = Resource.success(newsList)
                 }
             } catch (e: Exception) {
-                result.value = Resource.error(e.message ?: "", null)
+                withContext(Dispatchers.Main) {
+                    result.value = Resource.error(e.message ?: "", null)
+                }
             }
         }
 

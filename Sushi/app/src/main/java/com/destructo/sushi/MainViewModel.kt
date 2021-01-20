@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.model.database.UserInfoEntity
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.room.UserInfoDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class MainViewModel
@@ -32,7 +34,8 @@ constructor(
                 userInfoDao.insertUserInfo(userInfoEntity)
 
             }catch (e: Exception){
-                Timber.e("Error: %s", e.message)
+                withContext(Dispatchers.Main) {
+                Timber.e("Error: %s", e.message)}
             }
         }
     }
