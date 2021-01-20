@@ -35,7 +35,8 @@ constructor(
 
             }catch (e: Exception){
                 withContext(Dispatchers.Main) {
-                Timber.e("Error: %s", e.message)}
+                Timber.e("Error: %s", e.message)
+                }
             }
         }
     }
