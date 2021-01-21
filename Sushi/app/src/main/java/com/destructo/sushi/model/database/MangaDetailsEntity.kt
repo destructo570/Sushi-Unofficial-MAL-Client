@@ -7,5 +7,5 @@ import com.destructo.sushi.model.mal.manga.Manga
 data class MangaDetailsEntity(
     val manga: Manga?,
     val id:Int,
-    val time: Long
-)
+    override val time: Long
+): BaseDatabaseEntity

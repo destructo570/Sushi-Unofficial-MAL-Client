@@ -3,9 +3,7 @@ package com.destructo.sushi.ui.manga.mangaDetails
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_MANGA_FIELDS
-import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
-import com.destructo.sushi.DETAILS_CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.model.database.MangaCharacterListEntity
 import com.destructo.sushi.model.database.MangaDetailsEntity
@@ -15,6 +13,7 @@ import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
+import com.destructo.sushi.model.params.MangaUpdateParams
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
@@ -38,7 +37,7 @@ constructor(
     private val mangaCharacterListDao: MangaCharacterListDao,
     private val mangaReviewListDao: MangaReviewListDao,
     private val userMangaListDao: UserMangaListDao
-){
+) {
 
     var mangaDetail: MutableLiveData<Resource<Manga>> = MutableLiveData()
 
@@ -50,119 +49,82 @@ constructor(
 
     var userMangaRemove: MutableLiveData<Resource<Unit>> = MutableLiveData()
 
-
-
-    fun getMangaDetail(malId: Int, isEdited: Boolean) {
+    suspend fun getMangaDetail(malId: Int, isEdited: Boolean) {
         mangaDetail.value = Resource.loading(null)
 
-        GlobalScope.launch {
-            val mangaDetailCache = mangaDetailsDao.getMangaDetailsById(malId)
+        val mangaDetailCache = mangaDetailsDao.getMangaDetailsById(malId)
 
-            if (mangaDetailCache != null){
-
-                if((System.currentTimeMillis() - mangaDetailCache.time) > DETAILS_CACHE_EXPIRE_TIME_LIMIT
-                    || isEdited) {
-                    mangaDetailsCall(malId)
-                }else{
-                    val mangaDetails = mangaDetailCache.manga
-                    withContext(Dispatchers.Main) {
-                        mangaDetail.value = Resource.success(mangaDetails)
-                    }
-                }
-            }else{
-                mangaDetailsCall(malId)
+        if (mangaDetailCache != null && !mangaDetailCache.isCacheExpired() && !isEdited) {
+            withContext(Dispatchers.Main) {
+                mangaDetail.value = Resource.success(mangaDetailCache.manga)
             }
-        }
+        } else mangaDetailsCall(malId)
     }
 
-    fun getMangaCharacters(malId: Int) {
+    suspend fun getMangaCharacters(malId: Int) {
         mangaCharacter.value = Resource.loading(null)
 
-        GlobalScope.launch {
-            val mangaCharacterListCache = mangaCharacterListDao.getMangaCharacterListById(malId)
+        val mangaCharacterListCache = mangaCharacterListDao.getMangaCharacterListById(malId)
 
-            if (mangaCharacterListCache != null){
-
-                if((System.currentTimeMillis() - mangaCharacterListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    mangaCharactersCall(malId)
-                }else{
-                    val mangaCharacterList = mangaCharacterListCache.mangaCharacterList
-                    withContext(Dispatchers.Main) {
-                        mangaCharacter.value = Resource.success(mangaCharacterList)
-                    }
-                }
-            }else{
-                mangaCharactersCall(malId)
+        if (mangaCharacterListCache != null && !mangaCharacterListCache.isCacheExpired()) {
+            withContext(Dispatchers.Main) {
+                mangaCharacter.value =
+                    Resource.success(mangaCharacterListCache.mangaCharacterList)
             }
-        }
+        } else mangaCharactersCall(malId)
     }
 
-    fun getMangaReviews(malId: Int, page: String) {
+    suspend fun getMangaReviews(malId: Int, page: String) {
+
         mangaReview.value = Resource.loading(null)
+        val mangaReviewListCache = mangaReviewListDao.getMangaReviewsById(malId)
 
-        GlobalScope.launch {
-            val mangaReviewListCache = mangaReviewListDao.getMangaReviewsById(malId)
-
-            if (mangaReviewListCache != null){
-
-                if((System.currentTimeMillis() - mangaReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    mangaReviewsCall(malId, page)
-                }else{
-                    val mangaCharacterList = mangaReviewListCache.reviewList
-                    withContext(Dispatchers.Main) {
-                        mangaReview.value = Resource.success(mangaCharacterList)
-                    }
-                }
-            }else{
-                mangaReviewsCall(malId, page)
+        if (mangaReviewListCache != null && !mangaReviewListCache.isCacheExpired()) {
+            withContext(Dispatchers.Main) {
+                mangaReview.value = Resource.success(mangaReviewListCache.reviewList)
             }
-        }
+        } else mangaReviewsCall(malId, page)
     }
 
 
-    fun updateUserMangaList(mangaId:String, status:String?=null,
-                            is_rereading:Boolean?=null, score:Int?=null,
-                            num_volumes_read:Int?=null, num_chapters_read:Int?=null, priority:Int?=null,
-                            num_times_reread:Int?=null, reread_value:Int?=null,
-                            tags:List<String>?=null, comments:String?=null) {
+    suspend fun updateUserMangaList(mangaUpdateParams: MangaUpdateParams) {
         userMangaStatus.value = Resource.loading(null)
 
-        GlobalScope.launch {
-            val addEpisodeDeferred = malApi.updateUserManga(mangaId,
-                status,is_rereading,score,num_volumes_read,num_chapters_read,
-                priority,num_times_reread,reread_value,tags,comments)
-            try {
-                val mangaStatus = addEpisodeDeferred.await()
-                withContext(Dispatchers.Main){
-                    userMangaStatus.value = Resource.success(mangaStatus)
-                    updateUserMangaList(mangaId.toInt())
-                }
-            }catch (e: java.lang.Exception){
-                withContext(Dispatchers.Main){
-                    userMangaStatus.value = Resource.error(e.message ?: "", null)}
+        val addEpisodeDeferred = malApi.updateUserManga(
+            mangaUpdateParams.mangaId, mangaUpdateParams.status, mangaUpdateParams.is_rereading,
+            mangaUpdateParams.score, mangaUpdateParams.num_volumes_read,
+            mangaUpdateParams.num_chapters_read, mangaUpdateParams.priority,
+            mangaUpdateParams.num_times_reread, mangaUpdateParams.reread_value,
+            mangaUpdateParams.tags, mangaUpdateParams.comments
+        )
+        try {
+            val mangaStatus = addEpisodeDeferred.await()
+            withContext(Dispatchers.Main) {
+                userMangaStatus.value = Resource.success(mangaStatus)
+                updateUserMangaList(mangaUpdateParams.mangaId.toInt())
+            }
+        } catch (e: java.lang.Exception) {
+            withContext(Dispatchers.Main) {
+                userMangaStatus.value = Resource.error(e.message ?: "", null)
             }
         }
     }
 
-    fun removeMangaFromList(mangaId: String){
-
-        GlobalScope.launch {
-            try {
-                malApi.deleteMangaFromList(mangaId).await()
-                withContext(Dispatchers.Main){
-                    userMangaRemove.value = Resource.success(Unit)
-                }
-            }catch (e: java.lang.Exception){
-                withContext(Dispatchers.Main){
-                    userMangaRemove.value = Resource.error(e.message ?: "", null)
-                    Timber.e("Error: %s",e.message)
-                }
+    suspend fun removeMangaFromList(mangaId: String) {
+        try {
+            malApi.deleteMangaFromList(mangaId).await()
+            withContext(Dispatchers.Main) {
+                userMangaRemove.value = Resource.success(Unit)
+            }
+        } catch (e: java.lang.Exception) {
+            withContext(Dispatchers.Main) {
+                userMangaRemove.value = Resource.error(e.message ?: "", null)
+                Timber.e("Error: %s", e.message)
             }
         }
-
     }
 
-    private suspend fun mangaDetailsCall(malId:Int) {
+    private suspend fun mangaDetailsCall(malId: Int) {
 
         val mangaId: String = malId.toString()
         val getMangaByIdDeferred = malApi.getMangaByIdAsync(mangaId, ALL_MANGA_FIELDS)
@@ -185,7 +147,8 @@ constructor(
         }
 
     }
-    private suspend fun mangaCharactersCall(malId:Int) {
+
+    private suspend fun mangaCharactersCall(malId: Int) {
         val mangaId: String = malId.toString()
         val getMangaCharactersDeferred = jikanApi.getMangaCharactersAsync(mangaId)
         try {
@@ -206,7 +169,8 @@ constructor(
             }
         }
     }
-    private suspend fun mangaReviewsCall(malId:Int, page:String) {
+
+    private suspend fun mangaReviewsCall(malId: Int, page: String) {
         val mangaId: String = malId.toString()
         val getMangaReviewsDeferred = jikanApi.getMangaReviewsAsync(mangaId, page)
         try {
@@ -230,7 +194,7 @@ constructor(
     }
 
 
-    private fun updateUserMangaList(mangaId: Int){
+    private fun updateUserMangaList(mangaId: Int) {
         val manga = userMangaListDao.getUserMangaById(mangaId)
         manga.status?.let {
             loadPage(it, manga.offset, mangaId)
@@ -240,14 +204,15 @@ constructor(
 
     private fun loadPage(
         mangaStatus: String,
-        offset:String?,
-        mangaId:Int
+        offset: String?,
+        mangaId: Int
     ) {
-        if(!offset.isNullOrBlank()){
+        if (!offset.isNullOrBlank()) {
             GlobalScope.launch {
                 val getUserMangaDeferred = malApi.getUserMangaListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, ALL_MANGA_FIELDS)
+                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, ALL_MANGA_FIELDS
+                )
                 try {
                     val userManga = getUserMangaDeferred.await()
                     val userMangaList = userManga.data
@@ -255,8 +220,8 @@ constructor(
                     userMangaListDao.deleteUserMangaById(mangaId)
                     userMangaListDao.insertUseMangaList(userMangaList!!)
 
-                }catch (e: java.lang.Exception){
-                    withContext(Dispatchers.Main){
+                } catch (e: java.lang.Exception) {
+                    withContext(Dispatchers.Main) {
                     }
                 }
             }
@@ -264,23 +229,22 @@ constructor(
     }
 
 
-
-    private fun calcOffset(nextPage: String?, prevPage:String?): String{
+    private fun calcOffset(nextPage: String?, prevPage: String?): String {
         var currentOffset = "0"
-        if(!nextPage.isNullOrBlank()){
+        if (!nextPage.isNullOrBlank()) {
             val nextOffset = getOffset(nextPage)
-            if (!nextOffset.isNullOrBlank()){
+            if (!nextOffset.isNullOrBlank()) {
                 val temp = nextOffset.toInt().minus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
-                if (temp>=0){
+                if (temp >= 0) {
                     currentOffset = temp.toString()
                 }
             }
             return currentOffset
-        }else{
+        } else {
             val prevOffset = getOffset(prevPage)
-            if (!prevOffset.isNullOrBlank()){
+            if (!prevOffset.isNullOrBlank()) {
                 val temp = prevOffset.toInt().plus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
-                if (temp>=0){
+                if (temp >= 0) {
                     currentOffset = temp.toString()
                 }
             }
@@ -289,22 +253,22 @@ constructor(
 
     }
 
-    private fun getOffset(url: String?): String?{
+    private fun getOffset(url: String?): String? {
 
-        return if (!url.isNullOrBlank()){
+        return if (!url.isNullOrBlank()) {
             val uri = url.toUri()
             uri.getQueryParameter("offset").toString()
-        }else{
+        } else {
             null
         }
     }
 
-    private fun setUserMangaData(userAnime: UserMangaList){
+    private fun setUserMangaData(userAnime: UserMangaList) {
         val userMangaList = userAnime.data
         if (userMangaList != null) {
-            for (manga in userMangaList){
+            for (manga in userMangaList) {
                 manga?.status = manga?.manga?.myMangaListStatus?.status
-                manga?.title =  manga?.manga?.title
+                manga?.title = manga?.manga?.title
                 manga?.mangaId = manga?.manga?.id
                 val next = userAnime.paging?.next
                 val prev = userAnime.paging?.previous
@@ -313,4 +277,4 @@ constructor(
         }
     }
 
-    }
+}

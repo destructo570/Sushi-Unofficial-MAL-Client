@@ -7,5 +7,5 @@ import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 data class MangaCharacterListEntity(
     val mangaCharacterList: MangaCharacter?,
     val id:Int,
-    val time: Long
-)
+    override val time: Long
+): BaseDatabaseEntity

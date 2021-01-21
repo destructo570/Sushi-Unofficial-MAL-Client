@@ -598,14 +598,15 @@ class AnimeDetailFragment : Fragment(),
                 USER_ANIME_LIST_DEFAULT -> {
                 }
                 ANIME_IN_USER_LIST -> {
-                    val myDialog = AnimeUpdateDialog
+                    AnimeUpdateDialog
                         .newInstance(null, animeStatus, animeEpisodes, animeScore ?: 0)
-                    myDialog.show(childFragmentManager, "animeUpdateDialog")
+                        .show(childFragmentManager, "animeUpdateDialog")
                 }
                 ANIME_NOT_IN_USER_LIST -> {
                     changeButtonState(it as Button, false)
                     animeDetailViewModel.updateUserAnimeStatus(
-                        AnimeUpdateParams(animeId =  animeIdArg.toString(),
+                        AnimeUpdateParams(
+                            animeId =  animeIdArg.toString(),
                             status = PLAN_TO_WATCH.value))
                 }
             }

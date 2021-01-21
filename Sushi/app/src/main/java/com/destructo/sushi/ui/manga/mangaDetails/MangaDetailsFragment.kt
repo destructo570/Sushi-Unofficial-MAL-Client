@@ -41,6 +41,7 @@ import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.listener.MangaCharacterListener
 import com.destructo.sushi.listener.MangaReviewListener
 import com.destructo.sushi.model.mal.common.Genre
+import com.destructo.sushi.model.params.MangaUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
@@ -88,13 +89,13 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private lateinit var scoreTextView: TextView
     private lateinit var genreChipGroup: ChipGroup
     private lateinit var myListStatus: LinearLayout
-    private lateinit var addToListButton:Button
-    private lateinit var mangaDetailProgressBar:ProgressBar
-    private var isInUserList:Int = USER_MANGA_LIST_DEFAULT
-    private lateinit var mangaMoreInfoLayout:ConstraintLayout
-    private lateinit var mangaAltTitleLayout:ConstraintLayout
-    private lateinit var characterSeeMore:TextView
-    private lateinit var reviewSeeMore:TextView
+    private lateinit var addToListButton: Button
+    private lateinit var mangaDetailProgressBar: ProgressBar
+    private var isInUserList: Int = USER_MANGA_LIST_DEFAULT
+    private lateinit var mangaMoreInfoLayout: ConstraintLayout
+    private lateinit var mangaAltTitleLayout: ConstraintLayout
+    private lateinit var characterSeeMore: TextView
+    private lateinit var reviewSeeMore: TextView
 
 
     private lateinit var characterAdapter: MangaCharacterAdapter
@@ -102,17 +103,16 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private lateinit var recommAdapter: MangaRecommListAdapter
     private lateinit var reviewAdapter: MangaReviewAdapter
 
-    private var mangaStatus:String?=null
-    private var mangaChapters:String?=null
-    private var mangaVolumes:String?=null
-    private var mangaScore:Int?=0
+    private var mangaStatus: String? = null
+    private var mangaChapters: String? = null
+    private var mangaVolumes: String? = null
+    private var mangaScore: Int? = 0
 
     private lateinit var characterRecycler: RecyclerView
     private lateinit var relatedRecycler: RecyclerView
     private lateinit var recommRecycler: RecyclerView
     private lateinit var reviewRecycler: RecyclerView
-    private lateinit var adView:AdView
-
+    private lateinit var adView: AdView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,7 +120,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         if (savedInstanceState != null) {
             mangaIdArg = savedInstanceState.getInt("mangaId")
             isInUserList = savedInstanceState.getInt("isInUserList")
-        }else{
+        } else {
             mangaIdArg = args.mangaId
             mangaDetailViewModel.getMangaDetail(mangaIdArg, false)
         }
@@ -172,11 +172,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
 
         adView = binding.adView
-        if(!SushiApplication.getContext().queryPurchases()){
+        if (!SushiApplication.getContext().queryPurchases()) {
             val adRequest = AdRequest.Builder().build()
             adView.loadAd(adRequest)
 
-            adView.adListener = object: AdListener(){
+            adView.adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     super.onAdLoaded()
                     adView.visibility = View.VISIBLE
@@ -189,10 +189,16 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         }
 
         characterSeeMore.setOnClickListener {
-            findNavController().navigate(R.id.allMangaCharacters, bundleOf(Pair("malId", mangaIdArg)))
+            findNavController().navigate(
+                R.id.allMangaCharacters,
+                bundleOf(Pair("malId", mangaIdArg))
+            )
         }
         reviewSeeMore.setOnClickListener {
-            findNavController().navigate(R.id.allMangaReviews, bundleOf(Pair(MANGA_ID_ARG, mangaIdArg)))
+            findNavController().navigate(
+                R.id.allMangaReviews,
+                bundleOf(Pair(MANGA_ID_ARG, mangaIdArg))
+            )
         }
 
         toolbar.setNavigationOnClickListener { view ->
@@ -201,36 +207,43 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
         addToListButton.setOnClickListener {
 
-            when(isInUserList){
-                USER_MANGA_LIST_DEFAULT ->{
+            when (isInUserList) {
+                USER_MANGA_LIST_DEFAULT -> {
                     Timber.e("DO nothing case...")
                 }
-                MANGA_IN_USER_LIST ->{
+                MANGA_IN_USER_LIST -> {
                     Timber.e("Open Modal Dialog")
-                    val myDialog = MangaUpdateDialog.newInstance(mangaStatus,mangaChapters,mangaVolumes,mangaScore?:0)
+                    val myDialog = MangaUpdateDialog.newInstance(
+                        mangaStatus,
+                        mangaChapters,
+                        mangaVolumes,
+                        mangaScore ?: 0
+                    )
                     myDialog.show(childFragmentManager, "mangaUpdateDialog")
                 }
-                MANGA_NOT_IN_USER_LIST ->{
+                MANGA_NOT_IN_USER_LIST -> {
                     Timber.e("Adding to list...")
                     mangaDetailViewModel.updateUserMangaStatus(
-                        mangaId = mangaIdArg.toString(), status = UserMangaStatus.PLAN_TO_READ.value)
+                       MangaUpdateParams(mangaId = mangaIdArg.toString(),
+                           status = UserMangaStatus.PLAN_TO_READ.value)
+                    )
                 }
             }
 
         }
 
         mangaMoreInfoLayout.setOnClickListener {
-            if(it.manga_more_detail_view.visibility != View.VISIBLE){
+            if (it.manga_more_detail_view.visibility != View.VISIBLE) {
                 it.manga_more_detail_view.visibility = View.VISIBLE
-            }else{
+            } else {
                 it.manga_more_detail_view.visibility = View.GONE
             }
         }
 
         mangaAltTitleLayout.setOnClickListener {
-            if(it.manga_alt_title_view.visibility != View.VISIBLE){
+            if (it.manga_alt_title_view.visibility != View.VISIBLE) {
                 it.manga_alt_title_view.visibility = View.VISIBLE
-            }else{
+            } else {
                 it.manga_alt_title_view.visibility = View.GONE
             }
         }
@@ -281,10 +294,10 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                             myListStatus.visibility = View.VISIBLE
                             isInUserList = MANGA_IN_USER_LIST
                             mangaScore = manga.myMangaListStatus.score
-                            mangaStatus =  manga.myMangaListStatus.status?.toTitleCase()
-                            mangaChapters =  manga.myMangaListStatus.numChaptersRead.toString()
-                            mangaVolumes =  manga.myMangaListStatus.numVolumesRead.toString()
-                        }else {
+                            mangaStatus = manga.myMangaListStatus.status?.toTitleCase()
+                            mangaChapters = manga.myMangaListStatus.numChaptersRead.toString()
+                            mangaVolumes = manga.myMangaListStatus.numVolumesRead.toString()
+                        } else {
                             isInUserList = MANGA_NOT_IN_USER_LIST
                         }
 
@@ -338,33 +351,44 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             }
         }
 
-        mangaDetailViewModel.userMangaStatus.observe(viewLifecycleOwner){resource->
-            when(resource.status){
-                Status.LOADING->{
+        mangaDetailViewModel.userMangaStatus.observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {
                 }
-                Status.SUCCESS->{
+                Status.SUCCESS -> {
 
                     changeButtonState(addToListButton, true)
                     isInUserList = MANGA_IN_USER_LIST
-                    resource.data?.let {mangaStatus->
+                    resource.data?.let { mangaStatus ->
                         addToListButton.text = titleCaseString(mangaStatus.status.toString())
-                        addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
+                        addToListButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_check_fill,
+                            0,
+                            0,
+                            0
+                        )
                         myListStatus.visibility = View.VISIBLE
                         mangaDetailViewModel.getMangaDetail(mangaIdArg, true)
                     }
                 }
-                Status.ERROR->{
+                Status.ERROR -> {
                     changeButtonState(addToListButton, true)
                 }
             }
         }
 
-        mangaDetailViewModel.userMangaRemove.observe(viewLifecycleOwner){
-            when(it.status){
-                Status.ERROR->{}
+        mangaDetailViewModel.userMangaRemove.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.ERROR -> {
+                }
                 Status.SUCCESS -> {
                     addToListButton.text = getString(R.string.add_to_list)
-                    addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
+                    addToListButton.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_add_fill,
+                        0,
+                        0,
+                        0
+                    )
                     myListStatus.visibility = View.GONE
                     mangaDetailViewModel.getMangaDetail(mangaIdArg, true)
                 }
@@ -374,6 +398,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             }
         }
     }
+
     private fun openUrl(url: String) {
 
         val builder = CustomTabsIntent.Builder()
@@ -412,14 +437,14 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                 ) {
                     Palette.from(resource).generate { palette: Palette? ->
 
-                        if ( palette?.vibrantSwatch != null){
+                        if (palette?.vibrantSwatch != null) {
                             palette.vibrantSwatch?.rgb?.let { color ->
                                 scoreCardView.setCardBackgroundColor(color)
                             }
                             palette.vibrantSwatch?.titleTextColor?.let {
                                 scoreTextView.setTextColor(it)
                             }
-                        }else{
+                        } else {
                             context?.let {
                                 scoreCardView.setCardBackgroundColor(it.getColorFromAttr(R.attr.scoreCardBackground))
                                 scoreTextView.setTextColor(it.getColorFromAttr(R.attr.scoreCardText))
@@ -444,11 +469,11 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-                    R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
+            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
         )
     }
 
-    private fun titleCaseString(data: String):String{
+    private fun titleCaseString(data: String): String {
         val str = data.replace("_", " ", true)
         val words = str.split(" ")
         var finalString = ""
@@ -458,26 +483,46 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         return finalString
     }
 
-    private fun convertStatus(data: String): String{
+    private fun convertStatus(data: String): String {
         var status = ""
 
-        when(data){
-            getString(R.string.reading)->{status = UserMangaStatus.READING.value}
-            getString(R.string.completed)->{status = UserMangaStatus.COMPLETED.value}
-            getString(R.string.plan_to_read)->{status = UserMangaStatus.PLAN_TO_READ.value}
-            getString(R.string.dropped)->{status = UserMangaStatus.DROPPED.value}
-            getString(R.string.on_hold)->{status = UserMangaStatus.ON_HOLD.value}
+        when (data) {
+            getString(R.string.reading) -> {
+                status = UserMangaStatus.READING.value
+            }
+            getString(R.string.completed) -> {
+                status = UserMangaStatus.COMPLETED.value
+            }
+            getString(R.string.plan_to_read) -> {
+                status = UserMangaStatus.PLAN_TO_READ.value
+            }
+            getString(R.string.dropped) -> {
+                status = UserMangaStatus.DROPPED.value
+            }
+            getString(R.string.on_hold) -> {
+                status = UserMangaStatus.ON_HOLD.value
+            }
         }
         return status
     }
 
-    private fun changeButtonState(button: Button, status: Boolean){
-        if (status){
+    private fun changeButtonState(button: Button, status: Boolean) {
+        if (status) {
             button.isEnabled = true
-            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
-        }else{
+            button.setTextColor(context?.let {
+                AppCompatResources.getColorStateList(
+                    it,
+                    R.color.textColorOnPrimary
+                )
+            })
+        } else {
             button.isEnabled = false
-            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+            button.setTextColor(context?.let {
+                AppCompatResources.getColorStateList(
+                    it,
+                    R.color.textColorOnPrimary
+                )
+            })
         }
     }
 
@@ -488,14 +533,17 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         score: Int,
         remove: Boolean
     ) {
-        if (!remove){
+        if (!remove) {
             mangaDetailViewModel.updateUserMangaStatus(
-                mangaId = mangaIdArg.toString(),
-                status = convertStatus(status),
-                num_chapters_read = chapters,
-                num_volumes_read = volume,
-                score = score)
-        }else{
+                MangaUpdateParams(
+                    mangaId = mangaIdArg.toString(),
+                    status = convertStatus(status),
+                    num_chapters_read = chapters,
+                    num_volumes_read = volume,
+                    score = score
+                )
+            )
+        } else {
             mangaDetailViewModel.removeAnime(mangaIdArg)
         }
     }
@@ -506,22 +554,26 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        if(verticalOffset == 0){
+        if (verticalOffset == 0) {
             var drawable: Drawable? = toolbar.navigationIcon
             drawable?.let {
                 drawable = DrawableCompat.wrap(drawable!!)
-                context?.let { it1 -> ContextCompat.getColor(it1,R.color.iconTintOnPrimary) }?.let { it2 ->
-                    DrawableCompat.setTint(drawable!!.mutate(),
-                        it2
-                    )
-                }
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.iconTintOnPrimary) }
+                    ?.let { it2 ->
+                        DrawableCompat.setTint(
+                            drawable!!.mutate(),
+                            it2
+                        )
+                    }
                 toolbar.navigationIcon = drawable
-                toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill_light)
+                toolbar.overflowIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill_light)
             }
 
-        }else{
+        } else {
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
-            toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill)
+            toolbar.overflowIcon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill)
         }
     }
 
@@ -536,18 +588,18 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         }
 
         toolbar.inflateMenu(R.menu.detail_menu_options)
-        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
+        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem?): Boolean {
 
-                when(item?.itemId){
-                    R.id.share_item ->{
+                when (item?.itemId) {
+                    R.id.share_item -> {
                         val url = BASE_MAL_MANGA_URL + mangaIdArg
                         shareUrl(url)
                     }
-                    R.id.copy_title ->{
+                    R.id.copy_title -> {
                         copyToClipBoard()
                     }
-                    R.id.open_in_browser ->{
+                    R.id.open_in_browser -> {
                         val url = BASE_MAL_MANGA_URL + mangaIdArg
                         openUrl(url)
                     }

@@ -7,7 +7,6 @@ import com.destructo.sushi.model.jikan.manga.MangaReview
 data class MangaReviewsEntity(
     val reviewList: MangaReview?,
     val id:Int,
-    val time: Long,
     val currentPage: String,
-
-    )
+    override val time: Long,
+    ):BaseDatabaseEntity
