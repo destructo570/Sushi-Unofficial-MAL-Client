@@ -60,20 +60,17 @@ class UserMangaReading : Fragment() {
             userMangaProgress = binding.userMangaListProgressbar
             userMangaPaginationProgress = binding.userMangaListPaginationProgressbar
 
-
             userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
                 val chapters = manga?.myMangaListStatus?.numChaptersRead
                 val totalChapters = manga?.numChapters
                 val mangaId = manga?.id
 
                 mangaId?.let { userMangaViewModel.clearMangaDetail(it) }
-                if (chapters != null && mangaId != null && totalChapters != null  && chapters.plus(1) >= totalChapters) {
+                if (chapters != null && mangaId != null && totalChapters != null  && chapters.plus(1) == totalChapters) {
                     userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, UserMangaStatus.COMPLETED.value)
                 }else if(chapters != null && mangaId != null){
                     userMangaViewModel.addChapterManga(mangaId.toString(),chapters+1, null)
                 }
-
-
             }, MalIdListener { it?.let{navigateToMangaDetails(it)} }, true)
 
             userMangaAdapter.setListEndListener(object : ListEndListener {

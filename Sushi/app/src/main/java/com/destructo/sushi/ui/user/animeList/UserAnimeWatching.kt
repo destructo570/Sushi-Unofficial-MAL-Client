@@ -70,7 +70,7 @@ class UserAnimeWatching : Fragment() {
                     animeId?.let { userAnimeViewModel.clearAnimeDetails(it) }
                     if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
                             1
-                        ) >= totalEpisodes
+                        ) == totalEpisodes
                     ) {
                         userAnimeViewModel.addEpisodeAnime(
                             animeId.toString(),
