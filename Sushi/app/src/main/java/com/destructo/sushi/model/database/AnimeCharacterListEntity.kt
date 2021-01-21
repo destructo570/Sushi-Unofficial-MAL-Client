@@ -7,5 +7,5 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 data class AnimeCharacterListEntity(
     val characterAndStaffList: AnimeCharacterAndStaff?,
     val id:Int,
-    val time: Long
-)
+    override val time: Long
+):BaseDatabaseEntity

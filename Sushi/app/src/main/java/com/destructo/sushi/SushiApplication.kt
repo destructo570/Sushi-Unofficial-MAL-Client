@@ -19,7 +19,7 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         createBillingClient()

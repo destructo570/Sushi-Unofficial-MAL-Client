@@ -7,5 +7,5 @@ import com.destructo.sushi.model.mal.anime.Anime
 data class AnimeDetailEntity(
     val anime: Anime?,
     val id:Int,
-    val time: Long
-)
+    override val time: Long,
+): BaseDatabaseEntity

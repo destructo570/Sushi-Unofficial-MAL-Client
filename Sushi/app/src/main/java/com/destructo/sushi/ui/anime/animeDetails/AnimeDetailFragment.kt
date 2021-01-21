@@ -33,10 +33,10 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.*
 import com.destructo.sushi.adapter.*
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
-import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
 import com.destructo.sushi.listener.*
 import com.destructo.sushi.model.mal.common.Genre
+import com.destructo.sushi.model.params.AnimeUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
@@ -495,10 +495,12 @@ class AnimeDetailFragment : Fragment(),
 
         if (!remove){
             animeDetailViewModel.updateUserAnimeStatus(
-                animeId = animeIdArg.toString(),
-                status = convertStatus(status),
-                num_watched_episodes = episodes,
-                score = score)
+                AnimeUpdateParams(
+                    animeId = animeIdArg.toString(),
+                    status = convertStatus(status),
+                    num_watched_episodes = episodes,
+                    score = score)
+                )
         }else{
             animeDetailViewModel.removeAnime(animeIdArg)
         }
@@ -603,8 +605,8 @@ class AnimeDetailFragment : Fragment(),
                 ANIME_NOT_IN_USER_LIST -> {
                     changeButtonState(it as Button, false)
                     animeDetailViewModel.updateUserAnimeStatus(
-                        animeId = animeIdArg.toString(),
-                        status = UserAnimeStatus.PLAN_TO_WATCH.value)
+                        AnimeUpdateParams(animeId =  animeIdArg.toString(),
+                            status = PLAN_TO_WATCH.value))
                 }
             }
         }

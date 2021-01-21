@@ -6,8 +6,8 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 @Entity(tableName = "anime_reviews", primaryKeys = ["id"])
 data class AnimeReviewsEntity(
     val reviewList: AnimeReviews?,
-    val id:Int,
-    val time: Long,
+    val id: Int,
+    override val time: Long,
     val currentPage: String,
 
-    )
+    ):BaseDatabaseEntity

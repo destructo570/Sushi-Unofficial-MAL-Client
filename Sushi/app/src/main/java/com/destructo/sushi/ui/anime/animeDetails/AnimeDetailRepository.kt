@@ -3,9 +3,7 @@ package com.destructo.sushi.ui.anime.animeDetails
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_ANIME_FIELDS
-import com.destructo.sushi.CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
-import com.destructo.sushi.DETAILS_CACHE_EXPIRE_TIME_LIMIT
 import com.destructo.sushi.model.database.AnimeCharacterListEntity
 import com.destructo.sushi.model.database.AnimeDetailEntity
 import com.destructo.sushi.model.database.AnimeReviewsEntity
@@ -16,13 +14,12 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
+import com.destructo.sushi.model.params.AnimeUpdateParams
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -53,125 +50,76 @@ constructor(
 
     var userAnimeRemove: MutableLiveData<Resource<Unit>> = MutableLiveData()
 
-    fun getAnimeDetail(malId: Int, isEdited: Boolean) {
+    suspend fun getAnimeDetail(malId: Int, isEdited: Boolean) {
         animeDetail.value = Resource.loading(null)
+        val animeDetailCache = animeDetailsDao.getAnimeDetailsById(malId)
 
-        GlobalScope.launch {
-            val animeDetailCache = animeDetailsDao.getAnimeDetailsById(malId)
+       if(animeDetailCache != null && !animeDetailCache.isCacheExpired() && !isEdited){
+            withContext(Dispatchers.Main) {
+                animeDetail.value = Resource.success(animeDetailCache.anime) }
+        }else animeDetailCall(malId)
 
-            if (animeDetailCache != null){
-
-                    if((System.currentTimeMillis() - animeDetailCache.time) > DETAILS_CACHE_EXPIRE_TIME_LIMIT
-                        || isEdited) {
-                        animeDetailCall(malId)
-                    }else{
-                        val mAnime = animeDetailCache.anime
-                        withContext(Dispatchers.Main) {
-                        animeDetail.value = Resource.success(mAnime)
-                        }
-                    }
-            }else{
-                animeDetailCall(malId)
-            }
-        }
     }
 
-    fun getAnimeCharacters(malId: Int) {
+    suspend fun getAnimeCharacters(malId: Int) {
         animeCharacterAndStaff.value = Resource.loading(null)
-        GlobalScope.launch {
             val animeCharacterListCache = animeCharacterListDao.getAnimeCharactersById(malId)
 
-            if (animeCharacterListCache != null){
-
-                if((System.currentTimeMillis() - animeCharacterListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    animeCharacterCall(malId)
-                }else{
-                    val mAnime = animeCharacterListCache.characterAndStaffList
-                    withContext(Dispatchers.Main) {
-                        animeCharacterAndStaff.value = Resource.success(mAnime)
-                    }
-                }
+            if (animeCharacterListCache != null && !animeCharacterListCache.isCacheExpired()){
+                withContext(Dispatchers.Main) {
+                    animeCharacterAndStaff.value = Resource.success(animeCharacterListCache.characterAndStaffList) }
             }else{
                 animeCharacterCall(malId)
-            }
-
         }
     }
 
 
-    fun getAnimeVideos(malId: Int) {
+    suspend fun getAnimeVideos(malId: Int) {
         animeVideosAndEpisodes.value = Resource.loading(null)
-        GlobalScope.launch {
             val animeVideosListCache = animeVideosDao.getAnimeVideosById(malId)
 
-            if (animeVideosListCache != null){
-
-                if((System.currentTimeMillis() - animeVideosListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    animeVideoCall(malId)
-                }else{
-                    val mAnime = animeVideosListCache.videosAndEpisodes
-                    withContext(Dispatchers.Main) {
-                        animeVideosAndEpisodes.value = Resource.success(mAnime)
-                    }
-                }
-            }else{
-                animeVideoCall(malId)
-            }
-        }
+            if (animeVideosListCache != null && !animeVideosListCache.isCacheExpired() ){
+                 withContext(Dispatchers.Main) {
+                     animeVideosAndEpisodes.value = Resource.success(animeVideosListCache.videosAndEpisodes) }
+            }else animeVideoCall(malId)
     }
 
 
-    fun getAnimeReviews(malId: Int, page: String) {
+    suspend fun getAnimeReviews(malId: Int, page: String) {
         animeReview.value = Resource.loading(null)
-        GlobalScope.launch {
             val animeReviewListCache = animeReviewsDao.getAnimeReviewsById(malId)
 
-            if (animeReviewListCache != null){
-
-                if((System.currentTimeMillis() - animeReviewListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
-                    animeReviewCall(malId, page)
-                }else{
-                    val mAnime = animeReviewListCache.reviewList
+            if (animeReviewListCache != null && !animeReviewListCache.isCacheExpired()){
                     withContext(Dispatchers.Main) {
-                        animeReview.value = Resource.success(mAnime)
-                    }
-                }
-            }else{
-                animeReviewCall(malId, page)
-            }
-        }
+                        animeReview.value = Resource.success(animeReviewListCache.reviewList) }
+            }else animeReviewCall(malId, page)
+
     }
 
-
-    fun updateAnimeUserList(animeId:String, status:String?=null,
-                            is_rewatching:Boolean?=null, score:Int?=null,
-                            num_watched_episodes:Int?=null, priority:Int?=null,
-                            num_times_rewatched:Int?=null, rewatch_value:Int?=null,
-                            tags:List<String>?=null, comments:String?=null) {
+    suspend fun updateAnimeUserList(updateParam: AnimeUpdateParams) {
         userAnimeStatus.value = Resource.loading(null)
 
-        GlobalScope.launch {
-            val addEpisodeDeferred = malApi.updateUserAnime(animeId,
-                status,is_rewatching,score,num_watched_episodes,
-                priority,num_times_rewatched,rewatch_value,tags,comments)
+            val addEpisodeDeferred = malApi.updateUserAnime(
+                updateParam.animeId, updateParam.status,updateParam.is_rewatching,
+                updateParam.score,updateParam.num_watched_episodes, updateParam.priority,
+                updateParam.num_times_rewatched, updateParam.rewatch_value,
+                updateParam.tags,updateParam.comments)
             try {
                 val animeStatus = addEpisodeDeferred.await()
                 withContext(Dispatchers.Main){
                     userAnimeStatus.value = Resource.success(animeStatus)
-                    updateUserAnimeList(animeId.toInt())
+                    updateUserAnimeList(updateParam.animeId.toInt())
                 }
             }catch (e: java.lang.Exception){
                 withContext(Dispatchers.Main){
                     userAnimeStatus.value = Resource.error(e.message ?: "", null)
                 }
             }
-        }
     }
 
 
-    fun removeAnimeFromList(animeId: String){
+    suspend fun removeAnimeFromList(animeId: String){
 
-        GlobalScope.launch {
             try {
                malApi.deleteAnimeFromList(animeId).await()
                 withContext(Dispatchers.Main){
@@ -183,8 +131,6 @@ constructor(
                     Timber.e("Error: %s",e.message)
                 }
             }
-        }
-
     }
 
     private suspend fun animeDetailCall(malId:Int){
@@ -279,20 +225,19 @@ constructor(
         }
     }
 
-    private fun updateUserAnimeList(animeId: Int){
+    private suspend fun updateUserAnimeList(animeId: Int){
         val anime = userAnimeListDao.getUserAnimeById(animeId)
         anime.status?.let {
             loadPage(it, anime.offset, animeId)
         }
     }
 
-    private fun loadPage(
+    private suspend fun loadPage(
         animeStatus: String,
         offset:String?,
         animeId:Int
     ) {
         if(!offset.isNullOrBlank()){
-            GlobalScope.launch {
                 val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
                     animeStatus, null, offset,ALL_ANIME_FIELDS)
@@ -307,7 +252,6 @@ constructor(
                     withContext(Dispatchers.Main){
                     }
                 }
-            }
         }
     }
 
@@ -358,7 +302,5 @@ constructor(
             null
         }
     }
-
-
 
     }
