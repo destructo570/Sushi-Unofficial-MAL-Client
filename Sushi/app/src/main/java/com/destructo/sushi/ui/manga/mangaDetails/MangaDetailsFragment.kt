@@ -213,7 +213,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                 MANGA_NOT_IN_USER_LIST ->{
                     Timber.e("Adding to list...")
                     mangaDetailViewModel.updateUserMangaStatus(
-                        mangaId = mangaIdArg.toString(), status = UserMangaStatus.READING.value)
+                        mangaId = mangaIdArg.toString(), status = UserMangaStatus.PLAN_TO_READ.value)
                 }
             }
 

@@ -33,6 +33,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.*
 import com.destructo.sushi.adapter.*
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
 import com.destructo.sushi.listener.*
 import com.destructo.sushi.model.mal.common.Genre
@@ -601,7 +602,9 @@ class AnimeDetailFragment : Fragment(),
                 }
                 ANIME_NOT_IN_USER_LIST -> {
                     changeButtonState(it as Button, false)
-                    animeDetailViewModel.updateUserAnimeStatus(animeId = animeIdArg.toString())
+                    animeDetailViewModel.updateUserAnimeStatus(
+                        animeId = animeIdArg.toString(),
+                        status = UserAnimeStatus.PLAN_TO_WATCH.value)
                 }
             }
         }
