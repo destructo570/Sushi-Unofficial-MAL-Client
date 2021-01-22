@@ -64,7 +64,6 @@ constructor(
         editor.putString(TOKEN_TYPE, authToken.tokenType)
         editor.putString(REFRESH_TOKEN, authToken.refreshToken)
         editor.putLong(SAVED_TIME, System.currentTimeMillis())
-        Timber.e("Token: ${authToken.accessToken}" )
         editor.commit()
 
     }
