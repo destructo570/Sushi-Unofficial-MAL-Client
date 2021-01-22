@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -102,6 +101,8 @@ class AnimeDetailFragment : Fragment(),
     private var animeStatus:String?=null
     private var animeEpisodes:String?=null
     private var animeScore:Int?=0
+    private var animeStartDate:String?=null
+    private var animeFinishDate:String?=null
 
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
@@ -270,6 +271,9 @@ class AnimeDetailFragment : Fragment(),
                             animeScore = animeEntity.myAnimeListStatus.score
                             animeStatus = animeEntity.myAnimeListStatus.status?.toTitleCase()
                             animeEpisodes = animeEntity.myAnimeListStatus.numEpisodesWatched.toString()
+                            animeStartDate = animeEntity.myAnimeListStatus.startDate
+                            animeFinishDate = animeEntity.myAnimeListStatus.finishDate
+
                         }else {
                             isInUserList = ANIME_NOT_IN_USER_LIST
                         }
@@ -490,7 +494,9 @@ class AnimeDetailFragment : Fragment(),
         status: String,
         episodes: Int,
         score: Int,
-        remove: Boolean
+        remove: Boolean,
+        startDate:String?,
+        finishDate:String?
     ) {
 
         if (!remove){
@@ -499,8 +505,10 @@ class AnimeDetailFragment : Fragment(),
                     animeId = animeIdArg.toString(),
                     status = convertStatus(status),
                     num_watched_episodes = episodes,
-                    score = score)
+                    score = score, start_date = startDate,
+                    finish_date = finishDate)
                 )
+
         }else{
             animeDetailViewModel.removeAnime(animeIdArg)
         }
@@ -539,27 +547,23 @@ class AnimeDetailFragment : Fragment(),
             return@setOnLongClickListener false
         }
         toolbar.inflateMenu(R.menu.detail_menu_options)
-        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-
-                when(item?.itemId){
-                    R.id.share_item ->{
-                        val url = BASE_MAL_ANIME_URL + animeIdArg
-                        shareUrl(url)
-                    }
-                    R.id.copy_title ->{
-                        copyToClipBoard()
-                    }
-                    R.id.open_in_browser ->{
-                        val url = BASE_MAL_ANIME_URL + animeIdArg
-                        openUrl(url)
-                    }
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item?.itemId) {
+                R.id.share_item -> {
+                    val url = BASE_MAL_ANIME_URL + animeIdArg
+                    shareUrl(url)
                 }
-
-                return false
+                R.id.copy_title -> {
+                    copyToClipBoard()
+                }
+                R.id.open_in_browser -> {
+                    val url = BASE_MAL_ANIME_URL + animeIdArg
+                    openUrl(url)
+                }
             }
 
-        })
+            false
+        }
     }
 
     private fun copyToClipBoard() {
@@ -599,7 +603,8 @@ class AnimeDetailFragment : Fragment(),
                 }
                 ANIME_IN_USER_LIST -> {
                     AnimeUpdateDialog
-                        .newInstance(null, animeStatus, animeEpisodes, animeScore ?: 0)
+                        .newInstance(null, animeStatus, animeEpisodes,
+                            animeScore ?: 0, animeStartDate, animeFinishDate)
                         .show(childFragmentManager, "animeUpdateDialog")
                 }
                 ANIME_NOT_IN_USER_LIST -> {
