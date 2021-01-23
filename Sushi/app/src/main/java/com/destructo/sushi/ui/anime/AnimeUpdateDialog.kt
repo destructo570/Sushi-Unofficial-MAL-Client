@@ -358,22 +358,33 @@ class AnimeUpdateDialog : BottomSheetDialogFragment(),
     private fun createDatePicker(dateParam: DateParam?, listener: OnDateSetListener){
         context?.let {
 
+            val minDate = Calendar.getInstance()
+            minDate.set(1990, 12, 1)
+
             if (dateParam != null){
-                DatePickerDialog(it, listener,
+                val datePicker = DatePickerDialog(it, R.style.SushiDatePicker,
+                    listener,
                     dateParam.year.toInt(),
                     dateParam.month.toInt().minus(1),
-                    dateParam.day.toInt()
-                ).show()
+                    dateParam.day.toInt())
+                datePicker.datePicker.minDate = minDate.timeInMillis
+                datePicker.datePicker.maxDate = System.currentTimeMillis()
+                datePicker.show()
             }else {
-                DatePickerDialog(it, listener, Calendar.getInstance().get(Calendar.YEAR),
+                val datePicker = DatePickerDialog(it, R.style.SushiDatePicker,
+                    listener,
+                    Calendar.getInstance().get(Calendar.YEAR),
                     Calendar.getInstance().get(Calendar.MONTH),
-                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-                ).show()
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+                datePicker.datePicker.maxDate = System.currentTimeMillis()
+                datePicker.show()
             }
 
 
         }
     }
+
+
 
 }
 

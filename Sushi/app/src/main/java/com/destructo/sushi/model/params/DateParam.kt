@@ -11,16 +11,19 @@ data class DateParam(
     companion object {
         fun getFormattedDate(date: String): String {
             val str = date.split("-")
-            return "${getAbbreviatedMonth(str[1].toInt())}-${str[2]}-${str[0]}"
+            return "${getAbbreviatedMonth(str[1].toInt())}-${ getDateAsTwoDecimalPlaces(str[2].toInt()) }-${str[0]}"
         }
 
         fun fromFormattedToDateParam(date: String): DateParam{
-            val str = date.split("-")
-            return DateParam(
-                month = fromAbbreviatedMonthToInt(str[0]),
-                year = str[2],
-                day = str[1]
-            )
+            return if(isValidMalDate(date)){
+                val str = date.split("-")
+                DateParam(
+                    month = fromAbbreviatedMonthToInt(str[0]),
+                    year = str[2],
+                    day = getDateAsTwoDecimalPlaces(str[1].toInt())
+                )
+            }else getTodayAsDateParam()
+
         }
 
         fun fromFormattedToMalFormat(date: String): String{
@@ -34,6 +37,14 @@ data class DateParam(
             val year = Calendar.getInstance().get(Calendar.YEAR)
 
             return "${getAbbreviatedMonth(month)}-${day}-${year}"
+        }
+
+        private fun getTodayAsDateParam(): DateParam{
+            val day = getDateAsTwoDecimalPlaces(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+            val month = Calendar.getInstance().get(Calendar.MONTH).plus(1).toString()
+            val year = Calendar.getInstance().get(Calendar.YEAR).toString()
+
+            return DateParam(day, month, year)
         }
 
         private fun getAbbreviatedMonth(month: Int): String{
@@ -72,6 +83,15 @@ data class DateParam(
 
                 else -> "01"
             }
+        }
+
+        private fun isValidMalDate(date: String): Boolean{
+            val regex = Regex("""[A-z]{3}-[0-9]{2}-[0-9]{4}""")
+            return regex.matches(date)
+        }
+
+        private fun getDateAsTwoDecimalPlaces(number: Int): String{
+            return if (number < 10) "0$number" else "$number"
         }
     }
 

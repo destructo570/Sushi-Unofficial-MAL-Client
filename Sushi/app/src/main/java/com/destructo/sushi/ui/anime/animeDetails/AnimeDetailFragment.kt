@@ -508,7 +508,6 @@ class AnimeDetailFragment : Fragment(),
                     score = score, start_date = startDate,
                     finish_date = finishDate)
                 )
-
         }else{
             animeDetailViewModel.removeAnime(animeIdArg)
         }

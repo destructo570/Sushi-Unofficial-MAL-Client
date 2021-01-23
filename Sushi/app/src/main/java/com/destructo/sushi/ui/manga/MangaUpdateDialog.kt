@@ -1,6 +1,7 @@
 package com.destructo.sushi.ui.manga
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,12 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.MangaStatusUpdateBottomSheetBinding
+import com.destructo.sushi.model.params.DateParam
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toEditable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import timber.log.Timber
+import java.util.*
 
 class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: MangaStatusUpdateBottomSheetBinding
@@ -26,6 +28,12 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
     private lateinit var volumeText: EditText
     private lateinit var mangaScoreSeekBar: SeekBar
     private lateinit var scoreText: TextView
+    private lateinit var mangaStartText: TextView
+    private lateinit var mangaFinishText: TextView
+    private lateinit var startTodayCheckbox: CheckBox
+    private lateinit var finishTodayCheckbox: CheckBox
+    private lateinit var startDateListener: DatePickerDialog.OnDateSetListener
+    private lateinit var finishDateListener: DatePickerDialog.OnDateSetListener
 
     private lateinit var updateButton: Button
     private lateinit var removeButton: Button
@@ -34,17 +42,22 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
     private var mangaChapters:String?=null
     private var mangaVolumes:String?=null
     private var mangaScore:Int?=0
+    private var startDate: String? = null
+    private var finishDate: String? = null
 
     private lateinit var listener: MangaUpdateListener
 
     companion object{
-        fun newInstance(status:String?, chapters:String?, volumes:String?, score:Int): MangaUpdateDialog {
+        fun newInstance(status:String?, chapters:String?, volumes:String?, score:Int,
+                        startDate: String?, finishDate: String?): MangaUpdateDialog {
             val mangaUpdateDialog = MangaUpdateDialog()
             val bundle = Bundle()
             bundle.putString("status",status)
             bundle.putString("chapters",chapters)
             bundle.putString("volumes",volumes)
             bundle.putInt("score",score)
+            bundle.putString("startDate", startDate)
+            bundle.putString("finishDate", finishDate)
             mangaUpdateDialog.arguments = bundle
             return mangaUpdateDialog
         }
@@ -57,7 +70,8 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
         mangaStatus = arguments?.getString("status")
         mangaChapters = arguments?.getString("chapters")
         mangaVolumes = arguments?.getString("volumes")
-
+        startDate = arguments?.getString("startDate")
+        finishDate = arguments?.getString("finishDate")
 
         listener = parentFragment as MangaUpdateListener
     }
@@ -80,6 +94,10 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
         scoreText = binding.mangaScoreText
         updateButton = binding.updateMangaStatusButton
         removeButton = binding.removeMangaButton
+        mangaStartText = binding.mangaStartDateTxt
+        mangaFinishText = binding.mangaFinishDateTxt
+        startTodayCheckbox = binding.todayCheckbox1
+        finishTodayCheckbox = binding.todayCheckbox2
 
         context?.let {
             ArrayAdapter.createFromResource(
@@ -87,6 +105,47 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 mangaStatusSpinner.adapter = adapter
+            }
+        }
+
+
+        startTodayCheckbox.setOnCheckedChangeListener { _, state ->
+            if (state) {
+                mangaStartText.text = DateParam.getTodayFormatted()
+            }else{
+                setStartDate(startDate)
+            }
+        }
+
+        finishTodayCheckbox.setOnCheckedChangeListener { _, state ->
+            if (state) {
+                mangaFinishText.text = DateParam.getTodayFormatted()
+            }else{
+                setFinishDate(finishDate)
+            }
+        }
+
+        mangaStartText.setOnClickListener {
+            context?.let {
+                if (mangaStartText.text == "Pick a start date"){
+                    createDatePicker(null, startDateListener)
+                }else{
+                    createDatePicker(
+                        DateParam
+                        .fromFormattedToDateParam(mangaStartText.text.toString()), startDateListener)
+                }
+            }
+        }
+
+        mangaFinishText.setOnClickListener {
+            context?.let {
+                if (mangaFinishText.text == "Pick a start date"){
+                    createDatePicker(null, finishDateListener)
+                }else{
+                    createDatePicker(
+                        DateParam
+                        .fromFormattedToDateParam(mangaFinishText.text.toString()), finishDateListener)
+                }
             }
         }
 
@@ -156,7 +215,8 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
                 .setMessage("Are you sure you want to remove this manga from your list?")
                 .setPositiveButton(R.string.yes
                 ) { _, _ ->
-                    listener.onUpdateClick("",0,0,0,true)
+                    listener.onUpdateClick("",0,0,0,true,
+                        null,null)
                     dismiss()
                 }
                 .setNegativeButton(R.string.no
@@ -180,16 +240,24 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
 
             val status = mangaStatusSpinner.selectedItem.toString()
             var chapter = 0
+            var start = startDate
+            var finish = finishDate
             if(chapterText.text.toString().isNotEmpty()){
                 chapter = chapterText.text.toString().toInt()
             }
             var volume = 0
             if(volumeText.text.toString().isNotEmpty()){
                 volume = volumeText.text.toString().toInt()
-
             }
             val score = mangaScoreSeekBar.progress
-            listener.onUpdateClick(status, chapter, volume, score, false)
+            if (mangaStartText.text != getString(R.string.pick_a_start_date)){
+                start = DateParam.fromFormattedToMalFormat(mangaStartText.text.toString())
+            }
+            if (mangaFinishText.text != getString(R.string.pick_a_finish_date)){
+                finish = DateParam.fromFormattedToMalFormat(mangaFinishText.text.toString())
+            }
+            listener.onUpdateClick(status, chapter, volume, score,
+                false, start, finish)
             dismiss()
 
         }
@@ -197,19 +265,30 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        startDateListener =
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                mangaStartText.text = DateParam
+                    .getFormattedDate("$year-${month + 1}-$dayOfMonth")
+            }
+
+        finishDateListener =
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                mangaFinishText.text = DateParam
+                    .getFormattedDate("$year-${month + 1}-$dayOfMonth")
+            }
+
         setSpinnerSelected(mangaStatus,mangaStatusSpinner)
         setChaptersRead(mangaChapters, chapterText)
         setVolumeRead(mangaVolumes, volumeText)
         setScoreProgress(mangaScore, scoreText, mangaScoreSeekBar)
+        setStartDate(startDate)
+        setFinishDate(finishDate)
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        Timber.e("Do nothing")
-    }
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        Timber.e("Do nothing")
-    }
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
 
 
     @Suppress("UNCHECKED_CAST")
@@ -224,6 +303,18 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
             getString(R.string.dropped)->{spinner.setSelection(adapter.getPosition(array[4]))}
         }
 
+    }
+
+    private fun setStartDate(date: String?){
+        if (date != null){
+            mangaStartText.text = DateParam.getFormattedDate(date)
+        }else { mangaStartText.text = getString(R.string.pick_a_start_date) }
+    }
+
+    private fun setFinishDate(date: String?){
+        if (date != null){
+            mangaFinishText.text = DateParam.getFormattedDate(date)
+        }else { mangaFinishText.text = getString(R.string.pick_a_finish_date) }
     }
 
     private fun setChaptersRead(chaptersRead: String?, chapterText: TextView) {
@@ -257,9 +348,38 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
 
     }
 
+    private fun createDatePicker(dateParam: DateParam?, listener: DatePickerDialog.OnDateSetListener){
+        context?.let {
+            val minDate = Calendar.getInstance()
+            minDate.set(1990, 12, 1)
+
+            if (dateParam != null){
+                val datePicker = DatePickerDialog(it, R.style.SushiDatePicker,
+                    listener,
+                    dateParam.year.toInt(),
+                    dateParam.month.toInt().minus(1),
+                    dateParam.day.toInt())
+                datePicker.datePicker.minDate = minDate.timeInMillis
+                datePicker.datePicker.maxDate = System.currentTimeMillis()
+                datePicker.show()
+            }else {
+
+                val datePicker =  DatePickerDialog(it, listener, Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+                datePicker.datePicker.minDate = minDate.timeInMillis
+                datePicker.datePicker.maxDate = System.currentTimeMillis()
+                datePicker.show()
+            }
+
+
+        }
+    }
+
 }
 
 interface MangaUpdateListener{
-    fun onUpdateClick(status:String, chapters:Int,volume:Int, score:Int, remove:Boolean)
+    fun onUpdateClick(status:String, chapters:Int,volume:Int, score:Int,
+                      remove:Boolean, startDate: String?, finishDate: String?)
 }
 
