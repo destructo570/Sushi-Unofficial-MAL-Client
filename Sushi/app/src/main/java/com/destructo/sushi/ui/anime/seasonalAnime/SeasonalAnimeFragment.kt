@@ -61,15 +61,15 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     private lateinit var seasonalAnimePaginationProgress: ProgressBar
 
     private lateinit var seasonArchiveMap: MutableMap<String, List<String?>?>
-    private var selectedYear: String = "2020"
-    private var selectedSeason: String = "fall"
+    private var selectedYear: String = "2021"
+    private var selectedSeason: String = "winter"
     private var selectedSortType: String = "anime_score"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             seasonAnimeViewModel.clearList()
-            seasonAnimeViewModel.getSeasonalAnime("2020", "fall", "anime_score", DEFAULT_PAGE_LIMIT, null)
+            seasonAnimeViewModel.getSeasonalAnime("2021", "winter", "anime_score", DEFAULT_PAGE_LIMIT, null)
             seasonAnimeViewModel.getSeasonArchive()
         }
     }
