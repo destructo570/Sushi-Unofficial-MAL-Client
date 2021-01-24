@@ -159,7 +159,7 @@
 
     <!-- About Section -->
     <string name="dev_name" translatable="false">Vishal Kashi</string>
-    <string name="dev_role">Lead developer/Designer</string>
+    <string name="dev_role" translatable="false">Lead developer/Designer</string>
     <string name="dev_profile_image" translatable="false">https://avatars0.githubusercontent.com/u/27971772?s=400&amp;u=15f384f5df30bebf686d716499f542a23f77ab79&amp;v=4</string>
     <string name="dev_description">Android developer and Graphic/UI/UX designer from India. Hope you liked the app. Contact me or checkout more of my work below.</string>
 
@@ -227,7 +227,48 @@
     <string name="pick_a_start_date">Pick start date</string>
     <string name="pick_a_finish_date">Pick finish date</string>
     <string name="today">Set Today</string>
-
-
-
+    <string name="alternative_titles">Alternative Titles</string>
+    <string name="synonyms">Synonyms</string>
+    <string name="english">English</string>
+    <string name="japanese">Japanese</string>
+    <string name="more_information">More Information</string>
+    <string name="more_info_type">Type</string>
+    <string name="more_info_studios">Studios</string>
+    <string name="more_info_episodes">Episodes</string>
+    <string name="more_info_source">Source</string>
+    <string name="more_info_status">Status</string>
+    <string name="more_info_duration">Duration</string>
+    <string name="more_info_aired">Aired</string>
+    <string name="more_info_broadcast">Broadcast</string>
+    <string name="more_info_premiered">Premiered</string>
+    <string name="more_info_rating">Rating</string>
+    <string name="more_info_rank">Rank</string>
+    <string name="more_info_scored_users">Scored Users</string>
+    <string name="more_info_members">Members</string>
+    <string name="more_info_popularity">Popularity</string>
+    <string name="edit_status">Edit Status</string>
+    <string name="more_info_serialization">Serialization</string>
+    <string name="more_info_chapters">Chapters</string>
+    <string name="more_info_volumes">Volumes</string>
+    <string name="more_info_authors">Authors</string>
+    <string name="more_info_published">Published</string>
+    <string name="search_myanimelist">Search MyAnimeList</string>
+    <string name="anime_statistics">Anime Statistics</string>
+    <string name="profile_watching">Watching:</string>
+    <string name="profile_completed">Completed:</string>
+    <string name="profile_on_hold">On Hold:</string>
+    <string name="profile_dropped">Dropped:</string>
+    <string name="profile_ptw">PTW:</string>
+    <string name="profile_total">Total:</string>
+    <string name="profile_days">Days</string>
+    <string name="profile_episodes">Episodes</string>
+    <string name="profile_mean_score">Mean Score</string>
+    <string name="profile_rewatched">Rewatched</string>
+    <string name="anime_review_subtitle">Overall score: %d • %d Episodes Seen</string>
+    <string name="manga_review_subtitle">Overall score: %d • %d Chapters Read</string>
+    <string name="people_found_helpful">%d People found this helpful</string>
+    <string name="overall_score">Overall score:\u0020</string>
+    <string name="episodes_seen">Episodes seen:\u0020</string>
+    <string name="people_found_this_helpful">\u0020People found this helpful</string>
+    <string name="review_chapters_read">Chapters read:</string>
 </resources>

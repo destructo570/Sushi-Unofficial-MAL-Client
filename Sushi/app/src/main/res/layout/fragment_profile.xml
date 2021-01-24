@@ -124,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Anime Statistics"
+                            android:text="@string/anime_statistics"
                             android:textAppearance="@style/TextAppearance.Sushi.H2"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -149,7 +149,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:drawablePadding="5dp"
-                            android:text="Watching: "
+                            android:text="@string/profile_watching"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorWatching"
@@ -163,7 +163,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="Completed: "
+                            android:text="@string/profile_completed"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorCompleted"
@@ -179,7 +179,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="On Hold: "
+                            android:text="@string/profile_on_hold"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorOnHold"
@@ -195,7 +195,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="Dropped: "
+                            android:text="@string/profile_dropped"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorDropped"
@@ -211,7 +211,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="PTW: "
+                            android:text="@string/profile_ptw"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorPlanToWatch"
@@ -227,7 +227,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="Total: "
+                            android:text="@string/profile_total"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@android:color/transparent"
@@ -252,7 +252,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Days"
+                                android:text="@string/profile_days"
                                 android:textAppearance="@style/TextAppearance.Sushi.B3" />
 
                             <TextView
@@ -261,7 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Episodes"
+                                android:text="@string/profile_episodes"
                                 android:textAppearance="@style/TextAppearance.Sushi.B3" />
 
                             <TextView
@@ -270,7 +270,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Mean Score"
+                                android:text="@string/profile_mean_score"
                                 android:textAppearance="@style/TextAppearance.Sushi.B3" />
 
                             <TextView
@@ -279,7 +279,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Rewatched"
+                                android:text="@string/profile_rewatched"
                                 android:textAppearance="@style/TextAppearance.Sushi.B3" />
                         </LinearLayout>
 

@@ -22,7 +22,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Alternative Titles"
+            android:text="@string/alternative_titles"
             android:textAppearance="@style/TextAppearance.Sushi.H2"
             app:layout_constraintBottom_toTopOf="@+id/manga_alt_title_view"
             app:layout_constraintStart_toStartOf="parent"
