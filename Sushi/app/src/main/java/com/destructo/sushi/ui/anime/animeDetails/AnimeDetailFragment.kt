@@ -66,7 +66,6 @@ import timber.log.Timber
 private const val ANIME_IN_USER_LIST = 1
 private const val ANIME_NOT_IN_USER_LIST = 0
 private const val USER_ANIME_LIST_DEFAULT = -1
-private const val ANIME_ID_ARG = "animeId"
 private const val IS_IN_USER_LIST_ARG = "isInUserList"
 
 @AndroidEntryPoint
@@ -85,24 +84,23 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var appBar: AppBarLayout
     private lateinit var collapToolbar: CollapsingToolbarLayout
     private lateinit var genreChipGroup: ChipGroup
-    private lateinit var addToListButton:Button
+    private lateinit var addToListButton: Button
     private lateinit var animeDetailProgressBar: ProgressBar
-    private var isInUserList:Int = USER_ANIME_LIST_DEFAULT
+    private var isInUserList: Int = USER_ANIME_LIST_DEFAULT
 
     private lateinit var myListStatus: LinearLayout
-    private lateinit var myListScore:TextView
-    private lateinit var myListEpisode:TextView
-    private lateinit var myListCurrentStatus:TextView
-    private lateinit var myListRewatching:TextView
-    private lateinit var animeTitleTextView:TextView
+    private lateinit var myListScore: TextView
+    private lateinit var myListEpisode: TextView
+    private lateinit var myListCurrentStatus: TextView
+    private lateinit var myListRewatching: TextView
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
     private lateinit var animeAltTitleLayout: ConstraintLayout
 
-    private var animeStatus:String?=null
-    private var animeEpisodes:String?=null
-    private var animeScore:Int?=0
-    private var animeStartDate:String?=null
-    private var animeFinishDate:String?=null
+    private var animeStatus: String? = null
+    private var animeEpisodes: String? = null
+    private var animeScore: Int? = 0
+    private var animeStartDate: String? = null
+    private var animeFinishDate: String? = null
 
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
@@ -118,22 +116,20 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var videoRecycler: RecyclerView
     private lateinit var reviewRecycler: RecyclerView
 
-    private lateinit var characterMore:TextView
-    private lateinit var reviewMore:TextView
-    private lateinit var staffMore:TextView
+    private lateinit var characterMore: TextView
+    private lateinit var reviewMore: TextView
+    private lateinit var staffMore: TextView
     private lateinit var adView: AdView
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null) {
-            val animeIdArgument = args.animeId
-            animeIdArg = animeIdArgument
+            animeIdArg = args.animeId
             isInUserList = savedInstanceState.getInt(IS_IN_USER_LIST_ARG)
-        }else{
-            animeIdArg = AnimeDetailFragmentArgs.fromBundle(requireArguments()).animeId
+        } else {
+            animeIdArg = args.animeId
             animeDetailViewModel.getAnimeDetail(animeIdArg, false)
         }
     }
@@ -166,90 +162,29 @@ class AnimeDetailFragment : Fragment(),
         moreAnimeInfoLayout = binding.root.anime_more_detail
         animeAltTitleLayout = binding.root.anime_alt_title_layout
         characterRecycler = binding.root.characterRecycler
-        characterRecycler.setHasFixedSize(true)
         staffRecycler = binding.root.staffRecycler
-        staffRecycler.setHasFixedSize(true)
         recommRecycler = binding.root.recommRecycler
-        recommRecycler.setHasFixedSize(true)
         relatedRecycler = binding.root.relatedAnimeRecycler
-        relatedRecycler.setHasFixedSize(true)
         videoRecycler = binding.root.animeVideoRecycler
-        videoRecycler.setHasFixedSize(true)
         val snapHelper = PagerSnapHelper()
         reviewRecycler = binding.root.reviewsRecycler
-        reviewRecycler.setHasFixedSize(true)
         snapHelper.attachToRecyclerView(reviewRecycler)
         characterMore = binding.root.charactersMore
         reviewMore = binding.root.reviewsMore
         staffMore = binding.root.staffMore
-
-
+        adView = binding.adView
         toolbar = binding.animeDescToolbar
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
-        collapToolbar.setOnLongClickListener {
-            copyToClipBoard()
-            return@setOnLongClickListener false
-        }
-        setupToolbar()
-        setAddToListClickListener()
-        setMoreAnimeInfoClickListener()
-        setAnimeAltTitleClickListener()
 
-        adView = binding.adView
-        if(!SushiApplication.getContext().queryPurchases()){
-            val adRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
-
-            adView.adListener = object: AdListener(){
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    adView.visibility = View.VISIBLE
-                }
-
-                override fun onAdFailedToLoad(p0: Int) {
-                    adView.visibility = View.GONE
-                }
-            }
-        }
-
-        characterMore.setOnClickListener {
-            findNavController().navigate(R.id.allCharactersFragment, bundleOf(Pair("malId", animeIdArg)))
-        }
-        reviewMore.setOnClickListener {
-            findNavController().navigate(R.id.allReviewsFragment, bundleOf(Pair("animeId", animeIdArg)))
-        }
-        staffMore.setOnClickListener {
-            findNavController().navigate(R.id.allAnimeStaffFragment, bundleOf(Pair("malId", animeIdArg)))
-        }
+        setListeners()
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
-            it?.let { navigateToCharacterDetails(it) }
-        })
-        staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
-            it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
-        })
-        recommAdapter = AnimeRecommListAdapter(MalIdListener {
-            it?.let { navigateToAnimeDetails(it) }
-        })
-        relatedAdapter = AnimeRelatedListAdapter(MalIdListener {
-            it?.let { navigateToAnimeDetails(it) }
-        })
-        videoAdapter = AnimeVideoAdapter(AnimePromoListener {
-            it?.let { openUrl(it) }
-        })
-        reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
-            it?.let {
-                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
-                reviewDialog.show(childFragmentManager, "anime_review_dialog")
-            }
-
-        })
+        initialiseAdapters()
 
         animeDetailViewModel.animeDetail.observe(viewLifecycleOwner) { resources ->
             when (resources.status) {
@@ -270,21 +205,18 @@ class AnimeDetailFragment : Fragment(),
                             isInUserList = ANIME_IN_USER_LIST
                             animeScore = animeEntity.myAnimeListStatus.score
                             animeStatus = animeEntity.myAnimeListStatus.status?.toTitleCase()
-                            animeEpisodes = animeEntity.myAnimeListStatus.numEpisodesWatched.toString()
+                            animeEpisodes =
+                                animeEntity.myAnimeListStatus.numEpisodesWatched.toString()
                             animeStartDate = animeEntity.myAnimeListStatus.startDate
                             animeFinishDate = animeEntity.myAnimeListStatus.finishDate
 
-                        }else {
+                        } else {
                             isInUserList = ANIME_NOT_IN_USER_LIST
                         }
 
                         recommAdapter.submitList(animeEntity.recommendations)
                         relatedAdapter.submitList(animeEntity.relatedAnime)
-                        recommRecycler.adapter = recommAdapter
-                        relatedRecycler.adapter = relatedAdapter
-
                         animeEntity.genres?.let { setGenreChips(it) }
-
                         animeEntity.mainPicture?.medium?.let { setScoreCardColor(it) }
 
                     }
@@ -304,8 +236,6 @@ class AnimeDetailFragment : Fragment(),
                     resources.data?.let {
                         characterAdapter.submitList(it.characters)
                         staffAdapter.submitList(it.staff)
-                        characterRecycler.adapter = characterAdapter
-                        staffRecycler.adapter = staffAdapter
                     }
                 }
                 Status.ERROR -> {
@@ -323,7 +253,6 @@ class AnimeDetailFragment : Fragment(),
                 Status.SUCCESS -> {
                     resource.data?.let { animeVideo ->
                         videoAdapter.submitList(animeVideo.promo)
-                        videoRecycler.adapter = videoAdapter
                     }
                 }
                 Status.ERROR -> {
@@ -341,7 +270,6 @@ class AnimeDetailFragment : Fragment(),
                 Status.SUCCESS -> {
                     resource.data?.let { animeReviews ->
                         reviewAdapter.submitList(animeReviews.reviews)
-                        reviewRecycler.adapter = reviewAdapter
                     }
                 }
                 Status.ERROR -> {
@@ -351,37 +279,139 @@ class AnimeDetailFragment : Fragment(),
             }
         }
 
-        animeDetailViewModel.userAnimeStatus.observe(viewLifecycleOwner){resource->
-            when(resource.status){
-                Status.LOADING->{
+        animeDetailViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.LOADING -> {
                 }
-                Status.SUCCESS->{
+                Status.SUCCESS -> {
                     changeButtonState(addToListButton, true)
                     isInUserList = ANIME_IN_USER_LIST
-                    resource.data?.let {animeStatus->
+                    resource.data?.let { animeStatus ->
                         addToListButton.text = animeStatus.status.toString().toTitleCase()
-                        addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill,0,0,0)
+                        addToListButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_check_fill,
+                            0,
+                            0,
+                            0
+                        )
                         myListStatus.visibility = View.VISIBLE
                         animeDetailViewModel.getAnimeDetail(animeIdArg, true)
                     }
                 }
-                Status.ERROR->{
+                Status.ERROR -> {
                     changeButtonState(addToListButton, true)
                 }
             }
         }
 
-        animeDetailViewModel.userAnimeRemove.observe(viewLifecycleOwner){
-            when(it.status){
-                Status.ERROR->{}
+        animeDetailViewModel.userAnimeRemove.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.ERROR -> {
+                }
                 Status.SUCCESS -> {
                     addToListButton.text = getString(R.string.add_to_list)
-                    addToListButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_fill,0,0,0)
+                    addToListButton.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.ic_add_fill,
+                        0,
+                        0,
+                        0
+                    )
                     myListStatus.visibility = View.GONE
                     animeDetailViewModel.getAnimeDetail(animeIdArg, true)
                 }
                 Status.LOADING -> {
 
+                }
+            }
+        }
+    }
+
+    private fun initialiseAdapters() {
+        characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
+            it?.let { navigateToCharacterDetails(it) }
+        })
+        staffAdapter = AnimeStaffListAdapter(AnimeStaffListener {
+            it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
+        })
+        recommAdapter = AnimeRecommListAdapter(MalIdListener {
+            it?.let { navigateToAnimeDetails(it) }
+        })
+        relatedAdapter = AnimeRelatedListAdapter(MalIdListener {
+            it?.let { navigateToAnimeDetails(it) }
+        })
+        videoAdapter = AnimeVideoAdapter(AnimePromoListener {
+            it?.let { openUrl(it) }
+        })
+        reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
+            it?.let {
+                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
+                reviewDialog.show(childFragmentManager, "anime_review_dialog")
+            }
+        })
+        recommRecycler.adapter = recommAdapter
+        relatedRecycler.adapter = relatedAdapter
+        reviewRecycler.adapter = reviewAdapter
+        videoRecycler.adapter = videoAdapter
+        characterRecycler.adapter = characterAdapter
+        staffRecycler.adapter = staffAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appBar.addOnOffsetChangedListener(this)
+    }
+
+    private fun setListeners() {
+        setupToolbar()
+        setAddToListClickListener()
+        setMoreAnimeInfoClickListener()
+        setAnimeAltTitleClickListener()
+        initialiseAds()
+        setNavigationListeners()
+        setCollapseToolbarListener()
+    }
+
+    private fun setCollapseToolbarListener() {
+        collapToolbar.setOnLongClickListener {
+            copyToClipBoard()
+            return@setOnLongClickListener false
+        }
+    }
+
+    private fun setNavigationListeners() {
+        characterMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.allCharactersFragment,
+                bundleOf(Pair("malId", animeIdArg))
+            )
+        }
+        reviewMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.allReviewsFragment,
+                bundleOf(Pair("animeId", animeIdArg))
+            )
+        }
+        staffMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.allAnimeStaffFragment,
+                bundleOf(Pair("malId", animeIdArg))
+            )
+        }
+    }
+
+    private fun initialiseAds() {
+        if (!SushiApplication.getContext().queryPurchases()) {
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+
+            adView.adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    adView.visibility = View.VISIBLE
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    adView.visibility = View.GONE
                 }
             }
         }
@@ -398,11 +428,6 @@ class AnimeDetailFragment : Fragment(),
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        appBar.addOnOffsetChangedListener(this)
-    }
-
     private fun setScoreCardColor(imgUrl: String) {
 
         Glide.with(this)
@@ -415,14 +440,14 @@ class AnimeDetailFragment : Fragment(),
                 ) {
                     Palette.from(resource).generate { palette: Palette? ->
 
-                        if ( palette?.vibrantSwatch != null){
+                        if (palette?.vibrantSwatch != null) {
                             palette.vibrantSwatch?.rgb?.let { color ->
                                 scoreCardView.setCardBackgroundColor(color)
                             }
                             palette.vibrantSwatch?.titleTextColor?.let {
                                 scoreTextView.setTextColor(it)
                             }
-                        }else{
+                        } else {
                             context?.let {
                                 scoreCardView.setCardBackgroundColor(it.getColorFromAttr(R.attr.scoreCardBackground))
                                 scoreTextView.setTextColor(it.getColorFromAttr(R.attr.scoreCardText))
@@ -431,6 +456,7 @@ class AnimeDetailFragment : Fragment(),
                         }
                     }
                 }
+
                 override fun onLoadCleared(placeholder: Drawable?) {
                 }
             })
@@ -455,9 +481,9 @@ class AnimeDetailFragment : Fragment(),
     }
 
     private fun openUrl(url: String) {
-            val builder = CustomTabsIntent.Builder()
-            val customTabIntent = builder.build()
-            customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+        val builder = CustomTabsIntent.Builder()
+        val customTabIntent = builder.build()
+        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
     private fun shareUrl(url: String) {
@@ -470,21 +496,24 @@ class AnimeDetailFragment : Fragment(),
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        if(verticalOffset == 0){
+        if (verticalOffset == 0) {
             var drawable: Drawable? = toolbar.navigationIcon
 
             drawable?.let {
                 drawable = DrawableCompat.wrap(drawable!!)
-                context?.let { it1 -> ContextCompat.getColor(it1,R.color.iconTintOnPrimary) }?.let { it2 ->
-                    DrawableCompat.setTint(drawable!!.mutate(), it2)
-                }
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.iconTintOnPrimary) }
+                    ?.let { it2 ->
+                        DrawableCompat.setTint(drawable!!.mutate(), it2)
+                    }
                 toolbar.navigationIcon = drawable
-                toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill_light)
+                toolbar.overflowIcon =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill_light)
             }
 
-        }else{
+        } else {
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_line)
-            toolbar.overflowIcon =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill)
+            toolbar.overflowIcon =
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_more_fill)
 
         }
     }
@@ -495,45 +524,66 @@ class AnimeDetailFragment : Fragment(),
         episodes: Int,
         score: Int,
         remove: Boolean,
-        startDate:String?,
-        finishDate:String?
+        startDate: String?,
+        finishDate: String?
     ) {
 
-        if (!remove){
+        if (!remove) {
             animeDetailViewModel.updateUserAnimeStatus(
                 AnimeUpdateParams(
                     animeId = animeIdArg.toString(),
                     status = convertStatus(status),
                     num_watched_episodes = episodes,
                     score = score, start_date = startDate,
-                    finish_date = finishDate)
+                    finish_date = finishDate
                 )
-        }else{
+            )
+        } else {
             animeDetailViewModel.removeAnime(animeIdArg)
         }
 
     }
 
-    private fun convertStatus(data: String): String{
+    private fun convertStatus(data: String): String {
         var status = ""
 
-        when(data){
-            getString(R.string.watching)->{status = WATCHING.value}
-            getString(R.string.completed)->{status = COMPLETED.value}
-            getString(R.string.plan_to_watch)->{status = PLAN_TO_WATCH.value}
-            getString(R.string.dropped)->{status = DROPPED.value}
-            getString(R.string.on_hold)->{status = ON_HOLD.value}
+        when (data) {
+            getString(R.string.watching) -> {
+                status = WATCHING.value
+            }
+            getString(R.string.completed) -> {
+                status = COMPLETED.value
+            }
+            getString(R.string.plan_to_watch) -> {
+                status = PLAN_TO_WATCH.value
+            }
+            getString(R.string.dropped) -> {
+                status = DROPPED.value
+            }
+            getString(R.string.on_hold) -> {
+                status = ON_HOLD.value
+            }
         }
         return status
     }
 
-    private fun changeButtonState(button: Button, status: Boolean){
-        if (status){
+    private fun changeButtonState(button: Button, status: Boolean) {
+        if (status) {
             button.isEnabled = true
-            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
-        }else{
+            button.setTextColor(context?.let {
+                AppCompatResources.getColorStateList(
+                    it,
+                    R.color.textColorOnPrimary
+                )
+            })
+        } else {
             button.isEnabled = false
-            button.setTextColor(context?.let { AppCompatResources.getColorStateList(it,R.color.textColorOnPrimary) })
+            button.setTextColor(context?.let {
+                AppCompatResources.getColorStateList(
+                    it,
+                    R.color.textColorOnPrimary
+                )
+            })
         }
     }
 
@@ -602,21 +652,24 @@ class AnimeDetailFragment : Fragment(),
                 }
                 ANIME_IN_USER_LIST -> {
                     AnimeUpdateDialog
-                        .newInstance(null, animeStatus, animeEpisodes,
-                            animeScore ?: 0, animeStartDate, animeFinishDate)
+                        .newInstance(
+                            null, animeStatus, animeEpisodes,
+                            animeScore ?: 0, animeStartDate, animeFinishDate
+                        )
                         .show(childFragmentManager, "animeUpdateDialog")
                 }
                 ANIME_NOT_IN_USER_LIST -> {
                     changeButtonState(it as Button, false)
                     animeDetailViewModel.updateUserAnimeStatus(
                         AnimeUpdateParams(
-                            animeId =  animeIdArg.toString(),
-                            status = PLAN_TO_WATCH.value))
+                            animeId = animeIdArg.toString(),
+                            status = PLAN_TO_WATCH.value
+                        )
+                    )
                 }
             }
         }
     }
-
 
 
 }
