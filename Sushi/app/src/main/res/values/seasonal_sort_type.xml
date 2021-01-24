@@ -2,6 +2,6 @@
 <resources>
     <string-array name="season_sort_type">
         <item>@string/score</item>
-        <item>@string/number_of_users</item>
+        <item>@string/number_of_members</item>
     </string-array>
 </resources>

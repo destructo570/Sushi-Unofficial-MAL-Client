@@ -124,7 +124,7 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="close">Cerrar</string>
-    <string name="number_of_users">Número de Lista de Usuarios</string>
+    <string name="number_of_members">Número de Lista de Usuarios</string>
     <!-- Search fragment -->
     <string name="search_anime">Anime</string>
     <string name="search_manga">Manga</string>

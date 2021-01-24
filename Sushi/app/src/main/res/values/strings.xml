@@ -77,7 +77,6 @@
     <string name="rating">Rating: </string>
     <string name="episodes">Episodes: </string>
     <string name="start_season">Start Season: </string>
-    <string name="score">Score: </string>
     <string name="rewatching">Rewatching: </string>
     <string name="episode_duration">Ep Duration: </string>
 
@@ -99,6 +98,7 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Popularity</string>
     <string name="favorites">Favorites</string>
+    <string name="score">Score </string>
 
     <string name="content_description_filter">Filter the list by year and seasons.</string>
 
@@ -151,7 +151,7 @@
     <string name="no">No</string>
     <string name="close">Close</string>
 
-    <string name="number_of_users">Number Of List User</string>
+    <string name="number_of_members">Number Of Members</string>
 
     <!-- Search fragment -->
     <string name="search_anime">Anime</string>
