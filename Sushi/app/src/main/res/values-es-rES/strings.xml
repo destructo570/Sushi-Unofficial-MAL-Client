@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sushi</string>
     <string name="my_anime_list">Mi Lista de Anime</string>
     <string name="my_manga_list">Mi Lista de Manga</string>
     <string name="logout">Cerrar Sesión De Esta Cuenta</string>
@@ -62,7 +61,6 @@
     <string name="rating">Calificación: </string>
     <string name="episodes">Episodios: </string>
     <string name="start_season">Temporada Inicial: </string>
-    <string name="score">Nota: </string>
     <string name="rewatching">Reviendo: </string>
     <string name="episode_duration">Duración Ep: </string>
     <string name="chapters">Capítulos: </string>
@@ -81,6 +79,7 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Popularidad</string>
     <string name="favorites">Favoritos</string>
+    <string name="score">Nota: </string>
     <string name="content_description_filter">Filtrar la lista por año y temporadas.</string>
     <!-- Seasonal Anime String -->
     <string name="year">Año</string>
@@ -124,7 +123,7 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="close">Cerrar</string>
-    <string name="number_of_members">Número de Lista de Usuarios</string>
+    <string name="number_of_members">Número de Usuarios</string>
     <!-- Search fragment -->
     <string name="search_anime">Anime</string>
     <string name="search_manga">Manga</string>
@@ -178,4 +177,54 @@
     <string name="open_in_browser">Abrir en el navegador</string>
     <string name="share_using">Compartir usando</string>
     <string name="donation_succesfull">¡Gracias por tu apoyo!</string>
+    <string name="buy_me_a">Cómprame:</string>
+    <string name="tart_date">Fecha de Inicio:</string>
+    <string name="finish_date">Fecha de Fin:</string>
+    <string name="pick_a_start_date">Elige fecha de inicio</string>
+    <string name="pick_a_finish_date">Elige fecha de fin</string>
+    <string name="today">Establecer Hoy</string>
+    <string name="alternative_titles">Títulos Alternativos</string>
+    <string name="synonyms">Sinónimos</string>
+    <string name="english">Inglés</string>
+    <string name="japanese">Japonés</string>
+    <string name="more_information">Más Información</string>
+    <string name="more_info_type">Tipo</string>
+    <string name="more_info_studios">Estudios</string>
+    <string name="more_info_episodes">Episodios</string>
+    <string name="more_info_source">Fuente</string>
+    <string name="more_info_status">Estado</string>
+    <string name="more_info_duration">Duración</string>
+    <string name="more_info_aired">Emitido</string>
+    <string name="more_info_broadcast">Emisión</string>
+    <string name="more_info_premiered">Estrenado</string>
+    <string name="more_info_rating">Calificación</string>
+    <string name="more_info_rank">Clasificación</string>
+    <string name="more_info_scored_users">Usuarios que puntuaron</string>
+    <string name="more_info_members">Usuarios</string>
+    <string name="more_info_popularity">Popularidad</string>
+    <string name="edit_status">Editar Estado</string>
+    <string name="more_info_serialization">Serialización</string>
+    <string name="more_info_chapters">Capítulos</string>
+    <string name="more_info_volumes">Volúmenes</string>
+    <string name="more_info_authors">Autores</string>
+    <string name="more_info_published">Publicado</string>
+    <string name="search_myanimelist">Buscar MyAnimeList</string>
+    <string name="anime_statistics">Estadísticas de Anime</string>
+    <string name="profile_watching">Viendo:</string>
+    <string name="profile_completed">Completado:</string>
+    <string name="profile_on_hold">En Pausa:</string>
+    <string name="profile_dropped">Descartado:</string>
+    <string name="profile_ptw">PTW:</string>
+    <string name="profile_total">Total:</string>
+    <string name="profile_days">Días</string>
+    <string name="profile_episodes">Episodios</string>
+    <string name="profile_mean_score">Nota Media</string>
+    <string name="profile_rewatched">Revisto</string>
+    <string name="anime_review_subtitle">Nota media: %d • %d Episodios Vistos</string>
+    <string name="manga_review_subtitle">Nota media: %d • %d Capítulos Leídos</string>
+    <string name="people_found_helpful">%d Personas creen que esto es útil</string>
+    <string name="overall_score">Nota media:\u0020</string>
+    <string name="episodes_seen">Episodios vistos:\u0020</string>
+    <string name="people_found_this_helpful">\u0020Personas creen que esto es útil</string>
+    <string name="review_chapters_read">Capítulos leídos:</string>
 </resources>
