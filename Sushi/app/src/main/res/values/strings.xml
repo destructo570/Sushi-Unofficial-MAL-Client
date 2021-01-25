@@ -271,4 +271,8 @@
     <string name="episodes_seen">Episodes seen:\u0020</string>
     <string name="people_found_this_helpful">\u0020People found this helpful</string>
     <string name="review_chapters_read">Chapters read:</string>
+    <string name="remove_anime_title">Remove anime from list</string>
+    <string name="remove_manga_title">Remove manga from list</string>
+    <string name="remove_anime_confirmation">Are you sure you want to remove this anime from your list?</string>
+    <string name="remove_manga_confirmation">Are you sure you want to remove this manga from your list?</string>
 </resources>

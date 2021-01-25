@@ -184,8 +184,8 @@ class AnimeUpdateDialog : BottomSheetDialogFragment(),
 
         removeButton.setOnClickListener {
             val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
-                .setTitle("Remove anime from list")
-                .setMessage("Are you sure you want to remove this anime from your list?")
+                .setTitle(getString(R.string.remove_anime_title))
+                .setMessage(getString(R.string.remove_anime_confirmation))
                 .setPositiveButton(
                     R.string.yes
                 ) { _, _ ->

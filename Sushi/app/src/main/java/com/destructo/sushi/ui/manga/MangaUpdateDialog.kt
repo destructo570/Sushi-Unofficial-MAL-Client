@@ -211,8 +211,8 @@ class MangaUpdateDialog :BottomSheetDialogFragment(), AdapterView.OnItemSelected
 
         removeButton.setOnClickListener {
             val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
-                .setTitle("Remove manga from list")
-                .setMessage("Are you sure you want to remove this manga from your list?")
+                .setTitle(getString(R.string.remove_manga_title))
+                .setMessage(getString(R.string.remove_manga_confirmation))
                 .setPositiveButton(R.string.yes
                 ) { _, _ ->
                     listener.onUpdateClick("",0,0,0,true,

@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    <version title="1.0.9">-->
+<!--        <item>Fixed crashes on android 6.0 devices causing app to crash on look and feel section.</item>-->
+<!--        <item>Fixed profile images not showing in all reviews section.</item>-->
+<!--        <item>Fixed currently airing section not opening.</item>-->
+
+<!--    </version>-->
+<!--    <version title="1.0.8">-->
+<!--        <item>Fixed profile images and score not loading on some devices.</item>-->
+<!--        <item>Fixed crashes on android 6.0 devices causing app to crash on start.</item>-->
+<!--        <item>Fixed profile images and score not loading on some devices.</item>-->
+<!--        <item>Fixed some inconsistent ep/ch numbers in user anime/manga lists when navigating between detail screens.</item>-->
+<!--        <item>Added anime recommendations on browse anime section.</item>-->
+<!--        <item>Added latest news and promotions to browse anime section.</item>-->
+<!--        <item>Added option to copy titles in the options menu or-->
+<!--            you can also long press on the title name to copy it to clipboard.</item>-->
+<!--        <item>Added ads to the app (Pro users won\'t get any ads)</item>-->
+<!--        <item>In user anime/manga list after coming back from detail section scroll position is remembered.</item>-->
+<!--        <item>Now when a anime/manga ep/ch is increased in list section to max value it will automatically update to completed status.</item>-->
+<!--        <item>Reordered user anime and manga list sections.</item>-->
+<!--        <item>Changed default status when adding to user list to PTW/PTR instead of watching.</item>-->
+<!--        <item>Updated purchase screens to show promo screens of all themes in pro version.</item>-->
+<!--    </version>-->
+
     <string name="latest_changelog">
         \n• Version 1.0.9
         \n• Fixed crashes on android 6.0 devices causing app to crash on look and feel section.
@@ -11,7 +34,7 @@
         \n• Fixed crashes on android 6.0 devices causing app to crash on start.
         \n• Fixed profile images and score not loading on some devices.
         \n• Fixed some inconsistent ep/ch numbers in user anime/manga lists when navigating between detail screens.
-        \n Added anime recommendations on browse anime section.
+        \n• Added anime recommendations on browse anime section.
         \n• Added latest news and promotions to browse anime section.
         \n• Added option to copy titles in the options menu or
         you can also long press on the title name to copy it to clipboard.
