@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sushi</string>
     <string name="my_anime_list">Meine Anime-Liste</string>
     <string name="my_manga_list">Meine Manga-Liste</string>
     <string name="logout">Ausloggen</string>
@@ -62,7 +61,6 @@
     <string name="rating">Bewertung: </string>
     <string name="episodes">Episoden: </string>
     <string name="start_season">Start-Season: </string>
-    <string name="score">Bewertung: </string>
     <string name="rewatching">Erneut am Schauen: </string>
     <string name="episode_duration">Ep-Länge: </string>
     <string name="chapters">Kapitel: </string>
@@ -81,6 +79,7 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Beliebtheit</string>
     <string name="favorites">Favoriten</string>
+    <string name="score">Bewertung: </string>
     <string name="content_description_filter">Die Liste nach Jahr und Season filtern.</string>
     <!-- Seasonal Anime String -->
     <string name="year">Jahr</string>
@@ -124,7 +123,7 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="close">Schließen</string>
-    <string name="number_of_members">Anzahl der Listen-Nutzer</string>
+    <string name="number_of_members">Anzahl der Mitglieder</string>
     <!-- Search fragment -->
     <string name="search_anime">Anime</string>
     <string name="search_manga">Manga</string>
@@ -156,7 +155,7 @@
     <string name="pref_title_send_feedback">Feedback senden</string>
     <string name="pref_desc_send_feedback">Sende dein Feedback und deine Vorschläge.</string>
     <string name="pref_title_donation">Spenden</string>
-    <string name="pref_desc_donate_desc">Wenn du mich und die Entwicklung unterstützen möchtest, kannst du hier spenden</string>
+    <string name="pref_desc_donate_desc">Wenn du die Entwicklung unterstützen möchtest, kannst du hier spenden</string>
     <string name="pref_title_open_source_license">Open-Source-Lizenz</string>
     <string name="pref_desc_open_source_license">Liste der Open-Source-Lizenzen.</string>
     <string name="pref_title_app_version">App-Version</string>
@@ -178,4 +177,58 @@
     <string name="open_in_browser">Im Browser öffnen</string>
     <string name="share_using">Teilen via</string>
     <string name="donation_succesfull">Danke für deine Unterstützung!</string>
+    <string name="buy_me_a">Buy me a:</string>
+    <string name="tart_date">Startdatum:</string>
+    <string name="finish_date">Enddatum:</string>
+    <string name="pick_a_start_date">Startdatum auswählen</string>
+    <string name="pick_a_finish_date">Enddatum auswählen</string>
+    <string name="today">Heute</string>
+    <string name="alternative_titles">Alternative Titel</string>
+    <string name="synonyms">Synonyme</string>
+    <string name="english">Englisch</string>
+    <string name="japanese">Japanisch</string>
+    <string name="more_information">Weitere Informationen</string>
+    <string name="more_info_type">Typ</string>
+    <string name="more_info_studios">Studios</string>
+    <string name="more_info_episodes">Episoden</string>
+    <string name="more_info_source">Quelle</string>
+    <string name="more_info_status">Status</string>
+    <string name="more_info_duration">Länge</string>
+    <string name="more_info_aired">Ausstrahlung</string>
+    <string name="more_info_broadcast">Übertragung</string>
+    <string name="more_info_premiered">Start-Season</string>
+    <string name="more_info_rating">Bewertung</string>
+    <string name="more_info_rank">Rang</string>
+    <string name="more_info_scored_users">Bewertungen</string>
+    <string name="more_info_members">Mitglieder</string>
+    <string name="more_info_popularity">Beliebtheit</string>
+    <string name="edit_status">Status bearbeiten</string>
+    <string name="more_info_serialization">Veröffentlichung</string>
+    <string name="more_info_chapters">Kapitel</string>
+    <string name="more_info_volumes">Band</string>
+    <string name="more_info_authors">Autoren</string>
+    <string name="more_info_published">Veröffentlicht</string>
+    <string name="search_myanimelist">MyAnimeList durchsuchen</string>
+    <string name="anime_statistics">Anime-Statistiken</string>
+    <string name="profile_watching">Am Schauen:</string>
+    <string name="profile_completed">Abgeschlossen:</string>
+    <string name="profile_on_hold">Pausierend:</string>
+    <string name="profile_dropped">Abgebrochen:</string>
+    <string name="profile_ptw">Wird noch geschaut:</string>
+    <string name="profile_total">Gesamt:</string>
+    <string name="profile_days">Tage</string>
+    <string name="profile_episodes">Episoden</string>
+    <string name="profile_mean_score">Mittelwert</string>
+    <string name="profile_rewatched">Mehrfach geschaut</string>
+    <string name="anime_review_subtitle">Gesamtzahl: %d • %d Episoden gesehen</string>
+    <string name="manga_review_subtitle">Gesamtzahl: %d • %d Kapitel gelesen</string>
+    <string name="people_found_helpful">%d Leute fanden dies hilfreich</string>
+    <string name="overall_score">Gesamtbewertung:\u0020</string>
+    <string name="episodes_seen">Geschaute Episoden:\u0020</string>
+    <string name="people_found_this_helpful">\u0020Leute fanden dies hilfreich</string>
+    <string name="review_chapters_read">Gelesene Kapitel:</string>
+    <string name="remove_anime_title">Anime von Liste entfernen</string>
+    <string name="remove_manga_title">Manga von Liste entfernen</string>
+    <string name="remove_anime_confirmation">Bist du sicher, dass du diesen Anime von deiner Liste entfernen möchtest?</string>
+    <string name="remove_manga_confirmation">Bist du sicher, dass du diesen Manga von deiner Liste entfernen möchtest?</string>
 </resources>
