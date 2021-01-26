@@ -31,7 +31,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
@@ -52,7 +51,6 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null){
-            Timber.e("Here")
             personArg = PersonFragmentArgs.fromBundle(requireArguments()).personId
             personViewModel.getPersonData(personArg)
         }
