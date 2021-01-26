@@ -36,7 +36,7 @@
                     android:id="@+id/search_view"
                     app:searchIcon="@null"
                     app:closeIcon="@drawable/ic_close_fill"
-                    app:queryHint="Search MyAnimeList"
+                    app:queryHint="@string/search_myanimelist"
                     />
 
             </androidx.appcompat.widget.Toolbar>

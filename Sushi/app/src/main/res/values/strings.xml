@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Sushi</string>
+    <string name="app_name" translatable="false">Sushi</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string name="my_anime_list">My Anime List</string>
     <string name="my_manga_list">My Manga List</string>
@@ -39,12 +39,12 @@
     <string name="all_anime_staff">All Anime Staff</string>
 
     <!-- Fake Test Data -->
-    <string name="fake_anime_title">Jujutsu Kaisen</string>
-    <string name="fake_anime_score">8.2</string>
-    <string name="fake_anime_type">TV</string>
-    <string name="fake_manga_title">Beserk</string>
-    <string name="fake_manga_score">9.2</string>
-    <string name="fake_manga_type">MANGA</string>
+    <string name="fake_anime_title" translatable="false">Jujutsu Kaisen</string>
+    <string name="fake_anime_score" translatable="false">8.2</string>
+    <string name="fake_anime_type" translatable="false">TV</string>
+    <string name="fake_manga_title" translatable="false">Beserk</string>
+    <string name="fake_manga_score" translatable="false">9.2</string>
+    <string name="fake_manga_type" translatable="false">MANGA</string>
 
     <string name="filter">Filter</string>
     <string name="apply_filter">Apply Filter</string>
@@ -77,7 +77,6 @@
     <string name="rating">Rating: </string>
     <string name="episodes">Episodes: </string>
     <string name="start_season">Start Season: </string>
-    <string name="score">Score: </string>
     <string name="rewatching">Rewatching: </string>
     <string name="episode_duration">Ep Duration: </string>
 
@@ -99,6 +98,7 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Popularity</string>
     <string name="favorites">Favorites</string>
+    <string name="score">Score </string>
 
     <string name="content_description_filter">Filter the list by year and seasons.</string>
 
@@ -151,27 +151,27 @@
     <string name="no">No</string>
     <string name="close">Close</string>
 
-    <string name="number_of_users">Number Of List User</string>
+    <string name="number_of_members">Number Of Members</string>
 
     <!-- Search fragment -->
     <string name="search_anime">Anime</string>
     <string name="search_manga">Manga</string>
 
     <!-- About Section -->
-    <string name="dev_name">Vishal Kashi</string>
-    <string name="dev_role">Lead developer/Designer</string>
-    <string name="dev_profile_image">https://avatars0.githubusercontent.com/u/27971772?s=400&amp;u=15f384f5df30bebf686d716499f542a23f77ab79&amp;v=4</string>
+    <string name="dev_name" translatable="false">Vishal Kashi</string>
+    <string name="dev_role" translatable="false">Lead developer/Designer</string>
+    <string name="dev_profile_image" translatable="false">https://avatars0.githubusercontent.com/u/27971772?s=400&amp;u=15f384f5df30bebf686d716499f542a23f77ab79&amp;v=4</string>
     <string name="dev_description">Android developer and Graphic/UI/UX designer from India. Hope you liked the app. Contact me or checkout more of my work below.</string>
 
 
     <!-- Developer Social Links -->
     <string name="social_twitter">Twitter</string>
     <string name="social_dribbble">Dribbble</string>
-    <string name="social_twitter_link">https://twitter.com/iamvishalkashi</string>
-    <string name="dev_email_id">dev.destructo570@gmail.com</string>
-    <string name="social_dribbble_link">https://dribbble.com/VishalKashi</string>
-    <string name="social_discord_link">https://discord.gg/n5GmTKAJHs</string>
-    <string name="sushi_play_link">https://play.google.com/store/apps/details?id=com.destructo.sushi_mal</string>
+    <string name="social_twitter_link" translatable="false">https://twitter.com/iamvishalkashi</string>
+    <string name="dev_email_id" translatable="false">dev.destructo570@gmail.com</string>
+    <string name="social_dribbble_link" translatable="false">https://dribbble.com/VishalKashi</string>
+    <string name="social_discord_link" translatable="false">https://discord.gg/n5GmTKAJHs</string>
+    <string name="sushi_play_link" translatable="false">https://play.google.com/store/apps/details?id=com.destructo.sushi_mal</string>
 
     <!-- Login screen -->
     <string name="welcome_text">Welcome to Sushi!\nYour new friend to help you browse MyAnimeList and manage your Anime/Manga Library.\n Let\'s get started!.</string>
@@ -222,6 +222,58 @@
     <string name="share_using">Share using</string>
     <string name="donation_succesfull">Thank you for your support!</string>
     <string name="buy_me_a">Buy me a:</string>
-
-
+    <string name="tart_date">Start Date:</string>
+    <string name="finish_date">Finish Date:</string>
+    <string name="pick_a_start_date">Pick start date</string>
+    <string name="pick_a_finish_date">Pick finish date</string>
+    <string name="today">Set Today</string>
+    <string name="alternative_titles">Alternative Titles</string>
+    <string name="synonyms">Synonyms</string>
+    <string name="english">English</string>
+    <string name="japanese">Japanese</string>
+    <string name="more_information">More Information</string>
+    <string name="more_info_type">Type</string>
+    <string name="more_info_studios">Studios</string>
+    <string name="more_info_episodes">Episodes</string>
+    <string name="more_info_source">Source</string>
+    <string name="more_info_status">Status</string>
+    <string name="more_info_duration">Duration</string>
+    <string name="more_info_aired">Aired</string>
+    <string name="more_info_broadcast">Broadcast</string>
+    <string name="more_info_premiered">Premiered</string>
+    <string name="more_info_rating">Rating</string>
+    <string name="more_info_rank">Rank</string>
+    <string name="more_info_scored_users">Scored Users</string>
+    <string name="more_info_members">Members</string>
+    <string name="more_info_popularity">Popularity</string>
+    <string name="edit_status">Edit Status</string>
+    <string name="more_info_serialization">Serialization</string>
+    <string name="more_info_chapters">Chapters</string>
+    <string name="more_info_volumes">Volumes</string>
+    <string name="more_info_authors">Authors</string>
+    <string name="more_info_published">Published</string>
+    <string name="search_myanimelist">Search MyAnimeList</string>
+    <string name="anime_statistics">Anime Statistics</string>
+    <string name="profile_watching">Watching:</string>
+    <string name="profile_completed">Completed:</string>
+    <string name="profile_on_hold">On Hold:</string>
+    <string name="profile_dropped">Dropped:</string>
+    <string name="profile_ptw">PTW:</string>
+    <string name="profile_total">Total:</string>
+    <string name="profile_days">Days</string>
+    <string name="profile_episodes">Episodes</string>
+    <string name="profile_mean_score">Mean Score</string>
+    <string name="profile_rewatched">Rewatched</string>
+    <string name="anime_review_subtitle">Overall score: %d • %d Episodes Seen</string>
+    <string name="manga_review_subtitle">Overall score: %d • %d Chapters Read</string>
+    <string name="people_found_helpful">%d People found this helpful</string>
+    <string name="overall_score">Overall score:\u0020</string>
+    <string name="episodes_seen">Episodes seen:\u0020</string>
+    <string name="people_found_this_helpful">\u0020People found this helpful</string>
+    <string name="review_chapters_read">Chapters read:</string>
+    <string name="remove_anime_title">Remove anime from list</string>
+    <string name="remove_manga_title">Remove manga from list</string>
+    <string name="remove_anime_confirmation">Are you sure you want to remove this anime from your list?</string>
+    <string name="remove_manga_confirmation">Are you sure you want to remove this manga from your list?</string>
+    <string name="copied_to_clipboard">Copied to clipboard:</string>
 </resources>

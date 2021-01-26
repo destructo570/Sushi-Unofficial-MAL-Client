@@ -189,7 +189,7 @@ constructor(private val malApi: MalApi,
             val addChapterDeferred = malApi.updateUserManga(mangaId,
                 status,null,null,null,
                 numberOfCh,null,null,
-                null,null,null)
+                null,null,null, null, null)
             try {
                 val mangaStatus = addChapterDeferred.await()
                 val manga = userMangaListDao.getUserMangaById(mangaId.toInt())

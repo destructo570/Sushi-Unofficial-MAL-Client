@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.allCharacters
+package com.destructo.sushi.ui.manga.mangaCharacters
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,48 +13,46 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
-import com.destructo.sushi.adapter.AllCharactersAdapter
-import com.destructo.sushi.databinding.FragmentAllCharactersBinding
-import com.destructo.sushi.listener.AnimeCharacterListener
+import com.destructo.sushi.adapter.AllMangaCharacterAdapter
+import com.destructo.sushi.databinding.FragmentAllMangaCharactersBinding
+import com.destructo.sushi.listener.MangaCharacterListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
-class AllCharactersFragment : Fragment() {
+class MangaCharactersFragment : Fragment() {
 
-    private lateinit var binding: FragmentAllCharactersBinding
-    private val allCharacterViewModel:AllCharacterViewModel by viewModels()
-    private var animeIdArg: Int = 0
+    private lateinit var binding: FragmentAllMangaCharactersBinding
+    private val charactersViewModel: MangaCharactersViewModel by viewModels()
+    private var mangaIdArg: Int = 0
     private lateinit var characterRecyclerView: RecyclerView
-    private lateinit var characterAdapter: AllCharactersAdapter
-    private lateinit var toolbar:Toolbar
+    private lateinit var characterAdapter: AllMangaCharacterAdapter
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null){
-            animeIdArg = savedInstanceState.getInt("animeId")
+            mangaIdArg = savedInstanceState.getInt("mangaId")
         }else{
-            animeIdArg = AllCharactersFragmentArgs.fromBundle(requireArguments()).malId
-            allCharacterViewModel.getAnimeCharacters(animeIdArg)
+            mangaIdArg = MangaCharactersFragmentArgs.fromBundle(requireArguments()).mangaId
+            charactersViewModel.getMangaCharacters(mangaIdArg)
         }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("animeId", animeIdArg)
+        outState.putInt("mangaId", mangaIdArg)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAllCharactersBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllMangaCharactersBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+
         characterRecyclerView = binding.characterRecycler
         characterRecyclerView.layoutManager = GridLayoutManager(context,3)
         characterRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
@@ -67,33 +65,29 @@ class AllCharactersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        characterAdapter = AllCharactersAdapter(AnimeCharacterListener {
-            it?.let { navigateToCharacterDetails(it)
-            }
+        characterAdapter = AllMangaCharacterAdapter(MangaCharacterListener {
+            it?.let { it.malId?.let { it1 -> navigateToCharacterDetails(it1) } }
         })
+        characterRecyclerView.adapter = characterAdapter
+        charactersViewModel.mangaCharacter.observe(viewLifecycleOwner) { resource ->
 
-        binding.characterRecycler.adapter = characterAdapter
-
-        allCharacterViewModel.animeCharacterAndStaff.observe(viewLifecycleOwner) { resources ->
-            when (resources.status) {
+            when (resource.status) {
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    resources.data?.let {
-                        characterAdapter.submitList(it.characters)
+                    resource.data?.let { characters ->
+                        characterAdapter.submitList(characters.characters)
+
                     }
                 }
                 Status.ERROR -> {
-                    Timber.e("Error: %s", resources.message)
                 }
             }
-
         }
-
     }
 
-    private fun navigateToCharacterDetails(characterId: Int) {
-        findNavController().navigate(R.id.characterFragment, bundleOf(Pair("characterId", characterId)))
+    private fun navigateToCharacterDetails(character: Int) {
+        findNavController().navigate(R.id.characterFragment, bundleOf(Pair("characterId", character)))
     }
 
 

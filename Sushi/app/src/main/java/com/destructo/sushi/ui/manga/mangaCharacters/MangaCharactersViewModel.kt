@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.manga.allMangaCharacters
+package com.destructo.sushi.ui.manga.mangaCharacters
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AllMangaCharacterViewModel
+class MangaCharactersViewModel
     @ViewModelInject
     constructor(
         private val mangaCharacterListDao: MangaCharacterListDao,

@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.allCharacters
+package com.destructo.sushi.ui.anime.animeCharacters
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AllCharacterViewModel
+class AnimeCharactersViewModel
     @ViewModelInject
     constructor(
         @Assisted

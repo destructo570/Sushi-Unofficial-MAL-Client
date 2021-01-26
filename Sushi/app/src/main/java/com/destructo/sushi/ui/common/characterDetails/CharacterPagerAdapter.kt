@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.anime.characterDetails
+package com.destructo.sushi.ui.common.characterDetails
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

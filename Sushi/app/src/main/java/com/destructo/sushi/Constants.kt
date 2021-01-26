@@ -15,9 +15,9 @@ const val AUTH_CODE_URL = "https://myanimelist.net/v1/oauth2/authorize"
 const val AC_GRANT_CODE = "authorization_code"
 const val AR_GRANT_CODE = "refresh_token"
 
-const val ALL_ANIME_FIELDS ="id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics,my_list_status"
+const val ALL_ANIME_FIELDS ="id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status{start_date,finish_date},num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics"
 const val BASIC_ANIME_FIELDS ="id,title,main_picture,mean,media_type,rank,nsfw"
-const val ALL_MANGA_FIELDS = "id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}"
+const val ALL_MANGA_FIELDS = "id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status{start_date,finish_date},num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}"
 const val BASIC_MANGA_FIELDS ="id,title,main_picture,mean,rank,media_type,nsfw"
 
 const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
@@ -54,6 +54,9 @@ const val ANIME_ID_ARG = "animeId"
 const val CHARACTER_ID_ARG = "characterId"
 const val PERSON_ID_ARG = "personId"
 const val BOARD_ID_ARG = "boardId"
+const val MAL_ID_ARG = "malId"
+
+
 
 
 const val BASE_MAL_ANIME_URL = "https://myanimelist.net/anime/"

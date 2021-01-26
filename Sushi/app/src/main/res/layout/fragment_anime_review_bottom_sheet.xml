@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Overall score: "
+            android:text="@string/overall_score"
             android:textColor="?attr/textColorPrimary"
             app:layout_constraintStart_toEndOf="@+id/reviewer_image"
             app:layout_constraintTop_toBottomOf="@+id/reviewer_name" />
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="?attr/textColorPrimary"
-            android:text="Episodes seen: "
+            android:text="@string/episodes_seen"
             style="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/reviewer_image"
             app:layout_constraintTop_toBottomOf="@+id/textView80" />
@@ -145,7 +145,7 @@
             android:id="@+id/textView85"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" People found this helpful"
+            android:text="@string/people_found_this_helpful"
             android:textColor="?attr/textColorPrimary"
             style="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/textView84"

@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.anime.characterDetails
+package com.destructo.sushi.ui.common.characterDetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,17 +10,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.MANGA_ID_ARG
+import com.destructo.sushi.PERSON_ID_ARG
 import com.destructo.sushi.R
-import com.destructo.sushi.databinding.FragmentCharacterMangaographyBinding
+import com.destructo.sushi.databinding.FragmentCharacterVoiceActorsBinding
+import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterMangaography : Fragment() {
+class CharacterVoiceActors : Fragment() {
 
-    private lateinit var mangaoAdapter: PersonAdapter
-    private lateinit var mangaoRecyclerView: RecyclerView
+    private lateinit var voiceAdapter: VoiceActorAdapter
+    private lateinit var voiceRecyclerView: RecyclerView
     private val characterViewModel: CharacterViewModel
             by viewModels(ownerProducer = {requireParentFragment()})
 
@@ -29,34 +30,35 @@ class CharacterMangaography : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding =
-            FragmentCharacterMangaographyBinding
+            FragmentCharacterVoiceActorsBinding
                 .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
 
-        mangaoRecyclerView = binding.mangaographyRecyclerMain
-        mangaoRecyclerView.layoutManager = GridLayoutManager(context,3)
-        mangaoRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
-        mangaoRecyclerView.setHasFixedSize(true)
+        voiceRecyclerView = binding.characterRecyclerMain
+        voiceRecyclerView.layoutManager = GridLayoutManager(context,3)
+        voiceRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
+        voiceRecyclerView.setHasFixedSize(true)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mangaoAdapter = PersonAdapter(PersonListener {
-            it?.let { navigateToMangaDetails(it) }
+        voiceAdapter = VoiceActorAdapter(MalIdListener{
+            it?.let {navigateToPersonFragment(it)}
         })
 
         characterViewModel.character.observe(viewLifecycleOwner){character->
-            mangaoAdapter.submitList(character.mangaography)
-            mangaoRecyclerView.adapter = mangaoAdapter
+            voiceAdapter.submitList(character.voiceActors)
+            voiceRecyclerView.adapter = voiceAdapter
         }
-
     }
 
-    private fun navigateToMangaDetails(mangaMalId: Int){
+    private fun navigateToPersonFragment(personId:Int){
+
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
         )
+
     }
 }

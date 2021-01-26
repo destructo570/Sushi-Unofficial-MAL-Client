@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.R
-import com.destructo.sushi.R.string.number_of_users
+import com.destructo.sushi.R.string.number_of_members
 import com.destructo.sushi.R.string.score
 import com.destructo.sushi.adapter.SeasonAnimeAdapter
 import com.destructo.sushi.databinding.FragmentSeasonalAnimeBinding
@@ -61,15 +61,15 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
     private lateinit var seasonalAnimePaginationProgress: ProgressBar
 
     private lateinit var seasonArchiveMap: MutableMap<String, List<String?>?>
-    private var selectedYear: String = "2020"
-    private var selectedSeason: String = "fall"
+    private var selectedYear: String = "2021"
+    private var selectedSeason: String = "winter"
     private var selectedSortType: String = "anime_score"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             seasonAnimeViewModel.clearList()
-            seasonAnimeViewModel.getSeasonalAnime("2020", "fall", "anime_score", DEFAULT_PAGE_LIMIT, null)
+            seasonAnimeViewModel.getSeasonalAnime("2021", "winter", "anime_score", DEFAULT_PAGE_LIMIT, null)
             seasonAnimeViewModel.getSeasonArchive()
         }
     }
@@ -259,7 +259,7 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
             getString(score) -> {
                 sortType = SCORE.value
             }
-            getString(number_of_users) -> {
+            getString(number_of_members) -> {
                 sortType = NUM_LIST_USER.value
             }
         }

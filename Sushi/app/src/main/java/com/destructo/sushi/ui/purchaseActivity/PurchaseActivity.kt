@@ -74,13 +74,11 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK){
-                    Timber.e("Billing service successfully setup")
                     queryProducts()
                 }
             }
 
             override fun onBillingServiceDisconnected() {
-                Timber.e("Billing service disconnected")
             }
 
         })
