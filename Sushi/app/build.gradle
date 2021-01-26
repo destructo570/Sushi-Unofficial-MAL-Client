@@ -182,6 +182,9 @@ dependencies {
     //Google admob
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
 
+    //Coil
+    implementation "io.coil-kt:coil:1.1.1"
+
     //LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 

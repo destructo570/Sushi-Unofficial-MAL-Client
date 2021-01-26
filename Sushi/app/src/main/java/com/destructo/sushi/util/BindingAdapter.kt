@@ -7,8 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import coil.load
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.BOARD_ID_ARG
 import com.destructo.sushi.R
@@ -27,17 +26,17 @@ import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import java.text.NumberFormat
 import java.util.*
 
-
 /**
  * Loading image into image view with Glide.
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        Glide.with(imgView.context)
-            .load(imgUrl)
-            .apply(RequestOptions.placeholderOf(R.drawable.test_img))
-            .into(imgView)
+        imgView.load(imgUrl){
+            placeholder(R.drawable.test_img)
+            crossfade(true)
+            crossfade(400)
+        }
     }
 }
 
