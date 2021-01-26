@@ -143,8 +143,6 @@
         android:id="@+id/profileFragment"
         android:name="com.destructo.sushi.ui.user.profile.ProfileFragment"
         android:label="ProfileFragment">
-        <deepLink app:uri="https://myanimelist.net/profile/.*" />
-        <deepLink app:uri="https://myanimelist.net/profile" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
