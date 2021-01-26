@@ -9,7 +9,7 @@
         type="com.destructo.sushi.model.jikan.character.PersonEntity" />
         <variable
             name="personListener"
-            type="com.destructo.sushi.ui.anime.characterDetails.PersonListener" />
+            type="com.destructo.sushi.ui.common.characterDetails.PersonListener" />
 
     </data>
 

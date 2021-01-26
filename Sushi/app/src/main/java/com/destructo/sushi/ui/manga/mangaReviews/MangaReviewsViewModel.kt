@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.manga.allMangaReviews
+package com.destructo.sushi.ui.manga.mangaReviews
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class AllMangaReviewViewModel
+class MangaReviewsViewModel
     @ViewModelInject
     constructor(
         private val jikanApi: JikanApi,

@@ -95,7 +95,8 @@ constructor(
             mangaUpdateParams.score, mangaUpdateParams.num_volumes_read,
             mangaUpdateParams.num_chapters_read, mangaUpdateParams.priority,
             mangaUpdateParams.num_times_reread, mangaUpdateParams.reread_value,
-            mangaUpdateParams.tags, mangaUpdateParams.comments
+            mangaUpdateParams.tags, mangaUpdateParams.comments,
+            mangaUpdateParams.start_date,mangaUpdateParams.finish_date
         )
         try {
             val mangaStatus = addEpisodeDeferred.await()

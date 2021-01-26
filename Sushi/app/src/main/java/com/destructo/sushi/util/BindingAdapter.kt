@@ -3,13 +3,11 @@ package com.destructo.sushi.util
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import coil.load
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.BOARD_ID_ARG
 import com.destructo.sushi.R
@@ -28,18 +26,17 @@ import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
 import java.text.NumberFormat
 import java.util.*
 
-
 /**
  * Loading image into image view with Glide.
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-        Glide.with(imgView.context)
-            .load(imgUrl)
-            .apply(RequestOptions.placeholderOf(R.drawable.test_img))
-            .into(imgView)
+        imgView.load(imgUrl){
+            placeholder(R.drawable.test_img)
+            crossfade(true)
+            crossfade(400)
+        }
     }
 }
 
@@ -50,7 +47,7 @@ fun TextView.setAnimeButtonState(data: MyAnimeListStatus?) {
             text = data.status.toString().toTitleCase()
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
         }else{
-            text = "Edit Status"
+            text = context.getString(R.string.edit_status)
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
         }
     }
@@ -63,7 +60,7 @@ fun TextView.setMangaButtonState(data: MyMangaListStatus?) {
             text = data.status.toString().toTitleCase()
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
         }else{
-            text = "Edit Status"
+            text = context.getString(R.string.edit_status)
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_fill, 0, 0, 0)
         }
     }
@@ -209,18 +206,19 @@ fun TextView.setEpisodeDetail(data: StartSeason?) {
 @BindingAdapter("formatReviewOverview")
 fun TextView.setReviewOverview(data: Review?) {
     data?.let {
-        val formattedText = "Overall score: ${data.reviewer?.reviewScores?.overall} " +
-                "• ${data.reviewer?.episodesSeen} Episodes Seen"
-        text = formattedText
+        val str = String.format(context.getString(R.string.anime_review_subtitle),
+            data.reviewer?.reviewScores?.overall, data.reviewer?.episodesSeen)
+        text = str
     }
 }
 
 @BindingAdapter("formatReviewOverview")
 fun TextView.setReviewOverview(data: ReviewEntity?) {
     data?.let {
-        val formattedText = "Overall score: ${data.reviewer?.scores?.overall} " +
-                "• ${data.reviewer?.chaptersRead} Chapters Read"
-        text = formattedText
+
+        val str = String.format(this.context.getString(R.string.manga_review_subtitle),
+            data.reviewer?.scores?.overall, data.reviewer?.chaptersRead)
+        text = str
     }
 }
 
@@ -253,7 +251,8 @@ fun TextView.covertBoolToString(data: Boolean?) {
 @BindingAdapter("formatReviewHelpful")
 fun TextView.setReviewHelpful(data: Review?) {
     data?.let {
-        val formattedText = "${data.helpfulCount} People found this helpful"
+        val formattedText = String.format(this.context.getString(R.string.people_found_helpful),
+            data.helpfulCount)
         text = formattedText
     }
 }
@@ -261,7 +260,8 @@ fun TextView.setReviewHelpful(data: Review?) {
 @BindingAdapter("formatReviewHelpful")
 fun TextView.setReviewHelpful(data: ReviewEntity?) {
     data?.let {
-        val formattedText = "${data.helpfulCount} People found this helpful"
+        val formattedText = String.format(this.context.getString(R.string.people_found_helpful),
+            data.helpfulCount)
         text = formattedText
     }
 }

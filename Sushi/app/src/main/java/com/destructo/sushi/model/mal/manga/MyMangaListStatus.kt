@@ -27,5 +27,9 @@ data class MyMangaListStatus(
     @Json(name = "tags")
     val tags: List<String?>?=null,
     @Json(name = "comments")
-    val comments: String?=null
+    val comments: String?=null,
+    @Json(name = "start_date")
+    val startDate: String? = null,
+    @Json(name = "finish_date")
+    val finishDate: String? = null
 ): Parcelable

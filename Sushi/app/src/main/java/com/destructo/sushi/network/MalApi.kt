@@ -129,7 +129,9 @@ interface MalApi {
         @Field("num_times_rewatched") num_times_rewatched:Int?,
         @Field("rewatch_value") rewatch_value:Int?,
         @Field("tags") tags:List<String>?,
-        @Field("comments") comments:String?
+        @Field("comments") comments:String?,
+        @Field("start_date") startDate:String?,
+        @Field("finish_date") finishDate:String?
     ): Deferred<UpdateUserAnime>
 
     @FormUrlEncoded
@@ -145,7 +147,9 @@ interface MalApi {
         @Field("num_times_reread") num_times_reread:Int?,
         @Field("reread_value") reread_value:Int?,
         @Field("tags") tags:List<String>?,
-        @Field("comments") comments:String?
+        @Field("comments") comments:String?,
+        @Field("start_date") startDate:String?,
+        @Field("finish_date") finishDate:String?
     ): Deferred<UpdateUserManga>
 
     @DELETE("anime/{anime_id}/my_list_status")

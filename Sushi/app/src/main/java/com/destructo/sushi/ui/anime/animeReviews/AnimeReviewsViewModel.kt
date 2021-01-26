@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.allReviews
+package com.destructo.sushi.ui.anime.animeReviews
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AllReviewViewModel
+class AnimeReviewsViewModel
 @ViewModelInject
 constructor(
     @Assisted

@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.anime.characterDetails
+package com.destructo.sushi.ui.common.characterDetails
 
 import com.destructo.sushi.model.jikan.character.PersonEntity
 

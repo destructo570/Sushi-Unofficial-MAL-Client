@@ -27,4 +27,8 @@ data class MyAnimeListStatus(
     val rewatchValue: Int? = null,
     @Json(name = "tags")
     val tags: List<String?>? = null,
+    @Json(name = "start_date")
+    val startDate: String? = null,
+    @Json(name = "finish_date")
+    val finishDate: String? = null,
 ) : Parcelable

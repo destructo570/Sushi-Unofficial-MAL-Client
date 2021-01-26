@@ -103,7 +103,7 @@ constructor(
                 updateParam.animeId, updateParam.status,updateParam.is_rewatching,
                 updateParam.score,updateParam.num_watched_episodes, updateParam.priority,
                 updateParam.num_times_rewatched, updateParam.rewatch_value,
-                updateParam.tags,updateParam.comments)
+                updateParam.tags,updateParam.comments,updateParam.start_date,updateParam.finish_date)
             try {
                 val animeStatus = addEpisodeDeferred.await()
                 withContext(Dispatchers.Main){
