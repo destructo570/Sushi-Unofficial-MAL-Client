@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.anime.characterDetails
+package com.destructo.sushi.ui.common.characterDetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

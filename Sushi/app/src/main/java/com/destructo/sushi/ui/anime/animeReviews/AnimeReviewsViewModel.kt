@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.animeReviews
+package com.destructo.sushi.ui.anime.animeReviews
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject

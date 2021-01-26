@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.common.animeCharacters.AnimeCharactersFragment"
+    tools:context=".ui.anime.animeCharacters.AnimeCharactersFragment"
     >
 
     <data>

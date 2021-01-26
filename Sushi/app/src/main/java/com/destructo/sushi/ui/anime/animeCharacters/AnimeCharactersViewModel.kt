@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.animeCharacters
+package com.destructo.sushi.ui.anime.animeCharacters
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject

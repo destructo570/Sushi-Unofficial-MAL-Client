@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.animeCharacters
+package com.destructo.sushi.ui.anime.animeCharacters
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,7 +25,7 @@ import timber.log.Timber
 class AnimeCharactersFragment : Fragment() {
 
     private lateinit var binding: FragmentAllCharactersBinding
-    private val animeCharactersViewModel:AnimeCharactersViewModel by viewModels()
+    private val animeCharactersViewModel: AnimeCharactersViewModel by viewModels()
     private var animeIdArg: Int = 0
     private lateinit var characterRecyclerView: RecyclerView
     private lateinit var characterAdapter: AllCharactersAdapter

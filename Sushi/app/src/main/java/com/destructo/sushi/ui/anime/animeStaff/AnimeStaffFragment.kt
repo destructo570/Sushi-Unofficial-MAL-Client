@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.animeStaff
+package com.destructo.sushi.ui.anime.animeStaff
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,8 +17,8 @@ import com.destructo.sushi.adapter.AllAnimeStaffAdapter
 import com.destructo.sushi.databinding.FragmentAllAnimeStaffBinding
 import com.destructo.sushi.listener.AnimeStaffListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.common.animeCharacters.AnimeCharactersFragmentArgs
-import com.destructo.sushi.ui.common.animeCharacters.AnimeCharactersViewModel
+import com.destructo.sushi.ui.anime.animeCharacters.AnimeCharactersFragmentArgs
+import com.destructo.sushi.ui.anime.animeCharacters.AnimeCharactersViewModel
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

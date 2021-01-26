@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.animeReviews
+package com.destructo.sushi.ui.anime.animeReviews
 
 import android.os.Bundle
 import android.view.LayoutInflater

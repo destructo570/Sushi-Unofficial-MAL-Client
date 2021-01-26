@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.destructo.sushi.ui.anime.characterDetails.CharacterFragment"
+        android:name="com.destructo.sushi.ui.common.characterDetails.CharacterFragment"
         android:label="CharacterFragment">
         <argument
             android:name="characterId"
@@ -166,7 +166,7 @@
     </fragment>
     <fragment
         android:id="@+id/animeCharactersFragment"
-        android:name="com.destructo.sushi.ui.common.animeCharacters.AnimeCharactersFragment"
+        android:name="com.destructo.sushi.ui.anime.animeCharacters.AnimeCharactersFragment"
         android:label="AllCharactersFragment"
         tools:layout="@layout/fragment_all_characters">
         <argument
@@ -176,7 +176,7 @@
     </fragment>
     <fragment
         android:id="@+id/animeReviewsFragment"
-        android:name="com.destructo.sushi.ui.common.animeReviews.AnimeReviewsFragment"
+        android:name="com.destructo.sushi.ui.anime.animeReviews.AnimeReviewsFragment"
         android:label="AnimeReviewsFragment">
 
         <argument
@@ -202,7 +202,7 @@
     </fragment>
     <fragment
         android:id="@+id/allAnimeStaffFragment"
-        android:name="com.destructo.sushi.ui.common.animeStaff.AnimeStaffFragment"
+        android:name="com.destructo.sushi.ui.anime.animeStaff.AnimeStaffFragment"
         android:label="AllAnimeStaffFragment">
         <argument android:name="malId"
             app:argType="integer"/>
