@@ -254,13 +254,16 @@
     </style>
 
     <!-- Date Picker Dialog -->
-    <style name="SushiDatePicker" parent="android:Theme.Material.Light.Dialog">
+    <style name="SushiDatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="dialogCornerRadius">8dp</item>
-        <item name="android:colorPrimary">?attr/colorPrimaryDark</item>
-        <item name="android:colorPrimaryDark">?attr/colorPrimaryDark</item>
-        <item name="android:colorAccent">?attr/colorAccent</item>
+        <item name="materialCalendarTheme">@style/ThemeMaterialCalendar</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerButtonStyle</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/DatePickerButtonStyle</item>
+    </style>
+
+    <style name="ThemeMaterialCalendar">
+        <item name="android:colorAccent">?attr/colorAccent</item>
+
     </style>
 
     <style name="DatePickerButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless">
