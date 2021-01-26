@@ -177,7 +177,7 @@ class AnimeDetailFragment : Fragment(),
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
 
-        setListeners()
+        setupListeners()
 
         return binding.root
     }
@@ -348,6 +348,7 @@ class AnimeDetailFragment : Fragment(),
                 reviewDialog.show(childFragmentManager, "anime_review_dialog")
             }
         })
+
         recommRecycler.adapter = recommAdapter
         relatedRecycler.adapter = relatedAdapter
         reviewRecycler.adapter = reviewAdapter
@@ -361,7 +362,7 @@ class AnimeDetailFragment : Fragment(),
         appBar.addOnOffsetChangedListener(this)
     }
 
-    private fun setListeners() {
+    private fun setupListeners() {
         setupToolbar()
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
@@ -381,20 +382,20 @@ class AnimeDetailFragment : Fragment(),
     private fun setNavigationListeners() {
         characterMore.setOnClickListener {
             findNavController().navigate(
-                R.id.allCharactersFragment,
-                bundleOf(Pair("malId", animeIdArg))
+                R.id.animeCharactersFragment,
+                bundleOf(Pair(MAL_ID_ARG, animeIdArg))
             )
         }
         reviewMore.setOnClickListener {
             findNavController().navigate(
-                R.id.allReviewsFragment,
-                bundleOf(Pair("animeId", animeIdArg))
+                R.id.animeReviewsFragment,
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
             )
         }
         staffMore.setOnClickListener {
             findNavController().navigate(
                 R.id.allAnimeStaffFragment,
-                bundleOf(Pair("malId", animeIdArg))
+                bundleOf(Pair(MAL_ID_ARG, animeIdArg))
             )
         }
     }
@@ -489,7 +490,7 @@ class AnimeDetailFragment : Fragment(),
     private fun shareUrl(url: String) {
         val intent = Intent(Intent.ACTION_SEND)
         val title = animeDetailViewModel.animeDetail.value?.data?.title
-        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
+        val data = "$title\n\n$url\n\nShared Using Sushi - Myanimelist App"
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, data)
         startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
@@ -622,7 +623,9 @@ class AnimeDetailFragment : Fragment(),
         val clipData = ClipData.newPlainText("text", title)
         clipboard.setPrimaryClip(clipData)
 
-        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,
+            "${getString(R.string.copied_to_clipboard)}\n$title",
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun setAnimeAltTitleClickListener() {

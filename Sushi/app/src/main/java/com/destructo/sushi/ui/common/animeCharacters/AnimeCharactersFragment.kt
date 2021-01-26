@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.common.allAnimeStaff
+package com.destructo.sushi.ui.common.animeCharacters
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,34 +13,33 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
-import com.destructo.sushi.adapter.AllAnimeStaffAdapter
-import com.destructo.sushi.databinding.FragmentAllAnimeStaffBinding
-import com.destructo.sushi.listener.AnimeStaffListener
+import com.destructo.sushi.adapter.AllCharactersAdapter
+import com.destructo.sushi.databinding.FragmentAllCharactersBinding
+import com.destructo.sushi.listener.AnimeCharacterListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.common.allCharacters.AllCharacterViewModel
-import com.destructo.sushi.ui.common.allCharacters.AllCharactersFragmentArgs
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AllAnimeStaffFragment : Fragment() {
+class AnimeCharactersFragment : Fragment() {
 
-    private lateinit var binding: FragmentAllAnimeStaffBinding
-    private val allCharacterViewModel: AllCharacterViewModel by viewModels()
+    private lateinit var binding: FragmentAllCharactersBinding
+    private val animeCharactersViewModel:AnimeCharactersViewModel by viewModels()
     private var animeIdArg: Int = 0
-    private lateinit var toolbar: Toolbar
-    private lateinit var staffRecycler: RecyclerView
-    private lateinit var staffAdapter: AllAnimeStaffAdapter
+    private lateinit var characterRecyclerView: RecyclerView
+    private lateinit var characterAdapter: AllCharactersAdapter
+    private lateinit var toolbar:Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null){
             animeIdArg = savedInstanceState.getInt("animeId")
         }else{
-            animeIdArg = AllCharactersFragmentArgs.fromBundle(requireArguments()).malId
-            allCharacterViewModel.getAnimeCharacters(animeIdArg)
+            animeIdArg = AnimeCharactersFragmentArgs.fromBundle(requireArguments()).malId
+            animeCharactersViewModel.getAnimeCharacters(animeIdArg)
         }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -48,16 +47,17 @@ class AllAnimeStaffFragment : Fragment() {
         outState.putInt("animeId", animeIdArg)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAllAnimeStaffBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllCharactersBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        staffRecycler = binding.staffRecycler
-        staffRecycler.layoutManager = GridLayoutManager(context,3)
-        staffRecycler.addItemDecoration(GridSpacingItemDeco(3,25,true))
+        characterRecyclerView = binding.characterRecycler
+        characterRecyclerView.layoutManager = GridLayoutManager(context,3)
+        characterRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
         toolbar = binding.toolbar
 
         setupToolbar()
@@ -67,18 +67,20 @@ class AllAnimeStaffFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        staffAdapter = AllAnimeStaffAdapter(AnimeStaffListener {
-            it?.let { it.malId?.let { it1 -> navigateToPersonDetails(it1) } }
+        characterAdapter = AllCharactersAdapter(AnimeCharacterListener {
+            it?.let { navigateToCharacterDetails(it)
+            }
         })
-        staffRecycler.adapter = staffAdapter
 
-        allCharacterViewModel.animeCharacterAndStaff.observe(viewLifecycleOwner) { resources ->
+        binding.characterRecycler.adapter = characterAdapter
+
+        animeCharactersViewModel.animeCharacterAndStaff.observe(viewLifecycleOwner) { resources ->
             when (resources.status) {
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
                     resources.data?.let {
-                        staffAdapter.submitList(it.staff)
+                        characterAdapter.submitList(it.characters)
                     }
                 }
                 Status.ERROR -> {
@@ -90,15 +92,14 @@ class AllAnimeStaffFragment : Fragment() {
 
     }
 
-
-    private fun navigateToPersonDetails(malId: Int) {
-        findNavController().navigate(R.id.personFragment, bundleOf(Pair("personId", malId)))
+    private fun navigateToCharacterDetails(characterId: Int) {
+        findNavController().navigate(R.id.characterFragment, bundleOf(Pair("characterId", characterId)))
     }
+
 
     private fun setupToolbar() {
         toolbar.setNavigationOnClickListener { view ->
             view.findNavController().navigateUp()
         }
     }
-
 }

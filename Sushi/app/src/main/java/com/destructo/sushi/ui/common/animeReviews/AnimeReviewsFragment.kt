@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.manga.allMangaReviews
+package com.destructo.sushi.ui.common.animeReviews
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,47 +8,57 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.adapter.AllMangaReviewAdapter
-import com.destructo.sushi.databinding.FragmentAllMangaReviewsBinding
+import com.destructo.sushi.adapter.AllAnimeReviewsAdapter
+import com.destructo.sushi.databinding.FragmentAllReviewsBinding
+import com.destructo.sushi.listener.AnimeReviewListener
 import com.destructo.sushi.listener.ListEndListener
-import com.destructo.sushi.listener.MangaReviewListener
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.ui.manga.mangaDetails.MangaReviewBottomSheetFragment
+import com.destructo.sushi.room.AnimeReviewListDao
+import com.destructo.sushi.ui.anime.animeDetails.AnimeReviewBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class AllMangaReviews : Fragment() {
+class AnimeReviewsFragment : Fragment() {
 
-    private lateinit var binding: FragmentAllMangaReviewsBinding
-    private val allReviewsViewModel: AllMangaReviewViewModel by viewModels()
-    private var mangaIdArg: Int = 0
+    private lateinit var binding: FragmentAllReviewsBinding
+    private val allReviewsViewModel: AnimeReviewsViewModel by viewModels()
+    private val args: AnimeReviewsFragmentArgs by navArgs()
+    private var animeIdArg: Int = 0
     private lateinit var reviewsRecyclerView: RecyclerView
-    private lateinit var reviewsAdapter: AllMangaReviewAdapter
+    private lateinit var reviewsAdapter: AllAnimeReviewsAdapter
     private lateinit var toolbar: Toolbar
+
+    @Inject
+    lateinit var animeReviewsDao: AnimeReviewListDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (savedInstanceState != null){
-            mangaIdArg = savedInstanceState.getInt("mangaId")
+            animeIdArg = args.animeId
         }else{
-            mangaIdArg = AllMangaReviewsArgs.fromBundle(requireArguments()).mangaId
-            allReviewsViewModel.getMangaReviews(mangaIdArg, "1")
+            animeIdArg = args.animeId
+            allReviewsViewModel.getAnimeReviews(animeIdArg, "1")
+
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("mangaId", mangaIdArg)
+        outState.putInt("animeId", animeIdArg)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAllMangaReviewsBinding.inflate(inflater, container, false).apply {
+
+        binding = FragmentAllReviewsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
         reviewsRecyclerView = binding.reviewRecycler
@@ -59,23 +69,24 @@ class AllMangaReviews : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        reviewsAdapter = AllMangaReviewAdapter(MangaReviewListener {
+        reviewsAdapter = AllAnimeReviewsAdapter(AnimeReviewListener {
             it?.let {
-                val reviewDialog = MangaReviewBottomSheetFragment.newInstance(it)
-                reviewDialog.show(childFragmentManager, "manga_review_dialog")
+                val reviewDialog = AnimeReviewBottomSheetFragment.newInstance(it)
+                reviewDialog.show(childFragmentManager, "anime_review_dialog")
             }
+
         })
-        reviewsAdapter.setListEndListener(object : ListEndListener {
+        reviewsAdapter.setListEndListener(object : ListEndListener{
             override fun onEndReached(position: Int) {
-                allReviewsViewModel.loadNextPage(mangaIdArg)
+                allReviewsViewModel.loadNextPage(animeIdArg)
             }
         })
+
         reviewsRecyclerView.adapter = reviewsAdapter
 
-        allReviewsViewModel.mangaReview.observe(viewLifecycleOwner) { resource ->
+        allReviewsViewModel.animeReview.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
                 Status.LOADING -> {
@@ -83,9 +94,9 @@ class AllMangaReviews : Fragment() {
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
-                    resource.data?.let { mangaReviews ->
+                    resource.data?.let {
                         reviewsAdapter
-                            .submitList(allReviewsViewModel.getReviewListById(mangaIdArg)?.reviews)
+                            .submitList(allReviewsViewModel.getReviewListById(animeIdArg)?.reviews)
                     }
                 }
                 Status.ERROR -> {
