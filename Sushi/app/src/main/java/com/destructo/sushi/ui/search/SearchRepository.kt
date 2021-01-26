@@ -133,7 +133,6 @@ constructor(
                 animeResultNext.value = Resource.error(e.message ?: "", null)
             }
         }
-
     }
 
     fun getMangaNext(nsfw: Boolean) {
