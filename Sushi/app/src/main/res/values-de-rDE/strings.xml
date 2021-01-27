@@ -178,8 +178,8 @@
     <string name="share_using">Teilen via</string>
     <string name="donation_succesfull">Danke für deine Unterstützung!</string>
     <string name="buy_me_a">Buy me a:</string>
-    <string name="tart_date">Startdatum:</string>
-    <string name="finish_date">Enddatum:</string>
+    <string name="update_start_date">Startdatum:</string>
+    <string name="update_finish_date">Enddatum:</string>
     <string name="pick_a_start_date">Startdatum auswählen</string>
     <string name="pick_a_finish_date">Enddatum auswählen</string>
     <string name="today">Heute</string>

@@ -264,7 +264,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/finish_date"
+            android:text="@string/update_finish_date"
             android:textAppearance="@style/TextAppearance.Sushi.B2"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
