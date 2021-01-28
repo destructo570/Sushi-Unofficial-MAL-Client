@@ -9,7 +9,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/item_card_width"
         android:layout_height="wrap_content"
         style="@style/Widget.Sushi.ItemCardView"
         app:cardUseCompatPadding="true"
@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/list_anime_cover"
-                android:layout_width="@dimen/item_card_image_width"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/item_card_image_height"
                 imageUrl="@{coverUrl}"
                 android:foreground="@drawable/list_item_gradient"

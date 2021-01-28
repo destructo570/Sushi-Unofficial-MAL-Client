@@ -76,7 +76,7 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="@dimen/card_icon_margin_normal"
-                android:layout_marginTop="@dimen/card_icon_margin_micro"
+                android:layout_marginTop="2dp"
                 android:src="@drawable/ic_score_fill"
                 app:layout_constraintEnd_toStartOf="@+id/list_season_anime_score"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,14 +84,15 @@
 
             <TextView
                 android:id="@+id/list_season_anime_score"
-                android:layout_width="match_parent"
+                animeScore="@{animeSubEntity.mean.toString()}"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/item_card_text_margin_small"
                 android:layout_marginBottom="@dimen/item_card_text_margin_normal"
-                animeScore="@{animeSubEntity.mean.toString()}"
-                android:textColor="?attr/textColorTertiary"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+                android:textColor="?attr/textColorTertiary"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/season_score_icon"
                 app:layout_constraintTop_toBottomOf="@+id/list_season_anime_title"
                 tools:text="@string/fake_anime_score" />

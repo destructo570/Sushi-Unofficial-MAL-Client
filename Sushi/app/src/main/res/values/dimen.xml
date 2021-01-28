@@ -19,7 +19,8 @@
     <dimen name="text_size_b4">10sp</dimen>
 
     <!-- Anime/Manga Card Item -->
-    <dimen name="item_card_image_width">116dp</dimen>
+    <dimen name="item_card_width">132dp</dimen>
+    <dimen name="item_card_image_width">124dp</dimen>
     <dimen name="item_card_image_height">144dp</dimen>
     <dimen name="item_card_text_margin_normal">8dp</dimen>
     <dimen name="item_card_text_margin_small">4dp</dimen>
@@ -48,6 +49,7 @@
     <dimen name="spinner_popup_elevation">6dp</dimen>
 
     <!-- Character Section-->
+    <dimen name="character_card_width">56dp</dimen>
     <dimen name="character_img_height">56dp</dimen>
     <dimen name="character_img_width">56dp</dimen>
 

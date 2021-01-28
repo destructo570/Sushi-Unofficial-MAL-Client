@@ -76,7 +76,7 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/card_icon_margin_micro"
+                android:layout_marginTop="2dp"
                 android:src="@drawable/ic_score_fill"
                 app:layout_constraintEnd_toStartOf="@+id/list_manga_score"
                 app:layout_constraintStart_toStartOf="parent"
