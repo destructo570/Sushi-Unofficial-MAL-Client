@@ -217,5 +217,13 @@
             android:name="boardId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/animeEpisodesFragment"
+        android:name="com.destructo.sushi.ui.anime.animeEpisodes.AnimeEpisodesFragment"
+        android:label="AnimeEpisodesFragment" >
+        <argument
+            android:name="animeId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
