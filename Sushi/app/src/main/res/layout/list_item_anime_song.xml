@@ -48,14 +48,12 @@
             </LinearLayout>
 
 
-
-
             <TextView
                 android:id="@+id/list_anime_song_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
-                android:layout_marginTop="@dimen/item_card_text_margin_small"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:ellipsize="end"
                 android:maxLines="2"

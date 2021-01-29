@@ -78,7 +78,7 @@ class OpeningSongsFragment : Fragment() {
                             2 -> {
                                 openGoogle(song)
                             }
-                            4 -> {
+                            3 -> {
                                 copyToClipBoard(song)
                             }
                         }
