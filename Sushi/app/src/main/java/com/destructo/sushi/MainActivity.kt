@@ -16,8 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import coil.load
 import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
@@ -128,10 +127,11 @@ class MainActivity : AppCompatActivity() {
                 profileHeader.header_user_location.text = userInfo.location
                 setProfileHeaderListener(userInfo.name)
 
-                Glide.with(profileHeader.header_user_image.context)
-                    .load(userInfo.picture)
-                    .apply(RequestOptions.placeholderOf(R.drawable.test_img))
-                    .into(profileHeader.header_user_image)
+                profileHeader.header_user_image.load(userInfo.picture){
+                    placeholder(R.drawable.test_img)
+                    crossfade(true)
+                    crossfade(400)
+                }
             }
         }
 
@@ -143,7 +143,6 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, it)))
             }
             drawer_layout.closeDrawer(GravityCompat.START)
-
         }
     }
 
