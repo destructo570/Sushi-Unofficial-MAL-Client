@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +28,7 @@ class AnimeEpisodesFragment : Fragment() {
     private lateinit var animeEpisodeAdapter: AnimeEpisodeAdapter
     private lateinit var episodeRecyclerView: RecyclerView
     private var animeIdArg: Int = 0
+    private lateinit var animeEpisodeProgressBar: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +53,7 @@ class AnimeEpisodesFragment : Fragment() {
 
         episodeRecyclerView = binding.episodeRecycler
         episodeRecyclerView.layoutManager = LinearLayoutManager(context)
-
+        animeEpisodeProgressBar = binding.animeEpisodesProgressbar
 
         return binding.root
     }
@@ -68,8 +70,11 @@ class AnimeEpisodesFragment : Fragment() {
         animeEpisodeViewModel.animeEpisodeList.observe(viewLifecycleOwner){resource->
 
             when (resource.status){
-                Status.LOADING ->{}
+                Status.LOADING ->{
+                    animeEpisodeProgressBar.visibility = View.VISIBLE
+                }
                 Status.SUCCESS ->{
+                    animeEpisodeProgressBar.visibility = View.GONE
                     animeEpisodeAdapter.submitList(resource.data?.episodeVideos)
                 }
                 Status.ERROR ->{
