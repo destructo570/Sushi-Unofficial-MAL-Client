@@ -276,4 +276,14 @@
     <string name="remove_anime_confirmation">Are you sure you want to remove this anime from your list?</string>
     <string name="remove_manga_confirmation">Are you sure you want to remove this manga from your list?</string>
     <string name="copied_to_clipboard">Copied to clipboard:</string>
+    <string name="opening_ending_songs">Opening/Ending Songs</string>
+    <string name="opening">Opening</string>
+    <string name="ending">Ending</string>
+    <string name="youtube">Youtube</string>
+    <string name="spotify">Spotify</string>
+    <string name="google_search">Google search</string>
+    <string name="sound_cloud">Sound cloud</string>
+    <string name="apple_music">Apple music</string>
+
+
 </resources>

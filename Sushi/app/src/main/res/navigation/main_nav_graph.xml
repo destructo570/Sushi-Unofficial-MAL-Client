@@ -225,5 +225,13 @@
             android:name="animeId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/animeSongsFragment"
+        android:name="com.destructo.sushi.ui.anime.animeSongs.AnimeSongsFragment"
+        android:label="AnimeSongsFragment" >
+        <argument
+            android:name="animeId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

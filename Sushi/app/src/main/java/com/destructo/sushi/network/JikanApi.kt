@@ -1,5 +1,6 @@
 package com.destructo.sushi.network
 
+import com.destructo.sushi.model.jikan.anime.core.Anime
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
@@ -18,6 +19,10 @@ import retrofit2.http.Path
 
 interface JikanApi {
 
+    @GET("anime/{animeId}")
+    fun getAnimeInfoAsync(
+        @Path("animeId") animeId: String,
+    ): Deferred<Anime>
 
     @GET("top/anime/{page}/{subtype}")
     fun getTopAnimeAsync(

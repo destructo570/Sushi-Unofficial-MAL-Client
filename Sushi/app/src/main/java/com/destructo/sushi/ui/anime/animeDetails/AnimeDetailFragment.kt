@@ -96,6 +96,7 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var myListRewatching: TextView
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
     private lateinit var animeAltTitleLayout: ConstraintLayout
+    private lateinit var animeSongsLayout: LinearLayout
 
     private var animeStatus: String? = null
     private var animeEpisodes: String? = null
@@ -183,6 +184,7 @@ class AnimeDetailFragment : Fragment(),
         toolbar = binding.animeDescToolbar
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
+        animeSongsLayout = binding.animeSongs
 
         setupListeners()
 
@@ -362,6 +364,7 @@ class AnimeDetailFragment : Fragment(),
             }
         })
 
+
         recommRecycler.adapter = recommAdapter
         relatedRecycler.adapter = relatedAdapter
         reviewRecycler.adapter = reviewAdapter
@@ -416,6 +419,12 @@ class AnimeDetailFragment : Fragment(),
         episodeMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeEpisodesFragment,
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
+            )
+        }
+        animeSongsLayout.setOnClickListener {
+            findNavController().navigate(
+                R.id.animeSongsFragment,
                 bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
             )
         }
