@@ -95,7 +95,6 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var myListCurrentStatus: TextView
     private lateinit var myListRewatching: TextView
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
-    private lateinit var animeAltTitleLayout: ConstraintLayout
     private lateinit var animeSongsLayout: LinearLayout
 
     private var animeStatus: String? = null
@@ -166,7 +165,6 @@ class AnimeDetailFragment : Fragment(),
         myListRewatching = binding.root.user_anime_rewatching_text
         animeDetailProgressBar = binding.animeDetailProgress
         moreAnimeInfoLayout = binding.root.anime_more_detail
-        animeAltTitleLayout = binding.root.anime_alt_title_layout
         characterRecycler = binding.root.characterRecycler
         staffRecycler = binding.root.staffRecycler
         recommRecycler = binding.root.recommRecycler
@@ -384,7 +382,6 @@ class AnimeDetailFragment : Fragment(),
         setupToolbar()
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
-        setAnimeAltTitleClickListener()
         initialiseAds()
         setNavigationListeners()
         setCollapseToolbarListener()
@@ -656,16 +653,6 @@ class AnimeDetailFragment : Fragment(),
         Toast.makeText(context,
             "${getString(R.string.copied_to_clipboard)}\n$title",
             Toast.LENGTH_SHORT).show()
-    }
-
-    private fun setAnimeAltTitleClickListener() {
-        animeAltTitleLayout.setOnClickListener {
-            if (it.anime_alt_title_view.visibility != View.VISIBLE) {
-                it.anime_alt_title_view.visibility = View.VISIBLE
-            } else {
-                it.anime_alt_title_view.visibility = View.GONE
-            }
-        }
     }
 
     private fun setMoreAnimeInfoClickListener() {

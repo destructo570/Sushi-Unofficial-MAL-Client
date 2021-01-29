@@ -91,7 +91,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private lateinit var mangaDetailProgressBar: ProgressBar
     private var isInUserList: Int = USER_MANGA_LIST_DEFAULT
     private lateinit var mangaMoreInfoLayout: ConstraintLayout
-    private lateinit var mangaAltTitleLayout: ConstraintLayout
     private lateinit var characterSeeMore: TextView
     private lateinit var reviewSeeMore: TextView
 
@@ -148,7 +147,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         addToListButton = binding.root.add_manga_to_list
         mangaDetailProgressBar = binding.root.manga_detail_progress
         mangaMoreInfoLayout = binding.root.manga_more_detail_layout
-        mangaAltTitleLayout = binding.root.manga_alt_title_layout
         toolbar = binding.mangaDescToolbar
         appBar = binding.mangaAppBar
         collapsingToolbar = binding.mangaCollapsingToolbar
@@ -285,7 +283,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         initialiseAds()
         setNavigationListener()
         setMoreInfoLayoutListener()
-        setAltTitleListener()
         setAddToListListener()
         setCollapsingToolbarListener()
     }
@@ -320,16 +317,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                         )
                     )
                 }
-            }
-        }
-    }
-
-    private fun setAltTitleListener() {
-        mangaAltTitleLayout.setOnClickListener {
-            if (it.manga_alt_title_view.visibility != View.VISIBLE) {
-                it.manga_alt_title_view.visibility = View.VISIBLE
-            } else {
-                it.manga_alt_title_view.visibility = View.GONE
             }
         }
     }
