@@ -55,6 +55,7 @@ const val CHARACTER_ID_ARG = "characterId"
 const val PERSON_ID_ARG = "personId"
 const val BOARD_ID_ARG = "boardId"
 const val MAL_ID_ARG = "malId"
+const val USERNAME_ARG = "username"
 
 
 

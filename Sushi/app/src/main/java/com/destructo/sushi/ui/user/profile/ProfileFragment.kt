@@ -16,12 +16,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import app.futured.donut.DonutProgressView
 import app.futured.donut.DonutSection
 import com.destructo.sushi.R
 import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentProfileBinding
-import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
+import com.destructo.sushi.model.jikan.user.AnimeStats
+import com.destructo.sushi.model.jikan.user.MangaStats
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.auth.LoginActivity
 import com.destructo.sushi.util.SessionManager
@@ -43,7 +45,9 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var progressBar:ProgressBar
     private lateinit var animeStatDonut:DonutProgressView
-    private lateinit var animeStatistics:AnimeStatistics
+    private lateinit var animeStatistics:AnimeStats
+    private lateinit var mangaStatistics:MangaStats
+
 
     private lateinit var watchingText:TextView
     private lateinit var completedText:TextView
@@ -56,7 +60,6 @@ class ProfileFragment : Fragment() {
     private lateinit var navView: NavigationView
     private lateinit var adView:AdView
 
-
     private lateinit var animeDaysTxt:TextView
     private lateinit var animeMeanScoreTxt:TextView
     private lateinit var animeEpisodesTxt:TextView
@@ -65,12 +68,12 @@ class ProfileFragment : Fragment() {
     lateinit var sessionManager: SessionManager
 
     private val profileViewModel:ProfileViewModel by viewModels()
+    private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
-            profileViewModel.clearUserInfo()
-            profileViewModel.getUserInfo("anime_statistics")
+            profileViewModel.getUserInfo(args.username)
         }
     }
 
@@ -162,7 +165,7 @@ class ProfileFragment : Fragment() {
 
                     resource.data?.let {userInfo->
                         binding.userInfo = userInfo
-                        userInfo.animeStatistics?.let{
+                        userInfo.animeStats.let{
                             animeStatistics = it
                             setAnimeStats(animeStatistics)
                         }
@@ -184,17 +187,17 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setAnimeStats(animeStats: AnimeStatistics) {
-        val watching = animeStats.numItemsWatching
-        val completed = animeStats.numItemsCompleted
-        val onHold = animeStats.numItemsOnHold
-        val dropped = animeStats.numItemsDropped
-        val planToWatch = animeStats.numItemsPlanToWatch
-        val total = animeStats.numItems
-        val animeDays = animeStats.numDays
-        val animeEp = animeStats.numEpisodes
+    private fun setAnimeStats(animeStats: AnimeStats) {
+        val watching = animeStats.watching
+        val completed = animeStats.completed
+        val onHold = animeStats.onHold
+        val dropped = animeStats.dropped
+        val planToWatch = animeStats.planToWatch
+        val total = animeStats.totalEntries
+        val animeDays = animeStats.daysWatched
+        val animeEp = animeStats.episodesWatched
         val animeMeanScore = animeStats.meanScore
-        val animeRewatch = animeStats.numTimesRewatched
+        val animeRewatch = animeStats.rewatched
 
 
         setAnimeStatText(watching, completed, onHold, dropped, planToWatch, total,

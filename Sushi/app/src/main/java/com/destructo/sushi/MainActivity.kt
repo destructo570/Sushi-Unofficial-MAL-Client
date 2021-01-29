@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -18,6 +19,7 @@ import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.destructo.sushi.enum.AppTheme
+import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -25,6 +27,7 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
+import timber.log.Timber
 import javax.inject.Inject
 
 const val CHANNEL_ID = "001"
@@ -41,9 +44,10 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adView:AdView
 
-
     @Inject
     lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var userInfoDao: UserInfoDao
 
      private val appBarConfig by lazy {
         AppBarConfiguration(
@@ -119,16 +123,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        profileHeader.setOnClickListener {
-            navController.navigate(R.id.profileFragment)
-            drawer_layout.closeDrawer(GravityCompat.START)
-
-        }
-
         mainViewModel.userInfoEntity.observe(this){
             it?.userInfo?.let {userInfo->
                 profileHeader.header_user_name.text = userInfo.name
                 profileHeader.header_user_location.text = userInfo.location
+                setProfileHeaderListener(userInfo.name)
 
                 Glide.with(profileHeader.header_user_image.context)
                     .load(userInfo.picture)
@@ -137,6 +136,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun setProfileHeaderListener(username: String?){
+        profileHeader.setOnClickListener {
+
+            val user = userInfoDao.getUserInfo(0)
+            Timber.e("Info: $username")
+            username?.let {
+                navController.navigate(R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, it)))
+            }
+            drawer_layout.closeDrawer(GravityCompat.START)
+
+        }
     }
 
     private fun createNotificationChannel(){

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="userInfo"
-            type="com.destructo.sushi.model.mal.userInfo.UserInfo" />
+            type="com.destructo.sushi.model.jikan.user.UserInfo" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -63,7 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            app:imageUrl="@{userInfo.picture}"
+                            app:imageUrl="@{userInfo.imageUrl}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{userInfo.name}"
+                    android:text="@{userInfo.username}"
                     tools:text="Batman"
                     android:textAppearance="@style/TextAppearance.Sushi.H2"
                     app:layout_constraintEnd_toEndOf="parent"
