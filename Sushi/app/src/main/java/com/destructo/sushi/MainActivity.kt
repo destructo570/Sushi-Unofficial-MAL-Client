@@ -134,7 +134,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun setProfileHeaderListener(username: String?){

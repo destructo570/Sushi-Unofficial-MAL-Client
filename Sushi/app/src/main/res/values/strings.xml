@@ -15,7 +15,6 @@
     <string name="promotion">Promotional Content</string>
     <string name="settings">Settings</string>
     <string name="about_app">About App</string>
-    <string name="user_profile">My Profile</string>
     <string name="title_anime">ANIME</string>
     <string name="title_manga">MANGA</string>
     <string name="title_other">OTHER</string>
@@ -254,16 +253,23 @@
     <string name="more_info_published">Published</string>
     <string name="search_myanimelist">Search MyAnimeList</string>
     <string name="anime_statistics">Anime Statistics</string>
-    <string name="profile_watching">Watching:</string>
-    <string name="profile_completed">Completed:</string>
-    <string name="profile_on_hold">On Hold:</string>
-    <string name="profile_dropped">Dropped:</string>
-    <string name="profile_ptw">PTW:</string>
-    <string name="profile_total">Total:</string>
+    <string name="manga_statistics">Manga Statistics</string>
+    <string name="profile_watching">Watching: %d</string>
+    <string name="profile_completed">Completed: %d</string>
+    <string name="profile_on_hold">On Hold: %d</string>
+    <string name="profile_dropped">Dropped: %d</string>
+    <string name="profile_ptw">PTW: %d</string>
+    <string name="profile_total">Total: %d</string>
     <string name="profile_days">Days</string>
     <string name="profile_episodes">Episodes</string>
     <string name="profile_mean_score">Mean Score</string>
     <string name="profile_rewatched">Rewatched</string>
+    <string name="profile_reading">Reading: %d</string>
+    <string name="profile_ptr">PTR: %d</string>
+    <string name="profile_chapters">Chapters</string>
+    <string name="profile_volumes">Volumes</string>
+    <string name="profile_reread">Reread</string>
+
     <string name="anime_review_subtitle">Overall score: %d • %d Episodes Seen</string>
     <string name="manga_review_subtitle">Overall score: %d • %d Chapters Read</string>
     <string name="people_found_helpful">%d People found this helpful</string>
@@ -284,6 +290,6 @@
     <string name="google_search">Google search</string>
     <string name="sound_cloud">Sound cloud</string>
     <string name="apple_music">Apple music</string>
-
+    <string name="profile">Profile</string>
 
 </resources>

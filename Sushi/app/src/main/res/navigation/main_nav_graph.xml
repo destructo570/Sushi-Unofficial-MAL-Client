@@ -142,6 +142,8 @@
         <argument
             android:name="username"
             app:argType="string" />
+        <deepLink app:uri="myanimelist.net/profile/{username}/.*" />
+        <deepLink app:uri="myanimelist.net/profile/{username}" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

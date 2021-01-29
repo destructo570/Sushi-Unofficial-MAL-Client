@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
 
     >
     <data>
@@ -26,7 +27,7 @@
                 style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="@string/user_profile"
+                app:title="@string/profile"
                 app:layout_scrollFlags="scroll|snap"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
@@ -149,7 +150,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:drawablePadding="5dp"
-                            android:text="@string/profile_watching"
+                            android:text="@{String.format(@string/profile_watching, userInfo.animeStats.watching)}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorWatching"
@@ -163,7 +164,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="@string/profile_completed"
+                            android:text="@{String.format(@string/profile_completed, userInfo.animeStats.completed)}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorCompleted"
@@ -179,7 +180,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="@string/profile_on_hold"
+                            android:text="@{String.format(@string/profile_on_hold, userInfo.animeStats.onHold)}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorOnHold"
@@ -195,7 +196,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="@string/profile_dropped"
+                            android:text="@{String.format(@string/profile_dropped, userInfo.animeStats.dropped)}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorDropped"
@@ -211,7 +212,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="@string/profile_ptw"
+                            android:text="@{String.format(@string/profile_ptw, userInfo.animeStats.planToWatch)}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@color/colorPlanToWatch"
@@ -227,7 +228,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:drawablePadding="5dp"
-                            android:text="@string/profile_total"
+                            android:text="@{String.format(@string/profile_total, userInfo.animeStats.totalEntries)}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:drawableStartCompat="@drawable/ic_circle_bg"
                             app:drawableTint="@android:color/transparent"
@@ -290,6 +291,18 @@
                 </com.google.android.material.card.MaterialCardView>
 
 
+                <include
+                    android:id="@+id/manga_stats"
+                    layout="@layout/inc_manga_stats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    bind:userInfo="@{userInfo}"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+                    />
+
+
                 <Button
                     android:id="@+id/mal_logout_button"
                     android:layout_width="wrap_content"
@@ -302,7 +315,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/manga_stats" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
