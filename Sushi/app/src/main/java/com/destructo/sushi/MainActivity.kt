@@ -27,7 +27,6 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 const val CHANNEL_ID = "001"
@@ -140,9 +139,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setProfileHeaderListener(username: String?){
         profileHeader.setOnClickListener {
-
-            val user = userInfoDao.getUserInfo(0)
-            Timber.e("Info: $username")
             username?.let {
                 navController.navigate(R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, it)))
             }
