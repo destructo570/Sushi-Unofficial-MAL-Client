@@ -222,9 +222,20 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </com.google.android.material.card.MaterialCardView>
+                
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-7960256274116489/7867690038"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
 
                 <include
                     android:id="@+id/manga_stats"
@@ -234,23 +245,12 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginBottom="@dimen/margin_small"
                     bind:userInfo="@{userInfo}"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/adView"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-7960256274116489/7867690038"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:visibility="gone"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/includePromotional" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

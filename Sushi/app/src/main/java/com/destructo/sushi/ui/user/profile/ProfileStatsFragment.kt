@@ -83,21 +83,7 @@ class ProfileStatsFragment : Fragment() {
         mangaRewatchTxt = binding.root.manga_rewatch_value
 
         adView = binding.adView
-        if(!SushiApplication.getContext().queryPurchases()){
-            val adRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
-
-            adView.adListener = object: AdListener(){
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    adView.visibility = View.VISIBLE
-                }
-
-                override fun onAdFailedToLoad(p0: Int) {
-                    adView.visibility = View.GONE
-                }
-            }
-        }
+        initialiseAds()
         return binding.root
     }
 
@@ -269,6 +255,24 @@ class ProfileStatsFragment : Fragment() {
         mangaEpisodesTxt.text = episodeStr
         mangaMeanScoreTxt.text = meanScoreStr
 
+    }
+
+    private fun initialiseAds() {
+        if(!SushiApplication.getContext().queryPurchases()){
+            val adRequest = AdRequest.Builder().build()
+            adView.loadAd(adRequest)
+
+            adView.adListener = object: AdListener(){
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    adView.visibility = View.VISIBLE
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    adView.visibility = View.GONE
+                }
+            }
+        }
     }
 
 
