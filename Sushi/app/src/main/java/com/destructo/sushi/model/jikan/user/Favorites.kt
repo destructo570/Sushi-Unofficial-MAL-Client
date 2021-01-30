@@ -6,11 +6,11 @@ import com.squareup.moshi.Json
 
 data class Favorites(
     @Json(name = "anime")
-    val anime: List<MALSubEntity>,
+    val anime: List<MALSubEntity?>?=null,
     @Json(name = "characters")
-    val characters: List<MALSubEntity>,
+    val characters: List<MALSubEntity?>?=null,
     @Json(name = "manga")
-    val manga: List<MALSubEntity>,
+    val manga: List<MALSubEntity?>?=null,
     @Json(name = "people")
-    val people: List<MALSubEntity>
+    val people: List<MALSubEntity?>?=null
 )

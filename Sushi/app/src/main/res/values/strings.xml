@@ -291,5 +291,10 @@
     <string name="sound_cloud">Sound cloud</string>
     <string name="apple_music">Apple music</string>
     <string name="profile">Profile</string>
+    <string name="stats">Stats</string>
+    <string name="favorite">Favorites</string>
+    <string name="user_logout">Logout</string>
+    <string name="anime">Anime</string>
+    <string name="people">People</string>
 
 </resources>
