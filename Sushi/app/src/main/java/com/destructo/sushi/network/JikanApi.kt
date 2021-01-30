@@ -1,5 +1,6 @@
 package com.destructo.sushi.network
 
+import com.destructo.sushi.model.jikan.anime.core.Anime
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
@@ -12,12 +13,17 @@ import com.destructo.sushi.model.jikan.season.Season
 import com.destructo.sushi.model.jikan.season.SeasonArchive
 import com.destructo.sushi.model.jikan.top.TopAnime
 import com.destructo.sushi.model.jikan.top.TopManga
+import com.destructo.sushi.model.jikan.user.UserInfo
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface JikanApi {
 
+    @GET("anime/{animeId}")
+    fun getAnimeInfoAsync(
+        @Path("animeId") animeId: String,
+    ): Deferred<Anime>
 
     @GET("top/anime/{page}/{subtype}")
     fun getTopAnimeAsync(
@@ -99,5 +105,11 @@ interface JikanApi {
     fun getPersonDetailsAsync(
         @Path("personId") personId: String,
     ): Deferred<PersonEntity>
+
+    @GET("user/{userName}/")
+    fun getUserDetailsAsync(
+        @Path("userName") userName: String,
+    ): Deferred<UserInfo>
+
 
 }

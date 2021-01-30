@@ -10,7 +10,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/item_card_width"
         android:layout_height="wrap_content"
         style="@style/Widget.Sushi.ItemCardView"
         app:cardUseCompatPadding="true"
@@ -21,12 +21,12 @@
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/cover_image"
-                android:layout_width="@dimen/item_card_image_width"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/item_card_image_height"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
@@ -59,7 +59,7 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginStart="@dimen/card_icon_margin_normal"
-                android:layout_marginTop="@dimen/card_icon_margin_micro"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/ic_thumb_up_fill"
                 app:layout_constraintEnd_toStartOf="@+id/list_item_recomms"
                 app:layout_constraintStart_toStartOf="parent"

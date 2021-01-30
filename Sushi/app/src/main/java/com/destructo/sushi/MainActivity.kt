@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -15,9 +16,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import coil.load
 import com.destructo.sushi.enum.AppTheme
+import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -41,9 +42,10 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adView:AdView
 
-
     @Inject
     lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var userInfoDao: UserInfoDao
 
      private val appBarConfig by lazy {
         AppBarConfiguration(
@@ -119,24 +121,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        profileHeader.setOnClickListener {
-            navController.navigate(R.id.profileFragment)
-            drawer_layout.closeDrawer(GravityCompat.START)
-
-        }
-
         mainViewModel.userInfoEntity.observe(this){
             it?.userInfo?.let {userInfo->
                 profileHeader.header_user_name.text = userInfo.name
                 profileHeader.header_user_location.text = userInfo.location
+                setProfileHeaderListener(userInfo.name)
 
-                Glide.with(profileHeader.header_user_image.context)
-                    .load(userInfo.picture)
-                    .apply(RequestOptions.placeholderOf(R.drawable.test_img))
-                    .into(profileHeader.header_user_image)
+                profileHeader.header_user_image.load(userInfo.picture){
+                    placeholder(R.drawable.test_img)
+                    crossfade(true)
+                    crossfade(400)
+                }
             }
         }
+    }
 
+    private fun setProfileHeaderListener(username: String?){
+        profileHeader.setOnClickListener {
+            username?.let {
+                navController.navigate(R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, it)))
+            }
+            drawer_layout.closeDrawer(GravityCompat.START)
+        }
     }
 
     private fun createNotificationChannel(){

@@ -40,6 +40,8 @@
         <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
         <item name="colorCardBackground">@color/contentBackgroundDarkTheme</item>
         <item name="popupBackgroundColor">@color/colorPopupBackgroundDarkTheme</item>
+        <item name="tintColor">@color/colorTintDark</item>
+
     </style>
 
     <style name="BaseTheme.Night" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -72,6 +74,8 @@
         <item name="colorMenuTextSelected">@color/colorMenuTextSelectedNight</item>
         <item name="colorCardBackground">@color/colorCardBackgroundNight</item>
         <item name="popupBackgroundColor">@color/colorPopupBackgroundNight</item>
+        <item name="tintColor">@color/colorTintNight</item>
+
 
     </style>
 

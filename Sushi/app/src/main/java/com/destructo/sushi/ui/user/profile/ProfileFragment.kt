@@ -1,35 +1,32 @@
 package com.destructo.sushi.ui.user.profile
 
-import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import app.futured.donut.DonutProgressView
-import app.futured.donut.DonutSection
+import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
-import com.destructo.sushi.SushiApplication
+import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentProfileBinding
-import com.destructo.sushi.model.mal.userInfo.AnimeStatistics
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.auth.LoginActivity
 import com.destructo.sushi.util.SessionManager
 import com.destructo.sushi.util.getColorFromAttr
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
@@ -42,35 +39,26 @@ class ProfileFragment : Fragment() {
     private lateinit var toolbar: Toolbar
     private lateinit var binding: FragmentProfileBinding
     private lateinit var progressBar:ProgressBar
-    private lateinit var animeStatDonut:DonutProgressView
-    private lateinit var animeStatistics:AnimeStatistics
 
-    private lateinit var watchingText:TextView
-    private lateinit var completedText:TextView
-    private lateinit var onholdText:TextView
-    private lateinit var ptwText:TextView
-    private lateinit var droppedText:TextView
-    private lateinit var totalText:TextView
-    private lateinit var logoutButton: Button
-    private lateinit var profileHeader:ConstraintLayout
     private lateinit var navView: NavigationView
-    private lateinit var adView:AdView
+    private lateinit var logoutButton: Button
+    private lateinit var profileHeader: ConstraintLayout
 
+    private lateinit var pager: ViewPager2
+    private lateinit var pagerAdapter: FragmentStateAdapter
+    private lateinit var tabLayout: TabLayout
+    private lateinit var tabMediator: TabLayoutMediator
 
-    private lateinit var animeDaysTxt:TextView
-    private lateinit var animeMeanScoreTxt:TextView
-    private lateinit var animeEpisodesTxt:TextView
-    private lateinit var animeRewatchTxt:TextView
     @Inject
     lateinit var sessionManager: SessionManager
 
     private val profileViewModel:ProfileViewModel by viewModels()
+    private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
-            profileViewModel.clearUserInfo()
-            profileViewModel.getUserInfo("anime_statistics")
+            profileViewModel.getUserInfo(args.username)
         }
     }
 
@@ -84,67 +72,24 @@ class ProfileFragment : Fragment() {
 
         toolbar = binding.toolbar
         progressBar = binding.progressBar
-        animeStatDonut = binding.userAnimeStatsDonut
-        watchingText = binding.animeWatchingTxt
-        completedText = binding.animeCompletedTxt
-        onholdText = binding.animeOnholdTxt
-        droppedText = binding.animeDroppedTxt
-        ptwText = binding.animePtwTxt
-        totalText = binding.animeTotalTxt
-        animeDaysTxt = binding.animeDays
-        animeMeanScoreTxt = binding.animeMeanScore
-        animeEpisodesTxt =  binding.animeEpisodesWatched
-        animeRewatchTxt = binding.animeRewatchValue
-        logoutButton = binding.malLogoutButton
+        pager = binding.profileViewPager
+        tabLayout = binding.profileTabLayout
+        pager.isUserInputEnabled = false
 
-
-        adView = binding.adView
-        if(!SushiApplication.getContext().queryPurchases()){
-            val adRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
-
-            adView.adListener = object: AdListener(){
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    adView.visibility = View.VISIBLE
+        tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = getString(R.string.stats)
                 }
-
-                override fun onAdFailedToLoad(p0: Int) {
-                    adView.visibility = View.GONE
+                1 -> {
+                    tab.text = getString(R.string.favorites)
                 }
             }
         }
+
 
         navView = requireActivity().navigationView
         profileHeader = navView.getHeaderView(0) as ConstraintLayout
-
-        logoutButton.setOnClickListener {
-
-            val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
-                .setTitle("Confirm Logout")
-                .setMessage("Are you sure you want to logout?")
-                .setPositiveButton(R.string.yes
-                ) { _, _ ->
-                    sessionManager.clearSession()
-                    logOutOfApp()
-                }
-                .setNegativeButton(R.string.no
-                ) { _, _ ->
-
-                }
-                .create()
-
-            dialog.setOnShowListener {
-
-                val view = dialog.window
-                view?.setBackgroundDrawable(context?.let { it1 -> ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg) })
-                context?.let {
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(it.getColorFromAttr(R.attr.textColorPrimary))
-                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(it.getColorFromAttr(R.attr.textColorSecondary))
-                }
-            }
-            dialog.show()
-        }
 
         return binding.root
     }
@@ -162,10 +107,12 @@ class ProfileFragment : Fragment() {
 
                     resource.data?.let {userInfo->
                         binding.userInfo = userInfo
-                        userInfo.animeStatistics?.let{
-                            animeStatistics = it
-                            setAnimeStats(animeStatistics)
-                        }
+
+                        val fragmentList = arrayListOf(
+                            ProfileStatsFragment(),
+                            ProfileFavoriteFragment(),
+                        )
+                        setupViewPager(fragmentList)
                     }
                 }
                 Status.ERROR->{
@@ -177,100 +124,65 @@ class ProfileFragment : Fragment() {
 
     }
 
+    private fun setupViewPager(fragmentList:ArrayList<Fragment>){
+        pagerAdapter = FragmentPagerAdapter(
+            fragmentList,
+            childFragmentManager,
+            lifecycle
+        )
+        pager.adapter = pagerAdapter
+        tabMediator.attach()
+    }
+
     private fun setupToolbar() {
-        toolbar.title = getString(R.string.user_profile)
+        toolbar.title = getString(R.string.profile)
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
-    }
+        toolbar.inflateMenu(R.menu.user_profile_menu)
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item?.itemId) {
+                R.id.user_logout -> {
+                    logout()
+                }
+            }
 
-    private fun setAnimeStats(animeStats: AnimeStatistics) {
-        val watching = animeStats.numItemsWatching
-        val completed = animeStats.numItemsCompleted
-        val onHold = animeStats.numItemsOnHold
-        val dropped = animeStats.numItemsDropped
-        val planToWatch = animeStats.numItemsPlanToWatch
-        val total = animeStats.numItems
-        val animeDays = animeStats.numDays
-        val animeEp = animeStats.numEpisodes
-        val animeMeanScore = animeStats.meanScore
-        val animeRewatch = animeStats.numTimesRewatched
-
-
-        setAnimeStatText(watching, completed, onHold, dropped, planToWatch, total,
-            animeDays, animeEp, animeMeanScore, animeRewatch)
-
-        val watchingSection = DonutSection(
-            name = "Watching",
-            color = Color.parseColor("#00e676"),
-            amount = watching?.toFloat() ?: 0.0f
-        )
-        val completedSection = DonutSection(
-            name = "Completed",
-            color = Color.parseColor("#3d5afe"),
-            amount = completed?.toFloat() ?: 0.0f
-        )
-        val onHoldSection = DonutSection(
-            name = "On Hold",
-            color = Color.parseColor("#ffea00"),
-            amount = onHold?.toFloat() ?: 0.0f
-        )
-        val droppedSection = DonutSection(
-            name = "Dropped",
-            color = Color.parseColor("#ff3d00"),
-            amount = dropped?.toFloat() ?: 0.0f
-        )
-        val planToWatchSection = DonutSection(
-            name = "Plan to Watch",
-            color = Color.parseColor("#607d8b"),
-            amount = planToWatch?.toFloat() ?: 0.0f
-        )
-        animeStatDonut.cap = 0.0f
-        animeStatDonut.submitData(listOf(planToWatchSection, droppedSection, onHoldSection, completedSection, watchingSection))
-
-
-    }
-
-    private fun setAnimeStatText(
-        watching: Int?,
-        completed: Int?,
-        onHold: Int?,
-        dropped: Int?,
-        planToWatch: Int?,
-        total: Int?,
-        animeDays: Double?,
-        animeEp: Int?,
-        animeMeanScore: Double?,
-        animeRewatch: Int?
-    ) {
-        val  watchingStr = "Watching: $watching"
-        val  completedStr = "Completed: $completed"
-        val  onHoldStr = "On Hold: $onHold"
-        val  droppedStr = "Dropped: $dropped"
-        val  planToWatchStr = "PTW: $planToWatch"
-        val totalStr = "Total: $total"
-        val daysStr = "$animeDays \nDays"
-        val episodeStr = "$animeEp \nEpisodes"
-        val meanScoreStr = "$animeMeanScore \nMean Score"
-        val rewatchStr = "$animeRewatch \nRewatched"
-
-
-        watchingText.text = watchingStr
-        completedText.text = completedStr
-        onholdText.text = onHoldStr
-        droppedText.text = droppedStr
-        ptwText.text = planToWatchStr
-        totalText.text = totalStr
-        animeRewatchTxt.text = rewatchStr
-        animeDaysTxt.text = daysStr
-        animeEpisodesTxt.text = episodeStr
-        animeMeanScoreTxt.text = meanScoreStr
-
+            false
+        }
     }
 
     private fun logOutOfApp() {
         val intent = Intent(context, LoginActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
+    }
+
+    private fun logout(){
+        context?.let {context->
+            val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
+                .setTitle("Confirm Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton(R.string.yes
+                ) { _, _ ->
+                    sessionManager.clearSession()
+                    logOutOfApp()
+                }
+                .setNegativeButton(R.string.no
+                ) { _, _ ->
+
+                }
+                .create()
+
+            dialog.setOnShowListener {
+
+                val view = dialog.window
+                view?.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.drawable_alert_dialog_bg))
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(context.getColorFromAttr(R.attr.textColorPrimary))
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(context.getColorFromAttr(R.attr.textColorSecondary))
+            }
+            dialog.show()
+        }
+
+
     }
 }

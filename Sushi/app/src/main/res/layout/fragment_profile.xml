@@ -1,13 +1,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 
     >
+
     <data>
+
         <variable
             name="userInfo"
-            type="com.destructo.sushi.model.mal.userInfo.UserInfo" />
+            type="com.destructo.sushi.model.jikan.user.UserInfo" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,31 +21,23 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="@string/user_profile"
+                app:title="@string/profile"
                 app:layout_scrollFlags="scroll|snap"
+                app:layout_collapseMode="pin"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.destructo.sushi.ui.user.profile.ProfileFragment">
+                app:layout_scrollFlags="scroll|snap"
+                >
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView"
@@ -56,19 +51,19 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            app:imageUrl="@{userInfo.picture}"
+                            android:src="@drawable/test_img"
+                            app:imageUrl="@{userInfo.imageUrl}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/test_img" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,255 +74,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{userInfo.name}"
-                    tools:text="Batman"
+                    android:text="@{userInfo.username}"
                     android:textAppearance="@style/TextAppearance.Sushi.H2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+                    tools:text="Batman" />
 
                 <TextView
                     android:id="@+id/textView78"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:text="@{userInfo.location}"
-                    tools:text="New York, Manhattan"
                     android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                     android:textColor="@color/textColorSecondary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView77" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardUseCompatPadding="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView78">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView79"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/anime_statistics"
-                            android:textAppearance="@style/TextAppearance.Sushi.H2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <app.futured.donut.DonutProgressView
-                            android:id="@+id/user_anime_stats_donut"
-                            android:layout_width="160dp"
-                            android:layout_height="160dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            app:donut_bgLineColor="@android:color/transparent"
-                            app:donut_gapAngle="90"
-                            app:donut_gapWidth="20"
-                            app:donut_strokeWidth="16dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView79" />
-
-                        <TextView
-                            android:id="@+id/anime_watching_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:drawablePadding="5dp"
-                            android:text="@string/profile_watching"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/colorWatching"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/textView79" />
-
-                        <TextView
-                            android:id="@+id/anime_completed_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="4dp"
-                            android:drawablePadding="5dp"
-                            android:text="@string/profile_completed"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/colorCompleted"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_watching_txt"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/anime_onhold_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="4dp"
-                            android:drawablePadding="5dp"
-                            android:text="@string/profile_on_hold"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/colorOnHold"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_completed_txt"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/anime_dropped_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="4dp"
-                            android:drawablePadding="5dp"
-                            android:text="@string/profile_dropped"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/colorDropped"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_onhold_txt"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/anime_ptw_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="4dp"
-                            android:drawablePadding="5dp"
-                            android:text="@string/profile_ptw"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@color/colorPlanToWatch"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_dropped_txt"
-
-                            />
-
-                        <TextView
-                            android:id="@+id/anime_total_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="4dp"
-                            android:drawablePadding="5dp"
-                            android:text="@string/profile_total"
-                            android:textAppearance="@style/TextAppearance.Sushi.B3"
-                            app:drawableStartCompat="@drawable/ic_circle_bg"
-                            app:drawableTint="@android:color/transparent"
-                            app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_ptw_txt"
-
-                            />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            android:layout_marginBottom="16dp"
-                            android:orientation="horizontal"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/user_anime_stats_donut">
-
-                            <TextView
-                                android:id="@+id/anime_days"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/profile_days"
-                                android:textAppearance="@style/TextAppearance.Sushi.B3" />
-
-                            <TextView
-                                android:id="@+id/anime_episodes_watched"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/profile_episodes"
-                                android:textAppearance="@style/TextAppearance.Sushi.B3" />
-
-                            <TextView
-                                android:id="@+id/anime_mean_score"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/profile_mean_score"
-                                android:textAppearance="@style/TextAppearance.Sushi.B3" />
-
-                            <TextView
-                                android:id="@+id/anime_rewatch_value"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/profile_rewatched"
-                                android:textAppearance="@style/TextAppearance.Sushi.B3" />
-                        </LinearLayout>
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <Button
-                    android:id="@+id/mal_logout_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    style="@style/Widget.Sushi.OutlinedButton"
-                    android:stateListAnimator="@null"
-                    android:text="@string/logout"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView77"
+                    tools:text="New York, Manhattan" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profile_tab_layout"
+                style="@style/TabLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/progressBar"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            />
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-7960256274116489/7867690038"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:visibility="gone"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/includePromotional" />
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/profile_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

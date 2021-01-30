@@ -31,13 +31,13 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="36dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_drop_down_line" />
+            app:srcCompat="@drawable/ic_arrow_drop_right_line" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/anime_more_detail_view"

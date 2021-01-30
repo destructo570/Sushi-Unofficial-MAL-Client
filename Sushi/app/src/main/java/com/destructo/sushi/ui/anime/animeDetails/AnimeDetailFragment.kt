@@ -52,6 +52,7 @@ import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_anime_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
+import kotlinx.android.synthetic.main.inc_anime_episodes.view.*
 import kotlinx.android.synthetic.main.inc_anime_videos.view.*
 import kotlinx.android.synthetic.main.inc_characters_list.view.*
 import kotlinx.android.synthetic.main.inc_genre_list.view.*
@@ -94,7 +95,7 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var myListCurrentStatus: TextView
     private lateinit var myListRewatching: TextView
     private lateinit var moreAnimeInfoLayout: ConstraintLayout
-    private lateinit var animeAltTitleLayout: ConstraintLayout
+    private lateinit var animeSongsLayout: LinearLayout
 
     private var animeStatus: String? = null
     private var animeEpisodes: String? = null
@@ -108,6 +109,7 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var relatedAdapter: AnimeRelatedListAdapter
     private lateinit var videoAdapter: AnimeVideoAdapter
     private lateinit var reviewAdapter: AnimeReviewListAdapter
+    private lateinit var episodeAdapter: AnimeEpisodePreviewAdapter
 
     private lateinit var characterRecycler: RecyclerView
     private lateinit var staffRecycler: RecyclerView
@@ -115,10 +117,13 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var relatedRecycler: RecyclerView
     private lateinit var videoRecycler: RecyclerView
     private lateinit var reviewRecycler: RecyclerView
+    private lateinit var episodeRecycler: RecyclerView
+
 
     private lateinit var characterMore: TextView
     private lateinit var reviewMore: TextView
     private lateinit var staffMore: TextView
+    private lateinit var episodeMore: TextView
     private lateinit var adView: AdView
 
 
@@ -160,22 +165,24 @@ class AnimeDetailFragment : Fragment(),
         myListRewatching = binding.root.user_anime_rewatching_text
         animeDetailProgressBar = binding.animeDetailProgress
         moreAnimeInfoLayout = binding.root.anime_more_detail
-        animeAltTitleLayout = binding.root.anime_alt_title_layout
         characterRecycler = binding.root.characterRecycler
         staffRecycler = binding.root.staffRecycler
         recommRecycler = binding.root.recommRecycler
         relatedRecycler = binding.root.relatedAnimeRecycler
         videoRecycler = binding.root.animeVideoRecycler
+        episodeRecycler = binding.root.animeEpisodeRecycler
         val snapHelper = PagerSnapHelper()
         reviewRecycler = binding.root.reviewsRecycler
         snapHelper.attachToRecyclerView(reviewRecycler)
         characterMore = binding.root.charactersMore
         reviewMore = binding.root.reviewsMore
         staffMore = binding.root.staffMore
+        episodeMore = binding.root.episodesMore
         adView = binding.adView
         toolbar = binding.animeDescToolbar
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
+        animeSongsLayout = binding.animeSongs
 
         setupListeners()
 
@@ -253,6 +260,7 @@ class AnimeDetailFragment : Fragment(),
                 Status.SUCCESS -> {
                     resource.data?.let { animeVideo ->
                         videoAdapter.submitList(animeVideo.promo)
+                        episodeAdapter.submitList(animeVideo.episodeVideos)
                     }
                 }
                 Status.ERROR -> {
@@ -348,6 +356,12 @@ class AnimeDetailFragment : Fragment(),
                 reviewDialog.show(childFragmentManager, "anime_review_dialog")
             }
         })
+        episodeAdapter = AnimeEpisodePreviewAdapter(MalUrlListener {
+            it?.let {
+                openUrl(it)
+            }
+        })
+
 
         recommRecycler.adapter = recommAdapter
         relatedRecycler.adapter = relatedAdapter
@@ -355,6 +369,8 @@ class AnimeDetailFragment : Fragment(),
         videoRecycler.adapter = videoAdapter
         characterRecycler.adapter = characterAdapter
         staffRecycler.adapter = staffAdapter
+        episodeRecycler.adapter = episodeAdapter
+
     }
 
     override fun onResume() {
@@ -366,7 +382,6 @@ class AnimeDetailFragment : Fragment(),
         setupToolbar()
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
-        setAnimeAltTitleClickListener()
         initialiseAds()
         setNavigationListeners()
         setCollapseToolbarListener()
@@ -396,6 +411,18 @@ class AnimeDetailFragment : Fragment(),
             findNavController().navigate(
                 R.id.allAnimeStaffFragment,
                 bundleOf(Pair(MAL_ID_ARG, animeIdArg))
+            )
+        }
+        episodeMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.animeEpisodesFragment,
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
+            )
+        }
+        animeSongsLayout.setOnClickListener {
+            findNavController().navigate(
+                R.id.animeSongsFragment,
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
             )
         }
     }
@@ -626,16 +653,6 @@ class AnimeDetailFragment : Fragment(),
         Toast.makeText(context,
             "${getString(R.string.copied_to_clipboard)}\n$title",
             Toast.LENGTH_SHORT).show()
-    }
-
-    private fun setAnimeAltTitleClickListener() {
-        animeAltTitleLayout.setOnClickListener {
-            if (it.anime_alt_title_view.visibility != View.VISIBLE) {
-                it.anime_alt_title_view.visibility = View.VISIBLE
-            } else {
-                it.anime_alt_title_view.visibility = View.GONE
-            }
-        }
     }
 
     private fun setMoreAnimeInfoClickListener() {

@@ -23,6 +23,7 @@
     <color name="colorPopupBackground">#ffffff</color>
     <color name="scoreCardBackground">#90a4ae</color>
     <color name="scoreCardText">#455a64</color>
+    <color name="colorTint">#1A212121</color>
 
 
     <!-- Night Theme -->
@@ -46,6 +47,7 @@
     <color name="colorMenuTextSelectedNight">#ffffff</color>
     <color name="colorCardBackgroundNight">#1e1e29</color>
     <color name="colorPopupBackgroundNight">#1e1e29</color>
+    <color name="colorTintNight">#1A9e9e9e</color>
 
 
     <!-- Amoled Theme -->
@@ -62,6 +64,7 @@
     <color name="colorMenuSelectedDarkTheme">#1E1E1E</color>
     <color name="colorMenuPressedDarkTheme">#1E1E1E</color>
     <color name="colorPopupBackgroundDarkTheme">#1E1E1E</color>
+    <color name="colorTintDark">#1A9e9e9e</color>
 
     <!-- Accent Choices -->
 

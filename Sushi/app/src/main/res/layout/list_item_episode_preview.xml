@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="episode"
+            type="com.destructo.sushi.model.jikan.anime.support.EpisodeVideo" />
+        <variable
+            name="listener"
+            type="com.destructo.sushi.listener.MalUrlListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/video_card_width"
+        android:layout_height="@dimen/video_card_height"
+        style="@style/Widget.Sushi.ItemCardView"
+        app:cardUseCompatPadding="true"
+        android:onClick="@{() -> listener.onClick(episode.videoUrl) }"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageView9"
+                imageUrl="@{episode.imageUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="?attr/foregroundTintDarkSecondary"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_img"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/video_card_margin_normal"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{episode.episode}"
+                android:textAppearance="@style/TextAppearance.Sushi.H2"
+                android:textColor="?attr/textColorOnPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/fake_anime_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

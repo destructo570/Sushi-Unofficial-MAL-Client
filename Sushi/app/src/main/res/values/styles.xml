@@ -36,7 +36,7 @@
         <item name="scoreCardBackground">@color/scoreCardBackground</item>
         <item name="scoreCardText">@color/scoreCardText</item>
         <item name="customChipStyle">@style/CustomChipChoice</item>
-
+        <item name="tintColor">@color/colorTint</item>
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">

@@ -23,5 +23,6 @@
     <attr name="colorAccentSecondary" format="color" />
     <attr name="popupBackgroundColor" format="color" />
     <attr name="customChipStyle" format="reference" />
+    <attr name="tintColor" format="color" />
 
 </resources>

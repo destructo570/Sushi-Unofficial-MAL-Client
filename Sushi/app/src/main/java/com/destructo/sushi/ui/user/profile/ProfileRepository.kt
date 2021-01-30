@@ -1,42 +1,35 @@
 package com.destructo.sushi.ui.user.profile
 
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.model.database.UserInfoEntity
-import com.destructo.sushi.model.mal.userInfo.UserInfo
-import com.destructo.sushi.network.MalApi
+import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.UserInfoDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProfileRepository
 @Inject
 constructor(
-    val malApi: MalApi,
+    val jikanApi: JikanApi,
     private val userInfoDao: UserInfoDao
-){
+) {
 
-    var userInfo: MutableLiveData<Resource<UserInfo>> = MutableLiveData()
+    var userInfo: MutableLiveData<Resource<com.destructo.sushi.model.jikan.user.UserInfo>> =
+        MutableLiveData()
 
-    fun getUserInfo(fields:String) {
+    suspend fun getUserInfo(userName: String) {
 
         userInfo.value = Resource.loading(null)
-
-        GlobalScope.launch {
-            val getUserMangaDeferred = malApi.getUserInfo(fields)
-            try {
-                val response = getUserMangaDeferred.await()
-                val userInfoEntity = UserInfoEntity(userInfo = response, id=0)
-                userInfoDao.insertUserInfo(userInfoEntity)
-                withContext(Dispatchers.Main){
-                    userInfo.value = Resource.success(userInfoEntity.userInfo)
-                }
-            }catch (e: Exception){
-                withContext(Dispatchers.Main){
-                    userInfo.value = Resource.error(e.message ?: "", null)}
+        val getUserMangaDeferred = jikanApi.getUserDetailsAsync(userName)
+        try {
+            val response = getUserMangaDeferred.await()
+            withContext(Dispatchers.Main) {
+                userInfo.value = Resource.success(response)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                userInfo.value = Resource.error(e.message ?: "", null)
             }
         }
     }
