@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -32,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
@@ -41,7 +39,6 @@ class ProfileFragment : Fragment() {
     private lateinit var progressBar:ProgressBar
 
     private lateinit var navView: NavigationView
-    private lateinit var logoutButton: Button
     private lateinit var profileHeader: ConstraintLayout
 
     private lateinit var pager: ViewPager2
@@ -75,6 +72,7 @@ class ProfileFragment : Fragment() {
         pager = binding.profileViewPager
         tabLayout = binding.profileTabLayout
         pager.isUserInputEnabled = false
+
 
         tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->
             when (position) {
@@ -160,8 +158,8 @@ class ProfileFragment : Fragment() {
     private fun logout(){
         context?.let {context->
             val dialog = AlertDialog.Builder(context, R.style.SushiAlertDialog)
-                .setTitle("Confirm Logout")
-                .setMessage("Are you sure you want to logout?")
+                .setTitle(getString(R.string.confirm_logout))
+                .setMessage(getString(R.string.confirm_logout_message))
                 .setPositiveButton(R.string.yes
                 ) { _, _ ->
                     sessionManager.clearSession()
