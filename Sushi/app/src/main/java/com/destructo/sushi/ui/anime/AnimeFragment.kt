@@ -62,11 +62,9 @@ class AnimeFragment : Fragment() {
     private lateinit var latestNewsAdapter: NewsItemAdapter
     private lateinit var promotionAdapter: PromotionItemAdapter
 
-
     private lateinit var upcomingAnimeSeeMore: TextView
     private lateinit var currentlyAiringMore: TextView
     private lateinit var animeRecomMore: TextView
-
 
     private lateinit var toolbar: Toolbar
     private lateinit var airingAnimeProgressBar:LinearLayout
