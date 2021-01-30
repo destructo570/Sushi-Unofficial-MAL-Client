@@ -18,26 +18,6 @@ constructor(
     var userInfo: MutableLiveData<Resource<com.destructo.sushi.model.jikan.user.UserInfo>> =
         MutableLiveData()
 
-//    fun getUserInfo(userName:String) {
-//
-//        userInfo.value = Resource.loading(null)
-//
-//        GlobalScope.launch {
-//            val getUserMangaDeferred = jikanApi.getUserDetailsAsync(userName)
-//            try {
-//                val response = getUserMangaDeferred.await()
-//                val userInfoEntity = UserInfoEntity(userInfo = response, id=0)
-//                userInfoDao.insertUserInfo(userInfoEntity)
-//                withContext(Dispatchers.Main){
-//                    userInfo.value = Resource.success(userInfoEntity.userInfo)
-//                }
-//            }catch (e: Exception){
-//                withContext(Dispatchers.Main){
-//                    userInfo.value = Resource.error(e.message ?: "", null)}
-//            }
-//        }
-//    }
-
     suspend fun getUserInfo(userName: String) {
 
         userInfo.value = Resource.loading(null)

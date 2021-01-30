@@ -15,6 +15,7 @@ import com.destructo.sushi.*
 import com.destructo.sushi.adapter.MalSubEntityPrevAdapter
 import com.destructo.sushi.databinding.FragmentProfileFavoriteBinding
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.jikan.user.Favorites
 import com.destructo.sushi.network.Status
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_user_fav_anime.view.*
@@ -52,6 +53,7 @@ class ProfileFavoriteFragment : Fragment() {
     private val profileViewModel:ProfileViewModel by viewModels(
         ownerProducer = {requireParentFragment()})
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -78,6 +80,11 @@ class ProfileFavoriteFragment : Fragment() {
         favMangaLayout = binding.favMangaLayout
         favCharacterLayout = binding.favCharacterLayout
         favPeopleLayout = binding.favPeopleLayout
+
+
+
+
+
 
         return binding.root
     }
@@ -109,22 +116,29 @@ class ProfileFavoriteFragment : Fragment() {
                 Status.LOADING->{
                 }
                 Status.SUCCESS->{
-                    resource.data?.favorites.let {favorites->
+                    resource.data?.favorites?.let {favorites->
 
-                        if (!favorites?.anime.isNullOrEmpty()){
-                            favAnimeAdapter.submitList(favorites?.anime)
+                        if (!favorites.anime.isNullOrEmpty()){
+                            favAnimeAdapter.submitList(favorites.anime)
+                            setAnimeMoreListener(favorites)
                         }else favAnimeLayout.visibility = View.GONE
 
-                        if (!favorites?.manga.isNullOrEmpty()){
-                            favMangaAdapter.submitList(favorites?.manga)
+                        if (!favorites.manga.isNullOrEmpty()){
+                            favMangaAdapter.submitList(favorites.manga)
+                            setMangaMoreListener(favorites)
+
                         }else favMangaLayout.visibility = View.GONE
 
-                        if (!favorites?.characters.isNullOrEmpty()){
-                            favCharacterAdapter.submitList(favorites?.characters)
+                        if (!favorites.characters.isNullOrEmpty()){
+                            favCharacterAdapter.submitList(favorites.characters)
+                            setCharacterMoreListener(favorites)
+
                         }else favCharacterLayout.visibility = View.GONE
 
-                        if (!favorites?.people.isNullOrEmpty()){
-                            favPeopleAdapter.submitList(favorites?.people)
+                        if (!favorites.people.isNullOrEmpty()){
+                            favPeopleAdapter.submitList(favorites.people)
+                            setPeopleeMoreListener(favorites)
+
                         }else favPeopleLayout.visibility = View.GONE
 
                     }
@@ -138,15 +152,13 @@ class ProfileFavoriteFragment : Fragment() {
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
-        this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
-        )
+        this.findNavController().navigate(R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)))
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
-        )
+            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character)))
     }
 
     private fun navigateToPersonDetails(personId: Int) {
@@ -159,6 +171,36 @@ class ProfileFavoriteFragment : Fragment() {
         this.findNavController().navigate(
             R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
         )
+    }
+
+    private fun navigateToFavorites(catergory: String, fav: Favorites){
+        this.findNavController().navigate(
+            R.id.favoritesFragment,
+            bundleOf(
+                Pair(CATEGORY_ARG, catergory),
+                Pair(FAV_ARG, fav))
+        )
+    }
+
+    private fun setAnimeMoreListener(fav: Favorites){
+        favAnimeSeeMore.setOnClickListener {
+            navigateToFavorites(getString(R.string.anime), fav)
+        }
+    }
+    private fun setCharacterMoreListener(fav: Favorites){
+        favCharacterSeeMore.setOnClickListener {
+            navigateToFavorites(getString(R.string.character), fav)
+        }
+    }
+    private fun setMangaMoreListener(fav: Favorites){
+        favMangaSeeMore.setOnClickListener {
+            navigateToFavorites(getString(R.string.manga), fav)
+        }
+    }
+    private fun setPeopleeMoreListener(fav: Favorites){
+        favPeopleSeeMore.setOnClickListener {
+            navigateToFavorites(getString(R.string.people), fav)
+        }
     }
 
 }

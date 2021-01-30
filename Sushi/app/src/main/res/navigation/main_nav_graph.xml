@@ -234,5 +234,20 @@
             android:name="animeId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.destructo.sushi.ui.user.profile.FavoritesFragment"
+        android:label="FavoritesFragment" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="favorites"
+            app:argType="com.destructo.sushi.model.jikan.user.Favorites" />
+    </fragment>
+    <fragment
+        android:id="@+id/favAnimeFragment"
+        android:name="com.destructo.sushi.ui.user.profile.FavAnimeFragment"
+        android:label="FavAnimeFragment" />
 
 </navigation>
