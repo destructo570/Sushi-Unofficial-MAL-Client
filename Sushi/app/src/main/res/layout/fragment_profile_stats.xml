@@ -223,7 +223,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
-                
+
                 <com.google.android.gms.ads.AdView
                     android:id="@+id/adView"
                     ads:adSize="BANNER"
