@@ -3,8 +3,9 @@ package com.destructo.sushi.util
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.FIRST_LIST_ITEM_SPACE_HEIGHT
 
-class ListItemDecor(private val spaceHeight: Int): RecyclerView.ItemDecoration() {
+class ListItemVerticalDecor(private val spaceHeight: Int): RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -13,9 +14,9 @@ class ListItemDecor(private val spaceHeight: Int): RecyclerView.ItemDecoration()
         state: RecyclerView.State
     ) {
         with(outRect){
-            if (parent.getChildAdapterPosition(view)==0) top = spaceHeight
+            if (parent.getChildAdapterPosition(view)==0) left = FIRST_LIST_ITEM_SPACE_HEIGHT
 
-            left = spaceHeight
+            top = spaceHeight
             right = spaceHeight
             bottom = spaceHeight
 

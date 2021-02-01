@@ -62,7 +62,8 @@ const val BASE_MAL_MANGA_URL = "https://myanimelist.net/manga/"
 const val BASE_MAL_CHARACTER_URL = "https://myanimelist.net/character/"
 const val BASE_MAL_PEOPLE_URL = "https://myanimelist.net/people/"
 
-const val LIST_SPACE_HEIGHT = 32
+const val LIST_SPACE_HEIGHT = 26
+const val FIRST_LIST_ITEM_SPACE_HEIGHT = 32
 
 
 

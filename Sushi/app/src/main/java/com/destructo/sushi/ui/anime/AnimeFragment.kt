@@ -18,10 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.ANIME_ID_ARG
-import com.destructo.sushi.NSFW_TAG
-import com.destructo.sushi.R
-import com.destructo.sushi.SushiApplication
+import com.destructo.sushi.*
 import com.destructo.sushi.adapter.AnimeHomeAdapter
 import com.destructo.sushi.adapter.AnimeHomeRecomAdapter
 import com.destructo.sushi.adapter.NewsItemAdapter
@@ -31,6 +28,7 @@ import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.util.ListItemVerticalDecor
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -107,10 +105,13 @@ class AnimeFragment : Fragment() {
 
         upcomingAnimeRecycler = binding.root.upcomingAnimeRecycler
         upcomingAnimeRecycler.setHasFixedSize(true)
+        upcomingAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
         currentAiringRecycler = binding.root.currentlyAiringRecycler
         currentAiringRecycler.setHasFixedSize(true)
+        currentAiringRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
         animeRecomRecycler = binding.root.animeRecomRecycler
         animeRecomRecycler.setHasFixedSize(true)
+        animeRecomRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
         val snapHelper = PagerSnapHelper()
         newsRecycler = binding.root.newsRecycler
         newsRecycler.setHasFixedSize(true)
