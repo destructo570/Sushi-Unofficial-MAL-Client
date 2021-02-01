@@ -16,10 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeSongAdapter
 import com.destructo.sushi.databinding.FragmentEndingSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
+import com.destructo.sushi.util.ListItemDecor
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLEncoder
 
@@ -50,6 +52,7 @@ class EndingSongsFragment : Fragment() {
 
         endingSongsRecyclerView = binding.endingSongsRecycler
         endingSongsRecyclerView.layoutManager = LinearLayoutManager(context)
+        endingSongsRecyclerView.addItemDecoration(ListItemDecor(LIST_SPACE_HEIGHT))
 
         return binding.root
 

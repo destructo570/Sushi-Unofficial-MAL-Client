@@ -41,8 +41,6 @@ const val DONATE_BEER_ID = "donate_beer"
 const val DONATE_LUNCH_ID = "donate_lunch"
 const val DONATE_GIFT_ID = "donate_gift"
 
-
-
 const val NSFW_WHITE = "white"
 
 //1 Day in milliseconds = 86400000
@@ -59,12 +57,12 @@ const val USERNAME_ARG = "username"
 const val CATEGORY_ARG = "category"
 const val FAV_ARG = "favorites"
 
-
-
 const val BASE_MAL_ANIME_URL = "https://myanimelist.net/anime/"
 const val BASE_MAL_MANGA_URL = "https://myanimelist.net/manga/"
 const val BASE_MAL_CHARACTER_URL = "https://myanimelist.net/character/"
 const val BASE_MAL_PEOPLE_URL = "https://myanimelist.net/people/"
+
+const val LIST_SPACE_HEIGHT = 32
 
 
 
