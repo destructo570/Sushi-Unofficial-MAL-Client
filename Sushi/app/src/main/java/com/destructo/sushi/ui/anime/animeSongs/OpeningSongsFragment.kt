@@ -21,7 +21,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeSongAdapter
 import com.destructo.sushi.databinding.FragmentOpeningSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
-import com.destructo.sushi.util.ListItemHorizontalDecor
+import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLEncoder
 
@@ -51,7 +51,7 @@ class OpeningSongsFragment : Fragment() {
 
         openingSongsRecyclerView = binding.openingSongsRecycler
         openingSongsRecyclerView.layoutManager = LinearLayoutManager(context)
-        openingSongsRecyclerView.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+        openingSongsRecyclerView.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
 
         return binding.root
     }

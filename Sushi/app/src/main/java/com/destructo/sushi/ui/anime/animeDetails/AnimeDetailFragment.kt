@@ -39,6 +39,7 @@ import com.destructo.sushi.model.params.AnimeUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
+import com.destructo.sushi.util.ListItemHorizontalDecor
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.gms.ads.AdListener
@@ -166,11 +167,17 @@ class AnimeDetailFragment : Fragment(),
         animeDetailProgressBar = binding.animeDetailProgress
         moreAnimeInfoLayout = binding.root.anime_more_detail
         characterRecycler = binding.root.characterRecycler
+        characterRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         staffRecycler = binding.root.staffRecycler
+        staffRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         recommRecycler = binding.root.recommRecycler
+        recommRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         relatedRecycler = binding.root.relatedAnimeRecycler
+        relatedRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         videoRecycler = binding.root.animeVideoRecycler
+        videoRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         episodeRecycler = binding.root.animeEpisodeRecycler
+        episodeRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         val snapHelper = PagerSnapHelper()
         reviewRecycler = binding.root.reviewsRecycler
         snapHelper.attachToRecyclerView(reviewRecycler)

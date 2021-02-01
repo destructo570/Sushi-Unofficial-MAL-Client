@@ -16,7 +16,6 @@
         android:layout_width="@dimen/video_card_width"
         android:layout_height="@dimen/video_card_height"
         style="@style/Widget.Sushi.ItemCardView"
-        app:cardUseCompatPadding="true"
         android:onClick="@{() -> listener.onClick(episode.videoUrl) }"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

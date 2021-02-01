@@ -3,6 +3,7 @@ package com.destructo.sushi.util
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.FIRST_LIST_ITEM_SPACE_HEIGHT
 
 class ListItemHorizontalDecor(private val spaceHeight: Int): RecyclerView.ItemDecoration() {
 
@@ -13,9 +14,9 @@ class ListItemHorizontalDecor(private val spaceHeight: Int): RecyclerView.ItemDe
         state: RecyclerView.State
     ) {
         with(outRect){
-            if (parent.getChildAdapterPosition(view)==0) top = spaceHeight
+            if (parent.getChildAdapterPosition(view)==0) left = FIRST_LIST_ITEM_SPACE_HEIGHT
 
-            left = spaceHeight
+            top = spaceHeight
             right = spaceHeight
             bottom = spaceHeight
 

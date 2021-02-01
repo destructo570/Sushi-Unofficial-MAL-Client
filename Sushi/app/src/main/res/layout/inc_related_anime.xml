@@ -14,18 +14,20 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Sushi.H2"
+            android:layout_marginStart="16dp"
             android:text="@string/related_anime"
+            android:textAppearance="@style/TextAppearance.Sushi.H2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/relatedAnimeMore"
+            style="@style/Widget.Sushi.SeeMoreText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:layout_marginEnd="16dp"
             android:text="@string/see_all"
-            style="@style/Widget.Sushi.SeeMoreText"
+            android:visibility="invisible"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent" />
 

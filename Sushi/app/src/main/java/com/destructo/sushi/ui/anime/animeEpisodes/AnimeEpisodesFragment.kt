@@ -12,10 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.adapter.AnimeEpisodeAdapter
 import com.destructo.sushi.databinding.FragmentAnimeEpisodesBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -53,6 +55,7 @@ class AnimeEpisodesFragment : Fragment() {
 
         episodeRecyclerView = binding.episodeRecycler
         episodeRecyclerView.layoutManager = LinearLayoutManager(context)
+        episodeRecyclerView.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
         animeEpisodeProgressBar = binding.animeEpisodesProgressbar
 
         return binding.root
