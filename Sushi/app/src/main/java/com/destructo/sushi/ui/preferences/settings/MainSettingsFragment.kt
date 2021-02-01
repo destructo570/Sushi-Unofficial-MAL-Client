@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.R
 import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentMainSettingsBinding
@@ -47,15 +48,13 @@ class MainSettingsFragment : Fragment() {
 
         toolbar = binding.toolbar
         lookAndFeel = binding.lookAndFeel
-        lookAndFeel.setOnClickListener {
-            findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
-
-//            if(sharedPref.getBoolean(IS_PRO_USER, false)){
-//                findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
-//            }else{
-//                startPurchaseActivity()
-//            }
-        }
+        lookAndFeel.setOnClickListener(fun(it: View) {
+            if (sharedPref.getBoolean(IS_PRO_USER, false)) {
+                findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
+            } else {
+                startPurchaseActivity()
+            }
+        })
         appPreference = binding.appSettings
         appPreference.setOnClickListener {
             findNavController().navigate(R.id.action_mainSettingsFragment_to_appPreferenceFragment)
