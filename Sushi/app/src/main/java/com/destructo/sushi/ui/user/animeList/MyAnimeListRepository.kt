@@ -147,7 +147,7 @@ constructor(
             GlobalScope.launch {
                 val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    animeStatus, animeSortType, offset,ALL_ANIME_FIELDS)
+                    animeStatus, animeSortType, offset,ALL_ANIME_FIELDS, true)
                 try {
                     val userAnime = getUserAnimeDeferred.await()
                     val userAnimeList = userAnime.data
@@ -172,7 +172,7 @@ constructor(
         GlobalScope.launch {
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                animeStatus, animeSortType, "",ALL_ANIME_FIELDS)
+                animeStatus, animeSortType, "",ALL_ANIME_FIELDS, true)
             try {
                 val userAnime = getUserAnimeDeferred.await()
                 setUserAnimeData(userAnime)
