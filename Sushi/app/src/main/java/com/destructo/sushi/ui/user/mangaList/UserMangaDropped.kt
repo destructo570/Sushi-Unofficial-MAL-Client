@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserMangaListAdapter
@@ -20,6 +21,7 @@ import com.destructo.sushi.listener.AddChapterListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -57,6 +59,7 @@ class UserMangaDropped : Fragment() {
                 }
 
             userMangaRecycler = binding.userMangaRecycler
+            userMangaRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
             userMangaRecycler.setHasFixedSize(true)
             userMangaRecycler.itemAnimator = null
             userMangaProgress = binding.userMangaListProgressbar

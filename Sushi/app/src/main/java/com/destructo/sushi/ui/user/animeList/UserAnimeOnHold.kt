@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
+import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
@@ -19,6 +20,7 @@ import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -57,6 +59,7 @@ class UserAnimeOnHold : Fragment() {
                 }
 
             userAnimeRecycler = binding.userAnimeRecycler
+            userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
             userAnimeRecycler.setHasFixedSize(true)
             userAnimeRecycler.itemAnimator = null
             userAnimeProgressbar = binding.userAnimeListProgressbar
