@@ -15,11 +15,13 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/review_card_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/review_card_height"
         style="@style/Widget.Sushi.ItemCardView"
         android:onClick="@{() -> reviewListener.onClick(review)}"
         app:cardUseCompatPadding="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

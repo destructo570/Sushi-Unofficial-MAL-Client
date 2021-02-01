@@ -81,42 +81,49 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="@dimen/margin_normal">
+                            android:orientation="vertical">
 
                             <include
                                 android:id="@+id/anime_sub_desc"
                                 layout="@layout/inc_manga_sub_desc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 bind:mangaEntity="@{mangaEntity}" />
+
                             <LinearLayout
                                 android:id="@+id/my_manga_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:orientation="vertical"
                                 android:visibility="gone"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc"
-                                >
+                                app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc">
+
                                 <include
                                     layout="@layout/inc_my_manga_status"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_normal"
                                     bind:mangaEntity="@{mangaEntity}" />
                             </LinearLayout>
-
 
 
                             <TextView
                                 android:id="@+id/manga_synopsis_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
                                 android:layout_marginTop="@dimen/margin_normal"
+                                android:layout_marginEnd="16dp"
                                 android:text="@string/synopsis"
                                 android:textAppearance="@style/TextAppearance.Sushi.H2"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +134,9 @@
                                 android:id="@+id/manga_synopsis"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
                                 android:layout_marginTop="@dimen/margin_small"
+                                android:layout_marginEnd="16dp"
                                 android:text="@{mangaEntity.synopsis}"
                                 android:textAppearance="@style/TextAppearance.Sushi.B3"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -140,8 +149,9 @@
                                 layout="@layout/inc_genre_list"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
                                 android:layout_marginTop="@dimen/margin_small"
-                                android:layout_marginBottom="@dimen/margin_normal"
+                                android:layout_marginEnd="16dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/manga_synopsis" />
@@ -150,11 +160,12 @@
                                 android:id="@+id/manga_alt_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:orientation="vertical"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_genre"
-                                >
+                                app:layout_constraintTop_toBottomOf="@+id/manga_genre">
 
                                 <include
                                     layout="@layout/inc_manga_alt_title"
@@ -164,15 +175,17 @@
                                     android:layout_marginBottom="@dimen/margin_small"
                                     bind:mangaEntity="@{mangaEntity}" />
                             </LinearLayout>
+
                             <LinearLayout
                                 android:id="@+id/manga_more_info"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
                                 android:orientation="vertical"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_alt_title"
-                                >
+                                app:layout_constraintTop_toBottomOf="@+id/manga_alt_title">
 
                                 <include
                                     layout="@layout/inc_more_manga_detail"
@@ -180,8 +193,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_small"
                                     android:layout_marginBottom="@dimen/margin_small"
-                                    bind:mangaEntity="@{mangaEntity}"
-                                    />
+                                    bind:mangaEntity="@{mangaEntity}" />
                             </LinearLayout>
 
                             <include
@@ -190,7 +202,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_small"
-                                android:layout_marginBottom="@dimen/margin_normal"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/manga_more_info" />

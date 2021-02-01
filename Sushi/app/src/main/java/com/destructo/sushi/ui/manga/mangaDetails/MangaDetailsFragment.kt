@@ -44,6 +44,7 @@ import com.destructo.sushi.model.params.MangaUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
+import com.destructo.sushi.util.ListItemHorizontalDecor
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.gms.ads.AdListener
@@ -139,10 +140,13 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
         val snapHelper = PagerSnapHelper()
         characterRecycler = binding.root.characterRecycler
+        characterRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         reviewRecycler = binding.root.reviewsRecycler
         snapHelper.attachToRecyclerView(reviewRecycler)
         relatedRecycler = binding.root.relatedMangaRecycler
+        relatedRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         recommRecycler = binding.root.recommRecycler
+        recommRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
         myListStatus = binding.root.my_manga_status
         addToListButton = binding.root.add_manga_to_list
         mangaDetailProgressBar = binding.root.manga_detail_progress
