@@ -24,14 +24,16 @@
 <!--    </version>-->
 
     <string name="latest_changelog">
-        \n• Version 1.1.0.1
-        \n• Added start/end date options for anime/manga list.
-        \n• Added spanish,german,french translations.
-        \n• Added cross-fade animation for image loading.
-        \n• Fixed seasonal anime section loading 2020 data instead of 2021.
-        \n• Fixed bug where adding ch/ep of an anime/manga changed status to completed.
-        \n• Fixed default status of adding manga/anime not setting to PTW/PTR.
-        \n• Some other performance improvements.
+        \n• Version 1.1.0.2
+        \n• Added manga stats to profile section.
+        \n• Added favorites to profile section.
+        \n• Added Opening and ending song section.
+        \n• Added episodes section.
+        \n• Added portuguese translations to app.
+        \n• Now you can see other\'s profile in sushi.
+        \n• Fixed NSFW titles not appearing in user list.
+        \n• Fixed spacing issues in many sections and overall UI improvements.
+        \n• Some other bug fixes and performance improvements.
 
     </string>
 </resources>
