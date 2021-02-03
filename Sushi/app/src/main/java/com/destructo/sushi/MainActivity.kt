@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.scheduleFragment,
                 R.id.mangaFragment,
                 R.id.searchFragment,
-                R.id.forumFragment,
+//                R.id.forumFragment,
                 R.id.settingsFragment,
             ), drawer_layout
         )
