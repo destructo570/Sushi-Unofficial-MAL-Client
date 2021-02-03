@@ -142,7 +142,7 @@ constructor(private val malApi: MalApi,
             GlobalScope.launch {
                 val getUserMangaDeferred = malApi.getUserMangaListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, ALL_MANGA_FIELDS)
+                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, ALL_MANGA_FIELDS, true)
                 try {
                     val userManga = getUserMangaDeferred.await()
                     val userMangaList = userManga.data
@@ -166,7 +166,7 @@ constructor(private val malApi: MalApi,
         GlobalScope.launch {
             val getUserMangaDeferred = malApi.getUserMangaListAsync(
                 "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                mangaStatus, UserMangaSort.MANGA_TITLE.value, "", ALL_MANGA_FIELDS)
+                mangaStatus, UserMangaSort.MANGA_TITLE.value, "", ALL_MANGA_FIELDS, true)
             try {
                 val userManga = getUserMangaDeferred.await()
                 setUserMangaData(userManga)

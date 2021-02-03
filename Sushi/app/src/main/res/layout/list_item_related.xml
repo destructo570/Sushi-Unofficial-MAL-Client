@@ -12,7 +12,6 @@
         android:layout_width="@dimen/item_card_width"
         android:layout_height="wrap_content"
         style="@style/Widget.Sushi.ItemCardView"
-        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

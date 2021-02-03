@@ -3,7 +3,6 @@ package com.destructo.sushi.ui.user.profile
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
-import com.destructo.sushi.room.UserInfoDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -12,7 +11,6 @@ class ProfileRepository
 @Inject
 constructor(
     val jikanApi: JikanApi,
-    private val userInfoDao: UserInfoDao
 ) {
 
     var userInfo: MutableLiveData<Resource<com.destructo.sushi.model.jikan.user.UserInfo>> =

@@ -296,5 +296,15 @@
     <string name="user_logout">Logout</string>
     <string name="anime">Anime</string>
     <string name="people">People</string>
+    <string name="confirm_logout">Confirm Logout</string>
+    <string name="confirm_logout_message">Are you sure you want to logout?</string>
+    <string name="promo_title">Buy Sushi Pro To Get</string>
+    <string name="promo_description">• No more annoying ads.
+        \n• Dark theme, Night theme and Amoled theme.
+        \n• Support and keep this project alive.
+        \n• And oh no more annoying messages like this ;)
+    </string>
+    <string name="buy_now">Buy Now</string>
+
 
 </resources>

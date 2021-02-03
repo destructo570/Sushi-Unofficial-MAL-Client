@@ -117,6 +117,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seasonal_anime_button" />
 
+            <LinearLayout
+                android:id="@+id/adContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/includeNews" />
+
             <include
                 android:id="@+id/includePromotional"
                 layout="@layout/inc_promotional_home"
@@ -125,20 +137,8 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeNews" />
+                app:layout_constraintTop_toBottomOf="@+id/adContainer" />
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-7960256274116489/7867690038"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includePromotional" />
 
             <include
                 android:id="@+id/includeAiring"
@@ -149,7 +149,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/includeUpcoming"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/adView" />
+                app:layout_constraintTop_toBottomOf="@+id/includePromotional" />
 
             <include
                 android:id="@+id/includeUpcoming"

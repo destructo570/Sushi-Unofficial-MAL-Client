@@ -247,7 +247,7 @@
     </fragment>
     <fragment
         android:id="@+id/favAnimeFragment"
-        android:name="com.destructo.sushi.ui.user.profile.FavAnimeFragment"
+        android:name="com.destructo.sushi.ui.user.profile.FavoritesFragment"
         android:label="FavAnimeFragment" />
 
 </navigation>

@@ -102,6 +102,7 @@ interface MalApi {
         @Query("sort") sort:String?,
         @Query("offset") offset:String,
         @Query("fields") fields:String,
+        @Query("nsfw") nsfw:Boolean
 
         ): Deferred<UserAnimeList>
 
@@ -114,6 +115,7 @@ interface MalApi {
         @Query("sort") sort:String?,
         @Query("offset") offset:String,
         @Query("fields") fields:String,
+        @Query("nsfw") nsfw:Boolean
 
         ): Deferred<UserMangaList>
 

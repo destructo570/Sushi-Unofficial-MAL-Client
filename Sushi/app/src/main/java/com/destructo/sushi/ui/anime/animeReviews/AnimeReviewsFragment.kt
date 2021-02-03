@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.adapter.AllAnimeReviewsAdapter
 import com.destructo.sushi.databinding.FragmentAllReviewsBinding
 import com.destructo.sushi.listener.AnimeReviewListener
@@ -18,6 +19,7 @@ import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.room.AnimeReviewListDao
 import com.destructo.sushi.ui.anime.animeDetails.AnimeReviewBottomSheetFragment
+import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -63,6 +65,7 @@ class AnimeReviewsFragment : Fragment() {
         }
         reviewsRecyclerView = binding.reviewRecycler
         reviewsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        reviewsRecyclerView.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
         toolbar = binding.toolbar
 
         setupToolbar()

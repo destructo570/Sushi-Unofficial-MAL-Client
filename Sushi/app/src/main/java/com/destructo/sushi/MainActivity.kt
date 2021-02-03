@@ -20,8 +20,7 @@ import coil.load
 import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
+import com.facebook.ads.*
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
-    private lateinit var adView:AdView
+
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.scheduleFragment,
                 R.id.mangaFragment,
                 R.id.searchFragment,
-                //R.id.forumFragment,
+//                R.id.forumFragment,
                 R.id.settingsFragment,
             ), drawer_layout
         )
@@ -74,22 +73,17 @@ class MainActivity : AppCompatActivity() {
         setApplicationTheme(currentTheme)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this@MainActivity)
-
-
-
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragemnt) as NavHostFragment
         navController = navHostFragment.navController
-
         navView = findViewById(R.id.navigationView)
         drawerLayout = findViewById(R.id.drawer_layout)
         profileHeader = navView.getHeaderView(0) as ConstraintLayout
         setupDrawerLayout()
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
-
-        mainViewModel.getUserInfo("anime_statistics")
+        initializeAds()
         createNotificationChannel()
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
+        mainViewModel.getUserInfo("anime_statistics")
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
                 R.id.profileFragment -> {
@@ -134,6 +128,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun initializeAds() {
+        AudienceNetworkAds.initialize(this@MainActivity)
     }
 
     private fun setProfileHeaderListener(username: String?){

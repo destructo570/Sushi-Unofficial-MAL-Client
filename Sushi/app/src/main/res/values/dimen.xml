@@ -12,14 +12,13 @@
     <dimen name="text_size_h3">16sp</dimen>
     <dimen name="text_size_h4">14sp</dimen>
 
-
     <!-- Common Text Body -->
     <dimen name="text_size_b2">13sp</dimen>
     <dimen name="text_size_b3">12sp</dimen>
     <dimen name="text_size_b4">10sp</dimen>
 
     <!-- Anime/Manga Card Item -->
-    <dimen name="item_card_width">132dp</dimen>
+    <dimen name="item_card_width">124dp</dimen>
     <dimen name="item_card_image_width">124dp</dimen>
     <dimen name="item_card_image_height">144dp</dimen>
     <dimen name="item_card_text_margin_normal">8dp</dimen>

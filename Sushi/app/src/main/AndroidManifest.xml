@@ -13,10 +13,6 @@ package="com.destructo.sushi">
     android:theme="@style/AppTheme"
     android:usesCleartextTraffic="true">
 
-    <meta-data
-        android:name="com.google.android.gms.ads.APPLICATION_ID"
-        android:value="ca-app-pub-7960256274116489~2992899194" />
-
     <activity android:name="com.destructo.sushi.ui.preferences.donation.DonationActivity"/>
     <activity android:name=".ui.purchaseActivity.PurchaseActivity" />
 

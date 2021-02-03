@@ -240,7 +240,7 @@ constructor(
         if(!offset.isNullOrBlank()){
                 val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    animeStatus, null, offset,ALL_ANIME_FIELDS)
+                    animeStatus, null, offset,ALL_ANIME_FIELDS, true)
                 try {
                     val userAnime = getUserAnimeDeferred.await()
                     val userAnimeList = userAnime.data

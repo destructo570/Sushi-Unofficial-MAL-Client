@@ -17,7 +17,7 @@ android {
         applicationId "com.destructo.sushi_mal"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 121
+        versionCode 123
         versionName "1.1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -179,8 +179,8 @@ dependencies {
     //Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 
-    //Google admob
-    implementation 'com.google.android.gms:play-services-ads:19.6.0'
+    //Facebook Ads SDK
+    implementation 'com.facebook.android:audience-network-sdk:6.2.0'
 
     //Coil
     implementation "io.coil-kt:coil:1.1.1"

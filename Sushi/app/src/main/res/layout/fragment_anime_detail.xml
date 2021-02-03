@@ -81,42 +81,50 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/margin_normal">
+                        android:orientation="vertical">
 
                         <include
                             android:id="@+id/anime_sub_desc"
                             layout="@layout/inc_anime_detail_sub_desc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             bind:animeEntity="@{animeEntity}" />
+
                         <LinearLayout
                             android:id="@+id/my_anime_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
                             android:orientation="vertical"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc"
-                            >
-                        <include
-                            layout="@layout/inc_my_anime_status"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_normal"
-                            bind:animeEntity="@{animeEntity}" />
-                        </LinearLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/anime_sub_desc">
 
+                            <include
+                                layout="@layout/inc_my_anime_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                bind:animeEntity="@{animeEntity}" />
+                        </LinearLayout>
 
 
                         <TextView
                             android:id="@+id/anime_synopsis_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginEnd="16dp"
                             android:text="@string/synopsis"
                             android:textAppearance="@style/TextAppearance.Sushi.H2"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +135,9 @@
                             android:id="@+id/anime_synopsis"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginEnd="16dp"
                             android:text="@{animeEntity.synopsis}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -140,21 +150,36 @@
                             layout="@layout/inc_genre_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:layout_marginBottom="@dimen/margin_normal"
+                            android:layout_marginEnd="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/anime_synopsis" />
 
                         <LinearLayout
+                            android:id="@+id/adContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="16dp"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/anime_genre" />
+
+                        <LinearLayout
                             android:id="@+id/anime_alt_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_genre"
-                            >
+                            app:layout_constraintTop_toBottomOf="@+id/adContainer">
 
                             <include
                                 layout="@layout/inc_anime_alt_title"
@@ -162,18 +187,19 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_small"
                                 android:layout_marginBottom="@dimen/margin_small"
-                                bind:animeEntity="@{animeEntity}"
-                                />
+                                bind:animeEntity="@{animeEntity}" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/anime_more_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_alt_title"
-                            >
+                            app:layout_constraintTop_toBottomOf="@+id/anime_alt_title">
 
                             <include
                                 layout="@layout/inc_more_anime_detail"
@@ -181,26 +207,26 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_small"
                                 android:layout_marginBottom="@dimen/margin_small"
-                                bind:animeEntity="@{animeEntity}"
-                                />
+                                bind:animeEntity="@{animeEntity}" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/anime_songs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_more_info"
-                            >
-                        <include
-                            layout="@layout/inc_anime_songs"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:layout_marginBottom="@dimen/margin_small"
-                            />
+                            app:layout_constraintTop_toBottomOf="@+id/anime_more_info">
+
+                            <include
+                                layout="@layout/inc_anime_songs"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_small"
+                                android:layout_marginBottom="@dimen/margin_small" />
                         </LinearLayout>
 
                         <include
@@ -248,18 +274,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/anime_characters" />
 
-                        <com.google.android.gms.ads.AdView
-                            android:id="@+id/adView"
-                            ads:adSize="BANNER"
-                            ads:adUnitId="ca-app-pub-7960256274116489/7867690038"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="16dp"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anime_staff" />
 
 
                         <include
@@ -271,7 +285,7 @@
                             android:layout_marginBottom="@dimen/margin_normal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/adView" />
+                            app:layout_constraintTop_toBottomOf="@+id/anime_staff" />
 
 
                         <include

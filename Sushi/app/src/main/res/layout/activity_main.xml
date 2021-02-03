@@ -7,35 +7,30 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
-        android:fitsSystemWindows="true"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragemnt"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/nav_host_fragemnt"
-            app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/main_nav_graph" />
-
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:navGraph="@navigation/main_nav_graph"
+            app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            style="@style/Widget.Custom.NavigationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/navigationView"
             android:layout_gravity="start"
             app:headerLayout="@layout/profile_header_layout"
-            app:menu="@menu/drawer_menu"
-            style="@style/Widget.Custom.NavigationView"
-             />
+            app:menu="@menu/drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
 
 
 </layout>

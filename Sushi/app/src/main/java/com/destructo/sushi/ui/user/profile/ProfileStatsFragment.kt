@@ -5,19 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import app.futured.donut.DonutProgressView
 import app.futured.donut.DonutSection
+import com.destructo.sushi.AdPlacementId
 import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentProfileStatsBinding
 import com.destructo.sushi.model.jikan.user.AnimeStats
 import com.destructo.sushi.model.jikan.user.MangaStats
 import com.destructo.sushi.network.Status
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
+import com.facebook.ads.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_manga_stats.view.*
 import timber.log.Timber
@@ -36,7 +36,6 @@ class ProfileStatsFragment : Fragment() {
     private lateinit var ptwText: TextView
     private lateinit var droppedText: TextView
     private lateinit var totalText: TextView
-    private lateinit var adView: AdView
 
     private lateinit var animeDaysTxt:TextView
     private lateinit var animeMeanScoreTxt:TextView
@@ -51,6 +50,9 @@ class ProfileStatsFragment : Fragment() {
     private lateinit var binding: FragmentProfileStatsBinding
     private val profileViewModel:ProfileViewModel by viewModels(
         ownerProducer = {requireParentFragment()})
+
+    private lateinit var adContainer: LinearLayout
+    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,23 +84,15 @@ class ProfileStatsFragment : Fragment() {
         mangaEpisodesTxt = binding.root.manga_episodes_watched
         mangaRewatchTxt = binding.root.manga_rewatch_value
 
-        adView = binding.adView
-        if(!SushiApplication.getContext().queryPurchases()){
-            val adRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
+        adContainer = binding.adContainer
+        loadAds()
 
-            adView.adListener = object: AdListener(){
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    adView.visibility = View.VISIBLE
-                }
-
-                override fun onAdFailedToLoad(p0: Int) {
-                    adView.visibility = View.GONE
-                }
-            }
-        }
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adView.destroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -271,5 +265,34 @@ class ProfileStatsFragment : Fragment() {
 
     }
 
+    private fun loadAds() {
+        if (!SushiApplication.getContext().queryPurchases()){
+            adView = AdView(context, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
+            adContainer.addView(adView)
+            val adListener = object : AdListener {
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    Timber.e("Error")
+                }
+
+                override fun onAdLoaded(p0: Ad?) {
+                    Timber.e("onAdLoaded")
+                    adContainer.visibility = View.VISIBLE
+                }
+
+                override fun onAdClicked(p0: Ad?) {
+                    Timber.e("onAdClicked")
+                }
+
+                override fun onLoggingImpression(p0: Ad?) {
+                    Timber.e("onLoggingImpression")
+                } }
+
+            adView.loadAd(
+                adView.buildLoadAdConfig()
+                    .withAdListener(adListener)
+                    .build()
+            )
+        }
+    }
 
 }

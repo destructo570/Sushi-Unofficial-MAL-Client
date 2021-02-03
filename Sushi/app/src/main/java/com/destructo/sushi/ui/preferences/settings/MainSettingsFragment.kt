@@ -14,8 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.R
+import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentMainSettingsBinding
 import com.destructo.sushi.ui.purchaseActivity.PurchaseActivity
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainSettingsFragment : Fragment() {
@@ -26,6 +29,9 @@ class MainSettingsFragment : Fragment() {
     private lateinit var appPreference:ConstraintLayout
     private lateinit var aboutApp:ConstraintLayout
     private lateinit var sharedPref: SharedPreferences
+
+    private lateinit var proPromo: MaterialCardView
+    private lateinit var buyNowButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +48,13 @@ class MainSettingsFragment : Fragment() {
 
         toolbar = binding.toolbar
         lookAndFeel = binding.lookAndFeel
-        lookAndFeel.setOnClickListener {
-
-            if(sharedPref.getBoolean(IS_PRO_USER, false)){
+        lookAndFeel.setOnClickListener(fun(it: View) {
+            if (sharedPref.getBoolean(IS_PRO_USER, false)) {
                 findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
-            }else{
+            } else {
                 startPurchaseActivity()
             }
-        }
+        })
         appPreference = binding.appSettings
         appPreference.setOnClickListener {
             findNavController().navigate(R.id.action_mainSettingsFragment_to_appPreferenceFragment)
@@ -57,6 +62,16 @@ class MainSettingsFragment : Fragment() {
         aboutApp = binding.aboutApp
         aboutApp.setOnClickListener {
             findNavController().navigate(R.id.action_mainSettingsFragment_to_aboutFragment2)
+        }
+        proPromo = binding.proPromo
+        buyNowButton = binding.promoCta
+
+        if(!SushiApplication.getContext().queryPurchases()){
+            proPromo.visibility = View.VISIBLE
+        }
+
+        buyNowButton.setOnClickListener {
+            startPurchaseActivity()
         }
 
         return binding.root

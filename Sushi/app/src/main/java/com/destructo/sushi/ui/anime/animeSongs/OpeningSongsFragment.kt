@@ -11,14 +11,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeSongAdapter
 import com.destructo.sushi.databinding.FragmentOpeningSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
+import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLEncoder
 
@@ -48,6 +51,7 @@ class OpeningSongsFragment : Fragment() {
 
         openingSongsRecyclerView = binding.openingSongsRecycler
         openingSongsRecyclerView.layoutManager = LinearLayoutManager(context)
+        openingSongsRecyclerView.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
 
         return binding.root
     }
@@ -65,8 +69,8 @@ class OpeningSongsFragment : Fragment() {
                 )
                 context?.let { it1 ->
                     val alertDialog = AlertDialog.Builder(it1, R.style.SushiAlertDialog)
-                    alertDialog.setTitle(song)
-                    alertDialog.setItems(options
+                    .setTitle(song)
+                    .setItems(options
                     ) { p0, p1 ->
                         when (p1) {
                             0 -> {
@@ -83,7 +87,13 @@ class OpeningSongsFragment : Fragment() {
                             }
                         }
                     }
+                    .create()
 
+                    alertDialog.setOnShowListener {
+
+                        val dialogView = alertDialog.window
+                        dialogView?.setBackgroundDrawable(ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg))
+                    }
                     alertDialog.show()
                 }
             }
