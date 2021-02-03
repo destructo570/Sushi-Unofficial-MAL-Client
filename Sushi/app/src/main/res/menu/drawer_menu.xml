@@ -49,9 +49,8 @@
                     android:title="@string/title_search_mal" />
 <!--                <item-->
 <!--                    android:id="@+id/forumFragment"-->
-<!--                    android:icon="@drawable/ic_forum_line"-->
+<!--                    android:icon="@drawable/ic_food"-->
 <!--                    android:title="@string/forum" />-->
-
             </group>
         </menu>
 

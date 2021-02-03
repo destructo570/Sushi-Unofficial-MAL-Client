@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.*
+import com.destructo.sushi.R
 import com.destructo.sushi.adapter.*
 import com.destructo.sushi.databinding.FragmentAnimeDetailBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus.*
@@ -42,9 +43,7 @@ import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.destructo.sushi.util.ListItemHorizontalDecor
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.toTitleCase
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
+import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView
@@ -120,13 +119,13 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var reviewRecycler: RecyclerView
     private lateinit var episodeRecycler: RecyclerView
 
-
     private lateinit var characterMore: TextView
     private lateinit var reviewMore: TextView
     private lateinit var staffMore: TextView
     private lateinit var episodeMore: TextView
-    private lateinit var adView: AdView
 
+    private lateinit var adContainer: LinearLayout
+    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -185,12 +184,13 @@ class AnimeDetailFragment : Fragment(),
         reviewMore = binding.root.reviewsMore
         staffMore = binding.root.staffMore
         episodeMore = binding.root.episodesMore
-        adView = binding.adView
         toolbar = binding.animeDescToolbar
         appBar = binding.animeAppBar
         collapToolbar = binding.animeCollapsingToolbar
         animeSongsLayout = binding.animeSongs
 
+        adContainer = binding.adContainer
+        loadAds()
         setupListeners()
 
         return binding.root
@@ -385,11 +385,15 @@ class AnimeDetailFragment : Fragment(),
         appBar.addOnOffsetChangedListener(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        adView.destroy()
+    }
+
     private fun setupListeners() {
         setupToolbar()
         setAddToListClickListener()
         setMoreAnimeInfoClickListener()
-        initialiseAds()
         setNavigationListeners()
         setCollapseToolbarListener()
     }
@@ -434,23 +438,7 @@ class AnimeDetailFragment : Fragment(),
         }
     }
 
-    private fun initialiseAds() {
-        if (!SushiApplication.getContext().queryPurchases()) {
-            val adRequest = AdRequest.Builder().build()
-            adView.loadAd(adRequest)
 
-            adView.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    adView.visibility = View.VISIBLE
-                }
-
-                override fun onAdFailedToLoad(p0: Int) {
-                    adView.visibility = View.GONE
-                }
-            }
-        }
-    }
 
     private fun setGenreChips(genreList: List<Genre?>) {
         genreChipGroup.removeAllViews()
@@ -695,6 +683,36 @@ class AnimeDetailFragment : Fragment(),
                     )
                 }
             }
+        }
+    }
+
+    private fun loadAds() {
+        if (!SushiApplication.getContext().queryPurchases()){
+            adView = AdView(context, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
+            adContainer.addView(adView)
+            val adListener = object : AdListener {
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    Timber.e("Error")
+                }
+
+                override fun onAdLoaded(p0: Ad?) {
+                    Timber.e("onAdLoaded")
+                    adContainer.visibility = View.VISIBLE
+                }
+
+                override fun onAdClicked(p0: Ad?) {
+                    Timber.e("onAdClicked")
+                }
+
+                override fun onLoggingImpression(p0: Ad?) {
+                    Timber.e("onLoggingImpression")
+                } }
+
+            adView.loadAd(
+                adView.buildLoadAdConfig()
+                    .withAdListener(adListener)
+                    .build()
+            )
         }
     }
 

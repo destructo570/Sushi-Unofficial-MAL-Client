@@ -157,6 +157,18 @@
                                 app:layout_constraintTop_toBottomOf="@+id/manga_synopsis" />
 
                             <LinearLayout
+                                android:id="@+id/adContainer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginTop="16dp"
+                                android:orientation="vertical"
+                                android:visibility="gone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/manga_genre" />
+
+                            <LinearLayout
                                 android:id="@+id/manga_alt_title"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -165,7 +177,7 @@
                                 android:orientation="vertical"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_genre">
+                                app:layout_constraintTop_toBottomOf="@+id/adContainer">
 
                                 <include
                                     layout="@layout/inc_manga_alt_title"
@@ -207,19 +219,6 @@
                                 app:layout_constraintTop_toBottomOf="@+id/manga_more_info" />
 
 
-                            <com.google.android.gms.ads.AdView
-                                android:id="@+id/adView"
-                                ads:adSize="BANNER"
-                                ads:adUnitId="ca-app-pub-7960256274116489/7867690038"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="16dp"
-                                android:visibility="gone"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/manga_characters" />
-
                             <include
                                 android:id="@+id/manga_reviews"
                                 layout="@layout/inc_review_list"
@@ -229,7 +228,7 @@
                                 android:layout_marginBottom="@dimen/margin_normal"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/adView" />
+                                app:layout_constraintTop_toBottomOf="@+id/manga_characters" />
 
                             <include
                                 android:id="@+id/manga_related"
