@@ -1,5 +1,6 @@
 package com.destructo.sushi.model.params
 
+import timber.log.Timber
 import java.util.*
 
 data class DateParam(
@@ -36,7 +37,7 @@ data class DateParam(
             val month = Calendar.getInstance().get(Calendar.MONTH).plus(1)
             val year = Calendar.getInstance().get(Calendar.YEAR)
 
-            return "${getAbbreviatedMonth(month)}-${day}-${year}"
+            return "${getAbbreviatedMonth(month)}-${getMalFormattedDay(day)}-${year}"
         }
 
         private fun getTodayAsDateParam(): DateParam{
@@ -67,6 +68,7 @@ data class DateParam(
         }
 
         private fun fromAbbreviatedMonthToInt(month: String): String{
+            Timber.e("Month: $month")
             return when(month){
                 "JAN" -> "01"
                 "FEB" -> "02"
@@ -83,6 +85,13 @@ data class DateParam(
 
                 else -> "01"
             }
+        }
+
+        private fun getMalFormattedDay(day: Int): String{
+            return if (day in 1..9){
+                "0$day"
+            }else day.toString()
+
         }
 
         private fun isValidMalDate(date: String): Boolean{

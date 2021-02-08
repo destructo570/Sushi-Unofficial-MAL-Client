@@ -310,7 +310,6 @@ class AnimeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        adView.destroy()
     }
 
     private fun navigateToTopAnime() {

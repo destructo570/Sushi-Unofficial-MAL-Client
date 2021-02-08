@@ -90,10 +90,7 @@ class ProfileStatsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        adView.destroy()
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         profileViewModel.userInformation.observe(viewLifecycleOwner){resource->
