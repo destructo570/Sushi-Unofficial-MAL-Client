@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mangaEntity"
             type="com.destructo.sushi.model.mal.manga.Manga" />
@@ -19,21 +20,21 @@
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
             android:text="@string/more_information"
             android:textAppearance="@style/TextAppearance.Sushi.H2"
             app:layout_constraintBottom_toTopOf="@+id/manga_more_detail_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginBottom="16dp" />
+            app:layout_goneMarginBottom="@dimen/margin_normal" />
 
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="36dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/margin_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,11 +44,11 @@
             android:id="@+id/manga_more_detail_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
             android:background="@drawable/drawable_secondary_bg"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -65,18 +66,18 @@
                 android:id="@+id/textView48"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/more_info_type"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/more_info_type" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView43"
                 animeDescFormat="@{mangaEntity.mediaType}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,9 +88,9 @@
                 android:id="@+id/textView49"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/more_info_serialization"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_serialization"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,7 +99,7 @@
                 formatMangaSerialization="@{mangaEntity.serialization}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -109,10 +110,10 @@
                 android:id="@+id/textView51"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/more_info_chapters"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_chapters"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
@@ -120,7 +121,7 @@
                 android:id="@+id/textView52"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:text="@{mangaEntity.numChapters.toString()}"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -132,10 +133,10 @@
                 android:id="@+id/textView53"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/more_info_volumes"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_volumes"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView50" />
 
@@ -144,7 +145,7 @@
                 animeDescFormat="@{mangaEntity.numVolumes.toString()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -155,10 +156,10 @@
                 android:id="@+id/textView55"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/more_info_status"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_status"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView52" />
 
@@ -166,10 +167,10 @@
                 android:id="@+id/textView56"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/more_info_authors"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_authors"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
@@ -178,7 +179,7 @@
                 animeDescFormat="@{mangaEntity.status}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +191,7 @@
                 formatMangaAuthors="@{mangaEntity.authors}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -201,10 +202,10 @@
                 android:id="@+id/textView59"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/more_info_published"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_published"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView57" />
 
@@ -212,10 +213,10 @@
                 android:id="@+id/textView60"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/more_info_rank"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
-                android:text="@string/more_info_rank"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toBottomOf="@+id/textView58" />
 
@@ -224,7 +225,7 @@
                 formatMangaPublished="@{mangaEntity}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,10 +234,10 @@
 
             <TextView
                 android:id="@+id/textView62"
-                android:text="@{mangaEntity.rank.toString()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:text="@{mangaEntity.rank.toString()}"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -248,7 +249,7 @@
                 android:id="@+id/textView69"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:text="@string/more_info_rank"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
@@ -257,21 +258,21 @@
 
             <TextView
                 android:id="@+id/textView70"
+                formattedRank="@{mangaEntity.rank}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                formattedRank="@{mangaEntity.rank}"
-                tools:text="Lorem ipsun dolores"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView69" />
+                app:layout_constraintTop_toBottomOf="@+id/textView69"
+                tools:text="Lorem ipsun dolores" />
 
             <TextView
                 android:id="@+id/textView71"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:text="@string/more_info_scored_users"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
@@ -280,21 +281,21 @@
 
             <TextView
                 android:id="@+id/textView72"
+                formattedInteger="@{mangaEntity.numScoringUsers}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                formattedInteger="@{mangaEntity.numScoringUsers}"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Lorem ipsun dolores"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView71" />
+                app:layout_constraintTop_toBottomOf="@+id/textView71"
+                tools:text="Lorem ipsun dolores" />
 
             <TextView
                 android:id="@+id/textView73"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:text="@string/more_info_members"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
@@ -305,7 +306,7 @@
                 android:id="@+id/textView74"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:text="@string/popularity"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
@@ -314,27 +315,27 @@
 
             <TextView
                 android:id="@+id/textView75"
+                formattedInteger="@{mangaEntity.numListUsers}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                formattedInteger="@{mangaEntity.numListUsers}"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Lorem ipsun dolores"
-                app:layout_constraintTop_toBottomOf="@+id/textView73" />
+                app:layout_constraintTop_toBottomOf="@+id/textView73"
+                tools:text="Lorem ipsun dolores" />
 
             <TextView
                 android:id="@+id/textView76"
+                formattedRank="@{mangaEntity.popularity}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                formattedRank="@{mangaEntity.popularity}"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:text="Lorem ipsun dolores"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView74" />
+                app:layout_constraintTop_toBottomOf="@+id/textView74"
+                tools:text="Lorem ipsun dolores" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

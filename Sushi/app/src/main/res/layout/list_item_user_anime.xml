@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="animeEntity"
             type="com.destructo.sushi.model.mal.anime.Anime" />
+
         <variable
             name="animeListStatus"
             type="com.destructo.sushi.model.mal.userAnimeList.AnimeListStatus" />
+
         <variable
             name="episodeListener"
             type="com.destructo.sushi.listener.AddEpisodeListener" />
+
         <variable
             name="animeIdListener"
             type="com.destructo.sushi.listener.MalIdListener" />
@@ -20,15 +24,14 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_card_image_height"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> animeIdListener.onClick(animeEntity.id) }"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> animeIdListener.onClick(animeEntity.id) }"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,11 +54,11 @@
 
             <TextView
                 android:id="@+id/list_anime_type"
+                userAnimeSubtitle="@{animeEntity}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:layout_marginTop="@dimen/user_card_margin_small"
-                userAnimeSubtitle="@{animeEntity}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
                 android:textColor="?attr/textColorSecondary"
@@ -90,10 +93,10 @@
                 formatAnimeRank="@{animeEntity.rank}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_small"
                 android:textColor="?attr/textColorOnPrimary"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -121,11 +124,11 @@
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_normal"
-                app:watchedEp="@{animeEntity.myAnimeListStatus.numEpisodesWatched}"
-                app:totalEp="@{animeEntity.numEpisodes}"
                 app:layout_constraintBottom_toTopOf="@+id/list_anime_score"
                 app:layout_constraintEnd_toStartOf="@+id/addEpisodeButton"
-                app:layout_constraintStart_toEndOf="@+id/list_anime_cover" />
+                app:layout_constraintStart_toEndOf="@+id/list_anime_cover"
+                app:totalEp="@{animeEntity.numEpisodes}"
+                app:watchedEp="@{animeEntity.myAnimeListStatus.numEpisodesWatched}" />
 
 
             <com.google.android.material.button.MaterialButton
@@ -134,18 +137,18 @@
                 android:layout_height="@dimen/add_button_width"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_normal"
+                android:backgroundTint="?attr/colorAccentSecondary"
                 android:insetLeft="@dimen/add_button_inset"
                 android:insetTop="@dimen/add_button_inset"
                 android:insetRight="@dimen/add_button_inset"
                 android:insetBottom="@dimen/add_button_inset"
-                app:elevation="@dimen/add_button_elevation"
-                app:iconPadding="@dimen/add_button_icon_padding"
-                app:iconGravity="textStart"
-                android:backgroundTint="?attr/colorAccentSecondary"
                 android:onClick="@{() -> episodeListener.onClick(animeEntity)}"
+                app:elevation="@dimen/add_button_elevation"
+                app:icon="@drawable/ic_add_fill"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/add_button_icon_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:icon="@drawable/ic_add_fill" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
             <ImageView
@@ -175,18 +178,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 android:text="@string/status"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/list_anime_cover" />
 
             <TextView
                 android:id="@+id/textView39"
+                animeDescFormat="@{animeEntity.myAnimeListStatus.status}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                animeDescFormat="@{animeEntity.myAnimeListStatus.status}"
                 app:layout_constraintBottom_toTopOf="@+id/animeWatchProgress"
                 app:layout_constraintStart_toEndOf="@+id/textView38" />
 

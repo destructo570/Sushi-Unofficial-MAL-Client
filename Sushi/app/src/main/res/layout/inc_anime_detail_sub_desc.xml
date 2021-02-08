@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="animeEntity"
             type="com.destructo.sushi.model.mal.anime.Anime" />
@@ -14,10 +15,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageView"
-            android:layout_width="133dp"
+            style="@style/Widget.Sushi.ItemCardView"
+            android:layout_width="@dimen/detail_cover_image_width"
             android:layout_height="0dp"
             app:cardUseCompatPadding="true"
-            style="@style/Widget.Sushi.ItemCardView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/type"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -48,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/status"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -70,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/episodes"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -81,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/start_season"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -90,13 +91,13 @@
         <Button
             android:id="@+id/add_anime_to_list"
             style="@style/SushiPrimaryImageButton"
+            animeButtonState="@{animeEntity.myAnimeListStatus}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="4dp"
-            animeButtonState="@{animeEntity.myAnimeListStatus}"
-            android:text="@string/add_to_list"
+            android:layout_marginTop="@dimen/margin_micro"
             android:drawableLeft="@drawable/ic_add_fill"
+            android:text="@string/add_to_list"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/anime_desc_episode_duration" />
 
@@ -144,10 +145,10 @@
 
         <TextView
             android:id="@+id/anime_desc_starting_season"
+            formatStartSeason="@{animeEntity.startSeason}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            formatStartSeason="@{animeEntity.startSeason}"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/textView8" />
@@ -157,7 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_micro"
             android:text="@string/episode_duration"
             android:textAppearance="@style/TextAppearance.Sushi.B3"
             app:layout_constraintStart_toEndOf="@+id/imageView"

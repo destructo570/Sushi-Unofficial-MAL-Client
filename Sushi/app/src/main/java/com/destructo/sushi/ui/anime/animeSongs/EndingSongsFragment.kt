@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeSongAdapter
-import com.destructo.sushi.databinding.FragmentEndingSongsBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeEndingSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ import java.net.URLEncoder
 @AndroidEntryPoint
 class EndingSongsFragment : Fragment() {
 
-    private lateinit var binding: FragmentEndingSongsBinding
+    private lateinit var binding: FragmentAllAnimeEndingSongsBinding
     private val animeSongsViewModel: AnimeSongsViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
     )
@@ -46,7 +46,7 @@ class EndingSongsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentEndingSongsBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllAnimeEndingSongsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
 

@@ -14,33 +14,30 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            >
+            android:fitsSystemWindows="true">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:contentInsetRight="0dp"
                 app:contentInsetEnd="0dp"
                 app:contentInsetEndWithActions="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp"
                 app:titleMarginStart="0dp"
-                >
+                app:titleTextAppearance="@style/TextAppearance.Sushi.H1">
 
                 <androidx.appcompat.widget.SearchView
+                    android:id="@+id/forum_search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/forum_search_view"
-                    app:searchIcon="@drawable/ic_search_line"
                     app:closeIcon="@drawable/ic_close_fill"
-                    app:queryHint="Search forum topics"
                     app:iconifiedByDefault="false"
                     app:queryBackground="@android:color/transparent"
-                    />
+                    app:queryHint="Search forum topics"
+                    app:searchIcon="@drawable/ic_search_line" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -51,16 +48,14 @@
             android:id="@+id/forum_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/forumRecyclerMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

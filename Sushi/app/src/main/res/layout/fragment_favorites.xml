@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.anime.animeCharacters.AnimeCharactersFragment"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.anime.animeCharacters.AnimeCharactersFragment">
 
     <data>
 
@@ -19,16 +18,14 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            >
+            android:fitsSystemWindows="true">
 
             <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
                 android:id="@+id/toolbar"
                 style="@style/ToolBarWithNavigationBack"
-                app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
 
         </com.google.android.material.appbar.AppBarLayout>

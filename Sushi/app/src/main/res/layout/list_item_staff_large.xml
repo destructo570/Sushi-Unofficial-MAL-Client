@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="staff"
             type="com.destructo.sushi.model.jikan.anime.support.Staff" />
+
         <variable
             name="staffListener"
             type="com.destructo.sushi.listener.AnimeStaffListener" />
@@ -15,24 +17,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> staffListener.onClick(staff)}"
-        >
+        android:onClick="@{() -> staffListener.onClick(staff)}">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageView"
+            style="@style/Widget.Sushi.ItemCardView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_card_image_height"
-            style="@style/Widget.Sushi.ItemCardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView2"
+                imageUrl="@{staff.imageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                imageUrl="@{staff.imageUrl}"
                 app:srcCompat="@drawable/test_img" />
 
 
@@ -40,14 +41,14 @@
 
         <TextView
             android:id="@+id/textView7"
-            android:text="@{staff.name}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="@dimen/margin_micro"
             android:layout_marginEnd="4dp"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{staff.name}"
             android:textAppearance="@style/TextAppearance.Sushi.B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,15 +57,15 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:text="@{staff.positions[0]}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textColor="?attr/textColorSecondary"
+            android:text="@{staff.positions[0]}"
             android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
+            android:textColor="?attr/textColorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7"

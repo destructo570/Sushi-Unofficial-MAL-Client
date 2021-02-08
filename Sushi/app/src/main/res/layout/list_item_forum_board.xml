@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="board"
             type="com.destructo.sushi.model.mal.forum.Board" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalIdListener" />
@@ -15,8 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> listener.onClick(board.id)}"
-        >
+        android:onClick="@{() -> listener.onClick(board.id)}">
 
         <TextView
             android:id="@+id/board_title"

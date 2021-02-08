@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="personEntity"
-        type="com.destructo.sushi.model.jikan.character.PersonEntity" />
+
+        <variable
+            name="personEntity"
+            type="com.destructo.sushi.model.jikan.character.PersonEntity" />
+
         <variable
             name="personListener"
             type="com.destructo.sushi.ui.common.characterDetails.PersonListener" />
@@ -14,9 +16,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.Sushi.ItemCardView"
         android:onClick="@{()->personListener.onClick(personEntity)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

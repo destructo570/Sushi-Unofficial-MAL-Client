@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="animeStaff"
             type="com.destructo.sushi.model.jikan.person.AnimeStaffPosition" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalIdListener" />
@@ -14,15 +16,14 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> listener.onClick(animeStaff.anime.malId)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> listener.onClick(animeStaff.anime.malId)}"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,10 +48,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="@dimen/item_card_text_margin_small"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@{animeStaff.position}"
                 android:textAllCaps="true"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 android:textColor="?attr/textColorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"

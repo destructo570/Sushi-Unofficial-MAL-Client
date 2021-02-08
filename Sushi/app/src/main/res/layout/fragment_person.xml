@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="personEntity"
             type="com.destructo.sushi.model.jikan.person.PersonEntity" />
@@ -9,29 +10,26 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:elevation="0dp"
-            >
+            app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/person_collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/collapsing_toobar_height"
-                app:contentScrim="?colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
+                app:contentScrim="?colorPrimary"
                 app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
                 app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
                 app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
-                app:title="@{personEntity.name}"
-                >
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{personEntity.name}">
 
                 <ImageView
                     imageUrl="@{personEntity.imageUrl}"
@@ -43,12 +41,11 @@
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
+                    style="@style/ToolBarWithNavigationBack"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    style="@style/ToolBarWithNavigationBack"
                     android:background="@null"
-                    app:layout_collapseMode="pin"
-                    />
+                    app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -59,20 +56,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:behavior_overlapTop="?actionBarSize"
-            >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/person_tab_layout"
                 style="@style/TabLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:elevation="@dimen/default_tab_layout_elevation"
                 app:layout_collapseMode="pin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
-                android:elevation="4dp"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/person_view_pager"
                 android:layout_width="match_parent"

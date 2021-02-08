@@ -57,7 +57,7 @@
         android:id="@+id/currentlyAiring"
         android:name="com.destructo.sushi.ui.anime.currentlyAiring.CurrentlyAiringFragment"
         android:label="@string/currently_airing"
-        tools:layout="@layout/fragment_currently_airing" />
+        tools:layout="@layout/fragment_all_anime_currently_airing" />
     <fragment
         android:id="@+id/seasonalAnime"
         android:name="com.destructo.sushi.ui.anime.seasonalAnime.SeasonalAnimeFragment"
@@ -167,7 +167,7 @@
         android:id="@+id/animeCharactersFragment"
         android:name="com.destructo.sushi.ui.anime.animeCharacters.AnimeCharactersFragment"
         android:label="AllCharactersFragment"
-        tools:layout="@layout/fragment_all_characters">
+        tools:layout="@layout/fragment_all_anime_characters">
         <argument
             android:name="malId"
             app:argType="integer" />

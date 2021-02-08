@@ -1,8 +1,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data></data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -27,21 +27,20 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/my_manga_list_tablayout"
+                style="@style/TabLayoutStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:tabMode="scrollable"
                 app:layout_collapseMode="pin"
                 app:tabIndicator="@drawable/custom_tab_layout_indicator"
-                style="@style/TabLayoutStyle"
-                />
+                app:tabMode="scrollable" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/my_manga_list_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/my_manga_list_pager"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

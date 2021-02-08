@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="32dp">
 
 
     <com.google.android.material.card.MaterialCardView
@@ -11,9 +11,9 @@
         style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="@dimen/header_profile_img_size"
         android:layout_height="@dimen/header_profile_img_size"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/margin_small"
         app:cardCornerRadius="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +32,9 @@
         android:id="@+id/header_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginEnd="@dimen/margin_normal"
         android:text="John Doe"
         android:textAppearance="@style/TextAppearance.Sushi.B3"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
@@ -45,11 +45,11 @@
         android:id="@+id/header_user_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/margin_normal"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:maxLines="1"
+        android:layout_marginEnd="@dimen/margin_normal"
         android:ellipsize="end"
+        android:maxLines="1"
         android:text="New York"
         android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
         android:textColor="?attr/textColorSecondary"
@@ -69,9 +69,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
+        android:layout_marginStart="@dimen/margin_small"
         android:text="Profile"
+        android:textAppearance="@style/TextAppearance.Sushi.ByLine2"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@+id/header_user_location"
         app:layout_constraintStart_toEndOf="@+id/header_user_location" />

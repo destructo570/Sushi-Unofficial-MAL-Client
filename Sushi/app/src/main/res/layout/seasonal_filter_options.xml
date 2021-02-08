@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_normal"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,10 +62,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="?actionBarSize"
-            android:textColor="?attr/textColorSecondary"
-            android:textAllCaps="true"
             android:text="@string/filter"
+            android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.Sushi.H3"
+            android:textColor="?attr/textColorSecondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,10 +75,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_large"
-            android:textColor="?attr/textColorSecondary"
             android:text="@string/sort_by"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.Sushi.H3"
+            android:textColor="?attr/textColorSecondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -98,28 +98,27 @@
 
         <Spinner
             android:id="@+id/season_sort_spinner"
+            style="@style/SpinnerStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_normal"
-            style="@style/SpinnerStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <Button
             android:id="@+id/season_cancel_filter_button"
+            style="@style/Widget.Sushi.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_normal"
             android:text="@string/cancel"
-            style="@style/Widget.Sushi.OutlinedButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/season_apply_filter_button"
-            app:layout_constraintTop_toBottomOf="@+id/season_sort_spinner"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/season_sort_spinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

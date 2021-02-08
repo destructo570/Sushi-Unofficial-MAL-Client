@@ -2,16 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="coverUrl"
             type="String" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="@dimen/item_card_width"
         android:layout_height="wrap_content"
-        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +25,9 @@
 
             <ImageView
                 android:id="@+id/list_anime_cover"
+                imageUrl="@{coverUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_card_image_height"
-                imageUrl="@{coverUrl}"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,29 +1,29 @@
- <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.destructo.sushi.ui.anime.upcomingAnime.UpcomingAnimeFragment">
 
-        <data>
+    <data>
 
-        </data>
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:orientation="vertical">
+    </data>
 
-     <androidx.appcompat.widget.Toolbar
-         android:layout_width="match_parent"
-         android:layout_height="?actionBarSize"
-         android:id="@+id/toolbar"
-         app:layout_constraintTop_toTopOf="parent"
-         style="@style/ToolBarWithNavigationBack"
-         app:titleTextAppearance="@style/TextAppearance.Sushi.H1"
-         app:title="@string/upcoming_anime"
-         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ToolBarWithNavigationBack"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/upcoming_anime"
+            app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-           >
+            android:layout_height="match_parent">
 
             <ProgressBar
                 android:id="@+id/upcoming_anime_progressbar"
@@ -57,5 +57,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-     </LinearLayout>
-    </layout>
+    </LinearLayout>
+</layout>

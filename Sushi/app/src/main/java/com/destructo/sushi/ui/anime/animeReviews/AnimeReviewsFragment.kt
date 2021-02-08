@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.adapter.AllAnimeReviewsAdapter
-import com.destructo.sushi.databinding.FragmentAllReviewsBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeReviewsBinding
 import com.destructo.sushi.listener.AnimeReviewListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.network.Status
@@ -27,7 +27,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AnimeReviewsFragment : Fragment() {
 
-    private lateinit var binding: FragmentAllReviewsBinding
+    private lateinit var binding: FragmentAllAnimeReviewsBinding
     private val allReviewsViewModel: AnimeReviewsViewModel by viewModels()
     private val args: AnimeReviewsFragmentArgs by navArgs()
     private var animeIdArg: Int = 0
@@ -60,7 +60,7 @@ class AnimeReviewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentAllReviewsBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllAnimeReviewsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
         reviewsRecyclerView = binding.reviewRecycler

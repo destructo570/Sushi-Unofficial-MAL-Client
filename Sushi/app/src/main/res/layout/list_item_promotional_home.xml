@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="promotionItem"
             type="com.destructo.sushi.model.mal.promotion.PromotionalItem" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalUrlListener" />
@@ -14,17 +16,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCard"
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="196dp"
-        app:cardUseCompatPadding="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> listener.onClick(promotionItem.url)}"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> listener.onClick(promotionItem.url)}"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -36,9 +37,8 @@
                 imageUrl="@{promotionItem.img_url}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:src="@drawable/test_img"
                 android:scaleType="centerCrop"
-                />
+                tools:src="@drawable/test_img" />
 
             <View
                 android:layout_width="match_parent"
@@ -87,7 +87,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
 
 
 </layout>

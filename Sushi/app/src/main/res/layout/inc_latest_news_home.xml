@@ -15,19 +15,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
-            android:textAppearance="@style/TextAppearance.Sushi.H2"
             android:text="@string/latest_news"
+            android:textAppearance="@style/TextAppearance.Sushi.H2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/latestNewsMore"
+            style="@style/Widget.Sushi.SeeMoreText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal"
             android:text="@string/see_all"
             android:visibility="gone"
-            style="@style/Widget.Sushi.SeeMoreText"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -38,19 +38,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
             <LinearLayout
                 android:id="@+id/news_progress"
                 android:layout_width="match_parent"
+                android:layout_height="144dp"
                 android:gravity="center"
-                android:visibility="gone"
-                android:layout_height="144dp">
+                android:visibility="gone">
+
                 <ProgressBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    />
+                    android:layout_gravity="center" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

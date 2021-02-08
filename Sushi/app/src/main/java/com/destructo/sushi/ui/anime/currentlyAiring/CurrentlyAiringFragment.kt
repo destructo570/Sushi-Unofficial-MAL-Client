@@ -20,13 +20,13 @@ import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeRankingAdapter
-import com.destructo.sushi.databinding.FragmentCurrentlyAiringBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeCurrentlyAiringBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_currently_airing.view.*
+import kotlinx.android.synthetic.main.fragment_all_anime_currently_airing.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class CurrentlyAiringFragment : Fragment(), ListEndListener {
 
     private val currentlyAiringViewModel: CurrentlyAiringViewModel by viewModels()
 
-    private lateinit var binding: FragmentCurrentlyAiringBinding
+    private lateinit var binding: FragmentAllAnimeCurrentlyAiringBinding
     private lateinit var currentlyAiringAdapter: AnimeRankingAdapter
     private lateinit var currentlyAiringRecycler: RecyclerView
     private lateinit var toolbar: Toolbar
@@ -61,7 +61,7 @@ class CurrentlyAiringFragment : Fragment(), ListEndListener {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentCurrentlyAiringBinding
+        binding = FragmentAllAnimeCurrentlyAiringBinding
             .inflate(inflater, container, false).apply {
             lifecycleOwner  = viewLifecycleOwner
         }

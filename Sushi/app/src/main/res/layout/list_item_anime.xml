@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="animeEntity"
-        type="com.destructo.sushi.model.mal.anime.Anime" />
+
+        <variable
+            name="animeEntity"
+            type="com.destructo.sushi.model.mal.anime.Anime" />
+
         <variable
             name="animeListener"
             type="com.destructo.sushi.listener.MalIdListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> animeListener.onClick(animeEntity.id)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> animeListener.onClick(animeEntity.id)}"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -60,8 +61,8 @@
                 android:layout_marginStart="@dimen/item_card_text_margin_normal"
                 android:layout_marginTop="@dimen/item_card_text_margin_small"
                 android:layout_marginEnd="@dimen/item_card_text_margin_normal"
-                android:singleLine="true"
                 android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@{animeEntity.title}"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintBottom_toTopOf="@+id/list_anime_score"

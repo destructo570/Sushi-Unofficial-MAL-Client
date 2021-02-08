@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         tools:context="com.destructo.sushi.ui.common.characterDetails.CharacterMangaography">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mangaographyRecyclerMain"
             android:layout_width="match_parent"

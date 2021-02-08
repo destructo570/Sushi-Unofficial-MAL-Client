@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="characterEntity"
             type="com.destructo.sushi.model.jikan.character.Character" />
@@ -9,29 +10,26 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="0dp"
-        >
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/anime_collapsing_toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/collapsing_toobar_height"
-            app:contentScrim="?colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
-            app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
-            app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
-            app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
-            app:title="@{characterEntity.name}"
-            >
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="@dimen/no_elevation">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/anime_collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/collapsing_toobar_height"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.Sushi.H2"
+                app:contentScrim="?colorPrimary"
+                app:expandedTitleMarginBottom="@dimen/expanded_title_margin_bottom"
+                app:expandedTitleMarginEnd="@dimen/expanded_title_margin_end"
+                app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{characterEntity.name}">
 
                 <ImageView
                     imageUrl="@{characterEntity.imageUrl}"
@@ -41,45 +39,44 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/test_img" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                style="@style/ToolBarWithNavigationBack"
-                android:background="@null"
-                app:layout_collapseMode="pin"
-                />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/ToolBarWithNavigationBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@null"
+                    app:layout_collapseMode="pin" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:behavior_overlapTop="?actionBarSize"
-            >
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/character_tab_layout"
-            style="@style/TabLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:elevation="4dp"
-            />
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/character_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/character_tab_layout"
+                style="@style/TabLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="@dimen/default_tab_layout_elevation"
+                app:layout_collapseMode="pin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/character_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

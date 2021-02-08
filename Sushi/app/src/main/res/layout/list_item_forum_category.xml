@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="category"
-        type="com.destructo.sushi.model.mal.forum.Category" />
+
+        <variable
+            name="category"
+            type="com.destructo.sushi.model.mal.forum.Category" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        >
+        android:layout_marginEnd="16dp">
 
         <TextView
             android:id="@+id/textView87"
             style="@style/TextAppearance.Sushi.H2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="@{category.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,12 +38,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView87">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    forumCategoryData="@{category.boards}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    />
+            <androidx.recyclerview.widget.RecyclerView
+                forumCategoryData="@{category.boards}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </com.google.android.material.card.MaterialCardView>
 

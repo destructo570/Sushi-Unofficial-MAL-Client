@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mangaEntity"
             type="com.destructo.sushi.model.mal.manga.Manga" />
@@ -19,23 +20,23 @@
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
             android:text="@string/alternative_titles"
             android:textAppearance="@style/TextAppearance.Sushi.H2"
             app:layout_constraintBottom_toTopOf="@+id/manga_alt_title_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginBottom="16dp" />
+            app:layout_goneMarginBottom="@dimen/margin_normal" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/manga_alt_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
             android:background="@drawable/drawable_secondary_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,7 @@
                 android:id="@+id/textView48"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Synonyms"
+                android:text="@string/synonyms"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,8 +69,8 @@
                 android:id="@+id/textView49"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="English"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/english"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +91,8 @@
                 android:id="@+id/textView67"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Japanese"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/japanese"
                 android:textAppearance="@style/TextAppearance.Sushi.ByLine1"
                 android:textColor="?attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"

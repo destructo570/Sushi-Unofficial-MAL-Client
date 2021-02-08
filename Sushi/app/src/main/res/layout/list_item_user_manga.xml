@@ -4,30 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mangaEntity"
             type="com.destructo.sushi.model.mal.manga.Manga" />
+
         <variable
             name="mangaListStatus"
             type="com.destructo.sushi.model.mal.userMangaList.MangaListStatus" />
+
         <variable
             name="chapterListener"
             type="com.destructo.sushi.listener.AddChapterListener" />
+
         <variable
             name="mangaIdListener"
             type="com.destructo.sushi.listener.MalIdListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_card_image_height"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> mangaIdListener.onClick(mangaEntity.id)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> mangaIdListener.onClick(mangaEntity.id)}"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -106,30 +109,30 @@
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_normal"
-                app:readCh="@{mangaEntity.myMangaListStatus.numChaptersRead}"
-                app:totalCh="@{mangaEntity.numChapters}"
                 app:layout_constraintBottom_toTopOf="@+id/list_manga_score"
                 app:layout_constraintEnd_toStartOf="@+id/addEpisodeButton"
-                app:layout_constraintStart_toEndOf="@+id/list_manga_cover" />
+                app:layout_constraintStart_toEndOf="@+id/list_manga_cover"
+                app:readCh="@{mangaEntity.myMangaListStatus.numChaptersRead}"
+                app:totalCh="@{mangaEntity.numChapters}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addEpisodeButton"
                 android:layout_width="@dimen/add_button_height"
                 android:layout_height="@dimen/add_button_width"
-                android:onClick="@{() -> chapterListener.onClick(mangaEntity)}"
                 android:layout_marginEnd="@dimen/user_card_margin_normal"
                 android:layout_marginBottom="@dimen/user_card_margin_normal"
+                android:backgroundTint="?attr/colorAccentSecondary"
                 android:insetLeft="@dimen/add_button_inset"
                 android:insetTop="@dimen/add_button_inset"
                 android:insetRight="@dimen/add_button_inset"
                 android:insetBottom="@dimen/add_button_inset"
+                android:onClick="@{() -> chapterListener.onClick(mangaEntity)}"
                 app:elevation="@dimen/add_button_elevation"
-                app:iconPadding="@dimen/add_button_icon_padding"
+                app:icon="@drawable/ic_add_fill"
                 app:iconGravity="textStart"
-                android:backgroundTint="?attr/colorAccentSecondary"
+                app:iconPadding="@dimen/add_button_icon_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:icon="@drawable/ic_add_fill" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
             <ImageView
@@ -142,6 +145,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView37"
                 app:srcCompat="@drawable/ic_volume_line" />
+
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="@dimen/user_icon_size_normal"
@@ -158,8 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_small"
-                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
+                android:visibility="gone"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView37"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
                 app:total="@{mangaEntity.numVolumes.toString()}"
@@ -183,18 +187,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
-                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 android:text="@string/status"
+                android:textAppearance="@style/TextAppearance.Sushi.B3"
                 app:layout_constraintBottom_toTopOf="@+id/mangaProgress"
                 app:layout_constraintStart_toEndOf="@+id/list_manga_cover" />
 
             <TextView
                 android:id="@+id/textView39"
+                animeDescFormat="@{mangaEntity.myMangaListStatus.status}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
-                animeDescFormat="@{mangaEntity.myMangaListStatus.status}"
                 app:layout_constraintBottom_toTopOf="@+id/mangaProgress"
                 app:layout_constraintStart_toEndOf="@+id/textView38" />
 

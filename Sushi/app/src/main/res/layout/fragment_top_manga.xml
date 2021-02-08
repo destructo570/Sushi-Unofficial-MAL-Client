@@ -32,8 +32,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
-                android:background="?attr/colorPrimary"
                 android:layout_height="?actionBarSize"
+                android:background="?attr/colorPrimary"
                 app:layout_collapseMode="pin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -69,16 +69,15 @@
             android:id="@+id/top_manga_pagination_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
             android:layout_gravity="bottom"
             android:backgroundTint="?attr/colorPrimary"
-            >
+            android:orientation="vertical"
+            android:visibility="gone">
+
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+                android:layout_gravity="center" />
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

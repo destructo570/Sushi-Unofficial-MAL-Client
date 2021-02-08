@@ -1,6 +1,5 @@
 package com.destructo.sushi.model.params
 
-import timber.log.Timber
 import java.util.*
 
 data class DateParam(
@@ -68,7 +67,6 @@ data class DateParam(
         }
 
         private fun fromAbbreviatedMonthToInt(month: String): String{
-            Timber.e("Month: $month")
             return when(month){
                 "JAN" -> "01"
                 "FEB" -> "02"

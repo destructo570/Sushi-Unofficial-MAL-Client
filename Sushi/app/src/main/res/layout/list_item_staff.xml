@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="staff"
             type="com.destructo.sushi.model.jikan.anime.support.Staff" />
+
         <variable
             name="staffListener"
             type="com.destructo.sushi.listener.AnimeStaffListener" />
@@ -15,24 +17,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> staffListener.onClick(staff)}"
-        >
+        android:onClick="@{() -> staffListener.onClick(staff)}">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageView"
+            style="@style/Widget.Sushi.ItemCardView"
             android:layout_width="@dimen/character_img_width"
             android:layout_height="@dimen/character_img_height"
-            style="@style/Widget.Sushi.ItemCardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView2"
+                imageUrl="@{staff.imageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                imageUrl="@{staff.imageUrl}"
                 app:srcCompat="@drawable/test_img" />
 
 
@@ -46,8 +47,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="@dimen/margin_micro"
             android:layout_marginEnd="4dp"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Sushi.B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

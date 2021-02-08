@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    tools:context="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragment"
-    >
+    tools:context="com.destructo.sushi.ui.anime.animeDetails.AnimeDetailFragment">
 
     <data>
 
@@ -18,8 +17,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/anime_desc_coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/anime_app_bar"
@@ -88,9 +86,9 @@
                             layout="@layout/inc_anime_detail_sub_desc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_normal"
 
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -101,9 +99,9 @@
                             android:id="@+id/my_anime_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             android:orientation="vertical"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -122,9 +120,9 @@
                             android:id="@+id/anime_synopsis_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
                             android:layout_marginTop="@dimen/margin_normal"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             android:text="@string/synopsis"
                             android:textAppearance="@style/TextAppearance.Sushi.H2"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -135,9 +133,9 @@
                             android:id="@+id/anime_synopsis"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             android:text="@{animeEntity.synopsis}"
                             android:textAppearance="@style/TextAppearance.Sushi.B3"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -150,9 +148,9 @@
                             layout="@layout/inc_genre_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/anime_synopsis" />
@@ -162,7 +160,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="@dimen/margin_normal"
                             android:orientation="vertical"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -173,9 +171,9 @@
                             android:id="@+id/anime_alt_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -194,8 +192,8 @@
                             android:id="@+id/anime_more_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -214,8 +212,8 @@
                             android:id="@+id/anime_songs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_normal"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -275,7 +273,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/anime_characters" />
 
 
-
                         <include
                             android:id="@+id/anime_reviews"
                             layout="@layout/inc_review_list"
@@ -323,11 +320,11 @@
             android:id="@+id/anime_score_fab"
             android:layout_width="@dimen/fab_size"
             android:layout_height="@dimen/fab_size"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_normal"
             android:elevation="@dimen/fab_elevation"
-            app:cardCornerRadius="24dp"
-            app:layout_anchor="@id/anime_detail_cardview"
             app:cardBackgroundColor="@color/scoreCardBackground"
+            app:cardCornerRadius="@dimen/score_card_radius"
+            app:layout_anchor="@id/anime_detail_cardview"
             app:layout_anchorGravity="top|right|end">
 
             <TextView
@@ -346,8 +343,7 @@
             android:id="@+id/anime_detail_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

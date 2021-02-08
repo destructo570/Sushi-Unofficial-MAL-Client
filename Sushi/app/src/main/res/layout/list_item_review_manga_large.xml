@@ -15,9 +15,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/review_card_height"
-        style="@style/Widget.Sushi.ItemCardView"
         android:onClick="@{() -> reviewListener.onClick(review)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,22 +30,22 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/anime_score_fab"
+                style="@style/Widget.Sushi.ItemCardView"
                 android:layout_width="@dimen/reviewer_img_size"
                 android:layout_height="@dimen/reviewer_img_size"
                 android:layout_marginStart="@dimen/review_card_margin_normal"
                 android:layout_marginTop="@dimen/review_card_margin_normal"
-                style="@style/Widget.Sushi.ItemCardView"
                 app:cardCornerRadius="28dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    app:imageUrl="@{review.reviewer.imageUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/test_img" />
+                    android:src="@drawable/test_img"
+                    app:imageUrl="@{review.reviewer.imageUrl}" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -88,8 +88,7 @@
                 android:textAppearance="@style/TextAppearance.Sushi.B1"
                 app:layout_constraintStart_toEndOf="@+id/anime_score_fab"
                 app:layout_constraintTop_toBottomOf="@+id/textView10"
-                tools:text="@string/fake_anime_title"
-                />
+                tools:text="@string/fake_anime_title" />
 
             <TextView
                 android:id="@+id/textView14"

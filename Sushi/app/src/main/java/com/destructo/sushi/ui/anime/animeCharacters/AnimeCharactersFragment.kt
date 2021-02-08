@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AllCharactersAdapter
-import com.destructo.sushi.databinding.FragmentAllCharactersBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeCharactersBinding
 import com.destructo.sushi.listener.AnimeCharacterListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
@@ -24,7 +24,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class AnimeCharactersFragment : Fragment() {
 
-    private lateinit var binding: FragmentAllCharactersBinding
+    private lateinit var binding: FragmentAllAnimeCharactersBinding
     private val animeCharactersViewModel: AnimeCharactersViewModel by viewModels()
     private var animeIdArg: Int = 0
     private lateinit var characterRecyclerView: RecyclerView
@@ -52,7 +52,7 @@ class AnimeCharactersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAllCharactersBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllAnimeCharactersBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
         characterRecyclerView = binding.characterRecycler

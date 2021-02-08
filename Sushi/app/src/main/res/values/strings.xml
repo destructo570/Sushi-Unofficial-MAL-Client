@@ -305,6 +305,11 @@
         \n• And oh no more annoying messages like this ;)
     </string>
     <string name="buy_now">Buy Now</string>
+    <string name="given_name" translatable="false">Given name:</string>
+    <string name="family_name" translatable="false">Family Name:</string>
+    <string name="alternate_names" translatable="false">Alternate Names:</string>
+    <string name="birth_date" translatable="false">Birth date:</string>
+    <string name="member_favorite" translatable="false" >Member Favorite:</string>
 
 
 </resources>

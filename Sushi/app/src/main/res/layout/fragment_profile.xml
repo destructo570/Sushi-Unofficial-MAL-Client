@@ -28,23 +28,22 @@
                 style="@style/ToolBarWithNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:title="@string/profile"
-                app:layout_scrollFlags="scroll|snap"
                 app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|snap"
+                app:title="@string/profile"
                 app:titleTextAppearance="@style/TextAppearance.Sushi.H1" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|snap"
-                >
+                app:layout_scrollFlags="scroll|snap">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/materialCardView"
                     style="@style/Widget.Sushi.ItemCardView"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_width="@dimen/user_profile_img_width"
+                    android:layout_height="@dimen/user_profile_img_height"
+                    android:layout_marginTop="@dimen/margin_normal"
                     app:cardCornerRadius="50dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -101,8 +100,7 @@
                 style="@style/TabLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                />
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -113,13 +111,13 @@
             android:layout_gravity="center"
             android:visibility="gone" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/profile_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/profile_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

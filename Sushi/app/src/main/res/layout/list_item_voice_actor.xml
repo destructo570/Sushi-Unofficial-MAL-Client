@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="voiceActor"
             type="com.destructo.sushi.model.jikan.anime.support.VoiceActor" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalIdListener" />
@@ -14,10 +16,10 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{()-> listener.onClick(voiceActor.malId)}"
-        style="@style/Widget.Sushi.ItemCardView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

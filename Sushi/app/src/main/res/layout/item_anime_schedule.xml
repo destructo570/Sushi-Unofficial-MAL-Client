@@ -4,24 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="java.util.List"/>
-    <variable
-        name="listOfAnime"
-        type="java.util.List&lt;
+
+        <import type="java.util.List" />
+
+        <variable
+            name="listOfAnime"
+            type="java.util.List&lt;
         com.destructo.sushi.model.jikan.season.AnimeSubEntity>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scheduleFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scheduleFragment">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/scheduleRecyclerMain"
+            animeScheduleData="@{listOfAnime}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            animeScheduleData="@{listOfAnime}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

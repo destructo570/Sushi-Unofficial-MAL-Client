@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="malSubEntity"
             type="com.destructo.sushi.model.jikan.MALSubEntity" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalIdListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.Sushi.ItemCardView"
         android:onClick="@{()->listener.onClick(malSubEntity.malId)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

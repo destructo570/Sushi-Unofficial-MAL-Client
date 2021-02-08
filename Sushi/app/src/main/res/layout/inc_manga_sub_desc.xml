@@ -15,7 +15,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageView"
-            android:layout_width="133dp"
+            android:layout_width="@dimen/detail_cover_image_width"
             android:layout_height="0dp"
             style="@style/Widget.Sushi.ItemCardView"
             app:cardUseCompatPadding="true"

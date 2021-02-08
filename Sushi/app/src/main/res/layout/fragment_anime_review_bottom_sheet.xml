@@ -13,148 +13,146 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        tools:context=".ui.anime.animeDetails.AnimeReviewBottomSheetFragment">
+        android:layout_height="match_parent">
 
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/reviewer_image"
-            style="@style/Widget.Sushi.ItemCardView"
-            android:layout_width="@dimen/reviewer_img_size_large"
-            android:layout_height="@dimen/reviewer_img_size_large"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="56dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                imageUrl="@{review.reviewer.imageUrl}"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/test_img" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/score_chip_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/margin_normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewer_image">
-
-        </com.google.android.material.chip.ChipGroup>
-
-
-        <TextView
-            android:id="@+id/review_data"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            formattedLineBreakText="@{review.content}"
-            style="@style/TextAppearance.Sushi.B3"
-            android:textColor="?attr/textColorTertiary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/score_chip_group"
-            tools:text="@tools:sample/lorem/random" />
-
-        <TextView
-            android:id="@+id/reviewer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{review.reviewer.username}"
-            android:textColor="?attr/textColorPrimary"
-            style="@style/TextAppearance.Sushi.H2"
-            tools:text="John doe"
-            app:layout_constraintStart_toEndOf="@+id/reviewer_image"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView80"
-            style="@style/TextAppearance.Sushi.B3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/overall_score"
-            android:textColor="?attr/textColorPrimary"
-            app:layout_constraintStart_toEndOf="@+id/reviewer_image"
-            app:layout_constraintTop_toBottomOf="@+id/reviewer_name" />
-
-        <TextView
-            android:id="@+id/textView81"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{review.reviewer.reviewScores.overall.toString()}"
-            android:textColor="?attr/textColorPrimary"
-            style="@style/TextAppearance.Sushi.B3"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView80"
-            app:layout_constraintStart_toEndOf="@+id/textView80" />
-
-        <TextView
-            android:id="@+id/textView82"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textColor="?attr/textColorPrimary"
-            android:text="@string/episodes_seen"
-            style="@style/TextAppearance.Sushi.B3"
-            app:layout_constraintStart_toEndOf="@+id/reviewer_image"
-            app:layout_constraintTop_toBottomOf="@+id/textView80" />
-
-        <TextView
-            android:id="@+id/textView83"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{review.reviewer.episodesSeen.toString()}"
-            android:textColor="?attr/textColorPrimary"
-            style="@style/TextAppearance.Sushi.B3"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView82"
-            app:layout_constraintStart_toEndOf="@+id/textView82" />
-
-        <TextView
-            android:id="@+id/textView84"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{review.helpfulCount.toString()}"
-            android:textColor="?attr/textColorPrimary"
-            style="@style/TextAppearance.Sushi.B3"
-            app:layout_constraintStart_toEndOf="@+id/reviewer_image"
-            app:layout_constraintTop_toBottomOf="@+id/textView82" />
-
-        <TextView
-            android:id="@+id/textView85"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/people_found_this_helpful"
-            android:textColor="?attr/textColorPrimary"
-            style="@style/TextAppearance.Sushi.B3"
-            app:layout_constraintStart_toEndOf="@+id/textView84"
-            app:layout_constraintTop_toBottomOf="@+id/textView82" />
+            android:background="?attr/colorPrimary"
+            tools:context=".ui.anime.animeDetails.AnimeReviewBottomSheetFragment">
 
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/reviewer_image"
+                style="@style/Widget.Sushi.ItemCardView"
+                android:layout_width="@dimen/reviewer_img_size_large"
+                android:layout_height="@dimen/reviewer_img_size_large"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                app:cardCornerRadius="56dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+                <ImageView
+                    android:id="@+id/imageView3"
+                    imageUrl="@{review.reviewer.imageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test_img" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/score_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reviewer_image">
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <TextView
+                android:id="@+id/review_data"
+                style="@style/TextAppearance.Sushi.B3"
+                formattedLineBreakText="@{review.content}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:textColor="?attr/textColorTertiary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/score_chip_group"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/reviewer_name"
+                style="@style/TextAppearance.Sushi.H2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@{review.reviewer.username}"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/reviewer_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="John doe" />
+
+            <TextView
+                android:id="@+id/textView80"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@string/overall_score"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/reviewer_image"
+                app:layout_constraintTop_toBottomOf="@+id/reviewer_name" />
+
+            <TextView
+                android:id="@+id/textView81"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{review.reviewer.reviewScores.overall.toString()}"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView80"
+                app:layout_constraintStart_toEndOf="@+id/textView80" />
+
+            <TextView
+                android:id="@+id/textView82"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@string/episodes_seen"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/reviewer_image"
+                app:layout_constraintTop_toBottomOf="@+id/textView80" />
+
+            <TextView
+                android:id="@+id/textView83"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{review.reviewer.episodesSeen.toString()}"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView82"
+                app:layout_constraintStart_toEndOf="@+id/textView82" />
+
+            <TextView
+                android:id="@+id/textView84"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@{review.helpfulCount.toString()}"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/reviewer_image"
+                app:layout_constraintTop_toBottomOf="@+id/textView82" />
+
+            <TextView
+                android:id="@+id/textView85"
+                style="@style/TextAppearance.Sushi.B3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/people_found_this_helpful"
+                android:textColor="?attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@+id/textView84"
+                app:layout_constraintTop_toBottomOf="@+id/textView82" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </layout>

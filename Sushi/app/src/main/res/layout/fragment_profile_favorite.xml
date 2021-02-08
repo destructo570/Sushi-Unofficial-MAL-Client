@@ -20,12 +20,12 @@
                 android:id="@+id/favAnimeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
+
                 <include
                     android:id="@+id/favAnime"
                     layout="@layout/inc_user_fav_anime"
@@ -38,30 +38,29 @@
                 android:id="@+id/favMangaLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favAnimeLayout"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/favAnimeLayout">
+
                 <include
                     android:id="@+id/favManga"
                     layout="@layout/inc_user_fav_manga"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/favCharacterLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favMangaLayout"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/favMangaLayout">
+
                 <include
                     android:id="@+id/favCharacter"
                     layout="@layout/inc_user_fav_character"
@@ -73,18 +72,17 @@
                 android:id="@+id/favPeopleLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favCharacterLayout"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/favCharacterLayout">
+
                 <include
                     android:id="@+id/favPeople"
                     layout="@layout/inc_user_fav_people"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

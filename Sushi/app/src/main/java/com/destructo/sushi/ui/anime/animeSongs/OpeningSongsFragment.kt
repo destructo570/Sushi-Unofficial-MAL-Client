@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeSongAdapter
-import com.destructo.sushi.databinding.FragmentOpeningSongsBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeOpeningSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ import java.net.URLEncoder
 @AndroidEntryPoint
 class OpeningSongsFragment : Fragment() {
 
-    private lateinit var binding: FragmentOpeningSongsBinding
+    private lateinit var binding: FragmentAllAnimeOpeningSongsBinding
     private val animeSongsViewModel: AnimeSongsViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
     )
@@ -46,7 +46,7 @@ class OpeningSongsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentOpeningSongsBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllAnimeOpeningSongsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner }
 
         openingSongsRecyclerView = binding.openingSongsRecycler

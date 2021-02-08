@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="episode"
             type="com.destructo.sushi.model.jikan.anime.support.EpisodeVideo" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalUrlListener" />
@@ -14,20 +16,18 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_card_image_height"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> listener.onClick(episode.videoUrl) }"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> listener.onClick(episode.videoUrl) }"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/list_anime_cover"

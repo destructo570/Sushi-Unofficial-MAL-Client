@@ -20,7 +20,7 @@ import com.destructo.sushi.DEFAULT_PAGE_LIMIT
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeAdapter
-import com.destructo.sushi.databinding.FragmentAnimeRecomBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeRecomBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AnimeRecomFragment : Fragment() {
 
-    private lateinit var binding: FragmentAnimeRecomBinding
+    private lateinit var binding: FragmentAllAnimeRecomBinding
     private lateinit var animeRecomRecyclerView: RecyclerView
     private lateinit var animeRecomAdapter: AnimeAdapter
     private lateinit var animeRecomProgressBar: ProgressBar
@@ -54,7 +54,7 @@ class AnimeRecomFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentAnimeRecomBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllAnimeRecomBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
 

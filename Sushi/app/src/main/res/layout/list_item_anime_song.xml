@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="songTitle"
-        type="String" />
+
+        <variable
+            name="songTitle"
+            type="String" />
+
         <variable
             name="listener"
             type="com.destructo.sushi.listener.MalUrlListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        style="@style/Widget.Sushi.ItemCardView"
+        android:onClick="@{() -> listener.onClick(songTitle) }"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="@{() -> listener.onClick(songTitle) }"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,19 +32,18 @@
                 android:id="@+id/list_anime_song_cover"
                 android:layout_width="96dp"
                 android:layout_height="0dp"
+                android:foreground="?attr/tintColor"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:foreground="?attr/tintColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
+
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_music_2_line"
-                    />
+                    android:src="@drawable/ic_music_2_line" />
             </LinearLayout>
 
 

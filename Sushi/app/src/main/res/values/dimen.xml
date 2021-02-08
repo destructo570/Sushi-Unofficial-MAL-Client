@@ -6,11 +6,23 @@
     <dimen name="margin_micro">4dp</dimen>
     <dimen name="margin_large">24dp</dimen>
 
+    <!-- Common Content dimensions -->
+    <dimen name="content_margin_normal">16dp</dimen>
+    <dimen name="content_margin_small">8dp</dimen>
+    <dimen name="content_margin_micro">4dp</dimen>
+    <dimen name="content_margin_large">24dp</dimen>
+
     <!-- Common Text Header -->
     <dimen name="text_size_h1">20sp</dimen>
     <dimen name="text_size_h2">18sp</dimen>
     <dimen name="text_size_h3">16sp</dimen>
     <dimen name="text_size_h4">14sp</dimen>
+
+    <!-- Common Icon Size -->
+    <dimen name="icon_size_small">8dp</dimen>
+    <dimen name="icon_size_normal">16dp</dimen>
+    <dimen name="icon_size_large">24dp</dimen>
+    <dimen name="icon_size_xlarge">56dp</dimen>
 
     <!-- Common Text Body -->
     <dimen name="text_size_b2">13sp</dimen>
@@ -78,9 +90,34 @@
     <dimen name="reviewer_img_size_large">112dp</dimen>
     <dimen name="review_card_margin_normal">8dp</dimen>
 
-    <!-- Recyclerview Grid-->
+    <!-- Donation-->
+    <dimen name="donation_card_height">100dp</dimen>
 
-    <!-- Character Recycler Grid-->
+    <!-- Status Update Bottom Sheet-->
+    <dimen name="status_view_height">38dp</dimen>
+
+    <!-- Settings-->
+    <dimen name="setting_list_item_image">56dp</dimen>
+
+    <!-- Tab Layout-->
+    <dimen name="default_tab_layout_elevation">4dp</dimen>
+    <dimen name="no_elevation">0dp</dimen>
+
+    <!-- Anime/Manga details screen-->
+    <dimen name="score_card_radius">24dp</dimen>
+    <dimen name="detail_cover_image_width">134dp</dimen>
+
+    <!-- Review bottom sheet-->
+    <dimen name="review_user_img_card_corner_radius">56dp</dimen>
+
+    <!-- Profile section-->
+    <dimen name="user_profile_img_width">100dp</dimen>
+    <dimen name="user_profile_img_height">100dp</dimen>
+    <dimen name="user_profile_img_corner_radius">50dp</dimen>
+    <dimen name="user_stats_card_height">300dp</dimen>
+    <dimen name="user_stats_card_elevation">2dp</dimen>
+
+
 
     <!-- Nav Header -->
     <dimen name="header_profile_img_size">72dp</dimen>

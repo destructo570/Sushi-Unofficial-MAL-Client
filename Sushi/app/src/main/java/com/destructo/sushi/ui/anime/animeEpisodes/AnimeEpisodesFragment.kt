@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.adapter.AnimeEpisodeAdapter
-import com.destructo.sushi.databinding.FragmentAnimeEpisodesBinding
+import com.destructo.sushi.databinding.FragmentAllAnimeEpisodesBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -24,7 +24,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class AnimeEpisodesFragment : Fragment() {
 
-    private lateinit var binding: FragmentAnimeEpisodesBinding
+    private lateinit var binding: FragmentAllAnimeEpisodesBinding
     private val args: AnimeEpisodesFragmentArgs by navArgs()
     private val animeEpisodeViewModel: AnimeEpisodesViewModel by viewModels()
     private lateinit var animeEpisodeAdapter: AnimeEpisodeAdapter
@@ -49,7 +49,7 @@ class AnimeEpisodesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentAnimeEpisodesBinding.inflate(inflater, container, false).apply {
+        binding = FragmentAllAnimeEpisodesBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
 

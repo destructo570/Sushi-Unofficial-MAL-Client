@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="character"
             type="com.destructo.sushi.model.jikan.manga.character.Character" />
+
         <variable
             name="characterListener"
             type="com.destructo.sushi.listener.MangaCharacterListener" />
@@ -16,14 +18,13 @@
         android:layout_width="@dimen/character_card_width"
         android:layout_height="wrap_content"
         android:onClick="@{() -> characterListener.onClick(character)}"
-        android:padding="4dp"
-        >
+        android:padding="4dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageView"
+            style="@style/Widget.Sushi.ItemCardView"
             android:layout_width="@dimen/character_img_width"
             android:layout_height="@dimen/character_img_height"
-            style="@style/Widget.Sushi.ItemCardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,8 +47,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="@dimen/margin_micro"
             android:layout_marginEnd="4dp"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Sushi.B1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

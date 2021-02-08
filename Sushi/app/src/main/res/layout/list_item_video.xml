@@ -15,9 +15,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="@dimen/video_card_width"
         android:layout_height="@dimen/video_card_height"
-        style="@style/Widget.Sushi.ItemCardView"
 
         android:onClick="@{() -> promoListener.onClick(promoVideo)}"
         app:layout_constraintBottom_toBottomOf="parent"
