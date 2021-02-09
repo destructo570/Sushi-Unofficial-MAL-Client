@@ -86,7 +86,7 @@ class MangaReviewsFragment : Fragment() {
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.visibility = View.GONE
-                    resource.data?.let { mangaReviews ->
+                    resource.data?.let { _ ->
                         reviewsAdapter
                             .submitList(reviewsViewModel.getReviewListById(mangaIdArg)?.reviews)
                     }

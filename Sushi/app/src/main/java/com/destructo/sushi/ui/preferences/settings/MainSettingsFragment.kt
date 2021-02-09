@@ -48,7 +48,7 @@ class MainSettingsFragment : Fragment() {
 
         toolbar = binding.toolbar
         lookAndFeel = binding.lookAndFeel
-        lookAndFeel.setOnClickListener(fun(it: View) {
+        lookAndFeel.setOnClickListener(fun(_: View) {
             //findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)
             if (sharedPref.getBoolean(IS_PRO_USER, false)) {
                 findNavController().navigate(R.id.action_mainSettingsFragment_to_lookAndFeelFragment)

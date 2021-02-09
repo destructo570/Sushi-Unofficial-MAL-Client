@@ -71,7 +71,7 @@ class OpeningSongsFragment : Fragment() {
                     val alertDialog = AlertDialog.Builder(it1, R.style.SushiAlertDialog)
                     .setTitle(song)
                     .setItems(options
-                    ) { p0, p1 ->
+                    ) { _, p1 ->
                         when (p1) {
                             0 -> {
                                 openYoutube(song)
