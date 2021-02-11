@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.animeSchedule
+package com.destructo.sushi.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemScheduleAnimeBinding
-import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 
-class ScheduleAdapter(val malIdListener: MalIdListener): ListAdapter<AnimeSubEntity, ScheduleAdapter.ViewHolder>(SeasonAnimeDiffUtil()) {
+class ScheduleAdapter(val malIdListener: MalIdListener): ListAdapter<AnimeSubEntity, ScheduleAdapter.ViewHolder>(
+    AnimeSubEntityDiffUtil()
+) {
 
 
     class ViewHolder private constructor(val binding: ListItemScheduleAnimeBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -44,7 +46,7 @@ class ScheduleAdapter(val malIdListener: MalIdListener): ListAdapter<AnimeSubEnt
 
 }
 
-class SeasonAnimeDiffUtil: DiffUtil.ItemCallback<AnimeSubEntity>() {
+class AnimeSubEntityDiffUtil: DiffUtil.ItemCallback<AnimeSubEntity>() {
     override fun areItemsTheSame(oldItem: AnimeSubEntity, newItem: AnimeSubEntity): Boolean {
         return oldItem.url == newItem.url
                 && oldItem.title == newItem.title

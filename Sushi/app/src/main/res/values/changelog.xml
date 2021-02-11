@@ -24,16 +24,9 @@
 <!--    </version>-->
 
     <string name="latest_changelog">
-        \n• Version 1.1.0.2
-        \n• Added manga stats to profile section.
-        \n• Added favorites to profile section.
-        \n• Added Opening and ending song section.
-        \n• Added episodes section.
-        \n• Added portuguese translations to app.
-        \n• Now you can see other\'s profile in sushi.
-        \n• Fixed NSFW titles not appearing in user list.
-        \n• Fixed spacing issues in many sections and overall UI improvements.
-        \n• Some other bug fixes and performance improvements.
+        \n• Version 1.1.0.5
+        \n• Fixed start/end date not setting when selected today checkbox
+
 
     </string>
 </resources>

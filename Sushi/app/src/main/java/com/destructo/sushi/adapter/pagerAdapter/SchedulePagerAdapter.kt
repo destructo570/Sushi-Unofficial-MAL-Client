@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.animeSchedule
+package com.destructo.sushi.adapter.pagerAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

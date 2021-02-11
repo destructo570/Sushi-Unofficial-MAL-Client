@@ -14,6 +14,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.*
+import com.destructo.sushi.adapter.MangaListAdapter
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
@@ -30,7 +31,7 @@ class MangaResultFragment : Fragment() {
             by viewModels(ownerProducer = {requireParentFragment()})
     private lateinit var resultRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private lateinit var mangaListAdapter:MangaListAdapter
+    private lateinit var mangaListAdapter: MangaListAdapter
     private lateinit var sharedPref: SharedPreferences
 
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.AnimeStaffRoleAdapter
 import com.destructo.sushi.databinding.FragmentPersonAnimeStaffBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status

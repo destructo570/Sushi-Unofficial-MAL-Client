@@ -42,6 +42,7 @@
             android:id="@+id/anime_schedule_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_gravity="center" />
 
         <androidx.viewpager2.widget.ViewPager2

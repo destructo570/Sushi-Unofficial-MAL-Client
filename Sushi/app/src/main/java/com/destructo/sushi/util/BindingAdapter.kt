@@ -22,7 +22,7 @@ import com.destructo.sushi.model.mal.manga.Author
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.manga.Serialization
-import com.destructo.sushi.ui.animeSchedule.ScheduleAdapter
+import com.destructo.sushi.adapter.ScheduleAdapter
 import java.text.NumberFormat
 import java.util.*
 

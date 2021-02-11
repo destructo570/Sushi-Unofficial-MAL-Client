@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.person
+package com.destructo.sushi.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.destructo.sushi.model.jikan.person.AnimeStaffPosition
 class AnimeStaffRoleAdapter (
     val malIdListener: MalIdListener
 ):
-    ListAdapter<AnimeStaffPosition, AnimeStaffRoleAdapter.ViewHolder>(AnimeStaffDiffUtil()) {
+    ListAdapter<AnimeStaffPosition, AnimeStaffRoleAdapter.ViewHolder>(AnimeStaffPositionDiffUtil()) {
 
     class ViewHolder private constructor(val binding: ListItemPersonAnimeStaffRoleBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,7 +46,7 @@ class AnimeStaffRoleAdapter (
 
 }
 
-class AnimeStaffDiffUtil : DiffUtil.ItemCallback<AnimeStaffPosition>() {
+class AnimeStaffPositionDiffUtil : DiffUtil.ItemCallback<AnimeStaffPosition>() {
     override fun areItemsTheSame(oldItem: AnimeStaffPosition, newItem: AnimeStaffPosition): Boolean {
         return oldItem.anime?.malId == newItem.anime?.malId
     }

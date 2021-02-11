@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.person
+package com.destructo.sushi.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

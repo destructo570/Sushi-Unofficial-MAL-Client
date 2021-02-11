@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.search
+package com.destructo.sushi.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemMangaBinding
-import com.destructo.sushi.model.mal.mangaList.MangaListData
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.mal.mangaList.MangaListData
 
 class MangaListAdapter(
     private val malIdListener: MalIdListener

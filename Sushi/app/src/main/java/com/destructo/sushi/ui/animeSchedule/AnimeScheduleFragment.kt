@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.pagerAdapter.SchedulePagerAdapter
 import com.destructo.sushi.databinding.FragmentAnimeScheduleBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.network.Status
