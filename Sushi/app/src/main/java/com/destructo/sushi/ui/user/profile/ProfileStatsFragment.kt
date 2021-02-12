@@ -117,7 +117,12 @@ class ProfileStatsFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroy() {
+        if(::adView.isInitialized && adView != null){
+            adView.destroy()
+        }
+        super.onDestroy()
+    }
 
     private fun setAnimeStats(animeStats: AnimeStats) {
         val watching = animeStats.watching

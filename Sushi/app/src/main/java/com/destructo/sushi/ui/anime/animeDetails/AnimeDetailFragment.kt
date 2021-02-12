@@ -385,6 +385,13 @@ class AnimeDetailFragment : Fragment(),
         appBar.addOnOffsetChangedListener(this)
     }
 
+    override fun onDestroy() {
+        if(::adView.isInitialized && adView != null){
+            adView.destroy()
+        }
+        super.onDestroy()
+    }
+
 
     private fun setupListeners() {
         setupToolbar()

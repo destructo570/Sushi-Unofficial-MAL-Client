@@ -304,11 +304,12 @@ class AnimeFragment : Fragment() {
             }
 
         }
-
-
     }
 
     override fun onDestroy() {
+        if(::adView.isInitialized && adView != null){
+            adView.destroy()
+        }
         super.onDestroy()
     }
 

@@ -285,6 +285,13 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         appBar.addOnOffsetChangedListener(this)
     }
 
+    override fun onDestroy() {
+        if(::adView.isInitialized && adView != null){
+            adView.destroy()
+        }
+        super.onDestroy()
+    }
+
     private fun setupListeners() {
         setNavigationListener()
         setMoreInfoLayoutListener()
