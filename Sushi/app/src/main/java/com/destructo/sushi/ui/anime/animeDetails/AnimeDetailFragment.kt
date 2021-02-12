@@ -124,9 +124,6 @@ class AnimeDetailFragment : Fragment(),
     private lateinit var staffMore: TextView
     private lateinit var episodeMore: TextView
 
-    private lateinit var adContainer: LinearLayout
-    private lateinit var adView: AdView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -189,8 +186,6 @@ class AnimeDetailFragment : Fragment(),
         collapToolbar = binding.animeCollapsingToolbar
         animeSongsLayout = binding.animeSongs
 
-        adContainer = binding.adContainer
-        loadAds()
         setupListeners()
 
         return binding.root
@@ -384,14 +379,6 @@ class AnimeDetailFragment : Fragment(),
         super.onResume()
         appBar.addOnOffsetChangedListener(this)
     }
-
-    override fun onDestroy() {
-        if(::adView.isInitialized && adView != null){
-            adView.destroy()
-        }
-        super.onDestroy()
-    }
-
 
     private fun setupListeners() {
         setupToolbar()
@@ -688,36 +675,5 @@ class AnimeDetailFragment : Fragment(),
             }
         }
     }
-
-    private fun loadAds() {
-        if (!SushiApplication.getContext().queryPurchases()){
-            adView = AdView(context, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
-            adContainer.addView(adView)
-            val adListener = object : AdListener {
-                override fun onError(p0: Ad?, p1: AdError?) {
-                    Timber.e("Error")
-                }
-
-                override fun onAdLoaded(p0: Ad?) {
-                    Timber.e("onAdLoaded")
-                    adContainer.visibility = View.VISIBLE
-                }
-
-                override fun onAdClicked(p0: Ad?) {
-                    Timber.e("onAdClicked")
-                }
-
-                override fun onLoggingImpression(p0: Ad?) {
-                    Timber.e("onLoggingImpression")
-                } }
-
-            adView.loadAd(
-                adView.buildLoadAdConfig()
-                    .withAdListener(adListener)
-                    .build()
-            )
-        }
-    }
-
 
 }

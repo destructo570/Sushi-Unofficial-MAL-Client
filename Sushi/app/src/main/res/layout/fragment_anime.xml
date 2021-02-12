@@ -115,18 +115,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/seasonal_anime_button" />
 
-                <LinearLayout
-                    android:id="@+id/adContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/includeNews" />
-
                 <include
                     android:id="@+id/includePromotional"
                     layout="@layout/inc_promotional_home"
@@ -135,7 +123,7 @@
                     android:layout_marginTop="@dimen/margin_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/adContainer" />
+                    app:layout_constraintTop_toBottomOf="@+id/includeNews" />
 
 
                 <include

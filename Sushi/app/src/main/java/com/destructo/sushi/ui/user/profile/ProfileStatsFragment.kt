@@ -5,21 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import app.futured.donut.DonutProgressView
 import app.futured.donut.DonutSection
-import com.destructo.sushi.AdPlacementId
-import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentProfileStatsBinding
 import com.destructo.sushi.model.jikan.user.AnimeStats
 import com.destructo.sushi.model.jikan.user.MangaStats
 import com.destructo.sushi.network.Status
-import com.facebook.ads.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.inc_manga_stats.view.*
+import kotlinx.android.synthetic.main.inc_user_anime_stats.view.*
+import kotlinx.android.synthetic.main.inc_user_manga_stats.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -51,8 +48,6 @@ class ProfileStatsFragment : Fragment() {
     private val profileViewModel:ProfileViewModel by viewModels(
         ownerProducer = {requireParentFragment()})
 
-    private lateinit var adContainer: LinearLayout
-    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,25 +62,23 @@ class ProfileStatsFragment : Fragment() {
         binding = FragmentProfileStatsBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
-        animeStatDonut = binding.userAnimeStatsDonut
+        animeStatDonut = binding.root.user_anime_stats_donut
         mangaStatDonut = binding.root.user_manga_stats_donut
-        watchingText = binding.animeWatchingTxt
-        completedText = binding.animeCompletedTxt
-        onholdText = binding.animeOnholdTxt
-        droppedText = binding.animeDroppedTxt
-        ptwText = binding.animePtwTxt
-        totalText = binding.animeTotalTxt
-        animeDaysTxt = binding.animeDays
-        animeMeanScoreTxt = binding.animeMeanScore
-        animeEpisodesTxt =  binding.animeEpisodesWatched
-        animeRewatchTxt = binding.animeRewatchValue
+        watchingText = binding.root.anime_watching_txt
+        completedText = binding.root.anime_completed_txt
+        onholdText = binding.root.anime_onhold_txt
+        droppedText = binding.root.anime_dropped_txt
+        ptwText = binding.root.anime_ptw_txt
+        totalText = binding.root.anime_total_txt
+        animeDaysTxt = binding.root.anime_days
+        animeMeanScoreTxt = binding.root.anime_mean_score
+        animeEpisodesTxt =  binding.root.anime_episodes_watched
+        animeRewatchTxt = binding.root.anime_rewatch_value
         mangaDaysTxt = binding.root.manga_days
         mangaMeanScoreTxt = binding.root.manga_mean_score
         mangaEpisodesTxt = binding.root.manga_episodes_watched
         mangaRewatchTxt = binding.root.manga_rewatch_value
 
-        adContainer = binding.adContainer
-        loadAds()
 
         return binding.root
     }
@@ -117,12 +110,7 @@ class ProfileStatsFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        if(::adView.isInitialized && adView != null){
-            adView.destroy()
-        }
-        super.onDestroy()
-    }
+
 
     private fun setAnimeStats(animeStats: AnimeStats) {
         val watching = animeStats.watching
@@ -267,34 +255,6 @@ class ProfileStatsFragment : Fragment() {
 
     }
 
-    private fun loadAds() {
-        if (!SushiApplication.getContext().queryPurchases()){
-            adView = AdView(context, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
-            adContainer.addView(adView)
-            val adListener = object : AdListener {
-                override fun onError(p0: Ad?, p1: AdError?) {
-                    Timber.e("Error")
-                }
 
-                override fun onAdLoaded(p0: Ad?) {
-                    Timber.e("onAdLoaded")
-                    adContainer.visibility = View.VISIBLE
-                }
-
-                override fun onAdClicked(p0: Ad?) {
-                    Timber.e("onAdClicked")
-                }
-
-                override fun onLoggingImpression(p0: Ad?) {
-                    Timber.e("onLoggingImpression")
-                } }
-
-            adView.loadAd(
-                adView.buildLoadAdConfig()
-                    .withAdListener(adListener)
-                    .build()
-            )
-        }
-    }
 
 }

@@ -73,7 +73,6 @@ class ProfileFragment : Fragment() {
         tabLayout = binding.profileTabLayout
         pager.isUserInputEnabled = false
 
-
         tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->
             when (position) {
                 0 -> {

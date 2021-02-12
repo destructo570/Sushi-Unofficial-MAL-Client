@@ -18,7 +18,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.*
+import com.destructo.sushi.ANIME_ID_ARG
+import com.destructo.sushi.LIST_SPACE_HEIGHT
+import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.AnimeHomeAdapter
 import com.destructo.sushi.adapter.AnimeHomeRecomAdapter
@@ -30,7 +32,6 @@ import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.ListItemHorizontalDecor
-import com.facebook.ads.*
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,7 +41,6 @@ import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_latest_news_home.view.*
 import kotlinx.android.synthetic.main.inc_promotional_home.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class AnimeFragment : Fragment() {
@@ -74,9 +74,6 @@ class AnimeFragment : Fragment() {
 
     private lateinit var topAnimeCard: MaterialCardView
     private lateinit var seasonalAnimeCard: MaterialCardView
-    private lateinit var adContainer: LinearLayout
-    private lateinit var adView: AdView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -135,10 +132,6 @@ class AnimeFragment : Fragment() {
         currentlyAiringMore = binding.root.currentlyAiringMore
         animeRecomMore = binding.root.animeRecomMore
 
-        adContainer = binding.adContainer
-
-
-        loadAds()
         topAnimeCard.setOnClickListener {
             navigateToTopAnime()
         }
@@ -156,36 +149,6 @@ class AnimeFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun loadAds() {
-        if (!SushiApplication.getContext().queryPurchases()){
-            adView = AdView(context, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
-            adContainer.addView(adView)
-            val adListener = object : AdListener {
-                override fun onError(p0: Ad?, p1: AdError?) {
-                    Timber.e("Error: ${p1?.errorMessage}")
-                }
-
-                override fun onAdLoaded(p0: Ad?) {
-                    Timber.e("onAdLoaded")
-                    adContainer.visibility = View.VISIBLE
-                }
-
-                override fun onAdClicked(p0: Ad?) {
-                    Timber.e("onAdClicked")
-                }
-
-                override fun onLoggingImpression(p0: Ad?) {
-                    Timber.e("onLoggingImpression")
-                } }
-
-            adView.loadAd(
-                adView.buildLoadAdConfig()
-                    .withAdListener(adListener)
-                    .build()
-            )
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -285,7 +248,6 @@ class AnimeFragment : Fragment() {
 
         }
 
-
         animeViewModel.promotionList.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
@@ -304,13 +266,6 @@ class AnimeFragment : Fragment() {
             }
 
         }
-    }
-
-    override fun onDestroy() {
-        if(::adView.isInitialized && adView != null){
-            adView.destroy()
-        }
-        super.onDestroy()
     }
 
     private fun navigateToTopAnime() {

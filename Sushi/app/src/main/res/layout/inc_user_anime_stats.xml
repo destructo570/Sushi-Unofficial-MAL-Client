@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="userInfo"
+            type="com.destructo.sushi.model.jikan.user.UserInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="@dimen/default_corner_radius"
+            app:cardElevation="@dimen/user_stats_card_elevation"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView79"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@string/anime_statistics"
+                    android:textAppearance="@style/TextAppearance.Sushi.H2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <app.futured.donut.DonutProgressView
+                    android:id="@+id/user_anime_stats_donut"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    app:donut_bgLineColor="@android:color/transparent"
+                    app:donut_gapAngle="90"
+                    app:donut_gapWidth="20"
+                    app:donut_strokeWidth="@dimen/margin_normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView79" />
+
+                <TextView
+                    android:id="@+id/anime_watching_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:drawablePadding="5dp"
+                    android:text="@{String.format(@string/profile_watching, userInfo.animeStats.watching)}"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:drawableStartCompat="@drawable/ic_circle_bg"
+                    app:drawableTint="@color/colorWatching"
+                    app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                    app:layout_constraintTop_toBottomOf="@+id/textView79" />
+
+                <TextView
+                    android:id="@+id/anime_completed_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:drawablePadding="5dp"
+                    android:text="@{String.format(@string/profile_completed, userInfo.animeStats.completed)}"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:drawableStartCompat="@drawable/ic_circle_bg"
+                    app:drawableTint="@color/colorCompleted"
+                    app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                    app:layout_constraintTop_toBottomOf="@+id/anime_watching_txt"
+
+                    />
+
+                <TextView
+                    android:id="@+id/anime_onhold_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:drawablePadding="5dp"
+                    android:text="@{String.format(@string/profile_on_hold, userInfo.animeStats.onHold)}"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:drawableStartCompat="@drawable/ic_circle_bg"
+                    app:drawableTint="@color/colorOnHold"
+                    app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                    app:layout_constraintTop_toBottomOf="@+id/anime_completed_txt"
+
+                    />
+
+                <TextView
+                    android:id="@+id/anime_dropped_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:drawablePadding="5dp"
+                    android:text="@{String.format(@string/profile_dropped, userInfo.animeStats.dropped)}"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:drawableStartCompat="@drawable/ic_circle_bg"
+                    app:drawableTint="@color/colorDropped"
+                    app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                    app:layout_constraintTop_toBottomOf="@+id/anime_onhold_txt"
+
+                    />
+
+                <TextView
+                    android:id="@+id/anime_ptw_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:drawablePadding="5dp"
+                    android:text="@{String.format(@string/profile_ptw, userInfo.animeStats.planToWatch)}"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:drawableStartCompat="@drawable/ic_circle_bg"
+                    app:drawableTint="@color/colorPlanToWatch"
+                    app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                    app:layout_constraintTop_toBottomOf="@+id/anime_dropped_txt"
+
+                    />
+
+                <TextView
+                    android:id="@+id/anime_total_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:drawablePadding="5dp"
+                    android:text="@{String.format(@string/profile_total, userInfo.animeStats.totalEntries)}"
+                    android:textAppearance="@style/TextAppearance.Sushi.B3"
+                    app:drawableStartCompat="@drawable/ic_circle_bg"
+                    app:drawableTint="@android:color/transparent"
+                    app:layout_constraintStart_toEndOf="@+id/user_anime_stats_donut"
+                    app:layout_constraintTop_toBottomOf="@+id/anime_ptw_txt"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_anime_stats_donut">
+
+                    <TextView
+                        android:id="@+id/anime_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/profile_days"
+                        android:textAppearance="@style/TextAppearance.Sushi.B3" />
+
+                    <TextView
+                        android:id="@+id/anime_episodes_watched"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/profile_episodes"
+                        android:textAppearance="@style/TextAppearance.Sushi.B3" />
+
+                    <TextView
+                        android:id="@+id/anime_mean_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/profile_mean_score"
+                        android:textAppearance="@style/TextAppearance.Sushi.B3" />
+
+                    <TextView
+                        android:id="@+id/anime_rewatch_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/profile_rewatched"
+                        android:textAppearance="@style/TextAppearance.Sushi.B3" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

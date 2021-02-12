@@ -64,7 +64,6 @@ import kotlinx.android.synthetic.main.inc_more_manga_detail.view.*
 import kotlinx.android.synthetic.main.inc_recomms_list.view.*
 import kotlinx.android.synthetic.main.inc_related_manga.view.*
 import kotlinx.android.synthetic.main.inc_review_list.view.*
-import timber.log.Timber
 import java.util.*
 
 private const val MANGA_IN_USER_LIST = 1
@@ -111,9 +110,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private lateinit var relatedRecycler: RecyclerView
     private lateinit var recommRecycler: RecyclerView
     private lateinit var reviewRecycler: RecyclerView
-
-    private lateinit var adContainer: LinearLayout
-    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,8 +158,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         genreChipGroup = binding.root.genre_chip_group
         characterSeeMore = binding.root.charactersMore
         reviewSeeMore = binding.root.reviewsMore
-        adContainer = binding.adContainer
-        loadAds()
         setupListeners()
 
         return binding.root
@@ -283,13 +277,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     override fun onResume() {
         super.onResume()
         appBar.addOnOffsetChangedListener(this)
-    }
-
-    override fun onDestroy() {
-        if(::adView.isInitialized && adView != null){
-            adView.destroy()
-        }
-        super.onDestroy()
     }
 
     private fun setupListeners() {
@@ -599,36 +586,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             "${getString(R.string.copied_to_clipboard)}\n$title",
             Toast.LENGTH_SHORT
         ).show()
-    }
-
-    private fun loadAds() {
-        if (!SushiApplication.getContext().queryPurchases()){
-            adView = AdView(context, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
-            adContainer.addView(adView)
-            val adListener = object : AdListener {
-                override fun onError(p0: Ad?, p1: AdError?) {
-                    Timber.e("Error")
-                }
-
-                override fun onAdLoaded(p0: Ad?) {
-                    Timber.e("onAdLoaded")
-                    adContainer.visibility = View.VISIBLE
-                }
-
-                override fun onAdClicked(p0: Ad?) {
-                    Timber.e("onAdClicked")
-                }
-
-                override fun onLoggingImpression(p0: Ad?) {
-                    Timber.e("onLoggingImpression")
-                } }
-
-            adView.loadAd(
-                adView.buildLoadAdConfig()
-                    .withAdListener(adListener)
-                    .build()
-            )
-        }
     }
 
 

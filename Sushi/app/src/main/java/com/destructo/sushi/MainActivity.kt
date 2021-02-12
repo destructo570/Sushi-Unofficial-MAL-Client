@@ -4,12 +4,15 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
+import timber.log.Timber
 import javax.inject.Inject
 
 const val CHANNEL_ID = "001"
@@ -39,7 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
-
+    private lateinit var adContainer: LinearLayout
+    private lateinit var adView: AdView
+    private lateinit var fragmentContainerView: FragmentContainerView
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -78,7 +84,10 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         navView = findViewById(R.id.navigationView)
         drawerLayout = findViewById(R.id.drawer_layout)
+        fragmentContainerView = findViewById(R.id.nav_host_fragemnt)
         profileHeader = navView.getHeaderView(0) as ConstraintLayout
+        adContainer = findViewById(R.id.adContainer)
+
         setupDrawerLayout()
         initializeAds()
         createNotificationChannel()
@@ -130,8 +139,47 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        if(::adView.isInitialized && adView != null){
+            adView.destroy()
+        }
+        super.onDestroy()
+    }
+
     private fun initializeAds() {
         AudienceNetworkAds.initialize(this@MainActivity)
+        loadAds()
+    }
+
+    private fun loadAds() {
+        if (!SushiApplication.getContext().queryPurchases()){
+            adView = AdView(this, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
+            adContainer.addView(adView)
+            val adListener = object : AdListener {
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    Timber.e("Error")
+                }
+
+                override fun onAdLoaded(p0: Ad?) {
+                    Timber.e("onAdLoaded")
+                    fragmentContainerView.setPadding(0,0,0,130)
+                    adContainer.visibility = View.VISIBLE
+                }
+
+                override fun onAdClicked(p0: Ad?) {
+                    Timber.e("onAdClicked")
+                }
+
+                override fun onLoggingImpression(p0: Ad?) {
+                    Timber.e("onLoggingImpression")
+                } }
+
+            adView.loadAd(
+                adView.buildLoadAdConfig()
+                    .withAdListener(adListener)
+                    .build()
+            )
+        }
     }
 
     private fun setProfileHeaderListener(username: String?){
