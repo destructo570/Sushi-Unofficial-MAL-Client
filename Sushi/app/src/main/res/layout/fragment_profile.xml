@@ -119,16 +119,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/character_tab_layout" />
 
-        <LinearLayout
-            android:id="@+id/adContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_gravity="bottom"
-            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
