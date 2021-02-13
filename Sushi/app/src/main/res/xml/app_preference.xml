@@ -4,8 +4,8 @@
     <PreferenceCategory app:title="@string/pref_title_general">
 
         <SwitchPreferenceCompat
-            app:key="nsfw"
             app:defaultValue="false"
+            app:key="nsfw"
             app:summary="@string/pref_nsfw_description"
             app:title="@string/pref_nsfw" />
 
