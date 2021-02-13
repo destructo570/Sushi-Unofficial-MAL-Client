@@ -34,5 +34,14 @@
     <fragment
         android:id="@+id/aboutFragment2"
         android:name="com.destructo.sushi.ui.preferences.aboutApp.AboutFragment"
-        android:label="AboutFragment" />
+        android:label="AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment2_to_creditsFragment"
+            app:destination="@id/creditsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creditsFragment"
+        android:name="com.destructo.sushi.ui.preferences.aboutApp.CreditsFragment"
+        android:label="fragment_credits"
+        tools:layout="@layout/fragment_credits" />
 </navigation>

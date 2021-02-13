@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory app:title="@string/credit_category_dev">
+
+        <ListPreference
+            app:key="credit"
+            app:summary="@string/credit_dev_one_desc"
+            app:title="@string/credit_dev_one" />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/credit_category_translator">
+
+        <ListPreference
+            app:key="credit"
+            app:summary="@string/credit_one_desc"
+            app:title="@string/credit_one" />
+
+        <ListPreference
+            app:key="credit"
+            app:summary="@string/credit_two_desc"
+            app:title="@string/credit_two" />
+
+        <ListPreference
+            app:key="credit"
+            app:summary="@string/credit_three_desc"
+            app:title="@string/credit_three" />
+
+        <ListPreference
+            app:key="credit"
+            app:summary="@string/credit_four_desc"
+            app:title="@string/credit_four" />
+
+        <ListPreference
+            app:key="credit"
+            app:summary="@string/credit_five_desc"
+            app:title="@string/credit_five" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

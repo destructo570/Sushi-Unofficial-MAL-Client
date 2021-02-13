@@ -37,6 +37,8 @@ class AboutFragment : Fragment() {
     private lateinit var changelogButton:ConstraintLayout
     private lateinit var donateButton:ConstraintLayout
     private lateinit var appVersionTxt:TextView
+    private lateinit var translateSushiView:ConstraintLayout
+    private lateinit var creditSection:ConstraintLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +62,8 @@ class AboutFragment : Fragment() {
         appVersionTxt = binding.appVersionDescText
         changelogButton = binding.changelog
         donateButton = binding.donations
+        translateSushiView = binding.translateSushi
+        creditSection = binding.appCredits
 
         appVersionTxt.text = BuildConfig.VERSION_NAME
 
@@ -87,6 +91,13 @@ class AboutFragment : Fragment() {
         changelogButton.setOnClickListener {
             showChangelog()
         }
+        translateSushiView.setOnClickListener {
+            openUrl(getString(R.string.sushi_translate_link))
+        }
+        creditSection.setOnClickListener {
+            findNavController().navigate(R.id.action_aboutFragment2_to_creditsFragment)
+        }
+
 
         return binding.root
     }

@@ -171,6 +171,7 @@
     <string name="social_dribbble_link" translatable="false">https://dribbble.com/VishalKashi</string>
     <string name="social_discord_link" translatable="false">https://discord.gg/n5GmTKAJHs</string>
     <string name="sushi_play_link" translatable="false">https://play.google.com/store/apps/details?id=com.destructo.sushi_mal</string>
+    <string name="sushi_translate_link" translatable="false">https://bit.ly/translate-sushi</string>
 
     <!-- Login screen -->
     <string name="welcome_text">Welcome to Sushi!\nYour new friend to help you browse MyAnimeList and manage your Anime/Manga Library.\n Let\'s get started!.</string>
@@ -200,7 +201,30 @@
     <string name="pref_title_open_source_license">Open Source License</string>
     <string name="pref_desc_open_source_license">List of open source licenses.</string>
     <string name="pref_title_app_version">App Version</string>
+    <string name="pref_title_translate">Translate Sushi</string>
+    <string name="pref_desc_translate">Help us translate sushi to your language.</string>
+    <string name="pref_title_credits">Credits</string>
+    <string name="pref_desc_credits">This app would not be possible without the contribution of these people.</string>
     <string name="title_buy_now">Buy Pro To Unlock</string>
+
+    <!-- Credits -->
+    <string name="credit_category_translator" translatable="false">Translators</string>
+    <string name="credit_category_dev" translatable="false">Developers</string>
+    <string name="credit_dev_one" translatable="false">axiel7</string>
+    <string name="credit_dev_one_desc" translatable="false">Helped with api and development</string>
+
+    <string name="credit_one" translatable="false">axiel7</string>
+    <string name="credit_one_desc" translatable="false">Spanish translations</string>
+    <string name="credit_two" translatable="false">Kevin(nive)</string>
+    <string name="credit_two_desc" translatable="false">German translations</string>
+    <string name="credit_three" translatable="false">Karmaa_</string>
+    <string name="credit_three_desc" translatable="false">French translations</string>
+    <string name="credit_four" translatable="false">PlayerZ0</string>
+    <string name="credit_four_desc" translatable="false">Portuguese translations</string>
+    <string name="credit_five" translatable="false">serverjay</string>
+    <string name="credit_five_desc" translatable="false">Portuguese translations</string>
+    <string name="credit_six" translatable="false">GooseTheDuck6678</string>
+    <string name="credit_six_desc" translatable="false">Arabic translations</string>
 
     <!-- Anime Review Score Strings-->
     <string name="animation">Animation: </string>
@@ -309,7 +333,9 @@
     <string name="family_name" translatable="false">Family Name:</string>
     <string name="alternate_names" translatable="false">Alternate Names:</string>
     <string name="birth_date" translatable="false">Birth date:</string>
-    <string name="member_favorite" translatable="false" >Member Favorite:</string>
+    <string name="member_favorite" translatable="false">Member Favorite:</string>
+    <string name="settings_other_information" translatable="false">Other information</string>
+    <string name="settings_support_development" translatable="false">Support Development</string>
 
 
 </resources>
