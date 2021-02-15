@@ -3,7 +3,6 @@ package com.destructo.sushi.ui.anime.animeSongs
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,27 +72,26 @@ class EndingSongsFragment : Fragment() {
                 )
                 context?.let { it1 ->
                     val alertDialog = AlertDialog.Builder(it1, R.style.SushiAlertDialog)
-                    alertDialog.setTitle(song)
-                    alertDialog.setItems(options, object : DialogInterface.OnClickListener {
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            when (p1) {
-                                0 -> {
-                                    openYoutube(song)
-                                }
-                                1 -> {
-                                    openSpotify(song)
-                                }
-                                2 -> {
-                                    openGoogle(song)
-                                }
-                                3 -> {
-                                    copyToClipBoard(song)
-                                }
+                    .setTitle(song)
+                    .setItems(options
+                    ) { _, p1 ->
+                        when (p1) {
+                            0 -> {
+                                openYoutube(song)
+                            }
+                            1 -> {
+                                openSpotify(song)
+                            }
+                            2 -> {
+                                openGoogle(song)
+                            }
+                            3 -> {
+                                copyToClipBoard(song)
                             }
                         }
-
-                    })
-
+                    }
+                    .create()
+                    alertDialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg))
                     alertDialog.show()
                 }
             }
@@ -107,40 +106,25 @@ class EndingSongsFragment : Fragment() {
 
 
     private fun openYoutube(song: String) {
-        val url = "https://www.youtube.com/results?search_query=${URLEncoder.encode(song, "utf-8")}"
+        val url = "${getString(R.string.youtube_search_url)}${URLEncoder.encode(song, "utf-8")}"
         val builder = CustomTabsIntent.Builder()
         val customTabIntent = builder.build()
         customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
     private fun openSpotify(song: String) {
-        val url = "https://open.spotify.com/search/${URLEncoder.encode(song, "utf-8")}"
+        val url = "${getString(R.string.spotify_search_url)}${URLEncoder.encode(song, "utf-8")}"
         val builder = CustomTabsIntent.Builder()
         val customTabIntent = builder.build()
         customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
     private fun openGoogle(song: String) {
-        val url = "https://www.google.com/search?q=${URLEncoder.encode(song, "utf-8")}"
+        val url = "${getString(R.string.google_search_url)}${URLEncoder.encode(song, "utf-8")}"
         val builder = CustomTabsIntent.Builder()
         val customTabIntent = builder.build()
         customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
-
-    private fun openSoundCloud(song: String) {
-        val url = "https://soundcloud.com/search?q=${URLEncoder.encode(song, "utf-8")}"
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
-    }
-
-    private fun openAppleMusic(song: String) {
-        val url = "https://soundcloud.com/search?q=${URLEncoder.encode(song, "utf-8")}"
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
-    }
-
 
     private fun copyToClipBoard(song: String) {
         val clipboard =

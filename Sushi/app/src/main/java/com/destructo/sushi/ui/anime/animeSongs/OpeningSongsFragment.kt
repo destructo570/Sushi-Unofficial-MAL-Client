@@ -88,12 +88,7 @@ class OpeningSongsFragment : Fragment() {
                         }
                     }
                     .create()
-
-                    alertDialog.setOnShowListener {
-
-                        val dialogView = alertDialog.window
-                        dialogView?.setBackgroundDrawable(ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg))
-                    }
+                    alertDialog.window?.setBackgroundDrawable(ContextCompat.getDrawable(it1,R.drawable.drawable_alert_dialog_bg))
                     alertDialog.show()
                 }
             }
@@ -109,21 +104,21 @@ class OpeningSongsFragment : Fragment() {
     }
 
     private fun openYoutube(song: String) {
-        val url = "https://www.youtube.com/results?search_query=${URLEncoder.encode(song, "utf-8")}"
+        val url = "${getString(R.string.youtube_search_url)}${URLEncoder.encode(song, "utf-8")}"
         val builder = CustomTabsIntent.Builder()
         val customTabIntent = builder.build()
         customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
     private fun openSpotify(song: String) {
-        val url = "https://open.spotify.com/search/${URLEncoder.encode(song, "utf-8")}"
+        val url = "${getString(R.string.spotify_search_url)}${URLEncoder.encode(song, "utf-8")}"
         val builder = CustomTabsIntent.Builder()
         val customTabIntent = builder.build()
         customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
     private fun openGoogle(song: String) {
-        val url = "https://www.google.com/search?q=${URLEncoder.encode(song, "utf-8")}"
+        val url = "${getString(R.string.google_search_url)}${URLEncoder.encode(song, "utf-8")}"
         val builder = CustomTabsIntent.Builder()
         val customTabIntent = builder.build()
         customTabIntent.launchUrl(requireContext(), Uri.parse(url))
