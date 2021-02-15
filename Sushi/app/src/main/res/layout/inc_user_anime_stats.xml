@@ -19,7 +19,7 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
-            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardBackgroundColor="?attr/colorCardBackground"
             app:cardCornerRadius="@dimen/default_corner_radius"
             app:cardElevation="@dimen/user_stats_card_elevation"
             app:cardUseCompatPadding="true"

@@ -23,7 +23,7 @@
             android:layout_marginEnd="@dimen/margin_normal"
             app:cardCornerRadius="@dimen/default_corner_radius"
             app:cardElevation="@dimen/user_stats_card_elevation"
-            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardBackgroundColor="?attr/colorCardBackground"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
