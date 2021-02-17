@@ -8,6 +8,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.destructo.sushi.CURRENT_THEME
+import com.destructo.sushi.PREF_ID_THEME
 import com.destructo.sushi.R
 import com.destructo.sushi.enum.AppTheme
 
@@ -22,7 +23,7 @@ class LookAndFeelFragment : PreferenceFragmentCompat(){
 
         val sharedPref: SharedPreferences? = PreferenceManager.getDefaultSharedPreferences(context)
 
-        val theme = findPreference<ListPreference>("theme")
+        val theme = findPreference<ListPreference>(PREF_ID_THEME)
         theme?.setOnPreferenceChangeListener { _, newValue ->
             when (newValue){
                 getString(R.string.theme_night)->{

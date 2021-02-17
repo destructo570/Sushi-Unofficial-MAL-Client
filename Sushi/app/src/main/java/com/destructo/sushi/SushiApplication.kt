@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.android.billingclient.api.*
-import com.destructo.sushi.enum.AppTheme
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,7 +54,6 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
         val result = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
         if (result.purchasesList.isNullOrEmpty()){
             sharedPref.edit()?.putBoolean(IS_PRO_USER, false)?.apply()
-            sharedPref.edit()?.putString(CURRENT_THEME, AppTheme.LIGHT.value)?.apply()
             return false
         }else{
             val purchaseList = result.purchasesList

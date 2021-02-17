@@ -41,6 +41,9 @@ const val DONATE_BEER_ID = "donate_beer"
 const val DONATE_LUNCH_ID = "donate_lunch"
 const val DONATE_GIFT_ID = "donate_gift"
 
+const val PREF_ID_THEME = "selected_theme"
+
+
 const val NSFW_WHITE = "white"
 
 //1 Day in milliseconds = 86400000

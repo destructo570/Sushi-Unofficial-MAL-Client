@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
+        Timber.e("Current Theme: $currentTheme")
 
         setApplicationTheme(currentTheme)
         setContentView(R.layout.activity_main)
