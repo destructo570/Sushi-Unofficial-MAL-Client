@@ -1,8 +1,5 @@
 package com.destructo.sushi
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -91,7 +88,6 @@ class MainActivity : AppCompatActivity() {
 
         setupDrawerLayout()
         initializeAds()
-        createNotificationChannel()
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
         mainViewModel.getUserInfo("anime_statistics")
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -192,26 +188,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val updateChannelName = getString(R.string.notification_channel_update)
-            val updateChannelDesc = getString(R.string.notification_channel_update_desc)
-            val updateChannelImportance = NotificationManager.IMPORTANCE_DEFAULT
-            val updateChannel = NotificationChannel(UPDATE_CHANNEL_ID, updateChannelName, updateChannelImportance)
-            updateChannel.description = updateChannelDesc
 
-            val promotionChannelName = getString(R.string.notification_channel_promotion)
-            val promotionChannelDesc = getString(R.string.notification_channel_promotion_desc)
-            val promotionChannelImportance = NotificationManager.IMPORTANCE_DEFAULT
-            val promotionChannel = NotificationChannel(PROMOTION_CHANNEL_ID, promotionChannelName, promotionChannelImportance)
-            promotionChannel.description = promotionChannelDesc
-
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(updateChannel)
-            notificationManager.createNotificationChannel(promotionChannel)
-        }
-
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfig)
