@@ -81,13 +81,9 @@ class ProfileFavoriteFragment : Fragment() {
         favCharacterLayout = binding.favCharacterLayout
         favPeopleLayout = binding.favPeopleLayout
 
-
-
-
-
-
         return binding.root
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

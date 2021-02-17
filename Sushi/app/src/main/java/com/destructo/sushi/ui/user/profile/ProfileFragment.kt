@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
         progressBar = binding.progressBar
         pager = binding.profileViewPager
         tabLayout = binding.profileTabLayout
-        pager.isUserInputEnabled = false
+        //pager.isUserInputEnabled = false
 
         tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->
             when (position) {
