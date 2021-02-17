@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +21,7 @@ import com.destructo.sushi.ui.preferences.donation.DonationActivity
 import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.settings_list_item_view.view.*
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
@@ -36,9 +36,9 @@ class AboutFragment : Fragment() {
     private lateinit var openSourceLicense:ConstraintLayout
     private lateinit var changelogButton:ConstraintLayout
     private lateinit var donateButton:ConstraintLayout
-    private lateinit var appVersionTxt:TextView
     private lateinit var translateSushiView:ConstraintLayout
     private lateinit var creditSection:ConstraintLayout
+    private lateinit var appVersion:ConstraintLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,13 +59,13 @@ class AboutFragment : Fragment() {
         rateAppButton = binding.rateReviewApp
         discordButton = binding.joinDiscord
         openSourceLicense = binding.openSourceLicense
-        appVersionTxt = binding.appVersionDescText
         changelogButton = binding.changelog
         donateButton = binding.donations
         translateSushiView = binding.translateSushi
         creditSection = binding.appCredits
+        appVersion = binding.appVersion
 
-        appVersionTxt.text = BuildConfig.VERSION_NAME
+        appVersion.setting_list_description.text = BuildConfig.VERSION_NAME
 
         twitterButton.setOnClickListener {
             openUrl(getString(R.string.social_twitter_link))

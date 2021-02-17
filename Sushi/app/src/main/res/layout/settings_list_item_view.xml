@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/setting_list_icon"
+            android:layout_width="@dimen/setting_list_item_image"
+            android:layout_height="@dimen/setting_list_item_image"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_rate_star_line" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/setting_list_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="@string/pref_title_rate_app"
+            android:textAppearance="@style/TextAppearance.Sushi.B3"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/setting_list_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/full_names"
+
+            />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/setting_list_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:maxLines="2"
+            android:text="@string/pref_desc_rate_app"
+            android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/setting_list_icon"
+            app:layout_constraintTop_toBottomOf="@+id/setting_list_title"
+            tools:text="@tools:sample/full_names" />
+
+</merge>

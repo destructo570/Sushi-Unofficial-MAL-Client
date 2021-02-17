@@ -171,310 +171,69 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/about_dev_cardview" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/rate_review_app"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_support_dev">
-
-                    <ImageView
-                        android:id="@+id/rate_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_rate_star_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/look_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_rate_app"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/rate_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/look_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_rate_app"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/rate_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/look_title"
-                        tools:text="@tools:sample/full_names" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintTop_toBottomOf="@+id/category_support_dev"
+                    app:setting_title="@string/pref_title_rate_app"
+                    app:setting_description="@string/pref_desc_rate_app"
+                    app:setting_icon="@drawable/ic_rate_star_line"
+                    />
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/translate_sushi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rate_review_app">
+                    app:layout_constraintTop_toBottomOf="@+id/rate_review_app"
+                    app:setting_title="@string/pref_title_translate"
+                    app:setting_description="@string/pref_desc_translate"
+                    app:setting_icon="@drawable/ic_translate_line"
+                    />
 
-                    <ImageView
-                        android:id="@+id/translate_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_translate_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/translate_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_translate"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/translate_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/translate_sushi_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_translate"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/translate_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/translate_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/join_discord"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/translate_sushi">
+                    app:layout_constraintTop_toBottomOf="@+id/translate_sushi"
+                    app:setting_title="@string/pref_title_discord"
+                    app:setting_description="@string/pref_desc_discord"
+                    app:setting_icon="@drawable/ic_discord_line"
+                    />
 
-                    <ImageView
-                        android:id="@+id/discord_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_discord_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/discord_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_discord"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/discord_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/join_discord_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_discord"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/discord_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/discord_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/donations"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/join_discord">
+                    app:layout_constraintTop_toBottomOf="@+id/join_discord"
+                    app:setting_title="@string/pref_title_donation"
+                    app:setting_description="@string/pref_desc_donate_desc"
+                    app:setting_icon="@drawable/ic_gift_outline"
+                    />
 
-                    <ImageView
-                        android:id="@+id/donate_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_gift_outline" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/donate_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_donation"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/donate_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/donate_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_donate_desc"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/donate_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/donate_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/give_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/donations">
-
-                    <ImageView
-                        android:id="@+id/feedback_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_feedback_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/feedback_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_send_feedback"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/feedback_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/feedback_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_send_feedback"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/feedback_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/feedback_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/donations"
+                    app:setting_title="@string/pref_title_send_feedback"
+                    app:setting_description="@string/pref_desc_send_feedback"
+                    app:setting_icon="@drawable/ic_feedback_line"
+                    />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/category_other"
@@ -490,248 +249,57 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/give_feedback" />
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/changelog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_other">
+                    app:layout_constraintTop_toBottomOf="@+id/category_other"
+                    app:setting_title="@string/pref_changelog_title"
+                    app:setting_description="@string/pref_changelog_desc"
+                    app:setting_icon="@drawable/ic_information_line"
+                    />
 
-                    <ImageView
-                        android:id="@+id/changelog_icom"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_information_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/changelog_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_changelog_title"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/changelog_icom"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/changelog_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_changelog_desc"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/changelog_icom"
-                        app:layout_constraintTop_toBottomOf="@+id/changelog_title"
-                        tools:text="@tools:sample/full_names" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/app_credits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/changelog">
-
-                    <ImageView
-                        android:id="@+id/credits_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_group_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/credits_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_credits"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/credits_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/credits_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_credits"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/credits_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/credits_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/changelog"
+                    app:setting_title="@string/pref_title_credits"
+                    app:setting_description="@string/pref_desc_credits"
+                    app:setting_icon="@drawable/ic_group_line"
+                    />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/open_source_license"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/app_credits">
+                    app:layout_constraintTop_toBottomOf="@+id/app_credits"
+                    app:setting_title="@string/pref_title_open_source_license"
+                    app:setting_description="@string/pref_desc_open_source_license"
+                    app:setting_icon="@drawable/ic_chapter_line"
+                    />
 
-                    <ImageView
-                        android:id="@+id/license_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_chapter_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/license_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_open_source_license"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/license_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/license_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:text="@string/pref_desc_open_source_license"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/license_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/license_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/app_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/open_source_license">
-
-                    <ImageView
-                        android:id="@+id/app_icon"
-                        android:layout_width="@dimen/setting_list_item_image"
-                        android:layout_height="@dimen/setting_list_item_image"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/margin_normal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_android_line" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/app_version_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:singleLine="true"
-                        android:text="@string/pref_title_app_version"
-                        android:textAppearance="@style/TextAppearance.Sushi.B3"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/app_icon"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names"
-
-                        />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/app_version_desc_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_normal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="@dimen/margin_normal"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:ellipsize="marquee"
-                        android:fadingEdge="horizontal"
-                        android:maxLines="2"
-                        android:textAppearance="@style/TextAppearance.Sushi.ByLine3"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/app_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/app_version_title"
-                        tools:text="@tools:sample/full_names" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/open_source_license"
+                    app:setting_title="@string/pref_title_app_version"
+                    app:setting_icon="@drawable/ic_android_line"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

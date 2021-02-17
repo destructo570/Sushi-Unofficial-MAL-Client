@@ -25,4 +25,10 @@
     <attr name="customChipStyle" format="reference" />
     <attr name="tintColor" format="color" />
 
+    <declare-styleable name="SettingsListView">
+        <attr name="setting_icon" format="reference"/>
+        <attr name="setting_title" format="reference"/>
+        <attr name="setting_description" format="reference"/>
+    </declare-styleable>
+
 </resources>
