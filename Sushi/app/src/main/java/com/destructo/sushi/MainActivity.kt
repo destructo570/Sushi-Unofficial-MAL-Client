@@ -31,7 +31,8 @@ import kotlinx.android.synthetic.main.profile_header_layout.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-const val CHANNEL_ID = "001"
+const val UPDATE_CHANNEL_ID = "001"
+const val PROMOTION_CHANNEL_ID = "002"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -75,7 +76,6 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
-        Timber.e("Current Theme: $currentTheme")
 
         setApplicationTheme(currentTheme)
         setContentView(R.layout.activity_main)
@@ -194,13 +194,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.notification_channel_name)
-            val descriptionText = getString(R.string.notification_channel_desc)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
-            mChannel.description = descriptionText
+            val updateChannelName = getString(R.string.notification_channel_update)
+            val updateChannelDesc = getString(R.string.notification_channel_update_desc)
+            val updateChannelImportance = NotificationManager.IMPORTANCE_DEFAULT
+            val updateChannel = NotificationChannel(UPDATE_CHANNEL_ID, updateChannelName, updateChannelImportance)
+            updateChannel.description = updateChannelDesc
+
+            val promotionChannelName = getString(R.string.notification_channel_promotion)
+            val promotionChannelDesc = getString(R.string.notification_channel_promotion_desc)
+            val promotionChannelImportance = NotificationManager.IMPORTANCE_DEFAULT
+            val promotionChannel = NotificationChannel(PROMOTION_CHANNEL_ID, promotionChannelName, promotionChannelImportance)
+            promotionChannel.description = promotionChannelDesc
+
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
+            notificationManager.createNotificationChannel(updateChannel)
+            notificationManager.createNotificationChannel(promotionChannel)
         }
 
     }

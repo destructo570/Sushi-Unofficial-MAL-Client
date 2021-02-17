@@ -7,6 +7,9 @@
     <string name="theme_amoled" translatable="false">Amoled</string>
 
     <!-- Notification Channels -->
-    <string name="notification_channel_name" translatable="false">Update Notification</string>
-    <string name="notification_channel_desc" translatable="false">Notifications regarding latest updates</string>
+    <string name="notification_channel_update" translatable="false">Update Notification</string>
+    <string name="notification_channel_update_desc" translatable="false">Notifications regarding latest updates</string>
+
+    <string name="notification_channel_promotion" translatable="false">Promotion Notification</string>
+    <string name="notification_channel_promotion_desc" translatable="false">Notifications regarding sales and promotions</string>
 </resources>
