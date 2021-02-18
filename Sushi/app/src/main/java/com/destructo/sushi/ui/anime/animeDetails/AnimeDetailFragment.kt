@@ -429,7 +429,6 @@ class AnimeDetailFragment : Fragment(),
     }
 
 
-
     private fun setGenreChips(genreList: List<Genre?>) {
         genreChipGroup.removeAllViews()
         genreList.forEach { genre ->
@@ -548,7 +547,8 @@ class AnimeDetailFragment : Fragment(),
                     status = convertStatus(status),
                     num_watched_episodes = episodes,
                     score = score, start_date = startDate,
-                    finish_date = finishDate
+                    finish_date = finishDate,
+                    totalEpisodes = animeDetailViewModel.animeDetail.value?.data?.numEpisodes
                 )
             )
         } else {
@@ -635,9 +635,11 @@ class AnimeDetailFragment : Fragment(),
         val clipData = ClipData.newPlainText("text", title)
         clipboard.setPrimaryClip(clipData)
 
-        Toast.makeText(context,
+        Toast.makeText(
+            context,
             "${getString(R.string.copied_to_clipboard)}\n$title",
-            Toast.LENGTH_SHORT).show()
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun setMoreAnimeInfoClickListener() {
