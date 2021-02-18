@@ -4,6 +4,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_MANGA_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.model.database.MangaCharacterListEntity
 import com.destructo.sushi.model.database.MangaDetailsEntity
@@ -87,7 +88,21 @@ constructor(
     }
 
 
-    suspend fun updateUserMangaList(mangaUpdateParams: MangaUpdateParams) {
+    suspend fun updateUserMangaList(updateParam: MangaUpdateParams) {
+
+        if (updateParam.status == UserAnimeStatus.COMPLETED.value
+            && updateParam.totalChapters != null
+            && updateParam.totalChapters > 0
+        ) {
+            updateParam.setNumberOfChaptersRead(updateParam.totalChapters)
+            updateParam.totalVolumes?.let { updateParam.setNumberOfVolumesRead(it) }
+            updateUserMangaListCall(updateParam)
+        } else {
+            updateUserMangaListCall(updateParam)
+        }
+    }
+
+    private suspend fun updateUserMangaListCall(mangaUpdateParams: MangaUpdateParams){
         userMangaStatus.value = Resource.loading(null)
 
         val addEpisodeDeferred = malApi.updateUserManga(

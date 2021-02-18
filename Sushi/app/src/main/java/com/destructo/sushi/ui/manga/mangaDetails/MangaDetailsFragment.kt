@@ -103,8 +103,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
     private var mangaChapters: String? = null
     private var mangaVolumes: String? = null
     private var mangaScore: Int? = 0
-    private var mangaStartDate:String?=null
-    private var mangaFinishDate:String?=null
+    private var mangaStartDate: String? = null
+    private var mangaFinishDate: String? = null
 
     private lateinit var characterRecycler: RecyclerView
     private lateinit var relatedRecycler: RecyclerView
@@ -191,7 +191,9 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                             mangaStartDate = manga.myMangaListStatus.startDate
                             mangaFinishDate = manga.myMangaListStatus.finishDate
 
-                        } else { isInUserList = MANGA_NOT_IN_USER_LIST }
+                        } else {
+                            isInUserList = MANGA_NOT_IN_USER_LIST
+                        }
 
                         manga.mainPicture?.medium?.let { setScoreCardColor(it) }
                         manga.genres?.let { setGenreChips(it) }
@@ -207,32 +209,37 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         mangaDetailViewModel.mangaCharacter.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
-                Status.LOADING -> { }
+                Status.LOADING -> {
+                }
                 Status.SUCCESS -> {
                     resource.data?.let { characters ->
                         characterAdapter.submitList(characters.characters)
                     }
                 }
-                Status.ERROR -> { }
+                Status.ERROR -> {
+                }
             }
         }
 
         mangaDetailViewModel.mangaReview.observe(viewLifecycleOwner) { resource ->
 
             when (resource.status) {
-                Status.LOADING -> { }
+                Status.LOADING -> {
+                }
                 Status.SUCCESS -> {
                     resource.data?.let { mangaReview ->
                         reviewAdapter.submitList(mangaReview.reviews)
                     }
                 }
-                Status.ERROR -> { }
+                Status.ERROR -> {
+                }
             }
         }
 
         mangaDetailViewModel.userMangaStatus.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
-                Status.LOADING -> { }
+                Status.LOADING -> {
+                }
                 Status.SUCCESS -> {
 
                     changeButtonState(addToListButton, true)
@@ -257,7 +264,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
         mangaDetailViewModel.userMangaRemove.observe(viewLifecycleOwner) {
             when (it.status) {
-                Status.ERROR -> { }
+                Status.ERROR -> {
+                }
                 Status.SUCCESS -> {
                     addToListButton.text = getString(R.string.add_to_list)
                     addToListButton.setCompoundDrawablesWithIntrinsicBounds(
@@ -269,7 +277,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     myListStatus.visibility = View.GONE
                     mangaDetailViewModel.getMangaDetail(mangaIdArg, true)
                 }
-                Status.LOADING -> { }
+                Status.LOADING -> {
+                }
             }
         }
     }
@@ -297,7 +306,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         addToListButton.setOnClickListener {
 
             when (isInUserList) {
-                USER_MANGA_LIST_DEFAULT -> { }
+                USER_MANGA_LIST_DEFAULT -> {
+                }
                 MANGA_IN_USER_LIST -> {
                     val myDialog = MangaUpdateDialog.newInstance(
                         mangaStatus,
@@ -500,8 +510,8 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         volume: Int,
         score: Int,
         remove: Boolean,
-        startDate:String?,
-        finishDate:String?
+        startDate: String?,
+        finishDate: String?
     ) {
         if (!remove) {
             mangaDetailViewModel.updateUserMangaStatus(
@@ -512,7 +522,9 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     num_volumes_read = volume,
                     score = score,
                     start_date = startDate,
-                    finish_date = finishDate
+                    finish_date = finishDate,
+                    totalChapters = mangaDetailViewModel.mangaDetail.value?.data?.numChapters,
+                    totalVolumes = mangaDetailViewModel.mangaDetail.value?.data?.numVolumes
                 )
             )
         } else {
