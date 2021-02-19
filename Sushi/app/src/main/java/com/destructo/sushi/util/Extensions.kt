@@ -1,12 +1,14 @@
 package com.destructo.sushi.util
 
 import android.content.Context
+import android.net.Uri
 import android.text.Editable
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import java.util.*
@@ -22,6 +24,12 @@ fun String.toTitleCase():String{
         finalString += it.capitalize(Locale.ROOT) + " "
     }
     return finalString
+}
+
+fun Context.openUrl(url: String){
+    val builder = CustomTabsIntent.Builder()
+    val customTabIntent = builder.build()
+    customTabIntent.launchUrl(this, Uri.parse(url))
 }
 
 @ColorInt

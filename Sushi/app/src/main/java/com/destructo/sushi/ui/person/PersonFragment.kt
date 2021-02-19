@@ -5,15 +5,12 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
@@ -26,6 +23,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentPersonBinding
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.util.openUrl
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
@@ -148,27 +146,23 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             return@setOnLongClickListener false
         }
         toolbar.inflateMenu(R.menu.detail_menu_options)
-        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-
-                when(item?.itemId){
-                    R.id.share_item ->{
-                        val url = BASE_MAL_PEOPLE_URL + personArg
-                        shareUrl(url)
-                    }
-                    R.id.copy_title ->{
-                        copyToClipBoard()
-                    }
-                    R.id.open_in_browser ->{
-                        val url = BASE_MAL_PEOPLE_URL + personArg
-                        openUrl(url)
-                    }
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item?.itemId) {
+                R.id.share_item -> {
+                    val url = BASE_MAL_PEOPLE_URL + personArg
+                    shareUrl(url)
                 }
-
-                return false
+                R.id.copy_title -> {
+                    copyToClipBoard()
+                }
+                R.id.open_in_browser -> {
+                    val url = BASE_MAL_PEOPLE_URL + personArg
+                    context?.openUrl(url)
+                }
             }
 
-        })
+            false
+        }
     }
 
     private fun copyToClipBoard() {
@@ -179,14 +173,6 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         clipboard.setPrimaryClip(clipData)
 
         Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
-    }
-
-
-    private fun openUrl(url: String) {
-
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
     }
 
     private fun shareUrl(url: String) {

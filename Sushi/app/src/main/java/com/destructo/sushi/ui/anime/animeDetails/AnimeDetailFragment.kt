@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -42,6 +40,7 @@ import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.destructo.sushi.util.ListItemHorizontalDecor
 import com.destructo.sushi.util.getColorFromAttr
+import com.destructo.sushi.util.openUrl
 import com.destructo.sushi.util.toTitleCase
 import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
@@ -350,7 +349,7 @@ class AnimeDetailFragment : Fragment(),
             it?.let { navigateToAnimeDetails(it) }
         })
         videoAdapter = AnimeVideoAdapter(AnimePromoListener {
-            it?.let { openUrl(it) }
+            it?.let { context?.openUrl(it) }
         })
         reviewAdapter = AnimeReviewListAdapter(AnimeReviewListener {
             it?.let {
@@ -360,7 +359,7 @@ class AnimeDetailFragment : Fragment(),
         })
         episodeAdapter = AnimeEpisodePreviewAdapter(MalUrlListener {
             it?.let {
-                openUrl(it)
+                context?.openUrl(it)
             }
         })
 
@@ -492,12 +491,6 @@ class AnimeDetailFragment : Fragment(),
         )
     }
 
-    private fun openUrl(url: String) {
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
-    }
-
     private fun shareUrl(url: String) {
         val intent = Intent(Intent.ACTION_SEND)
         val title = animeDetailViewModel.animeDetail.value?.data?.title
@@ -620,7 +613,7 @@ class AnimeDetailFragment : Fragment(),
                 }
                 R.id.open_in_browser -> {
                     val url = BASE_MAL_ANIME_URL + animeIdArg
-                    openUrl(url)
+                    context?.openUrl(url)
                 }
             }
 

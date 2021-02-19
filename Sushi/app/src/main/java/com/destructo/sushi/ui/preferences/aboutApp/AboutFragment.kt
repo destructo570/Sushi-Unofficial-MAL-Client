@@ -19,6 +19,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
 import com.destructo.sushi.ui.preferences.donation.DonationActivity
 import com.destructo.sushi.util.getColorFromAttr
+import com.destructo.sushi.util.openUrl
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.settings_list_item_view.view.*
@@ -68,19 +69,19 @@ class AboutFragment : Fragment() {
         appVersion.setting_list_description.text = BuildConfig.VERSION_NAME
 
         twitterButton.setOnClickListener {
-            openUrl(getString(R.string.social_twitter_link))
+            context?.openUrl(getString(R.string.social_twitter_link))
         }
         dribbbleButton.setOnClickListener {
-            openUrl(getString(R.string.social_dribbble_link))
+            context?.openUrl(getString(R.string.social_dribbble_link))
         }
         giveFeedback.setOnClickListener {
             sendFeedback()
         }
         rateAppButton.setOnClickListener {
-            openUrl(getString(R.string.sushi_play_link))
+            context?.openUrl(getString(R.string.sushi_play_link))
         }
         discordButton.setOnClickListener {
-            openUrl(getString(R.string.social_discord_link))
+            context?.openUrl(getString(R.string.social_discord_link))
         }
         donateButton.setOnClickListener {
             openDonationActivity()
@@ -92,7 +93,7 @@ class AboutFragment : Fragment() {
             showChangelog()
         }
         translateSushiView.setOnClickListener {
-            openUrl(getString(R.string.sushi_translate_link))
+            context?.openUrl(getString(R.string.sushi_translate_link))
         }
         creditSection.setOnClickListener {
             findNavController().navigate(R.id.action_aboutFragment2_to_creditsFragment)
@@ -113,11 +114,6 @@ class AboutFragment : Fragment() {
         }
     }
 
-    private fun openUrl(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
-    }
 
     private fun openDonationActivity() {
         val intent = Intent(context, DonationActivity::class.java)

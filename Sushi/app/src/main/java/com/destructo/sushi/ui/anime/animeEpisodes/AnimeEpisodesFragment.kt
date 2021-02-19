@@ -1,12 +1,10 @@
 package com.destructo.sushi.ui.anime.animeEpisodes
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -18,6 +16,7 @@ import com.destructo.sushi.databinding.FragmentAllAnimeEpisodesBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.ListItemVerticalDecor
+import com.destructo.sushi.util.openUrl
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -65,7 +64,7 @@ class AnimeEpisodesFragment : Fragment() {
 
         animeEpisodeAdapter = AnimeEpisodeAdapter(MalUrlListener {
             it?.let {
-                openUrl(it)
+                context?.openUrl(it)
             }
         })
         episodeRecyclerView.adapter = animeEpisodeAdapter
@@ -88,9 +87,4 @@ class AnimeEpisodesFragment : Fragment() {
 
     }
 
-    private fun openUrl(url: String) {
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
-    }
 }

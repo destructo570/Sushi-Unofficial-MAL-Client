@@ -3,14 +3,12 @@ package com.destructo.sushi.ui.anime.animeSongs
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +20,7 @@ import com.destructo.sushi.adapter.AnimeSongAdapter
 import com.destructo.sushi.databinding.FragmentAllAnimeEndingSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.util.ListItemVerticalDecor
+import com.destructo.sushi.util.openUrl
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLEncoder
 
@@ -107,23 +106,17 @@ class EndingSongsFragment : Fragment() {
 
     private fun openYoutube(song: String) {
         val url = "${getString(R.string.youtube_search_url)}${URLEncoder.encode(song, "utf-8")}"
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+        context?.openUrl(url)
     }
 
     private fun openSpotify(song: String) {
         val url = "${getString(R.string.spotify_search_url)}${URLEncoder.encode(song, "utf-8")}"
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+        context?.openUrl(url)
     }
 
     private fun openGoogle(song: String) {
         val url = "${getString(R.string.google_search_url)}${URLEncoder.encode(song, "utf-8")}"
-        val builder = CustomTabsIntent.Builder()
-        val customTabIntent = builder.build()
-        customTabIntent.launchUrl(requireContext(), Uri.parse(url))
+        context?.openUrl(url)
     }
 
     private fun copyToClipBoard(song: String) {
