@@ -339,6 +339,8 @@
     <string name="youtube_search_url" translatable="false">https://www.youtube.com/results?search_query=</string>
     <string name="google_search_url" translatable="false">https://www.google.com/search?q=</string>
     <string name="spotify_search_url" translatable="false">https://open.spotify.com/search/</string>
+    <string name="share_anime_or_manga" translatable="false">%s\n\n%s\n\nShared Using Sushi - MAL Client</string>
+    <string name="share_plain_text" translatable="false">Shared Using Sushi - MAL Client</string>
 
 
 </resources>

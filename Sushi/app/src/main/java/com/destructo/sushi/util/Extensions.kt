@@ -3,6 +3,7 @@ package com.destructo.sushi.util
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.text.Editable
 import android.util.TypedValue
@@ -14,6 +15,7 @@ import androidx.annotation.ColorInt
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.destructo.sushi.R
 import java.util.*
 
 
@@ -48,6 +50,13 @@ fun Context.copyToClipboard(content: String){
         this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clipData = ClipData.newPlainText("text", content)
     clipboard.setPrimaryClip(clipData)
+}
+
+fun Context.shareText(data: String){
+    val intent = Intent(Intent.ACTION_SEND)
+    intent.type = "text/plain"
+    intent.putExtra(Intent.EXTRA_TEXT, data)
+    startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
 }
 
 @ColorInt

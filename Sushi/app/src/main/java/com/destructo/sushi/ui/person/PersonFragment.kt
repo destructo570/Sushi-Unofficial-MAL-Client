@@ -1,6 +1,5 @@
 package com.destructo.sushi.ui.person
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +21,7 @@ import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.copyToClipboard
 import com.destructo.sushi.util.makeShortToast
 import com.destructo.sushi.util.openUrl
+import com.destructo.sushi.util.shareText
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
@@ -67,7 +67,7 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         appBar = binding.appbar
         collapsingToolbarLayout = binding.personCollapsingToolbar
         collapsingToolbarLayout.setOnLongClickListener {
-            copyToClipBoard()
+            copyPersonNameToClipBoard()
             return@setOnLongClickListener false
         }
 
@@ -140,43 +140,38 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         }
 
         toolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyPersonNameToClipBoard()
             return@setOnLongClickListener false
         }
         toolbar.inflateMenu(R.menu.detail_menu_options)
         toolbar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
-                R.id.share_item -> {
-                    val url = BASE_MAL_PEOPLE_URL + personArg
-                    shareUrl(url)
-                }
-                R.id.copy_title -> {
-                    copyToClipBoard()
-                }
-                R.id.open_in_browser -> {
-                    val url = BASE_MAL_PEOPLE_URL + personArg
-                    context?.openUrl(url)
-                }
+                R.id.share_item -> sharePerson()
+                R.id.copy_title -> copyPersonNameToClipBoard()
+                R.id.open_in_browser -> openInBrowser()
             }
-
             false
         }
     }
 
-    private fun copyToClipBoard() {
+    private fun openInBrowser() {
+        val url = BASE_MAL_PEOPLE_URL + personArg
+        context?.openUrl(url)
+    }
+
+    private fun sharePerson() {
+        personViewModel.personData.value?.data?.name?.let {
+            val url = BASE_MAL_PEOPLE_URL + personArg
+            val data = String.format(getString(R.string.share_anime_or_manga), it, url)
+            context?.shareText(data)
+        }
+    }
+
+    private fun copyPersonNameToClipBoard() {
         personViewModel.personData.value?.data?.name?.let{
             context?.copyToClipboard(it)
             context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
         }
-    }
-
-    private fun shareUrl(url: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        val title = personViewModel.personData.value?.data?.name
-        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, data)
-        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

@@ -1,6 +1,5 @@
 package com.destructo.sushi.ui.anime.animeDetails
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -383,7 +382,7 @@ class AnimeDetailFragment : Fragment(),
 
     private fun setCollapseToolbarListener() {
         collapToolbar.setOnLongClickListener {
-            copyTitleToClipBoard()
+            copyAnimeTitleToClipBoard()
             return@setOnLongClickListener false
         }
     }
@@ -485,15 +484,6 @@ class AnimeDetailFragment : Fragment(),
         )
     }
 
-    private fun shareUrl(url: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        val title = animeDetailViewModel.animeDetail.value?.data?.title
-        val data = "$title\n\n$url\n\nShared Using Sushi - Myanimelist App"
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, data)
-        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
-    }
-
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         if (verticalOffset == 0) {
             var drawable: Drawable? = toolbar.navigationIcon
@@ -592,30 +582,34 @@ class AnimeDetailFragment : Fragment(),
             view.findNavController().navigateUp()
         }
         toolbar.setOnLongClickListener {
-            copyTitleToClipBoard()
+            copyAnimeTitleToClipBoard()
             return@setOnLongClickListener false
         }
         toolbar.inflateMenu(R.menu.detail_menu_options)
         toolbar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
-                R.id.share_item -> {
-                    val url = BASE_MAL_ANIME_URL + animeIdArg
-                    shareUrl(url)
-                }
-                R.id.copy_title -> {
-                    copyTitleToClipBoard()
-                }
-                R.id.open_in_browser -> {
-                    val url = BASE_MAL_ANIME_URL + animeIdArg
-                    context?.openUrl(url)
-                }
+                R.id.share_item -> shareAnime()
+                R.id.copy_title -> copyAnimeTitleToClipBoard()
+                R.id.open_in_browser -> openInBrowser()
             }
 
             false
         }
     }
 
-    private fun copyTitleToClipBoard() {
+    private fun openInBrowser() {
+        val url = BASE_MAL_ANIME_URL + animeIdArg
+        context?.openUrl(url)
+    }
+
+    private fun shareAnime() {
+        animeDetailViewModel.animeDetail.value?.data?.title?.let {
+            val url = BASE_MAL_ANIME_URL + animeIdArg
+            val data = String.format(getString(R.string.share_anime_or_manga), it, url)
+            context?.shareText(data)        }
+    }
+
+    private fun copyAnimeTitleToClipBoard() {
         animeDetailViewModel.animeDetail.value?.data?.title?.let{
             context?.copyToClipboard(it)
             context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")

@@ -1,9 +1,5 @@
 package com.destructo.sushi.ui.manga.mangaDetails
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -43,10 +39,7 @@ import com.destructo.sushi.model.params.MangaUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
-import com.destructo.sushi.util.ListItemHorizontalDecor
-import com.destructo.sushi.util.getColorFromAttr
-import com.destructo.sushi.util.openUrl
-import com.destructo.sushi.util.toTitleCase
+import com.destructo.sushi.util.*
 import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -244,7 +237,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
                     changeButtonState(addToListButton, true)
                     isInUserList = MANGA_IN_USER_LIST
                     resource.data?.let { mangaStatus ->
-                        addToListButton.text = titleCaseString(mangaStatus.status.toString())
+                        addToListButton.text = mangaStatus.status.toString().toTitleCase()
                         addToListButton.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.ic_check_fill,
                             0,
@@ -296,7 +289,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     private fun setCollapsingToolbarListener() {
         collapsingToolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyMangaTitleToClipBoard()
             return@setOnLongClickListener false
         }
     }
@@ -376,15 +369,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         relatedRecycler.adapter = relatedAdapter
     }
 
-    private fun shareUrl(url: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        val title = mangaDetailViewModel.mangaDetail.value?.data?.title
-        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, data)
-        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
-    }
-
     private fun setGenreChips(genreList: List<Genre?>) {
         genreChipGroup.removeAllViews()
         genreList.forEach { genre ->
@@ -430,7 +414,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
             })
     }
 
-
     private fun navigateToMangaDetails(malId: Int) {
         this.findNavController().navigate(
             R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, malId))
@@ -441,16 +424,6 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         this.findNavController().navigate(
             R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
         )
-    }
-
-    private fun titleCaseString(data: String): String {
-        val str = data.replace("_", " ", true)
-        val words = str.split(" ")
-        var finalString = ""
-        words.forEach {
-            finalString += it.capitalize(Locale.ROOT) + " "
-        }
-        return finalString
     }
 
     private fun convertStatus(data: String): String {
@@ -551,7 +524,7 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     private fun setupToolbar() {
         toolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyMangaTitleToClipBoard()
             return@setOnLongClickListener false
         }
         toolbar.setNavigationOnClickListener { view ->
@@ -561,35 +534,33 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         toolbar.inflateMenu(R.menu.detail_menu_options)
         toolbar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
-                R.id.share_item -> {
-                    val url = BASE_MAL_MANGA_URL + mangaIdArg
-                    shareUrl(url)
-                }
-                R.id.copy_title -> {
-                    copyToClipBoard()
-                }
-                R.id.open_in_browser -> {
-                    val url = BASE_MAL_MANGA_URL + mangaIdArg
-                    context?.openUrl(url)
-                }
+                R.id.share_item ->  shareManga()
+                R.id.copy_title ->  copyMangaTitleToClipBoard()
+                R.id.open_in_browser ->  openInBrowser()
             }
 
             false
         }
     }
 
-    private fun copyToClipBoard() {
-        val title = mangaDetailViewModel.mangaDetail.value?.data?.title
-        val clipboard =
-            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", title)
-        clipboard.setPrimaryClip(clipData)
+    private fun shareManga() {
+        mangaDetailViewModel.mangaDetail.value?.data?.title?.let {
+            val url = BASE_MAL_MANGA_URL + mangaIdArg
+            val data = String.format(getString(R.string.share_anime_or_manga), it, url)
+            context?.shareText(data)
+        }
+    }
 
-        Toast.makeText(
-            context,
-            "${getString(R.string.copied_to_clipboard)}\n$title",
-            Toast.LENGTH_SHORT
-        ).show()
+    private fun openInBrowser() {
+        val url = BASE_MAL_MANGA_URL + mangaIdArg
+        context?.openUrl(url)
+    }
+
+    private fun copyMangaTitleToClipBoard() {
+        mangaDetailViewModel.mangaDetail.value?.data?.title?.let{
+            context?.copyToClipboard(it)
+            context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
+        }
     }
 
 

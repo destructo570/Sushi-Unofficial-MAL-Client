@@ -1,10 +1,8 @@
 package com.destructo.sushi.ui.common.characterDetails
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
@@ -21,6 +19,7 @@ import com.destructo.sushi.databinding.FragmentCharacterBinding
 import com.destructo.sushi.util.copyToClipboard
 import com.destructo.sushi.util.makeShortToast
 import com.destructo.sushi.util.openUrl
+import com.destructo.sushi.util.shareText
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
@@ -66,7 +65,7 @@ class CharacterFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         appBar = binding.appbar
         collapToolbar = binding.animeCollapsingToolbar
         collapToolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyCharacterNameToClipBoard()
             return@setOnLongClickListener false
         }
 
@@ -126,7 +125,7 @@ class CharacterFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     fun setupToolbar(){
         toolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyCharacterNameToClipBoard()
             return@setOnLongClickListener false
         }
         toolbar.setNavigationOnClickListener {
@@ -134,31 +133,31 @@ class CharacterFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         }
 
         toolbar.inflateMenu(R.menu.detail_menu_options)
-        toolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener{
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-
-                when(item?.itemId){
-                    R.id.share_item ->{
-                        val url = BASE_MAL_CHARACTER_URL + characterArg
-                        shareUrl(url)
-                    }
-                    R.id.copy_title ->{
-                        copyToClipBoard()
-                    }
-                    R.id.open_in_browser ->{
-                        val url = BASE_MAL_CHARACTER_URL + characterArg
-                        context?.openUrl(url)
-                    }
-                }
-
-                return false
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item?.itemId) {
+                R.id.share_item -> shareCharacter()
+                R.id.copy_title -> copyCharacterNameToClipBoard()
+                R.id.open_in_browser -> openInBrowser()
             }
 
-        })
+            false
+        }
     }
 
-    private fun copyToClipBoard() {
+    private fun openInBrowser() {
+        val url = BASE_MAL_CHARACTER_URL + characterArg
+        context?.openUrl(url)
+    }
 
+    private fun shareCharacter() {
+        characterViewModel.character.value?.name?.let {
+            val url = BASE_MAL_CHARACTER_URL + characterArg
+            val data = String.format(getString(R.string.share_anime_or_manga), it, url)
+            context?.shareText(data)
+        }
+    }
+
+    private fun copyCharacterNameToClipBoard() {
         characterViewModel.character.value?.name?.let{
             context?.copyToClipboard(it)
             context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
@@ -186,14 +185,7 @@ class CharacterFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         }
     }
 
-    private fun shareUrl(url: String) {
-        val intent = Intent(Intent.ACTION_SEND)
-        val title = characterViewModel.character.value?.name
-        val data = "$title\n\n$url\n\nShared Using Sushi - MAL Client"
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, data)
-        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
-    }
+
 
 
 }

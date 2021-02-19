@@ -29,7 +29,6 @@ class OpeningSongsFragment : Fragment() {
     private val animeSongsViewModel: AnimeSongsViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
     )
-    private var animeIdArg: Int = 0
     private lateinit var openingSongsRecyclerView: RecyclerView
     private lateinit var openingSongsAdapter: AnimeSongAdapter
 
