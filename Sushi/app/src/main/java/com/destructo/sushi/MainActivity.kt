@@ -144,12 +144,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeAds() {
-        AudienceNetworkAds.initialize(this@MainActivity)
-        loadAds()
-    }
-
-    private fun loadAds() {
         if (!SushiApplication.getContext().queryPurchases()){
+            AudienceNetworkAds.initialize(this@MainActivity)
             adView = AdView(this, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
             adContainer.addView(adView)
             val adListener = object : AdListener {
