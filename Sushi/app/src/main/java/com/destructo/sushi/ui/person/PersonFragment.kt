@@ -1,15 +1,11 @@
 package com.destructo.sushi.ui.person
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -23,6 +19,8 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentPersonBinding
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.util.copyToClipboard
+import com.destructo.sushi.util.makeShortToast
 import com.destructo.sushi.util.openUrl
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -166,13 +164,10 @@ class PersonFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     }
 
     private fun copyToClipBoard() {
-        val title = personViewModel.personData.value?.data?.name
-        val clipboard =
-            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", title)
-        clipboard.setPrimaryClip(clipData)
-
-        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+        personViewModel.personData.value?.data?.name?.let{
+            context?.copyToClipboard(it)
+            context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
+        }
     }
 
     private fun shareUrl(url: String) {

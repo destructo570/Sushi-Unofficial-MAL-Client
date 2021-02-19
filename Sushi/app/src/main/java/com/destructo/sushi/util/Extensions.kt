@@ -1,11 +1,14 @@
 package com.destructo.sushi.util
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.net.Uri
 import android.text.Editable
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.browser.customtabs.CustomTabsIntent
@@ -30,6 +33,21 @@ fun Context.openUrl(url: String){
     val builder = CustomTabsIntent.Builder()
     val customTabIntent = builder.build()
     customTabIntent.launchUrl(this, Uri.parse(url))
+}
+
+fun Context.makeShortToast(message: String){
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.makeLongToast(message: String){
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+}
+
+fun Context.copyToClipboard(content: String){
+    val clipboard =
+        this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clipData = ClipData.newPlainText("text", content)
+    clipboard.setPrimaryClip(clipData)
 }
 
 @ColorInt

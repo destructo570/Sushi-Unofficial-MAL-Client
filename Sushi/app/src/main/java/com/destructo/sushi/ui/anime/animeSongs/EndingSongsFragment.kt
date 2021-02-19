@@ -1,13 +1,9 @@
 package com.destructo.sushi.ui.anime.animeSongs
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,6 +16,8 @@ import com.destructo.sushi.adapter.AnimeSongAdapter
 import com.destructo.sushi.databinding.FragmentAllAnimeEndingSongsBinding
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.util.ListItemVerticalDecor
+import com.destructo.sushi.util.copyToClipboard
+import com.destructo.sushi.util.makeShortToast
 import com.destructo.sushi.util.openUrl
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLEncoder
@@ -119,17 +117,9 @@ class EndingSongsFragment : Fragment() {
         context?.openUrl(url)
     }
 
-    private fun copyToClipBoard(song: String) {
-        val clipboard =
-            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", song)
-        clipboard.setPrimaryClip(clipData)
-
-        Toast.makeText(
-            context,
-            "${getString(R.string.copied_to_clipboard)}\n$song",
-            Toast.LENGTH_SHORT
-        ).show()
+    private fun copyToClipBoard(songTitle: String) {
+        context?.copyToClipboard(songTitle)
+        context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$songTitle")
     }
 
 

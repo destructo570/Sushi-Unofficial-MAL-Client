@@ -1,8 +1,5 @@
 package com.destructo.sushi.ui.common.characterDetails
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -10,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -22,6 +18,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.BASE_MAL_CHARACTER_URL
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterBinding
+import com.destructo.sushi.util.copyToClipboard
+import com.destructo.sushi.util.makeShortToast
 import com.destructo.sushi.util.openUrl
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -160,13 +158,12 @@ class CharacterFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     }
 
     private fun copyToClipBoard() {
-        val title = characterViewModel.character.value?.name
-        val clipboard =
-            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", title)
-        clipboard.setPrimaryClip(clipData)
 
-        Toast.makeText(context, "Copied to clipboard:\n$title", Toast.LENGTH_SHORT).show()
+        characterViewModel.character.value?.name?.let{
+            context?.copyToClipboard(it)
+            context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
+        }
+
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

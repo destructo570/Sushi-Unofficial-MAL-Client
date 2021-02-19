@@ -1,8 +1,5 @@
 package com.destructo.sushi.ui.anime.animeDetails
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -38,10 +35,7 @@ import com.destructo.sushi.model.params.AnimeUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
-import com.destructo.sushi.util.ListItemHorizontalDecor
-import com.destructo.sushi.util.getColorFromAttr
-import com.destructo.sushi.util.openUrl
-import com.destructo.sushi.util.toTitleCase
+import com.destructo.sushi.util.*
 import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -389,7 +383,7 @@ class AnimeDetailFragment : Fragment(),
 
     private fun setCollapseToolbarListener() {
         collapToolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyTitleToClipBoard()
             return@setOnLongClickListener false
         }
     }
@@ -598,7 +592,7 @@ class AnimeDetailFragment : Fragment(),
             view.findNavController().navigateUp()
         }
         toolbar.setOnLongClickListener {
-            copyToClipBoard()
+            copyTitleToClipBoard()
             return@setOnLongClickListener false
         }
         toolbar.inflateMenu(R.menu.detail_menu_options)
@@ -609,7 +603,7 @@ class AnimeDetailFragment : Fragment(),
                     shareUrl(url)
                 }
                 R.id.copy_title -> {
-                    copyToClipBoard()
+                    copyTitleToClipBoard()
                 }
                 R.id.open_in_browser -> {
                     val url = BASE_MAL_ANIME_URL + animeIdArg
@@ -621,18 +615,11 @@ class AnimeDetailFragment : Fragment(),
         }
     }
 
-    private fun copyToClipBoard() {
-        val title = animeDetailViewModel.animeDetail.value?.data?.title
-        val clipboard =
-            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText("text", title)
-        clipboard.setPrimaryClip(clipData)
-
-        Toast.makeText(
-            context,
-            "${getString(R.string.copied_to_clipboard)}\n$title",
-            Toast.LENGTH_SHORT
-        ).show()
+    private fun copyTitleToClipBoard() {
+        animeDetailViewModel.animeDetail.value?.data?.title?.let{
+            context?.copyToClipboard(it)
+            context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
+        }
     }
 
     private fun setMoreAnimeInfoClickListener() {
