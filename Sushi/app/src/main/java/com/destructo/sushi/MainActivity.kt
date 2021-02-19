@@ -165,7 +165,8 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onLoggingImpression(p0: Ad?) {
                     Timber.e("onLoggingImpression")
-                } }
+                }
+            }
 
             adView.loadAd(
                 adView.buildLoadAdConfig()
