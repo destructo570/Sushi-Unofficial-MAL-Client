@@ -1,7 +1,9 @@
 package com.destructo.sushi.ui.user.profile
 
 import androidx.lifecycle.MutableLiveData
+import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.network.JikanApi
+import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,9 +13,13 @@ class ProfileRepository
 @Inject
 constructor(
     val jikanApi: JikanApi,
+    val malApi: MalApi
 ) {
 
     var userInfo: MutableLiveData<Resource<com.destructo.sushi.model.jikan.user.UserInfo>> =
+        MutableLiveData()
+
+    var userInfoMalApi: MutableLiveData<Resource<UserInfo>> =
         MutableLiveData()
 
     suspend fun getUserInfo(userName: String) {
@@ -28,6 +34,22 @@ constructor(
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 userInfo.value = Resource.error(e.message ?: "", null)
+            }
+        }
+    }
+
+    suspend fun getUserInfoFromMalApi(userName: String) {
+
+        userInfoMalApi.value = Resource.loading(null)
+        val getUserMangaDeferred = malApi.getUserInfo(userName)
+        try {
+            val response = getUserMangaDeferred.await()
+            withContext(Dispatchers.Main) {
+                userInfoMalApi.value = Resource.success(response)
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                userInfoMalApi.value = Resource.error(e.message ?: "", null)
             }
         }
     }

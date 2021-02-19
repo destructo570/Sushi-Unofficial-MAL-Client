@@ -20,9 +20,18 @@ constructor(
 
     val userInformation: LiveData<Resource<UserInfo>> = profileRepo.userInfo
 
+    val userInformationMalApi: LiveData<Resource<com.destructo.sushi.model.mal.userInfo.UserInfo>> = profileRepo.userInfoMalApi
+
+
     fun getUserInfo(fields:String) {
         viewModelScope.launch {
             profileRepo.getUserInfo(fields)
+        }
+    }
+
+    fun getUserInfoFromMalApi(fields:String) {
+        viewModelScope.launch {
+            profileRepo.getUserInfoFromMalApi(fields)
         }
     }
 
