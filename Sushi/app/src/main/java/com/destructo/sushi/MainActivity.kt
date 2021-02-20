@@ -186,7 +186,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfig)
     }
@@ -212,8 +211,5 @@ class MainActivity : AppCompatActivity() {
             else ->{setTheme(R.style.AppTheme)}
         }
     }
-
-
-
 
 }

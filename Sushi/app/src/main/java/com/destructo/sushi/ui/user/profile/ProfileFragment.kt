@@ -71,7 +71,6 @@ class ProfileFragment : Fragment() {
         progressBar = binding.progressBar
         pager = binding.profileViewPager
         tabLayout = binding.profileTabLayout
-        //pager.isUserInputEnabled = false
 
         tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->
             when (position) {
@@ -80,6 +79,9 @@ class ProfileFragment : Fragment() {
                 }
                 1 -> {
                     tab.text = getString(R.string.favorites)
+                }
+                2 -> {
+                    tab.text = getString(R.string.anime_list)
                 }
             }
         }
@@ -108,7 +110,10 @@ class ProfileFragment : Fragment() {
                         val fragmentList = arrayListOf(
                             ProfileStatsFragment(),
                             ProfileFavoriteFragment(),
-                        )
+                            ProfileAnimeListFragment.newInstance(args.username),
+                            ProfileStatsFragment(),
+
+                            )
                         setupViewPager(fragmentList)
                     }
                 }
@@ -146,6 +151,7 @@ class ProfileFragment : Fragment() {
 
             false
         }
+
     }
 
     private fun logOutOfApp() {

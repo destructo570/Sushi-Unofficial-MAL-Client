@@ -149,4 +149,17 @@ class TypeConverters {
         return gson.toJson(data)
     }
 
+    @TypeConverter
+    fun stringToListOfString(data: String?): List<String?>?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<List<String?>?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun listOfStringToString(data: List<String?>?): String?{
+        return gson.toJson(data)
+    }
+
 }

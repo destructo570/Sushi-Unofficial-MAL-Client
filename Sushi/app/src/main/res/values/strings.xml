@@ -98,6 +98,9 @@
     <string name="popularity">Popularity</string>
     <string name="favorites">Favorites</string>
     <string name="score">Score </string>
+    <string name="anime_list">Anime List</string>
+    <string name="manga_list">Manga List</string>
+
 
     <string name="content_description_filter">Filter the list by year and seasons.</string>
 

@@ -15,7 +15,7 @@ interface AnimeDetailsDao {
     @Delete
     fun deleteAllAnimeDetails(animeDetails: MutableList<AnimeDetailEntity>)
 
-    @Query("DELETE FROM anime_detail WHERE id LIKE :animeId ")
+    @Query("DELETE FROM anime_detail WHERE id LIKE :animeId")
     fun deleteAnimeDetailById(animeId: Int)
 
     @Delete
