@@ -37,7 +37,7 @@
             <Spinner
                 android:id="@+id/statusSpinner"
                 style="@style/SpinnerStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="@dimen/spinner_margin_normal"
