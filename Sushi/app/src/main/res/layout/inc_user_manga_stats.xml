@@ -21,13 +21,14 @@
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/margin_normal"
+            app:cardBackgroundColor="?attr/colorCardBackground"
             app:cardCornerRadius="@dimen/default_corner_radius"
             app:cardElevation="@dimen/user_stats_card_elevation"
-            app:cardBackgroundColor="?attr/colorCardBackground"
             app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
