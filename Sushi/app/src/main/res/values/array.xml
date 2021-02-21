@@ -5,13 +5,20 @@
         <item>@string/theme_dark</item>
         <item>@string/theme_night</item>
         <item>@string/theme_amoled</item>
-
     </string-array>
     <string-array name="theme_values">
         <item>@string/theme_light</item>
         <item>@string/theme_dark</item>
         <item>@string/theme_night</item>
         <item>@string/theme_amoled</item>
+    </string-array>
+    <string-array name="jikan_anime_status">
+        <item>@string/all</item>
+        <item>@string/watching</item>
+        <item>@string/plan_to_watch</item>
+        <item>@string/on_hold</item>
+        <item>@string/dropped</item>
+        <item>@string/completed</item>
     </string-array>
 
 </resources>

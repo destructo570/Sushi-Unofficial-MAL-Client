@@ -72,8 +72,6 @@ class AnimeResultFragment : Fragment() {
         })
         resultRecyclerView.adapter = animeListAdapter
 
-
-
         searchViewModel.searchQuery.observe(viewLifecycleOwner){
             searchViewModel.getAnimeResult(
                 query = it,

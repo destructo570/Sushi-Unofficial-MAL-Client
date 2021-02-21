@@ -52,8 +52,10 @@ constructor(
             val response = getUserMangaDeferred.await()
             withContext(Dispatchers.Main) {
                 userAnimeList.value = Resource.success(response)
-                profileAnimeListDao.insertAnimeList(response.anime)
-                nextPage++
+                if (!response.anime.isNullOrEmpty()){
+                    profileAnimeListDao.insertAnimeList(response.anime)
+                    nextPage++
+                }
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
@@ -61,8 +63,6 @@ constructor(
             }
         }
     }
-
-
 
     suspend fun getUserInfoFromMalApi(userName: String) {
 

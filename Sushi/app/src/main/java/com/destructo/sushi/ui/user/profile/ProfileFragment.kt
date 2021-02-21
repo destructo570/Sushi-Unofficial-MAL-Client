@@ -111,8 +111,6 @@ class ProfileFragment : Fragment() {
                             ProfileStatsFragment(),
                             ProfileFavoriteFragment(),
                             ProfileAnimeListFragment.newInstance(args.username),
-                            ProfileStatsFragment(),
-
                             )
                         setupViewPager(fragmentList)
                     }

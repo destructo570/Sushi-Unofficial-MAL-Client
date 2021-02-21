@@ -1,16 +1,14 @@
 package com.destructo.sushi.adapter
 
-import com.destructo.sushi.databinding.ListItemProfileUserAnimeBinding
-import com.destructo.sushi.model.jikan.user.animeList.Anime
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.databinding.ListItemAnimeBinding
+import com.destructo.sushi.databinding.ListItemProfileUserAnimeBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.mal.animeList.AnimeListData
+import com.destructo.sushi.model.jikan.user.animeList.Anime
 
 class JikanUserAnimeListAdapter(private val malIdListener: MalIdListener) :
     ListAdapter<Anime, JikanUserAnimeListAdapter.ViewHolder>(ProfileAnimeListDiffUtil()) {
@@ -63,7 +61,7 @@ class ProfileAnimeListDiffUtil : DiffUtil.ItemCallback<Anime>() {
     }
 
     override fun areContentsTheSame(oldItem: Anime, newItem: Anime): Boolean {
-        return oldItem == newItem
+        return oldItem.malId == newItem.malId
     }
 
 }

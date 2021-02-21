@@ -49,6 +49,7 @@ constructor(
 
     fun clearAnimeList(){
         profileAnimeListDao.deleteAllAnime()
+        profileRepo.nextPage = 1
     }
 
 }
