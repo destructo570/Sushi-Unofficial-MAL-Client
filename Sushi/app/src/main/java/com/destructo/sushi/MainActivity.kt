@@ -178,10 +178,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setProfileHeaderListener(username: String?){
         profileHeader.setOnClickListener {
-            username?.let {
-                navController.navigate(R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, it)))
-            }
-            drawer_layout.closeDrawer(GravityCompat.START)
+
+            if (navController.currentDestination?.id != R.id.profileFragment){
+                username?.let {
+                    navController.navigate(R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, it)))
+                }
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }else{ drawer_layout.closeDrawer(GravityCompat.START) }
+
         }
     }
 

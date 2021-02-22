@@ -111,6 +111,11 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
         super.onDestroy()
     }
 
+    override fun onStop() {
+        //userName?.let {profileViewModel.clearFriendList(it)}
+        super.onStop()
+    }
+
     private fun navigateToUserProfile(username: String) {
         this.findNavController().navigate(
             R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, username))
