@@ -12,6 +12,7 @@ import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.BOARD_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.ForumBoardAdapter
+import com.destructo.sushi.adapter.ScheduleAdapter
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
@@ -22,8 +23,8 @@ import com.destructo.sushi.model.mal.manga.Author
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.manga.Serialization
-import com.destructo.sushi.adapter.ScheduleAdapter
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -86,6 +87,15 @@ fun TextView.setEpisodeDetail(data: Int?) {
     data?.let {
         val formattedText = secondToMinute(data)
         text = formattedText
+    }
+}
+
+@BindingAdapter("formattedDateText")
+fun TextView.formatDate(data: String?) {
+    data?.let {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        val date = sdf.parse(it)
+        text = date.toString()
     }
 }
 

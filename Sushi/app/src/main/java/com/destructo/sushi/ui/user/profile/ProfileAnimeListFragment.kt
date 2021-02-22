@@ -23,7 +23,6 @@ import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
-import com.destructo.sushi.util.makeLongToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -115,7 +114,6 @@ class ProfileAnimeListFragment : Fragment(), ListEndListener, AdapterView.OnItem
                 Status.ERROR -> {
                     Timber.e("Error: ${resource.message}")
                     progressBar.visibility = View.GONE
-                    context?.makeLongToast(getString(R.string.error_user_list))
                 }
 
             }

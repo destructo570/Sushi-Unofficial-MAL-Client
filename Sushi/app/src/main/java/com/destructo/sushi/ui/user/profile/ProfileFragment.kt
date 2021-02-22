@@ -81,6 +81,9 @@ class ProfileFragment : Fragment() {
                     tab.text = getString(R.string.favorites)
                 }
                 2 -> {
+                    tab.text = getString(R.string.friend_list)
+                }
+                3 -> {
                     tab.text = getString(R.string.anime_list)
                 }
             }
@@ -110,6 +113,7 @@ class ProfileFragment : Fragment() {
                         val fragmentList = arrayListOf(
                             ProfileStatsFragment(),
                             ProfileFavoriteFragment(),
+                            ProfileFriendsFragment.newInstance(args.username),
                             ProfileAnimeListFragment.newInstance(args.username),
                             )
                         setupViewPager(fragmentList)

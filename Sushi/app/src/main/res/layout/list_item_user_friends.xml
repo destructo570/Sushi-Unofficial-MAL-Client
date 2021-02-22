@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="friend"
+            type="com.destructo.sushi.model.jikan.user.friends.Friend" />
+
+        <variable
+            name="listener"
+            type="com.destructo.sushi.listener.MalUrlListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Sushi.ItemCardView"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:onClick="@{() -> listener.onClick(friend.username) }"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/list_anime_song_cover"
+                android:layout_width="96dp"
+                android:layout_height="0dp"
+                android:foreground="?attr/tintColor"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    imageUrl="@{friend.imageUrl}"
+                    android:src="@drawable/test_img" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/friend_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/user_card_margin_normal"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{friend.username}"
+                android:textAppearance="@style/TextAppearance.Sushi.H4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/list_anime_song_cover"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/fake_anime_title" />
+
+            <TextView
+                android:id="@+id/friend_since"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_card_margin_normal"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/user_card_margin_normal"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:visibility="gone"
+                android:text="@{friend.lastOnline}"
+                android:textAppearance="@style/TextAppearance.Sushi.H4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/list_anime_song_cover"
+                app:layout_constraintTop_toBottomOf="@+id/friend_name"
+                tools:text="@string/fake_anime_title" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -98,6 +98,7 @@
     <string name="popularity">Popularity</string>
     <string name="favorites">Favorites</string>
     <string name="score">Score </string>
+    <string name="friend_list">Friends</string>
     <string name="anime_list">Anime List</string>
     <string name="manga_list">Manga List</string>
 

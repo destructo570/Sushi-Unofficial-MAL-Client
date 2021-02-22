@@ -123,4 +123,10 @@ object RoomModule {
         return sushiDatabase.profileAnimeList()
     }
 
+    @Singleton
+    @Provides
+    fun provideProfileFriendListDao(sushiDatabase: SushiDatabase): ProfileUserFriendListDao{
+        return sushiDatabase.profileUserFriendList()
+    }
+
 }

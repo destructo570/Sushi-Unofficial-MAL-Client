@@ -2,13 +2,16 @@ package com.destructo.sushi.ui.user.profile
 
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.model.jikan.user.animeList.ProfileUserAnimeList
+import com.destructo.sushi.model.jikan.user.friends.UserFriends
 import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.ProfileAnimeListDao
+import com.destructo.sushi.room.ProfileUserFriendListDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileRepository
@@ -16,7 +19,8 @@ class ProfileRepository
 constructor(
     val jikanApi: JikanApi,
     val malApi: MalApi,
-    val profileAnimeListDao: ProfileAnimeListDao
+    private val profileAnimeListDao: ProfileAnimeListDao,
+    private val profileUserFriendListDao: ProfileUserFriendListDao
 ) {
 
     var userInfo: MutableLiveData<Resource<com.destructo.sushi.model.jikan.user.UserInfo>> =
@@ -25,10 +29,14 @@ constructor(
     var userAnimeList: MutableLiveData<Resource<ProfileUserAnimeList>> =
         MutableLiveData()
 
+    var userFriendList: MutableLiveData<Resource<UserFriends>> =
+        MutableLiveData()
+
     var userInfoMalApi: MutableLiveData<Resource<UserInfo>> =
         MutableLiveData()
 
     var nextPage = 1
+    var friendPage = 1
 
     suspend fun getUserInfo(userName: String) {
         userInfo.value = Resource.loading(null)
@@ -60,6 +68,26 @@ constructor(
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 userAnimeList.value = Resource.error(e.message ?: "", null)
+            }
+        }
+    }
+
+    suspend fun getUserFriendList(userName: String) {
+        userFriendList.value = Resource.loading(null)
+        Timber.e("FriendPage: $friendPage")
+        val getFriendsListDeferred = jikanApi.getUserFriendListAsync(userName,friendPage)
+        try {
+            val response = getFriendsListDeferred.await()
+            withContext(Dispatchers.Main) {
+                userFriendList.value = Resource.success(response)
+                if (!response.friends.isNullOrEmpty()){
+                    profileUserFriendListDao.insertFriendList(response.friends)
+                    friendPage++
+                }
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                userFriendList.value = Resource.error(e.message ?: "", null)
             }
         }
     }
