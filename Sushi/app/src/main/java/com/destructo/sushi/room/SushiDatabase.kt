@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.destructo.sushi.model.database.*
 import com.destructo.sushi.model.jikan.user.animeList.Anime
 import com.destructo.sushi.model.jikan.user.friends.Friend
+import com.destructo.sushi.model.jikan.user.mangaList.Manga
 import com.destructo.sushi.model.mal.animeList.AnimeListData
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.model.mal.mangaList.MangaListData
@@ -21,7 +22,7 @@ import com.destructo.sushi.room.TypeConverters as TypeConverters1
     MangaCharacterListEntity::class, MangaReviewsEntity::class, AnimeRankingData::class,
     MangaRankingData::class, SeasonAnimeData::class, AnimeListData::class, MangaListData::class,
     UserAnimeData::class, UserMangaData::class, UserInfoEntity::class, Anime::class,
-    Friend::class], version = 4, exportSchema = false)
+    Friend::class, Manga::class], version = 5, exportSchema = false)
 abstract class SushiDatabase: RoomDatabase() {
 
     abstract fun animeDetailsDao():AnimeDetailsDao
@@ -40,6 +41,7 @@ abstract class SushiDatabase: RoomDatabase() {
     abstract fun userMangaListDao():UserMangaListDao
     abstract fun userInfoDao():UserInfoDao
     abstract fun profileAnimeList():ProfileAnimeListDao
+    abstract fun profileMangaList():ProfileMangaListDao
     abstract fun profileUserFriendList():ProfileUserFriendListDao
 
     companion object{

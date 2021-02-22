@@ -16,6 +16,7 @@ import com.destructo.sushi.model.jikan.top.TopManga
 import com.destructo.sushi.model.jikan.user.UserInfo
 import com.destructo.sushi.model.jikan.user.animeList.ProfileUserAnimeList
 import com.destructo.sushi.model.jikan.user.friends.UserFriends
+import com.destructo.sushi.model.jikan.user.mangaList.ProfileUserMangaList
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -119,6 +120,13 @@ interface JikanApi {
         @Path("status") status: String,
         @Path("page") page: Int,
         ): Deferred<ProfileUserAnimeList>
+
+    @GET("user/{userName}/mangalist/{status}/{page}")
+    fun getUserMangaListAsync(
+        @Path("userName") userName: String,
+        @Path("status") status: String,
+        @Path("page") page: Int,
+    ): Deferred<ProfileUserMangaList>
 
     @GET("user/{userName}/friends/{page}")
     fun getUserFriendListAsync(

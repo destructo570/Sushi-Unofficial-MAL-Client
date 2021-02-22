@@ -55,7 +55,11 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
+            profileViewModel.clearAnimeList()
+            profileViewModel.clearMangaList()
+            profileViewModel.clearFriendList()
             profileViewModel.getUserInfo(args.username)
+
         }
     }
 
@@ -86,6 +90,9 @@ class ProfileFragment : Fragment() {
                 3 -> {
                     tab.text = getString(R.string.anime_list)
                 }
+                4 -> {
+                    tab.text = getString(R.string.manga_list)
+                }
             }
         }
 
@@ -115,6 +122,7 @@ class ProfileFragment : Fragment() {
                             ProfileFavoriteFragment(),
                             ProfileFriendsFragment.newInstance(args.username),
                             ProfileAnimeListFragment.newInstance(args.username),
+                            ProfileMangaListFragment.newInstance(args.username)
                             )
                         setupViewPager(fragmentList)
                     }

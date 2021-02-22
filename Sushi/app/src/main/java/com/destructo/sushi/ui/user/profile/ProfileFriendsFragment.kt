@@ -51,7 +51,7 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
             savedInstanceState.getString(ARG_USERNAME)?.let { userName = it }
         }else{
             userName = arguments?.getString(ARG_USERNAME)
-            profileViewModel.cleaFriendList()
+            profileViewModel.clearFriendList()
             userName?.let { profileViewModel.getUserFriendList(it) }
         }
     }

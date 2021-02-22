@@ -20,5 +20,13 @@
         <item>@string/dropped</item>
         <item>@string/completed</item>
     </string-array>
+    <string-array name="jikan_manga_status">
+        <item>@string/all</item>
+        <item>@string/reading</item>
+        <item>@string/plan_to_read</item>
+        <item>@string/on_hold</item>
+        <item>@string/dropped</item>
+        <item>@string/completed</item>
+    </string-array>
 
 </resources>
