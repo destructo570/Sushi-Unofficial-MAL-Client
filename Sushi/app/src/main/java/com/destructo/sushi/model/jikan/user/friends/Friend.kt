@@ -10,6 +10,7 @@ data class Friend(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int?=null,
+    var friendsWith: String?=null,
     @Json(name = "friends_since")
     val friendsSince: String?=null,
     @Json(name = "image_url")
@@ -21,4 +22,8 @@ data class Friend(
     @Json(name = "username")
     val username: String?=null,
 
-)
+){
+    fun setFriendsWithUser(username: String){
+        friendsWith = username
+    }
+}

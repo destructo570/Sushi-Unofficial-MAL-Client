@@ -51,7 +51,7 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
             savedInstanceState.getString(ARG_USERNAME)?.let { userName = it }
         }else{
             userName = arguments?.getString(ARG_USERNAME)
-            profileViewModel.clearFriendList()
+            //profileViewModel.clearFriendList()
             userName?.let { profileViewModel.getUserFriendList(it) }
         }
     }
@@ -59,7 +59,6 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(ARG_USERNAME, userName)
-
     }
 
     override fun onCreateView(
@@ -102,9 +101,14 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
             }
         }
 
-        profileViewModel.getFriendList.observe(viewLifecycleOwner){
+        profileViewModel.getUserFriendListByUsername(userName!!).observe(viewLifecycleOwner){
             friendListAdapter.submitList(it)
         }
+    }
+
+    override fun onDestroy() {
+        userName?.let {profileViewModel.clearFriendList(it)}
+        super.onDestroy()
     }
 
     private fun navigateToUserProfile(username: String) {

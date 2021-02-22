@@ -105,6 +105,7 @@ constructor(
             withContext(Dispatchers.Main) {
                 userFriendList.value = Resource.success(response)
                 if (!response.friends.isNullOrEmpty()){
+                    response.friends.forEach { it?.setFriendsWithUser(userName) }
                     profileUserFriendListDao.insertFriendList(response.friends)
                     nextFriendPage++
                 }
@@ -131,6 +132,9 @@ constructor(
             }
         }
     }
+
+
+
 
 
 

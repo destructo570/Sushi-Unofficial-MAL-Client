@@ -9,6 +9,7 @@ import com.destructo.sushi.databinding.ListItemProfileUserMangaBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.user.mangaList.Manga
+import timber.log.Timber
 
 class JikanUserMangaListAdapter(private val malIdListener: MalIdListener) :
     ListAdapter<Manga, JikanUserMangaListAdapter.ViewHolder>(ProfileMangaListDiffUtil()) {
@@ -61,7 +62,7 @@ class ProfileMangaListDiffUtil : DiffUtil.ItemCallback<Manga>() {
     }
 
     override fun areContentsTheSame(oldItem: Manga, newItem: Manga): Boolean {
-        return oldItem == newItem
+        return oldItem.malId == newItem.malId
     }
 
 }

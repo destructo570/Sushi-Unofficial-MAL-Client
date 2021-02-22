@@ -57,11 +57,11 @@ class JikanUserFriendAdapter(private val malUrlListener: MalUrlListener) :
 
 class FriendListDiffUtil : DiffUtil.ItemCallback<Friend>() {
     override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean {
-        return oldItem.username == newItem.username
+        return oldItem.username == newItem.username && oldItem.url == newItem.url
     }
 
     override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean {
-        return oldItem.username == newItem.username
+        return oldItem.username == newItem.username && oldItem.url == newItem.url
     }
 
 }

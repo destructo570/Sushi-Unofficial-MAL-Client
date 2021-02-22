@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.model.jikan.user.UserInfo
 import com.destructo.sushi.model.jikan.user.animeList.ProfileUserAnimeList
+import com.destructo.sushi.model.jikan.user.friends.Friend
 import com.destructo.sushi.model.jikan.user.friends.UserFriends
 import com.destructo.sushi.model.jikan.user.mangaList.ProfileUserMangaList
 import com.destructo.sushi.network.Resource
@@ -43,10 +44,6 @@ constructor(
 
     val getAnimeList = profileAnimeListDao.getAnimeList()
 
-
-    val getFriendList = profileUserFriendListDao.getFriendList()
-
-
     fun getUserInfo(fields:String) {
         viewModelScope.launch {
             profileRepo.getUserInfo(fields)
@@ -71,6 +68,10 @@ constructor(
         }
     }
 
+    fun getUserFriendListByUsername(username:String): LiveData<List<Friend>> {
+        return profileUserFriendListDao.getFriendListByUsername(username)
+    }
+
     fun getUserInfoFromMalApi(fields:String) {
         viewModelScope.launch {
             profileRepo.getUserInfoFromMalApi(fields)
@@ -87,8 +88,11 @@ constructor(
         profileRepo.nextMangaPage = 1
     }
 
-    fun clearFriendList(){
-        profileUserFriendListDao.deleteAllFriends()
+    fun clearFriendList(username: String){
+        profileUserFriendListDao.deleteAllFriendsByUsername(username)
+    }
+
+    fun resetFriendPage(){
         profileRepo.nextFriendPage = 1
     }
 

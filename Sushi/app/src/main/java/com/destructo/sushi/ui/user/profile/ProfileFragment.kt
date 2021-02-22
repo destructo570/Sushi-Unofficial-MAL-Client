@@ -55,9 +55,6 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null){
-            profileViewModel.clearAnimeList()
-            profileViewModel.clearMangaList()
-            profileViewModel.clearFriendList()
             profileViewModel.getUserInfo(args.username)
 
         }
