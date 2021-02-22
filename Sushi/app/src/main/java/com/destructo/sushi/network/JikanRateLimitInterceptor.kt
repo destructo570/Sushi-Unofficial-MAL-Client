@@ -8,7 +8,7 @@ class JikanRateLimitInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var response = chain.proceed(chain.request())
 
-        if(!response.isSuccessful || response.code == 429){
+        if(response.code == 429){
             try {
                 Timber.e("You are being rate limited by Jikan, Retrying in 3 seconds.")
                 Thread.sleep(3000L)
