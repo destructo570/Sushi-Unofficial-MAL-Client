@@ -98,7 +98,7 @@ constructor(
     }
 
     suspend fun getUserFriendList(userName: String) {
-        userFriendList.value = Resource.loading(null)
+
         val getFriendsListDeferred = jikanApi.getUserFriendListAsync(userName,nextFriendPage)
         try {
             val response = getFriendsListDeferred.await()
