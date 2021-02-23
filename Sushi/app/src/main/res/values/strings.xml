@@ -346,6 +346,7 @@
     <string name="share_anime_or_manga" translatable="false">%s\n\n%s\n\nShared Using Sushi - MAL Client</string>
     <string name="share_plain_text" translatable="false">Shared Using Sushi - MAL Client</string>
     <string name="error_user_list" translatable="false">Error: List is private or there is a network issue.</string>
+    <string name="ascii_smirk" translatable="false">(¬ ‿ ¬)</string>
 
 
 </resources>

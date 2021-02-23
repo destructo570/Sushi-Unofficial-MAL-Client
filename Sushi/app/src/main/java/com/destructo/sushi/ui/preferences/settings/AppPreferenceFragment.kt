@@ -9,6 +9,7 @@ import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 import com.destructo.sushi.NSFW_TAG
 import com.destructo.sushi.R
+import com.destructo.sushi.util.makeLongToast
 
 class AppPreferenceFragment : PreferenceFragmentCompat(){
 
@@ -26,6 +27,7 @@ class AppPreferenceFragment : PreferenceFragmentCompat(){
             when (newValue){
                 true->{
                     sharedPref?.edit()?.putBoolean(NSFW_TAG, true)?.apply()
+                    context?.makeLongToast(getString(R.string.ascii_smirk))
                 }
                 false->{
                     sharedPref?.edit()?.putBoolean(NSFW_TAG, false)?.apply()
