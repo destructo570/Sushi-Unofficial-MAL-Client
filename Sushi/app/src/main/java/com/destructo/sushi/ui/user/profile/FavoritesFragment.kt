@@ -30,10 +30,8 @@ class FavoritesFragment : Fragment() {
     private lateinit var toolbar: Toolbar
     private lateinit var binding: FragmentFavoritesBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package com.destructo.sushi.ui.user.profile
+package com.destructo.sushi.ui.user.profile.mangalist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,63 +8,59 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ProgressBar
 import android.widget.Spinner
+import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.R
+import com.destructo.sushi.USERNAME_ARG
 import com.destructo.sushi.adapter.JikanUserMangaListAdapter
-import com.destructo.sushi.databinding.FragmentProfileMangaListBinding
-import com.destructo.sushi.enum.jikan.UserAnimeListStatus
+import com.destructo.sushi.databinding.FragmentProfileUserMangaBinding
 import com.destructo.sushi.enum.jikan.UserMangaListStatus
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.util.GridSpacingItemDeco
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-class ProfileMangaListFragment : Fragment(), ListEndListener, AdapterView.OnItemSelectedListener {
+@AndroidEntryPoint
+class ProfileUserMangaFragment : Fragment(), ListEndListener, AdapterView.OnItemSelectedListener {
 
-    private lateinit var binding: FragmentProfileMangaListBinding
+    private lateinit var binding: FragmentProfileUserMangaBinding
     private lateinit var mangaListRecyclerView: RecyclerView
     private lateinit var mangaListAdapter: JikanUserMangaListAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var statusSpinner: Spinner
-    private val profileViewModel: ProfileViewModel by
-    viewModels(ownerProducer = {requireParentFragment()})
+    private lateinit var toolbar: Toolbar
+    private val profileViewModel: ProfileUserMangaViewModel by viewModels()
+    private val args: ProfileUserMangaFragmentArgs by navArgs()
 
     private var userName: String? = null
-    private var currentStatus: String = UserAnimeListStatus.ALL.value
-
-    companion object{
-        fun newInstance(userName:String?): ProfileMangaListFragment {
-            val profileMangaListFragment = ProfileMangaListFragment()
-            val bundle = Bundle()
-            bundle.putString(ARG_USERNAME, userName)
-            profileMangaListFragment.arguments = bundle
-            return profileMangaListFragment
-        }
-    }
+    private var currentStatus: String = UserMangaListStatus.READING.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState != null){
-            savedInstanceState.getString(ARG_STATUS)?.let { currentStatus = it }
-            savedInstanceState.getString(ARG_USERNAME)?.let { userName = it }
+            savedInstanceState.getString(USERNAME_ARG)?.let { currentStatus = it }
+            savedInstanceState.getString(USERNAME_ARG)?.let { userName = it }
         }else{
-            userName = arguments?.getString(ARG_USERNAME)
+            userName = arguments?.getString(USERNAME_ARG)
             profileViewModel.clearMangaList()
-            userName?.let { profileViewModel.getUserMangaList(it, currentStatus) }
+            //userName?.let { profileViewModel.getUserMangaList(it, currentStatus) }
         }
     }
 
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ARG_STATUS, currentStatus)
-        outState.putString(ARG_USERNAME, userName)
+        outState.putString(USERNAME_ARG, currentStatus)
+        outState.putString(USERNAME_ARG, userName)
 
     }
 
@@ -73,7 +69,7 @@ class ProfileMangaListFragment : Fragment(), ListEndListener, AdapterView.OnItem
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentProfileMangaListBinding.inflate(inflater, container, false).apply {
+        binding = FragmentProfileUserMangaBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
 
@@ -82,6 +78,7 @@ class ProfileMangaListFragment : Fragment(), ListEndListener, AdapterView.OnItem
         mangaListRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
         progressBar = binding.mangaListProgressbar
         statusSpinner = binding.statusSpinner
+        toolbar = binding.toolbar
         context?.let { ArrayAdapter.createFromResource(
             it,R.array.jikan_manga_status,android.R.layout.simple_spinner_item).also {adapter->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -93,6 +90,7 @@ class ProfileMangaListFragment : Fragment(), ListEndListener, AdapterView.OnItem
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
         mangaListAdapter = JikanUserMangaListAdapter(MalIdListener {
             it?.let{ navigateToMangaDetails(it) }
         })
@@ -121,7 +119,11 @@ class ProfileMangaListFragment : Fragment(), ListEndListener, AdapterView.OnItem
 
     }
 
-
+    private fun setupToolbar() {
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
 
     private fun navigateToMangaDetails(mangaMalId: Int) {
         this.findNavController().navigate(

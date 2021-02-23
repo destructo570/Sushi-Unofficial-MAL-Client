@@ -12,10 +12,17 @@ interface ProfileMangaListDao {
     @Query("SELECT * FROM jikan_profile_manga_list")
     fun getMangaList(): LiveData<List<Manga>>
 
+    @Query("SELECT * FROM jikan_profile_manga_list")
+    fun getMangaListAll(): List<Manga>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMangaList(animeList: List<Manga?>?)
+    fun insertMangaList(mangaList: List<Manga?>?)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertManga(manga:Manga?)
 
     @Query("DELETE FROM jikan_profile_manga_list")
     fun deleteAllManga()
+
 
 }

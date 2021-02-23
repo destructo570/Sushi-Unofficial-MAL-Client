@@ -276,6 +276,22 @@
             android:name="favorites"
             app:argType="com.destructo.sushi.model.jikan.user.Favorites" />
     </fragment>
+    <fragment
+        android:id="@+id/profileUserAnimeFragment"
+        android:name="com.destructo.sushi.ui.user.profile.animelist.ProfileUserAnimeFragment"
+        android:label="ProfileUserAnimeFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileUserMangaFragment"
+        android:name="com.destructo.sushi.ui.user.profile.mangalist.ProfileUserMangaFragment"
+        android:label="ProfileUserMangaFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 
 
 </navigation>

@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
+import com.destructo.sushi.USERNAME_ARG
 import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentProfileBinding
 import com.destructo.sushi.network.Status
@@ -46,6 +50,9 @@ class ProfileFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var tabMediator: TabLayoutMediator
 
+    private lateinit var animeListButton: Button
+    private lateinit var mangaListButton: Button
+
     @Inject
     lateinit var sessionManager: SessionManager
 
@@ -72,6 +79,15 @@ class ProfileFragment : Fragment() {
         progressBar = binding.progressBar
         pager = binding.profileViewPager
         tabLayout = binding.profileTabLayout
+        animeListButton = binding.userAnimeList
+        mangaListButton = binding.userMangaList
+
+        animeListButton.setOnClickListener {
+            findNavController().navigate(R.id.profileUserAnimeFragment, bundleOf(Pair(USERNAME_ARG, args.username)))
+        }
+        mangaListButton.setOnClickListener {
+            findNavController().navigate(R.id.profileUserMangaFragment, bundleOf(Pair(USERNAME_ARG, args.username)))
+        }
 
         tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->
             when (position) {
@@ -83,12 +99,6 @@ class ProfileFragment : Fragment() {
                 }
                 2 -> {
                     tab.text = getString(R.string.friend_list)
-                }
-                3 -> {
-                    tab.text = getString(R.string.anime_list)
-                }
-                4 -> {
-                    tab.text = getString(R.string.manga_list)
                 }
             }
         }
@@ -118,8 +128,6 @@ class ProfileFragment : Fragment() {
                             ProfileStatsFragment(),
                             ProfileFavoriteFragment(),
                             ProfileFriendsFragment.newInstance(args.username),
-                            ProfileAnimeListFragment.newInstance(args.username),
-                            ProfileMangaListFragment.newInstance(args.username)
                             )
                         setupViewPager(fragmentList)
                     }
@@ -129,9 +137,8 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-
-
     }
+
 
     private fun setupViewPager(fragmentList:ArrayList<Fragment>){
         pagerAdapter = FragmentPagerAdapter(

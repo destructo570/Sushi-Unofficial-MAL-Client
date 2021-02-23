@@ -57,6 +57,7 @@ const val PERSON_ID_ARG = "personId"
 const val BOARD_ID_ARG = "boardId"
 const val MAL_ID_ARG = "malId"
 const val USERNAME_ARG = "username"
+const val STATUS_ARG = "status"
 const val CATEGORY_ARG = "category"
 const val FAV_ARG = "favorites"
 

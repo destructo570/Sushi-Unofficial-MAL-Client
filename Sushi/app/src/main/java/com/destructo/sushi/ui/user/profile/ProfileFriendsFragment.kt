@@ -39,7 +39,7 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
         fun newInstance(userName:String?): ProfileFriendsFragment {
             val profileFriendListFragment = ProfileFriendsFragment()
             val bundle = Bundle()
-            bundle.putString(ARG_USERNAME, userName)
+            bundle.putString(USERNAME_ARG, userName)
             profileFriendListFragment.arguments = bundle
             return profileFriendListFragment
         }
@@ -48,17 +48,24 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState != null){
-            savedInstanceState.getString(ARG_USERNAME)?.let { userName = it }
+            savedInstanceState.getString(USERNAME_ARG)?.let { userName = it }
         }else{
-            userName = arguments?.getString(ARG_USERNAME)
-            //profileViewModel.clearFriendList()
-            userName?.let { profileViewModel.getUserFriendList(it) }
+            userName = arguments?.getString(USERNAME_ARG)
+            userName?.let {
+                profileViewModel.clearFriendList(it)
+                profileViewModel.getUserFriendList(it)
+            }
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ARG_USERNAME, userName)
+        outState.putString(USERNAME_ARG, userName)
+    }
+
+    override fun onDestroy() {
+        userName?.let { profileViewModel.clearFriendList(it) }
+        super.onDestroy()
     }
 
     override fun onCreateView(
