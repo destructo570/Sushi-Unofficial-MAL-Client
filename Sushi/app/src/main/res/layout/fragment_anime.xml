@@ -25,7 +25,9 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/animeFragment"
