@@ -8,8 +8,6 @@ import com.squareup.moshi.Json
 @Entity(tableName = "jikan_user_friend_list")
 data class Friend(
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?=null,
     var friendsWith: String?=null,
     @Json(name = "friends_since")
     val friendsSince: String?=null,
@@ -20,7 +18,8 @@ data class Friend(
     @Json(name = "url")
     val url: String?=null,
     @Json(name = "username")
-    val username: String?=null,
+    @PrimaryKey
+    val username: String="",
 
 ){
     fun setFriendsWithUser(username: String){
