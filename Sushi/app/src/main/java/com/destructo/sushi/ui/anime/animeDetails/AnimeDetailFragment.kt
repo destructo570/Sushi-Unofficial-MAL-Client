@@ -391,31 +391,36 @@ class AnimeDetailFragment : BaseFragment(),
         characterMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeCharactersFragment,
-                bundleOf(Pair(MAL_ID_ARG, animeIdArg))
+                bundleOf(Pair(MAL_ID_ARG, animeIdArg)),
+                getAnimNavOptions()
             )
         }
         reviewMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeReviewsFragment,
-                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg)),
+                getAnimNavOptions()
             )
         }
         staffMore.setOnClickListener {
             findNavController().navigate(
                 R.id.allAnimeStaffFragment,
-                bundleOf(Pair(MAL_ID_ARG, animeIdArg))
+                bundleOf(Pair(MAL_ID_ARG, animeIdArg)),
+                getAnimNavOptions()
             )
         }
         episodeMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeEpisodesFragment,
-                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg)),
+                getAnimNavOptions()
             )
         }
         animeSongsLayout.setOnClickListener {
             findNavController().navigate(
                 R.id.animeSongsFragment,
-                bundleOf(Pair(ANIME_ID_ARG, animeIdArg))
+                bundleOf(Pair(ANIME_ID_ARG, animeIdArg)),
+                getAnimNavOptions()
             )
         }
     }

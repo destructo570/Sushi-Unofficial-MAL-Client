@@ -15,10 +15,10 @@ open class BaseFragment : Fragment() {
     fun getAnimNavOptions(): NavOptions{
         return NavOptions
             .Builder()
-            .setEnterAnim(R.anim.fade_in)
-            .setExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in)
-            .setPopExitAnim(R.anim.fade_out)
+            .setEnterAnim(R.anim.fragment_enter)
+            .setExitAnim(R.anim.fragment_exit)
+            .setPopEnterAnim(R.anim.fragment_enter)
+            .setPopExitAnim(R.anim.fragment_exit)
             .build()
     }
 

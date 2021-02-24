@@ -8,7 +8,6 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -17,7 +16,7 @@ android {
         applicationId "com.destructo.sushi_mal"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 133
+        versionCode 134
         versionName "1.1.0.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
