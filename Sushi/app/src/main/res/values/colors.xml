@@ -61,7 +61,7 @@
     <color name="colorPrimaryDarkTheme">#252525</color>
     <color name="colorPrimaryDarkDarkTheme">#1E1E1E</color>
     <color name="contentBackgroundDarkTheme">#2e2e2e</color>
-    <color name="colorMenuSelectedDarkTheme">#1E1E1E</color>
+    <color name="colorMenuSelectedDarkTheme">#2e2e2e</color>
     <color name="colorMenuPressedDarkTheme">#1E1E1E</color>
     <color name="colorPopupBackgroundDarkTheme">#1E1E1E</color>
     <color name="colorTintDark">#1A9e9e9e</color>
