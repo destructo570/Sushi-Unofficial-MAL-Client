@@ -68,10 +68,10 @@
 
     <!-- Accent Choices -->
 
-    <color name="colorWatching">#00e676</color>
-    <color name="colorCompleted">#3d5afe</color>
-    <color name="colorOnHold">#ffea00</color>
-    <color name="colorDropped">#ff3d00</color>
-    <color name="colorPlanToWatch">#607d8b</color>
+    <color name="colorWatching">#78e08f</color>
+    <color name="colorCompleted">#6a89cc</color>
+    <color name="colorOnHold">#fad390</color>
+    <color name="colorDropped">#e55039</color>
+    <color name="colorPlanToWatch">#9cafb5</color>
 
 </resources>

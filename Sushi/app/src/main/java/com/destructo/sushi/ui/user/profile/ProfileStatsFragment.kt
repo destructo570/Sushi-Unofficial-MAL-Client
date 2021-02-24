@@ -129,37 +129,37 @@ class ProfileStatsFragment : Fragment() {
 
         val watchingSection = DonutSection(
             name = "Watching",
-            color = Color.parseColor("#00e676"),
+            color = Color.parseColor("#78e08f"),
             amount = watching?.toFloat() ?: 0.0f
         )
         val readingSection = DonutSection(
             name = "Reading",
-            color = Color.parseColor("#00e676"),
+            color = Color.parseColor("#78e08f"),
             amount = watching?.toFloat() ?: 0.0f
         )
         val planToReadSection = DonutSection(
             name = "Plan to Watch",
-            color = Color.parseColor("#607d8b"),
+            color = Color.parseColor("#9cafb5"),
             amount = planToWatch?.toFloat() ?: 0.0f
         )
         val completedSection = DonutSection(
             name = "Completed",
-            color = Color.parseColor("#3d5afe"),
+            color = Color.parseColor("#6a89cc"),
             amount = completed?.toFloat() ?: 0.0f
         )
         val onHoldSection = DonutSection(
             name = "On Hold",
-            color = Color.parseColor("#ffea00"),
+            color = Color.parseColor("#fad390"),
             amount = onHold?.toFloat() ?: 0.0f
         )
         val droppedSection = DonutSection(
             name = "Dropped",
-            color = Color.parseColor("#ff3d00"),
+            color = Color.parseColor("#e55039"),
             amount = dropped?.toFloat() ?: 0.0f
         )
         val planToWatchSection = DonutSection(
             name = "Plan to Watch",
-            color = Color.parseColor("#607d8b"),
+            color = Color.parseColor("#9cafb5"),
             amount = planToWatch?.toFloat() ?: 0.0f
         )
         animeStatDonut.cap = 0.0f
@@ -187,27 +187,27 @@ class ProfileStatsFragment : Fragment() {
 
         val readingSection = DonutSection(
             name = "Reading",
-            color = Color.parseColor("#00e676"),
+            color = Color.parseColor("#78e08f"),
             amount = reading?.toFloat() ?: 0.0f
         )
         val planToReadSection = DonutSection(
             name = "Plan to Watch",
-            color = Color.parseColor("#607d8b"),
+            color = Color.parseColor("#9cafb5"),
             amount = planToRead?.toFloat() ?: 0.0f
         )
         val completedSection = DonutSection(
             name = "Completed",
-            color = Color.parseColor("#3d5afe"),
+            color = Color.parseColor("#6a89cc"),
             amount = completed?.toFloat() ?: 0.0f
         )
         val onHoldSection = DonutSection(
             name = "On Hold",
-            color = Color.parseColor("#ffea00"),
+            color = Color.parseColor("#fad390"),
             amount = onHold?.toFloat() ?: 0.0f
         )
         val droppedSection = DonutSection(
             name = "Dropped",
-            color = Color.parseColor("#ff3d00"),
+            color = Color.parseColor("#e55039"),
             amount = dropped?.toFloat() ?: 0.0f
         )
         mangaStatDonut.cap = 0.0f
