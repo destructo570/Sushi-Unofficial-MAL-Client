@@ -134,7 +134,8 @@
     <string name="social_twitter">Twitter</string>
     <string name="social_dribbble">Dribbble</string>
     <!-- Login screen -->
-    <string name="welcome_text">¡Bienvenido a Sushi!\nTu nuevo amigo para ayudarte a navegar por MyAnimeList y administrar tu biblioteca de Anime/Manga.\n ¡Empecemos!.</string>
+    <string name="welcome_to_sushi_title">Bienvenido a Sushi</string>
+    <string name="welcome_text">Tu nuevo amigo para ayudarte a navegar por MyAnimeList y administrar tu biblioteca de Anime/Manga.\n ¡Empecemos!</string>
     <string name="login_button_text">Iniciar Sesión Con MyAnimeList</string>
     <!-- Preference -->
     <string name="pref_title_general">General</string>

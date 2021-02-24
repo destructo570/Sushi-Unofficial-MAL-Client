@@ -179,7 +179,8 @@
     <string name="sushi_translate_link" translatable="false">https://bit.ly/translate-sushi</string>
 
     <!-- Login screen -->
-    <string name="welcome_text">Welcome to Sushi!\nYour new friend to help you browse MyAnimeList and manage your Anime/Manga Library.\n Let\'s get started!.</string>
+    <string name="welcome_to_sushi_title">Welcome to Sushi</string>
+    <string name="welcome_text">Your new friend to help you browse MyAnimeList and manage your Anime and Manga library with ease.\n Let\'s get started!</string>
     <string name="login_button_text">Log In With MyAnimeList</string>
 
     <!-- Preference -->
