@@ -49,6 +49,7 @@
                     layout="@layout/inc_user_manga_stats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/user_anime_stats"
                     bind:userInfo="@{userInfo}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
