@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 profileHeader.header_user_image.load(userInfo.picture){
                     placeholder(R.drawable.test_img)
                     crossfade(true)
-                    crossfade(400)
+                    crossfade(200)
                 }
             }
         }

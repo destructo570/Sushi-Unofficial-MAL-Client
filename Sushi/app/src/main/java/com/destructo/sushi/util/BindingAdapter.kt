@@ -36,7 +36,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         imgView.load(imgUrl){
             placeholder(R.drawable.test_img)
             crossfade(true)
-            crossfade(300)
+            crossfade(200)
         }
     }
 }
