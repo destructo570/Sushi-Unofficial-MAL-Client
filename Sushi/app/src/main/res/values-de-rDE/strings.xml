@@ -78,7 +78,8 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Beliebtheit</string>
     <string name="favorites">Favoriten</string>
-    <string name="score">Bewertung: </string>
+    <string name="score">Bewertung</string>
+    <string name="status_score">Bewertung: </string>
     <string name="content_description_filter">Die Liste nach Jahr und Season filtern.</string>
     <!-- Seasonal Anime String -->
     <string name="year">Jahr</string>

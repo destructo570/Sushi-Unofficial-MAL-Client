@@ -79,7 +79,8 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Popularidad</string>
     <string name="favorites">Favoritos</string>
-    <string name="score">Nota: </string>
+    <string name="score">Nota</string>
+    <string name="status_score">Nota: </string>
     <string name="content_description_filter">Filtrar la lista por año y temporadas.</string>
     <!-- Seasonal Anime String -->
     <string name="year">Año</string>

@@ -74,6 +74,7 @@
     <string name="type">Type: </string>
     <string name="status">Status: </string>
     <string name="rating">Rating: </string>
+    <string name="status_score">Score: </string>
     <string name="episodes">Episodes: </string>
     <string name="start_season">Start Season: </string>
     <string name="rewatching">Rewatching: </string>
