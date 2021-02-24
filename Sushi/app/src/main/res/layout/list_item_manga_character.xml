@@ -15,7 +15,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/character_card_width"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="@{() -> characterListener.onClick(character)}"
         android:padding="4dp">
