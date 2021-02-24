@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -17,11 +16,12 @@ import com.destructo.sushi.adapter.AllMangaCharacterAdapter
 import com.destructo.sushi.databinding.FragmentAllMangaCharactersBinding
 import com.destructo.sushi.listener.MangaCharacterListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MangaCharactersFragment : Fragment() {
+class MangaCharactersFragment : BaseFragment() {
 
     private lateinit var binding: FragmentAllMangaCharactersBinding
     private val charactersViewModel: MangaCharactersViewModel by viewModels()
@@ -87,7 +87,10 @@ class MangaCharactersFragment : Fragment() {
     }
 
     private fun navigateToCharacterDetails(character: Int) {
-        findNavController().navigate(R.id.characterFragment, bundleOf(Pair("characterId", character)))
+        findNavController().navigate(R.id.characterFragment,
+            bundleOf(Pair("characterId", character)),
+            getAnimNavOptions()
+        )
     }
 
 

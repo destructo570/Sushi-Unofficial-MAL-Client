@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +19,13 @@ import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class UserAnimeOnHold : Fragment() {
+class UserAnimeOnHold : BaseFragment() {
 
     private lateinit var binding: FragmentUserAnimeListBinding
     private val userAnimeViewModel: UserAnimeViewModel
@@ -152,7 +152,9 @@ class UserAnimeOnHold : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 

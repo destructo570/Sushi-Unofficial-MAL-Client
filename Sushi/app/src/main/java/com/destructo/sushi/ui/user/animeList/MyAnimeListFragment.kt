@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
-import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
+import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
 import com.destructo.sushi.enum.UserAnimeListSort
 import com.google.android.material.tabs.TabLayout
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MyAnimeListFragment : Fragment(){
 
     private lateinit var binding: FragmentMyAnimeListBinding
-    private lateinit var myAnimeListPagerAdapter: FragmentPagerAdapter
+    private lateinit var myAnimeListPagerAdapter: FragmentBasePgerAdapter
     private lateinit var myAnimeListViewPager: ViewPager2
     private lateinit var myAnimeListTabLayout: TabLayout
     private lateinit var myAnimeListTabMediator: TabLayoutMediator
@@ -87,7 +87,7 @@ class MyAnimeListFragment : Fragment(){
             )
 
         myAnimeListPagerAdapter =
-            FragmentPagerAdapter(fragmentList, childFragmentManager, lifecycle)
+            FragmentBasePgerAdapter(fragmentList, childFragmentManager, lifecycle)
         myAnimeListViewPager.adapter = myAnimeListPagerAdapter
         myAnimeListTabMediator.attach()
 

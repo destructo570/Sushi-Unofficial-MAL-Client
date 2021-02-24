@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
+import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentMyMangaListBinding
 import com.google.android.material.tabs.TabLayout
@@ -23,7 +24,7 @@ class MyMangaListFragment : Fragment() {
     private lateinit var binding: FragmentMyMangaListBinding
     private lateinit var toolbar: Toolbar
 
-    private lateinit var myMangaListPagerAdapter: FragmentPagerAdapter
+    private lateinit var myMangaListPagerAdapter: FragmentBasePgerAdapter
     private lateinit var myMangaListViewPager: ViewPager2
     private lateinit var myMangaListTabLayout: TabLayout
     private lateinit var myMangaListTabMediator: TabLayoutMediator
@@ -85,7 +86,7 @@ class MyMangaListFragment : Fragment() {
             )
 
         myMangaListPagerAdapter =
-            FragmentPagerAdapter(fragmentList, childFragmentManager, lifecycle)
+            FragmentBasePgerAdapter(fragmentList, childFragmentManager, lifecycle)
         myMangaListViewPager.adapter = myMangaListPagerAdapter
         myMangaListTabMediator.attach()
 

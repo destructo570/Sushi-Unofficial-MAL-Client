@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -23,11 +22,12 @@ import com.destructo.sushi.adapter.AnimeAdapter
 import com.destructo.sushi.databinding.FragmentAllAnimeRecomBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AnimeRecomFragment : Fragment() {
+class AnimeRecomFragment : BaseFragment() {
 
     private lateinit var binding: FragmentAllAnimeRecomBinding
     private lateinit var animeRecomRecyclerView: RecyclerView
@@ -101,7 +101,9 @@ class AnimeRecomFragment : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 

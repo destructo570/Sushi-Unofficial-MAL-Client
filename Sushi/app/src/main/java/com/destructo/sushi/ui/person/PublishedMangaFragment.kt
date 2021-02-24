@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,9 +15,10 @@ import com.destructo.sushi.adapter.PublishedMangaAdapter
 import com.destructo.sushi.databinding.FragmentPersonAnimeStaffBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 
-class PublishedMangaFragment: Fragment(){
+class PublishedMangaFragment: BaseFragment(){
 
     private val personViewModel: PersonViewModel by viewModels(ownerProducer = {requireParentFragment()})
     private lateinit var binding: FragmentPersonAnimeStaffBinding
@@ -70,7 +70,9 @@ class PublishedMangaFragment: Fragment(){
 
     private fun navigateToMangaDetail(mangaMalId:Int){
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaMalId)),
+            getAnimNavOptions()
         )
 
     }

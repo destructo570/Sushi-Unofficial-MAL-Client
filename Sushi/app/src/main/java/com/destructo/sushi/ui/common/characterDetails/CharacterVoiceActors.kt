@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,11 +13,12 @@ import com.destructo.sushi.PERSON_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterVoiceActorsBinding
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterVoiceActors : Fragment() {
+class CharacterVoiceActors : BaseFragment() {
 
     private lateinit var voiceAdapter: VoiceActorAdapter
     private lateinit var voiceRecyclerView: RecyclerView
@@ -57,7 +57,9 @@ class CharacterVoiceActors : Fragment() {
     private fun navigateToPersonFragment(personId:Int){
 
         this.findNavController().navigate(
-            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
+            R.id.personFragment,
+            bundleOf(Pair(PERSON_ID_ARG, personId)),
+            getAnimNavOptions()
         )
 
     }

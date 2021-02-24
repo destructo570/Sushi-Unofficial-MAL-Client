@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -27,6 +26,7 @@ import com.destructo.sushi.enum.mal.SeasonalSortType.SCORE
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import com.destructo.sushi.util.toTitleCase
 import com.google.android.material.navigation.NavigationView
@@ -39,7 +39,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndListener {
+class SeasonalAnimeFragment : BaseFragment(), AdapterView.OnItemSelectedListener, ListEndListener {
 
     private val seasonAnimeViewModel: SeasonalAnimeViewModel by viewModels()
 
@@ -283,7 +283,9 @@ class SeasonalAnimeFragment : Fragment(), AdapterView.OnItemSelectedListener, Li
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 

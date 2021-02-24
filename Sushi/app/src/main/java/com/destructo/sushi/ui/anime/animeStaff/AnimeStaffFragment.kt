@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -19,12 +18,13 @@ import com.destructo.sushi.listener.AnimeStaffListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.animeCharacters.AnimeCharactersFragmentArgs
 import com.destructo.sushi.ui.anime.animeCharacters.AnimeCharactersViewModel
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AnimeStaffFragment : Fragment() {
+class AnimeStaffFragment : BaseFragment() {
 
     private lateinit var binding: FragmentAllAnimeStaffBinding
     private val animeCharactersViewModel: AnimeCharactersViewModel by viewModels()
@@ -92,7 +92,10 @@ class AnimeStaffFragment : Fragment() {
 
 
     private fun navigateToPersonDetails(malId: Int) {
-        findNavController().navigate(R.id.personFragment, bundleOf(Pair("personId", malId)))
+        findNavController().navigate(R.id.personFragment,
+            bundleOf(Pair("personId", malId)),
+            getAnimNavOptions()
+        )
     }
 
     private fun setupToolbar() {

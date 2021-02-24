@@ -25,6 +25,7 @@ import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
 import com.destructo.sushi.databinding.FragmentProfileBinding
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.auth.LoginActivity
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.SessionManager
 import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.material.navigation.NavigationView
@@ -36,7 +37,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     private lateinit var toolbar: Toolbar
     private lateinit var binding: FragmentProfileBinding
@@ -83,10 +84,16 @@ class ProfileFragment : Fragment() {
         mangaListButton = binding.userMangaList
 
         animeListButton.setOnClickListener {
-            findNavController().navigate(R.id.profileUserAnimeFragment, bundleOf(Pair(USERNAME_ARG, args.username)))
+            findNavController().navigate(R.id.profileUserAnimeFragment,
+                bundleOf(Pair(USERNAME_ARG, args.username)),
+                getAnimNavOptions()
+            )
         }
         mangaListButton.setOnClickListener {
-            findNavController().navigate(R.id.profileUserMangaFragment, bundleOf(Pair(USERNAME_ARG, args.username)))
+            findNavController().navigate(R.id.profileUserMangaFragment,
+                bundleOf(Pair(USERNAME_ARG, args.username)),
+                getAnimNavOptions()
+            )
         }
 
         tabMediator = TabLayoutMediator(tabLayout, pager) { tab, position ->

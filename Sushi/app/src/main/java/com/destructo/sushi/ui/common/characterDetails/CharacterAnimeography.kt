@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentCharacterAnimeographyBinding
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterAnimeography : Fragment() {
+class CharacterAnimeography : BaseFragment() {
 
     private lateinit var animeoAdapter: PersonAdapter
     private lateinit var animeoRecyclerView: RecyclerView
@@ -56,7 +56,9 @@ class CharacterAnimeography : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 }

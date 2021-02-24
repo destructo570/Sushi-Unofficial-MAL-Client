@@ -15,8 +15,9 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
-import com.destructo.sushi.adapter.pagerAdapter.FragmentPagerAdapter
+import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentSearchBinding
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.getColorFromAttr
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -116,8 +117,8 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun setupViewPager(fragmentList:ArrayList<Fragment>){
-        resultPagerAdapter = FragmentPagerAdapter(
+    private fun setupViewPager(fragmentList:ArrayList<BaseFragment>){
+        resultPagerAdapter = FragmentBasePgerAdapter(
             fragmentList,
             childFragmentManager,
             lifecycle)

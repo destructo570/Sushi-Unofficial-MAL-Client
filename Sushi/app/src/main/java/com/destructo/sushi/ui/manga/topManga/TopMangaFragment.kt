@@ -9,7 +9,6 @@ import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -25,13 +24,14 @@ import com.destructo.sushi.enum.mal.MangaRankingType.*
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class TopMangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEndListener {
+class TopMangaFragment : BaseFragment(), AdapterView.OnItemSelectedListener, ListEndListener {
 
     private val topMangaViewModel: TopMangaViewModel by viewModels()
 
@@ -160,7 +160,9 @@ class TopMangaFragment : Fragment(), AdapterView.OnItemSelectedListener, ListEnd
 
     private fun navigateToMangaDetails(mangaMalId: Int){
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaMalId)),
+            getAnimNavOptions()
         )
     }
 

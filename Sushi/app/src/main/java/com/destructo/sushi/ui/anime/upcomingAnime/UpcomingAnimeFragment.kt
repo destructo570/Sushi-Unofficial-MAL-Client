@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -24,13 +23,14 @@ import com.destructo.sushi.databinding.FragmentUpcomingAnimeBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class UpcomingAnimeFragment : Fragment(), ListEndListener {
+class UpcomingAnimeFragment : BaseFragment(), ListEndListener {
 
     private val upcomingAnimeViewModel:UpcomingAnimeViewModel by viewModels()
 
@@ -128,7 +128,9 @@ class UpcomingAnimeFragment : Fragment(), ListEndListener {
 
     private fun navigateToAnimeDetails(animeMalId: Int){
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 

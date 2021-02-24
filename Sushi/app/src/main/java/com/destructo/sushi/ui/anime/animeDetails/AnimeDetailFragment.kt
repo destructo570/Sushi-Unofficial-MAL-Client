@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -34,6 +33,7 @@ import com.destructo.sushi.model.params.AnimeUpdateParams
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.*
 import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
@@ -62,7 +62,7 @@ private const val USER_ANIME_LIST_DEFAULT = -1
 private const val IS_IN_USER_LIST_ARG = "isInUserList"
 
 @AndroidEntryPoint
-class AnimeDetailFragment : Fragment(),
+class AnimeDetailFragment : BaseFragment(),
     AppBarLayout.OnOffsetChangedListener, AnimeUpdateListener {
 
     private val animeDetailViewModel: AnimeDetailViewModel by viewModels()
@@ -468,19 +468,25 @@ class AnimeDetailFragment : Fragment(),
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
+            R.id.characterFragment,
+            bundleOf(Pair(CHARACTER_ID_ARG, character)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToPersonDetails(personId: Int) {
         this.findNavController().navigate(
-            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
+            R.id.personFragment,
+            bundleOf(Pair(PERSON_ID_ARG, personId)),
+            getAnimNavOptions()
         )
     }
 

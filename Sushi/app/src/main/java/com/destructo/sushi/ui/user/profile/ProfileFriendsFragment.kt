@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +18,13 @@ import com.destructo.sushi.databinding.FragmentProfileFriendsBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ProfileFriendsFragment : Fragment(), ListEndListener {
+class ProfileFriendsFragment : BaseFragment(), ListEndListener {
 
     private lateinit var binding: FragmentProfileFriendsBinding
     private lateinit var friendListRecyclerView: RecyclerView
@@ -115,7 +115,9 @@ class ProfileFriendsFragment : Fragment(), ListEndListener {
 
     private fun navigateToUserProfile(username: String) {
         this.findNavController().navigate(
-            R.id.profileFragment, bundleOf(Pair(USERNAME_ARG, username))
+            R.id.profileFragment,
+            bundleOf(Pair(USERNAME_ARG, username)),
+            getAnimNavOptions()
         )
     }
 

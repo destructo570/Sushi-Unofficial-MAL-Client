@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -19,12 +18,13 @@ import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MangaResultFragment : Fragment() {
+class MangaResultFragment : BaseFragment() {
 
     private lateinit var binding: FragmentResultBinding
     private val searchViewModel: SearchViewModel
@@ -105,7 +105,9 @@ class MangaResultFragment : Fragment() {
 
     private fun navigateToMangaDetails(mangaMalId: Int){
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaMalId)),
+            getAnimNavOptions()
         )
     }
 

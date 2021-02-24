@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -37,6 +36,7 @@ import com.destructo.sushi.listener.MangaReviewListener
 import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.model.params.MangaUpdateParams
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
 import com.destructo.sushi.util.*
@@ -63,7 +63,7 @@ private const val MANGA_NOT_IN_USER_LIST = 0
 private const val USER_MANGA_LIST_DEFAULT = -1
 
 @AndroidEntryPoint
-class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOffsetChangedListener {
+class MangaDetailsFragment : BaseFragment(), MangaUpdateListener, AppBarLayout.OnOffsetChangedListener {
 
     private val mangaDetailViewModel: MangaDetailViewModel by viewModels()
     private val args: MangaDetailsFragmentArgs by navArgs()
@@ -336,13 +336,15 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
         characterSeeMore.setOnClickListener {
             findNavController().navigate(
                 R.id.mangaCharactersFragment,
-                bundleOf(Pair(MANGA_ID_ARG, mangaIdArg))
+                bundleOf(Pair(MANGA_ID_ARG, mangaIdArg)),
+                getAnimNavOptions()
             )
         }
         reviewSeeMore.setOnClickListener {
             findNavController().navigate(
                 R.id.mangaReviewsFragment,
-                bundleOf(Pair(MANGA_ID_ARG, mangaIdArg))
+                bundleOf(Pair(MANGA_ID_ARG, mangaIdArg)),
+                getAnimNavOptions()
             )
         }
     }
@@ -416,13 +418,17 @@ class MangaDetailsFragment : Fragment(), MangaUpdateListener, AppBarLayout.OnOff
 
     private fun navigateToMangaDetails(malId: Int) {
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, malId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, malId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
+            R.id.characterFragment,
+            bundleOf(Pair(CHARACTER_ID_ARG, character)),
+            getAnimNavOptions()
         )
     }
 

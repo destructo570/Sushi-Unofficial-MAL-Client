@@ -8,7 +8,6 @@ import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.R
@@ -16,6 +15,7 @@ import com.destructo.sushi.adapter.pagerAdapter.SchedulePagerAdapter
 import com.destructo.sushi.databinding.FragmentAnimeScheduleBinding
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AnimeScheduleFragment : Fragment(){
+class AnimeScheduleFragment : BaseFragment(){
 
     private val scheduleViewModel:ScheduleViewModel by viewModels()
     private lateinit var binding:FragmentAnimeScheduleBinding

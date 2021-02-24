@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,13 +15,14 @@ import com.destructo.sushi.databinding.FragmentAllMangaReviewsBinding
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MangaReviewListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.ui.manga.mangaDetails.MangaReviewBottomSheetFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MangaReviewsFragment : Fragment() {
+class MangaReviewsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentAllMangaReviewsBinding
     private val reviewsViewModel: MangaReviewsViewModel by viewModels()

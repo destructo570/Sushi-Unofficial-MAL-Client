@@ -10,7 +10,6 @@ import android.widget.ProgressBar
 import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,12 +24,13 @@ import com.destructo.sushi.enum.jikan.UserMangaListStatus
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ProfileUserMangaFragment : Fragment(), ListEndListener, AdapterView.OnItemSelectedListener {
+class ProfileUserMangaFragment : BaseFragment(), ListEndListener, AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentProfileUserMangaBinding
     private lateinit var mangaListRecyclerView: RecyclerView
@@ -127,7 +127,9 @@ class ProfileUserMangaFragment : Fragment(), ListEndListener, AdapterView.OnItem
 
     private fun navigateToMangaDetails(mangaMalId: Int) {
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaMalId)),
+            getAnimNavOptions()
         )
     }
 

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +16,11 @@ import com.destructo.sushi.adapter.VoiceActingAdapter
 import com.destructo.sushi.databinding.FragmentPersonVoiceActingBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PersonVoiceActingFragment : Fragment() {
+class PersonVoiceActingFragment : BaseFragment() {
 
     private val personViewModel: PersonViewModel by viewModels(ownerProducer = {requireParentFragment()})
     private lateinit var binding: FragmentPersonVoiceActingBinding
@@ -74,13 +74,17 @@ class PersonVoiceActingFragment : Fragment() {
 
     private fun navigateToAnimeDetail(animeMalId:Int){
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToCharacterDetail(characterId:Int){
         this.findNavController().navigate(
-            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, characterId))
+            R.id.characterFragment,
+            bundleOf(Pair(CHARACTER_ID_ARG, characterId)),
+            getAnimNavOptions()
         )
     }
 

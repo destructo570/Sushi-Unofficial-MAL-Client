@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,7 @@ import com.destructo.sushi.databinding.FragmentProfileFavoriteBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.user.Favorites
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_user_fav_anime.view.*
 import kotlinx.android.synthetic.main.inc_user_fav_character.view.*
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.inc_user_fav_people.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class ProfileFavoriteFragment : Fragment() {
+class ProfileFavoriteFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileFavoriteBinding
     private lateinit var favAnimeRecyclerView: RecyclerView
@@ -149,32 +149,40 @@ class ProfileFavoriteFragment : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(R.id.animeDetailFragment,
-            bundleOf(Pair(ANIME_ID_ARG, animeMalId)))
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
+        )
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character)))
+            R.id.characterFragment,
+            bundleOf(Pair(CHARACTER_ID_ARG, character)),
+            getAnimNavOptions()
+        )
     }
 
     private fun navigateToPersonDetails(personId: Int) {
         this.findNavController().navigate(
-            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
+            R.id.personFragment,
+            bundleOf(Pair(PERSON_ID_ARG, personId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToMangaDetails(mangaMalId: Int){
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaMalId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToFavorites(catergory: String, fav: Favorites){
         this.findNavController().navigate(
             R.id.favoritesFragment,
-            bundleOf(
-                Pair(CATEGORY_ARG, catergory),
-                Pair(FAV_ARG, fav))
+            bundleOf(Pair(CATEGORY_ARG, catergory), Pair(FAV_ARG, fav)),
+            getAnimNavOptions()
         )
     }
 

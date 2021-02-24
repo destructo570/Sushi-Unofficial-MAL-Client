@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,11 +16,12 @@ import com.destructo.sushi.adapter.MalSubEntityAdapter
 import com.destructo.sushi.databinding.FragmentFavoritesBinding
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.jikan.user.Favorites
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : BaseFragment() {
 
     private val profileViewModel:ProfileViewModel by viewModels()
     private val args: FavoritesFragmentArgs by navArgs()
@@ -107,25 +107,33 @@ class FavoritesFragment : Fragment() {
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToCharacterDetails(character: Int) {
         this.findNavController().navigate(
-            R.id.characterFragment, bundleOf(Pair(CHARACTER_ID_ARG, character))
+            R.id.characterFragment,
+            bundleOf(Pair(CHARACTER_ID_ARG, character)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToPersonDetails(personId: Int) {
         this.findNavController().navigate(
-            R.id.personFragment, bundleOf(Pair(PERSON_ID_ARG, personId))
+            R.id.personFragment,
+            bundleOf(Pair(PERSON_ID_ARG, personId)),
+            getAnimNavOptions()
         )
     }
 
     private fun navigateToMangaDetails(mangaMalId: Int){
         this.findNavController().navigate(
-            R.id.mangaDetailsFragment, bundleOf(Pair(MANGA_ID_ARG, mangaMalId))
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaMalId)),
+            getAnimNavOptions()
         )
     }
 }

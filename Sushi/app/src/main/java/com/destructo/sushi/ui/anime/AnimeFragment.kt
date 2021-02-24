@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -31,6 +30,7 @@ import com.destructo.sushi.enum.mal.AnimeRankingType
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.listener.MalUrlListener
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemHorizontalDecor
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +43,7 @@ import kotlinx.android.synthetic.main.inc_promotional_home.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
 
 @AndroidEntryPoint
-class AnimeFragment : Fragment() {
+class AnimeFragment : BaseFragment() {
 
     private val animeViewModel: AnimeViewModel by viewModels()
     private lateinit var binding: FragmentAnimeBinding
@@ -269,29 +269,31 @@ class AnimeFragment : Fragment() {
     }
 
     private fun navigateToTopAnime() {
-        this.findNavController().navigate(R.id.topAnimeFragment)
+        this.findNavController().navigate(R.id.topAnimeFragment,null, getAnimNavOptions())
     }
 
     private fun navigateToUpcomingAnime() {
-        this.findNavController().navigate(R.id.upcomingAnimeFragment)
+        this.findNavController().navigate(R.id.upcomingAnimeFragment,null, getAnimNavOptions())
     }
 
     private fun navigateToCurrentlyAiring() {
-        this.findNavController().navigate(R.id.currentlyAiring)
+        this.findNavController().navigate(R.id.currentlyAiring,null, getAnimNavOptions())
     }
 
     private fun navigateToSeasonalAnime() {
-        this.findNavController().navigate(R.id.seasonalAnime)
+        this.findNavController().navigate(R.id.seasonalAnime,null, getAnimNavOptions())
     }
 
     private fun navigateToAnimeRecom() {
-        this.findNavController().navigate(R.id.animeRecomFragment)
+        this.findNavController().navigate(R.id.animeRecomFragment,null, getAnimNavOptions())
     }
 
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
+
+
         this.findNavController().navigate(
-            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId))
+            R.id.animeDetailFragment, bundleOf(Pair(ANIME_ID_ARG, animeMalId)), getAnimNavOptions()
         )
     }
 
