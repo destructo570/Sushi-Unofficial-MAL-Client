@@ -3,6 +3,7 @@ package com.destructo.sushi.model.jikan.user.mangaList
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.destructo.sushi.model.jikan.MALEntity
 import com.squareup.moshi.Json
 
 @Entity(tableName = "jikan_profile_manga_list")
@@ -20,7 +21,7 @@ data class Manga(
     @Json(name = "is_rereading")
     val isRereading: Boolean?=null,
     @Json(name = "magazines")
-    val magazines: List<String?>?=null,
+    val magazines: List<MALEntity?>?=null,
     @Json(name = "mal_id")
     val malId: Int?=null,
     @Json(name = "priority")

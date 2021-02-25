@@ -3,6 +3,7 @@ package com.destructo.sushi.model.jikan.user.animeList
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.destructo.sushi.model.jikan.MALEntity
 import com.squareup.moshi.Json
 
 @Entity(tableName = "jikan_profile_anime_list")
@@ -28,7 +29,7 @@ data class Anime(
     @Json(name = "is_rewatching")
     val isRewatching: Boolean?=null,
     @Json(name = "licensors")
-    val licensors: List<String?>?=null,
+    val licensors: List<MALEntity?>?=null,
     @Json(name = "mal_id")
     val malId: Int?=null,
     @Json(name = "priority")
@@ -46,7 +47,7 @@ data class Anime(
     @Json(name = "storage")
     val storage: String?=null,
     @Json(name = "studios")
-    val studios: List<String?>?=null,
+    val studios: List<MALEntity?>?=null,
     @Json(name = "tags")
     val tags: String?=null,
     @Json(name = "title")

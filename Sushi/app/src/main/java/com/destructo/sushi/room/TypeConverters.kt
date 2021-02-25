@@ -1,6 +1,7 @@
 package com.destructo.sushi.room
 
 import androidx.room.TypeConverter
+import com.destructo.sushi.model.jikan.MALEntity
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.model.jikan.anime.core.AnimeReviews
 import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
@@ -159,6 +160,19 @@ class TypeConverters {
 
     @TypeConverter
     fun listOfStringToString(data: List<String?>?): String?{
+        return gson.toJson(data)
+    }
+
+    @TypeConverter
+    fun stringToListOfMalEntity(data: String?): List<MALEntity?>?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<List<MALEntity?>?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun listOfMalEntityToString(data: List<MALEntity?>?): String?{
         return gson.toJson(data)
     }
 
