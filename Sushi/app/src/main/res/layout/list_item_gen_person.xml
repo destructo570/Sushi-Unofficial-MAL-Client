@@ -26,8 +26,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/list_anime_cover"
@@ -35,7 +35,7 @@
                 android:layout_height="@dimen/item_card_image_height"
                 android:foreground="@drawable/list_item_gradient"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{personEntity.imageUrl}"
+                imageUrl="@{personEntity.imageUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
