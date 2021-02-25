@@ -124,13 +124,26 @@
                 />
 
             <com.destructo.sushi.views.SettingsListView
-                android:id="@+id/about_app"
+                android:id="@+id/faq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/app_settings"
+                app:setting_title="@string/pref_title_faq"
+                app:setting_description="@string/pref_desc_faq"
+                app:setting_icon="@drawable/ic_question_line"
+                />
+
+            <com.destructo.sushi.views.SettingsListView
+                android:id="@+id/about_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/faq"
                 app:setting_title="@string/pref_title_about_app"
                 app:setting_description="@string/pref_desc_about_app"
                 app:setting_icon="@drawable/ic_information_line"

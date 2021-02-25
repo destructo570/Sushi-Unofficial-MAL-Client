@@ -29,6 +29,7 @@ class MainSettingsFragment : BaseFragment() {
     private lateinit var lookAndFeel: ConstraintLayout
     private lateinit var appPreference: ConstraintLayout
     private lateinit var aboutApp: ConstraintLayout
+    private lateinit var faqSection: ConstraintLayout
     private lateinit var sharedPref: SharedPreferences
 
     private lateinit var proPromo: MaterialCardView
@@ -83,6 +84,14 @@ class MainSettingsFragment : BaseFragment() {
         aboutApp.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mainSettingsFragment_to_aboutFragment2,
+                null,
+                getAnimNavOptions()
+            )
+        }
+        faqSection = binding.faq
+        faqSection.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_mainSettingsFragment_to_faqFragment,
                 null,
                 getAnimNavOptions()
             )

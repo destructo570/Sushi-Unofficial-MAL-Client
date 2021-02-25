@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_mainSettingsFragment_to_aboutFragment2"
             app:destination="@id/aboutFragment2" />
+        <action
+            android:id="@+id/action_mainSettingsFragment_to_faqFragment"
+            app:destination="@id/faqFragment" />
     </fragment>
 
     <fragment
@@ -44,4 +47,8 @@
         android:name="com.destructo.sushi.ui.preferences.aboutApp.CreditsFragment"
         android:label="fragment_credits"
         tools:layout="@layout/fragment_credits" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.destructo.sushi.ui.preferences.faq.FaqFragment"
+        android:label="FaqFragment" />
 </navigation>

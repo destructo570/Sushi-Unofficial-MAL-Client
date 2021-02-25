@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="questions">
+        <item>App is crashing or I found a bug. What should I do?</item>
+        <item>Where should I submit feature requests and suggestions?</item>
+        <item>Why does this app not have features like forums, sending friend requests, commenting and other features?</item>
+        <item>Why can\'t I see some people\'s anime/manga list?</item>
+        <item>I love the app. What can I do to support the development?</item>
+        <item>Why do I have to pay for themes? It\'s ridiculous. I will ignore all other features this app offers and rate this app one star just for this.</item>
+
+    </string-array>
+    <string-array name="answers">
+        <item>Try clearing app data/cache and reinstalling the app. If the problem persists post it in the discord server or leave an email. We will try to solve the issue.</item>
+        <item>You can leave any requests or suggestions on discord server.</item>
+        <item>Currently the official Mal Api is limited in features and doesn\'t offer any of the social features, forums etc.
+        When the Mal Api adds all of this functionality to their Api we will add them to the app as well.</item>
+        <item>You can\'t see someone\'s anime/manga list from profile section if it\'s private even if it\'s yours. This data is not provided by the official MAL Api, The app
+        uses another unofficial api called jikan api for fetching user list and it does not support fetching private data.</item>
+        <item>You can share the app and leave a review. Or you can also help translate this app to your language. It would help a lot 😃</item>
+        <item>If you want to do that please go ahead. It\'s not uncommon for apps to have paid themes and there are many out there which do so.
+        If you want free dark theme or other theme options. You can check out other MAL clients like moelist and MalClient on playstore.</item>
+    </string-array>
+
+</resources>

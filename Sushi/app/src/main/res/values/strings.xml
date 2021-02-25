@@ -15,6 +15,7 @@
     <string name="promotion">Promotional Content</string>
     <string name="settings">Settings</string>
     <string name="about_app">About App</string>
+    <string name="faq">Frequently asked questions</string>
     <string name="title_anime">ANIME</string>
     <string name="title_manga">MANGA</string>
     <string name="title_other">OTHER</string>
@@ -192,6 +193,8 @@
     <string name="pref_desc_look_and_feel">Themes and other customizations</string>
     <string name="pref_title_about_app">About App</string>
     <string name="pref_desc_about_app">Developers and app licenses</string>
+    <string name="pref_title_faq">F.A.Q</string>
+    <string name="pref_desc_faq">Answers to some of the common questions</string>
     <string name="pref_title_app_settings">App Settings</string>
     <string name="pref_desc_app_settings">Change app related settings</string>
     <string name="pref_title_discord">Join The Discord Server</string>
