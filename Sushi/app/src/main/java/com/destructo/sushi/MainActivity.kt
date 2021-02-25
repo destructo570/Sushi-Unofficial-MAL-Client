@@ -28,9 +28,6 @@ import kotlinx.android.synthetic.main.profile_header_layout.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-const val UPDATE_CHANNEL_ID = "001"
-const val PROMOTION_CHANNEL_ID = "002"
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

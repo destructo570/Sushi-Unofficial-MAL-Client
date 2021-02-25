@@ -27,6 +27,10 @@ const val DEFAULT_USER_LIST_PAGE_LIMIT = "20"
 const val DETAILS_CACHE_EXPIRE_TIME_LIMIT = 120000
 const val CACHE_EXPIRE_TIME_LIMIT = 60000
 
+//Notification Channel Id
+const val UPDATE_CHANNEL_ID = "sushi_update"
+const val PROMOTION_CHANNEL_ID = "sushi_promotion"
+
 //Shared Pref Key
 const val CURRENT_THEME = "current_theme"
 const val NSFW_TAG = "nsfw_tag"
