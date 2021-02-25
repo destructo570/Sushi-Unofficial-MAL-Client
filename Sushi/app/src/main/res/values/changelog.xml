@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="latest_changelog" translatable="false">
+        \n Version 1.1.0.7
+        \n• Automatically set number of watched or read ep/ch to max when changing the status to completed
+        \n• Added F.A.Q section
+        \n• Added User friend list in profile section
+        \n• Added User anime list in profile section
+        \n• Added User manga list in profile section
+        \n• Added transition animations
+        \n• Added separate channel for promotional push notifications
+        \n• Reworked login flow
+        \n• Changed stats graph colors
+        \n• Fixed anime/manga items getting cropped in character fragment
+        \n• Fixed images loading with wrong aspect ratios
+        \n• Fixed change log dialog flicker issue
+        \n• Fixed some links not opening is sushi
+        \n• Fixed some ui and layout issues \n
+
         \n• Version 1.1.0.6
         \n• Fixed some performance issues
         \n• Fixed user stats card color issue in dark themes
         \n• Fixed published manga section cropped image bug
         \n• Added credits section in about app section
         \n• Added link to translate sushi in about app section
+
     </string>
 </resources>

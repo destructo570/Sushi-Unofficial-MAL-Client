@@ -10,7 +10,7 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 134,
+      "versionCode": 136,
       "versionName": "1.1.0.7",
       "outputFile": "app-release.apk"
     }

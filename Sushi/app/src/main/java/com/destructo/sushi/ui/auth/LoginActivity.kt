@@ -5,9 +5,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -43,15 +40,15 @@ class LoginActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= 30) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        }else{
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        }
+//
+//        @Suppress("DEPRECATION")
+//        if (Build.VERSION.SDK_INT >= 30) {
+//            window.insetsController?.hide(WindowInsets.Type.statusBars())
+//        }else{
+//            requestWindowFeature(Window.FEATURE_NO_TITLE)
+//            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//        }
         super.onCreate(savedInstanceState)
 
         if (sessionManager.checkLogin()) {

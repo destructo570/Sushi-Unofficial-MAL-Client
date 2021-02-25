@@ -16,7 +16,7 @@ android {
         applicationId "com.destructo.sushi_mal"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 134
+        versionCode 136
         versionName "1.1.0.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
