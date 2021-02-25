@@ -27,6 +27,7 @@ import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
+import com.destructo.sushi.util.makeLongToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -106,8 +107,9 @@ class ProfileUserAnimeFragment : BaseFragment(), ListEndListener, AdapterView.On
                     progressBar.visibility = View.GONE
                 }
                 Status.ERROR -> {
-                    Timber.e("Error: ${resource.message}")
                     progressBar.visibility = View.GONE
+                    Timber.e("Error: ${resource.message}")
+                    resource.message?.let { profileViewModel.showError(getString(R.string.error_user_list)) }
                 }
 
             }
@@ -116,6 +118,12 @@ class ProfileUserAnimeFragment : BaseFragment(), ListEndListener, AdapterView.On
         profileViewModel.getAnimeList.observe(viewLifecycleOwner){
             animeListAdapter.submitList(it)
         }
+
+        profileViewModel.showErrorToast.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let { msg -> context?.makeLongToast(msg) }
+        }
+
+
 
     }
 
