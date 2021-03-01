@@ -84,7 +84,7 @@ class MangaResultFragment : BaseFragment() {
                 nsfw = sharedPref.getBoolean(NSFW_TAG, false))
         }
 
-        searchViewModel.mangaSearchResult.observe(viewLifecycleOwner){resource->
+        searchViewModel.mangaSearchResultNext.observe(viewLifecycleOwner){resource->
             when(resource.status){
                 Status.LOADING ->{
                     progressBar.visibility = View.VISIBLE

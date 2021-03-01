@@ -8,5 +8,5 @@ import com.squareup.moshi.Json
 @Entity(tableName = "search_anime_list", primaryKeys = ["anime"])
 data class AnimeListData(
     @Json(name = "node")
-    val anime: Anime
+    val anime: Anime,
 )

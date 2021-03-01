@@ -8,8 +8,8 @@
         <item>I love the app. What can I do to support the development?</item>
         <item>Why do I have to pay for themes? I will rate this app one star just for this.</item>
         <item>How to contact the developer? / How to get help?</item>
-
     </string-array>
+
     <string-array name="answers">
         <item>Try clearing the app data/ cache and reinstalling the app. Maybe even try restarting your device afterwards. If the problem persists, post it in our Discord server or send an email. Some (hopefully ☜(ﾟヮﾟ☜) ) kind individuals will try their best to help you out. 😃</item>
         <item>You can leave any requests or suggestions on our Discord server.</item>
@@ -18,7 +18,6 @@
         <item>You can share the app and leave a review. You can also help translate this app into your native language if it\’s not yet translated. That would help a lot! 😃</item>
         <item>There have been a few people complaining about the app\’s payment and advertising model. It\'s not uncommon for apps to have paid themes and there are many out there which do so. It also helps keep the development alive and supports the developer. If you want free dark theme or other theming options, you can check out other MAL clients by other cool devs like MoeList (by axiel7) and MALClient (by Drutol).</item>
         <item>Have a look in the About App section for email (feedback) and Discord server details</item>
-
     </string-array>
 
 </resources>
