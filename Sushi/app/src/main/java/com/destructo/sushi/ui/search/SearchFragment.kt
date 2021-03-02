@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.search
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.destructo.sushi.R
+import com.destructo.sushi.*
 import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentSearchBinding
 import com.destructo.sushi.ui.base.BaseFragment
@@ -36,6 +38,8 @@ class SearchFragment : Fragment() {
     private lateinit var resultTabLayout: TabLayout
     private lateinit var resultTabMediator: TabLayoutMediator
     private lateinit var searchEditText: EditText
+    private lateinit var sharedPref: SharedPreferences
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +50,8 @@ class SearchFragment : Fragment() {
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
         searchView = binding.searchView
         searchView.setIconifiedByDefault(false)
@@ -65,6 +71,7 @@ class SearchFragment : Fragment() {
                         if (it.length >= 3){
                             searchViewModel.clearMangaList()
                             searchViewModel.clearAnimeList()
+                            makeSearchRequest(it)
                             searchViewModel.setQueryString(it)
                         }else{
                             Toast.makeText(context, "Query must be atleast 3 letters", Toast.LENGTH_SHORT).show()
@@ -124,5 +131,22 @@ class SearchFragment : Fragment() {
             lifecycle)
         resultPager.adapter = resultPagerAdapter
         resultTabMediator.attach()
+    }
+
+    private fun makeSearchRequest(query: String){
+        searchViewModel.getAnimeResult(
+            query = query,
+            field = ALL_ANIME_FIELDS,
+            limit = DEFAULT_PAGE_LIMIT,
+            offset = "",
+            nsfw = sharedPref.getBoolean(NSFW_TAG, false))
+
+        searchViewModel.getMangaResult(
+            query = query,
+            field = ALL_MANGA_FIELDS,
+            limit = DEFAULT_PAGE_LIMIT,
+            offset = "",
+            nsfw = sharedPref.getBoolean(NSFW_TAG, false))
+
     }
 }

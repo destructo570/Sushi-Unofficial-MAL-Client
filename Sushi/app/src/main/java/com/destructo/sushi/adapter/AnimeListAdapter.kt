@@ -37,6 +37,10 @@ class AnimeListAdapter(private val malIdListener: MalIdListener) :
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }

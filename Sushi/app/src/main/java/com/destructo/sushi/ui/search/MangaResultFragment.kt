@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.destructo.sushi.*
+import com.destructo.sushi.MANGA_ID_ARG
+import com.destructo.sushi.NSFW_TAG
+import com.destructo.sushi.R
 import com.destructo.sushi.adapter.MangaListAdapter
 import com.destructo.sushi.databinding.FragmentResultBinding
 import com.destructo.sushi.listener.ListEndListener
@@ -33,7 +35,6 @@ class MangaResultFragment : BaseFragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var mangaListAdapter: MangaListAdapter
     private lateinit var sharedPref: SharedPreferences
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,6 @@ class MangaResultFragment : BaseFragment() {
 
         sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
-
         progressBar = binding.resultProgressBar
 
         return binding.root
@@ -73,16 +73,6 @@ class MangaResultFragment : BaseFragment() {
             }
         })
         resultRecyclerView.adapter = mangaListAdapter
-
-
-        searchViewModel.searchQuery.observe(viewLifecycleOwner){
-            searchViewModel.getMangaResult(
-                query = it,
-                field = ALL_MANGA_FIELDS,
-                limit = DEFAULT_PAGE_LIMIT,
-                offset = "",
-                nsfw = sharedPref.getBoolean(NSFW_TAG, false))
-        }
 
         searchViewModel.mangaSearchResult.observe(viewLifecycleOwner){resource->
             when(resource.status){

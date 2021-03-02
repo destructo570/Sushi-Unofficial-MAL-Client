@@ -35,7 +35,6 @@ constructor(
 
 
     fun getAnimeResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
-
         animeResult.value = Resource.loading(null)
         GlobalScope.launch {
             val getAnimeResultDeferred = malApi.searchAnimeAsync(
@@ -53,7 +52,7 @@ constructor(
                     val animeList = response.data?.filter { it?.anime?.nsfw == "white" }
                     searchAnimeDao.insertAnimeList(animeList!!)
                 }
-                animeNextPage = response.paging?.next
+                if ( animeNextPage != response.paging?.next) animeNextPage = response.paging?.next
 
                 withContext(Dispatchers.Main){
                     animeResult.value = Resource.success(response)
@@ -64,8 +63,6 @@ constructor(
             }
         }
     }
-
-
 
     fun getMangaResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
 
@@ -87,7 +84,9 @@ constructor(
                     val mangaList = response.data?.filter { it?.manga?.nsfw == "white" }
                     searchMangaDao.insertMangaList(mangaList!!)
                 }
-                mangaNextPage = response.paging?.next
+
+                if ( mangaNextPage != response.paging?.next) mangaNextPage = response.paging?.next
+
                 withContext(Dispatchers.Main){
                     mangaResult.value = Resource.success(response)
                 }
@@ -150,8 +149,8 @@ constructor(
 
     private suspend fun mangaNextPageCall(next: String, nsfw: Boolean) {
         try {
-            val getMangaSearchDefferred = malApi.getSearchMangaNextAsync(next, nsfw)
-            val response = getMangaSearchDefferred.await()
+            val getMangaSearchDeferred = malApi.getSearchMangaNextAsync(next, nsfw)
+            val response = getMangaSearchDeferred.await()
             if (nsfw) {
                 val mangaList = response.data
                 searchMangaDao.insertMangaList(mangaList!!)
@@ -159,7 +158,9 @@ constructor(
                 val mangaList = response.data?.filter { it?.manga?.nsfw == "white" }
                 searchMangaDao.insertMangaList(mangaList!!)
             }
+
             mangaNextPage = response.paging?.next
+
             withContext(Dispatchers.Main) {
                 mangaResultNext.value = Resource.success(response)
             }
