@@ -41,7 +41,7 @@ class UserAnimePlanToWatch : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null) {
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
+            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
         }
     }
 
@@ -108,7 +108,7 @@ class UserAnimePlanToWatch : BaseFragment() {
             }
         }
 
-        userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
+        userAnimeViewModel.userAnimeListPlanToWatch.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING -> {
                     userAnimeProgressbar.visibility = View.VISIBLE
@@ -142,15 +142,11 @@ class UserAnimePlanToWatch : BaseFragment() {
                 userAnimeAdapter.submitList(it)
             }
 
-//        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
-//            val ptwList = mutableListOf<UserAnimeEntity>()
-//            for (anime in it){
-//                if (anime.myAnimeListStatus?.status == UserAnimeStatus.PLAN_TO_WATCH.value){
-//                    ptwList.add(anime)
-//                }
-//            }
-//            userAnimeAdapter.submitList(ptwList)
-//        }
+        userAnimeViewModel.animeListSortType.observe(viewLifecycleOwner){
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
+        }
+
+
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {

@@ -41,7 +41,7 @@ class UserAnimeDropped : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
+            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
         }
 
     }
@@ -146,6 +146,10 @@ class UserAnimeDropped : BaseFragment() {
             .observe(viewLifecycleOwner){
                 userAnimeAdapter.submitList(it)
             }
+
+        userAnimeViewModel.animeListSortType.observe(viewLifecycleOwner){
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
+        }
     }
 
 

@@ -8,9 +8,18 @@
         android:title="@string/sort_by"
         app:showAsAction="always" >
         <menu>
-        <item android:title="@string/sort_by_title" />
-        <item android:title="@string/sort_by_score" />
-        <item android:title="@string/sort_by_updated" />
+        <item
+            android:id="@+id/sort_by_title"
+            android:title="@string/sort_by_title"
+            />
+        <item
+            android:id="@+id/sort_by_score"
+            android:title="@string/sort_by_score"
+            />
+        <item
+            android:id="@+id/sort_by_last_updated"
+            android:title="@string/sort_by_updated"
+            />
         </menu>
 
     </item>
