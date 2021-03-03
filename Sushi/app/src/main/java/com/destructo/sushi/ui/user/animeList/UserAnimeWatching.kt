@@ -18,6 +18,7 @@ import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.room.UserAnimeDao
 import com.destructo.sushi.ui.base.BaseFragment
@@ -45,7 +46,7 @@ class UserAnimeWatching : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
+            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
         }
 
     }
@@ -76,20 +77,17 @@ class UserAnimeWatching : BaseFragment() {
                     val animeId = anime?.malId
 
                     animeId?.let { userAnimeViewModel.clearAnimeDetails(it) }
-                    if (episodes != null && animeId != null
-                        && totalEpisodes != null && episodes.plus(1) == totalEpisodes) {
-
+                    if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
+                            1
+                        ) == totalEpisodes
+                    ) {
                         userAnimeViewModel.addEpisodeAnime(
                             animeId.toString(),
-                            episodes.plus(1),
+                            episodes + 1,
                             UserAnimeStatus.COMPLETED.value
                         )
-
                     } else if (episodes != null && animeId != null) {
-
-                        userAnimeViewModel.addEpisodeAnime(animeId.toString(),
-                            episodes.plus(1),
-                            null)
+                        userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
                     }
 
                 },
@@ -103,7 +101,7 @@ class UserAnimeWatching : BaseFragment() {
                 RecyclerView.Adapter.StateRestorationPolicy.ALLOW
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
+                    //userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
                 }
 
             })
@@ -115,7 +113,7 @@ class UserAnimeWatching : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
+        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING -> {
                     userAnimeProgressbar.visibility = View.VISIBLE
@@ -137,7 +135,6 @@ class UserAnimeWatching : BaseFragment() {
                 Status.SUCCESS -> {
                     userAnimeProgressbar.visibility = View.GONE
 
-
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
@@ -145,24 +142,16 @@ class UserAnimeWatching : BaseFragment() {
             }
         }
 
-        userAnimeViewModel.userAnimeListWatchingNext.observe(viewLifecycleOwner){resource->
-            when(resource.status){
-                Status.LOADING ->{
-                    userAnimePaginationProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS ->{
-                    userAnimePaginationProgressbar.visibility = View.GONE
-                }
-                Status.ERROR ->{
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
 
-        userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.WATCHING.value)
-            .observe(viewLifecycleOwner){
-                userAnimeAdapter.submitList(it)
+            val watchList = mutableListOf<UserAnimeEntity>()
+            for (anime in it){
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.WATCHING.value){
+                     watchList.add(anime)
+                }
             }
+            userAnimeAdapter.submitList(watchList)
+        }
 
 
     }

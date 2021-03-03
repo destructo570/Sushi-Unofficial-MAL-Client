@@ -18,6 +18,7 @@ import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -40,7 +41,7 @@ class UserAnimeOnHold : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
+            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
         }
 
     }
@@ -79,7 +80,7 @@ class UserAnimeOnHold : BaseFragment() {
             }, false)
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    userAnimeViewModel.getNextPage(UserAnimeStatus.ON_HOLD.value)
+                    //userAnimeViewModel.getNextPage(UserAnimeStatus.ON_HOLD.value)
                 }
 
             })
@@ -97,53 +98,28 @@ class UserAnimeOnHold : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){resource ->
-            when(resource.status){
-                Status.LOADING ->{
-                    userAnimeProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS ->{
-                    userAnimeProgressbar.visibility = View.GONE
-                }
-                Status.ERROR ->{
-                    Timber.e("Error: %s", resource.message)
+            userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
+                when (resource.status) {
+                    Status.LOADING -> {
+                        userAnimeProgressbar.visibility = View.VISIBLE
+                    }
+                    Status.SUCCESS -> {
+                        userAnimeProgressbar.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+                        Timber.e("Error: %s", resource.message)
+                    }
                 }
             }
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+            val onHoldList = mutableListOf<UserAnimeEntity>()
+            for (anime in it){
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.ON_HOLD.value){
+                    onHoldList.add(anime)
+                }
+            }
+            userAnimeAdapter.submitList(onHoldList)
         }
-
-        userAnimeViewModel.userAnimeListOnHold.observe(viewLifecycleOwner) { resource ->
-            when(resource.status){
-                Status.LOADING -> {
-                    userAnimeProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    userAnimeProgressbar.visibility = View.GONE
-                }
-                Status.ERROR -> {
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
-
-
-        userAnimeViewModel.userAnimeListOnHoldNext.observe(viewLifecycleOwner){resource->
-            when(resource.status){
-                Status.LOADING ->{
-                    userAnimePaginationProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS ->{
-                    userAnimePaginationProgressbar.visibility = View.GONE
-                }
-                Status.ERROR ->{
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
-
-        userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.ON_HOLD.value)
-            .observe(viewLifecycleOwner){
-                userAnimeAdapter.submitList(it)
-            }
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {

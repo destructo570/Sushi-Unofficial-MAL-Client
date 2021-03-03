@@ -4,7 +4,7 @@ import androidx.core.net.toUri
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
 
 open class BaseRepository {
-
+    
     private fun calcOffset(nextPage: String?, prevPage:String?): String{
         var currentOffset = "0"
         if(!nextPage.isNullOrBlank()){

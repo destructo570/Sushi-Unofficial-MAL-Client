@@ -21,14 +21,14 @@ data class UserAnimeEntity (
     var numEpisodes: Int?=null,
     var start_season: StartSeason?=null,
     val mainPicture: MainPicture?=null,
+
     ){
 
     companion object {
         private fun fromUpdateUserAnime(data: UserAnimeData): UserAnimeEntity {
-
             return UserAnimeEntity(
                 malId = data.anime.id,
-                status = data.anime.myAnimeListStatus?.status,
+                status = data.anime.status,
                 title = data.anime.title,
                 media_type = data.anime.mediaType,
                 start_season = data.anime.startSeason,
