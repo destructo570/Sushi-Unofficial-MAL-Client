@@ -33,7 +33,7 @@ class MyAnimeListFragment : Fragment(){
         if(savedInstanceState == null){
             userAnimeViewModel.clearList()
             userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
-            userAnimeViewModel.getUserAnimeList()
+            //userAnimeViewModel.getUserAnimeList()
         }
     }
 

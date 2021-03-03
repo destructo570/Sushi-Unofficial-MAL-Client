@@ -9,6 +9,9 @@ interface UserAnimeDao {
     @Query("SELECT * FROM user_anime_list ORDER BY title ASC")
     fun getUserAnimeList(): LiveData<List<UserAnimeEntity>>
 
+    @Query("SELECT * FROM user_anime_list WHERE status LIKE :status")
+    fun getUserAnimeListByStatus(status: String): LiveData<List<UserAnimeEntity>>
+
     @Query("SELECT * FROM user_anime_list WHERE malId LIKE :malId")
     fun getUserAnimeById(malId: Int): UserAnimeEntity
 
@@ -23,6 +26,9 @@ interface UserAnimeDao {
 
     @Query("DELETE FROM user_anime_list WHERE malId LIKE :id")
     fun deleteUserAnimeById(id: Int)
+
+    @Query("DELETE FROM user_anime_list WHERE status LIKE :status")
+    fun deleteUserAnimeByStatus(status: String)
 
     @Delete
     fun deleteUserAnime(anime: UserAnimeEntity)

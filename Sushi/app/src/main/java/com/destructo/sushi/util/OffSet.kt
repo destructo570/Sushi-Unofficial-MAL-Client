@@ -1,16 +1,15 @@
-package com.destructo.sushi.ui.base
+package com.destructo.sushi.util
 
 import androidx.core.net.toUri
-import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
 
-open class BaseRepository {
+object OffSet {
 
-    private fun calcOffset(nextPage: String?, prevPage:String?): String{
+     fun calculateOffset(nextPage: String?, prevPage:String?, limit: String): String{
         var currentOffset = "0"
         if(!nextPage.isNullOrBlank()){
             val nextOffset = getOffset(nextPage)
             if (!nextOffset.isNullOrBlank()){
-                val temp = nextOffset.toInt().minus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
+                val temp = nextOffset.toInt().minus(limit.toInt())
                 if (temp>=0){
                     currentOffset = temp.toString()
                 }
@@ -19,7 +18,7 @@ open class BaseRepository {
         }else{
             val prevOffset = getOffset(prevPage)
             if (!prevOffset.isNullOrBlank()){
-                val temp = prevOffset.toInt().plus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
+                val temp = prevOffset.toInt().plus(limit.toInt())
                 if (temp>=0){
                     currentOffset = temp.toString()
                 }
@@ -38,5 +37,4 @@ open class BaseRepository {
             null
         }
     }
-
 }

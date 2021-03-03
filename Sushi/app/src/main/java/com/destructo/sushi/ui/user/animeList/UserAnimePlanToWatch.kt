@@ -19,7 +19,6 @@ import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -42,7 +41,7 @@ class UserAnimePlanToWatch : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null) {
-            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
         }
     }
 
@@ -81,7 +80,7 @@ class UserAnimePlanToWatch : BaseFragment() {
                 }, false)
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    //userAnimeViewModel.getNextPage(UserAnimeStatus.PLAN_TO_WATCH.value)
+                    userAnimeViewModel.getNextPage(UserAnimeStatus.PLAN_TO_WATCH.value)
                 }
 
             })
@@ -95,25 +94,63 @@ class UserAnimePlanToWatch : BaseFragment() {
         userAnimeAdapter.stateRestorationPolicy = ALLOW
         userAnimeRecycler.adapter = userAnimeAdapter
 
-        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner){resource ->
+        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){resource ->
             when(resource.status){
-                Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
+                Status.LOADING ->{
+                    userAnimeProgressbar.visibility = View.VISIBLE
+                }
                 Status.SUCCESS ->{
                     userAnimeProgressbar.visibility = View.GONE
                 }
-                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+                Status.ERROR ->{
+                    Timber.e("Error: %s", resource.message)
+                }
             }
         }
 
-        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
-            val ptwList = mutableListOf<UserAnimeEntity>()
-            for (anime in it){
-                if (anime.myAnimeListStatus?.status == UserAnimeStatus.PLAN_TO_WATCH.value){
-                    ptwList.add(anime)
+        userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
+            when(resource.status){
+                Status.LOADING -> {
+                    userAnimeProgressbar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    userAnimeProgressbar.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
                 }
             }
-            userAnimeAdapter.submitList(ptwList)
         }
+
+
+        userAnimeViewModel.userAnimeListPlanToWatchNext.observe(viewLifecycleOwner){resource->
+            when(resource.status){
+                Status.LOADING ->{
+                    userAnimePaginationProgressbar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS ->{
+                    userAnimePaginationProgressbar.visibility = View.GONE
+                }
+                Status.ERROR ->{
+                    Timber.e("Error: %s", resource.message)
+                }
+            }
+        }
+
+        userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.PLAN_TO_WATCH.value)
+            .observe(viewLifecycleOwner){
+                userAnimeAdapter.submitList(it)
+            }
+
+//        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+//            val ptwList = mutableListOf<UserAnimeEntity>()
+//            for (anime in it){
+//                if (anime.myAnimeListStatus?.status == UserAnimeStatus.PLAN_TO_WATCH.value){
+//                    ptwList.add(anime)
+//                }
+//            }
+//            userAnimeAdapter.submitList(ptwList)
+//        }
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {

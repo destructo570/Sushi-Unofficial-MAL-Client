@@ -18,6 +18,8 @@ interface AnimeDetailsDao {
     @Query("DELETE FROM anime_detail WHERE id LIKE :animeId")
     fun deleteAnimeDetailById(animeId: Int)
 
+
+
     @Delete
     fun deleteAnimeDetails(animeDetails: AnimeDetailEntity)
 
