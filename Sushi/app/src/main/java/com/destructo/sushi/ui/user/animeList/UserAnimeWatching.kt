@@ -41,15 +41,11 @@ class UserAnimeWatching : BaseFragment() {
     @Inject
     lateinit var userAnimeList: UserAnimeDao
 
-    /*
-    * TODO: Find a fix for the duplication of list when you comeback to the list
-    *  after opening an anime from the list
-    *
-    * */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-           // userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
         }
 
     }
@@ -140,6 +136,8 @@ class UserAnimeWatching : BaseFragment() {
                 }
                 Status.SUCCESS -> {
                     userAnimeProgressbar.visibility = View.GONE
+
+
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
@@ -165,10 +163,6 @@ class UserAnimeWatching : BaseFragment() {
             .observe(viewLifecycleOwner){
                 userAnimeAdapter.submitList(it)
             }
-
-        userAnimeViewModel.animeListSortType.observe(viewLifecycleOwner){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
-        }
 
 
     }

@@ -6,12 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeDao
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class UserAnimeViewModel
 @ViewModelInject
@@ -28,9 +30,7 @@ constructor(
     val userAnimeStatus: LiveData<Resource<UpdateUserAnime>> = myAnimeListRepo.userAnimeStatus
 
     var userAnimeList = userAnimeListDao.getUserAnimeList()
-
-    val animeListSortType = myAnimeListRepo.animeSortType
-
+    
     val userAnimeListWatching: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListWatching
 
     val userAnimeListCompleted: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeListCompleted
@@ -60,7 +60,7 @@ constructor(
     }
 
     fun setSortType(sort_by:String){
-        myAnimeListRepo.animeSortType.value = sort_by
+        myAnimeListRepo.animeSortType = sort_by
     }
 
     fun getNextPage(animeStatus:String?){
@@ -77,6 +77,31 @@ constructor(
         viewModelScope.launch{animeDetailsDao.deleteAnimeDetailById(animeId)}
     }
 
+    fun manageAnimeUpdate(animeStatus: String){
+        when(animeStatus){
+            UserAnimeStatus.COMPLETED.value ->{
+                deleteAnimeListByStatus(animeStatus)
+                //myAnimeListRepo.compl
+            }
+            UserAnimeStatus.WATCHING.value ->{
+                deleteAnimeListByStatus(animeStatus)
+            }
+            UserAnimeStatus.ON_HOLD.value ->{
+                deleteAnimeListByStatus(animeStatus)
+            }
+            UserAnimeStatus.PLAN_TO_WATCH.value ->{
+                deleteAnimeListByStatus(animeStatus)
+            }
+            UserAnimeStatus.DROPPED.value ->{
+                deleteAnimeListByStatus(animeStatus)
+            }
+            else ->{
+                Timber.d("Unknown Status")
+            }
+        }
+    }
+
+    fun deleteAnimeListByStatus(status: String) = userAnimeListDao.deleteUserAnimeByStatus(status)
 
 }
 

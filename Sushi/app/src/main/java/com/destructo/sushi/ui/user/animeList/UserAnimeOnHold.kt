@@ -40,7 +40,7 @@ class UserAnimeOnHold : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
         }
 
     }
@@ -144,10 +144,6 @@ class UserAnimeOnHold : BaseFragment() {
             .observe(viewLifecycleOwner){
                 userAnimeAdapter.submitList(it)
             }
-
-        userAnimeViewModel.animeListSortType.observe(viewLifecycleOwner){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
-        }
     }
 
     private fun navigateToAnimeDetails(animeMalId: Int) {

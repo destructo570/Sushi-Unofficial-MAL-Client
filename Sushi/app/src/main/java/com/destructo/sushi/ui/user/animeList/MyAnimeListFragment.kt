@@ -32,6 +32,8 @@ class MyAnimeListFragment : Fragment(){
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
             userAnimeViewModel.clearList()
+            userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
+            //userAnimeViewModel.getUserAnimeList()
         }
     }
 
@@ -104,26 +106,23 @@ class MyAnimeListFragment : Fragment(){
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
-        toolbar.inflateMenu(R.menu.user_list_sort)
-        toolbar.setOnMenuItemClickListener { item ->
-
-            when(item.itemId){
-                R.id.sort_by_title -> {
-                    userAnimeViewModel.clearList()
-                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
-                }
-                R.id.sort_by_score -> {
-                    userAnimeViewModel.clearList()
-                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)
-                }
-                R.id.sort_by_last_updated -> {
-                    userAnimeViewModel.clearList()
-                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)
-                }
-
-            }
-            true
-
-        }
+        //toolbar.inflateMenu(R.menu.user_list_sort)
+//        toolbar.setOnMenuItemClickListener { item ->
+//
+//            when(item.itemId){
+//                R.id.sort_by_title -> {
+//                    userAnimeViewModel.clearList()
+//                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)                }
+//                R.id.sort_by_score -> {
+//                    userAnimeViewModel.clearList()
+//                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)                }
+//                R.id.sort_by_last_updated -> {
+//                    userAnimeViewModel.clearList()
+//                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)                }
+//
+//            }
+//            true
+//
+//        }
     }
 }

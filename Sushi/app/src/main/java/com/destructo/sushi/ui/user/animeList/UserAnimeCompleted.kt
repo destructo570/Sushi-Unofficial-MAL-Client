@@ -40,7 +40,7 @@ class UserAnimeCompleted : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.COMPLETED.value)
+            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.COMPLETED.value)
         }
     }
     override fun onCreateView(
@@ -140,10 +140,6 @@ class UserAnimeCompleted : BaseFragment() {
             .observe(viewLifecycleOwner){
                 userAnimeAdapter.submitList(it)
             }
-
-        userAnimeViewModel.animeListSortType.observe(viewLifecycleOwner){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.COMPLETED.value)
-        }
     }
 
 

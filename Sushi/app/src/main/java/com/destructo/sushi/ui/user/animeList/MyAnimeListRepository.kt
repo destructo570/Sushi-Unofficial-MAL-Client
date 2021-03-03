@@ -27,7 +27,7 @@ constructor(
     private val userAnimeListDao: UserAnimeDao
     ){
 
-    var animeSortType: MutableLiveData<String> = MutableLiveData(UserAnimeListSort.BY_TITLE.value)
+    var animeSortType: String = UserAnimeListSort.BY_TITLE.value
 
     //var userAnimeList: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
 
@@ -141,7 +141,7 @@ constructor(
         GlobalScope.launch {
             val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
                 "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                animeStatus, animeSortType.value, "", BASIC_ANIME_FIELDS, true)
+                animeStatus, animeSortType, "", BASIC_ANIME_FIELDS, true)
             try {
                 val userAnime = getUserAnimeDeferred.await()
                 setNextPage(animeStatus, userAnime.paging?.next)
