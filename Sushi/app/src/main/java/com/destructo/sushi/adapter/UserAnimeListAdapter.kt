@@ -7,30 +7,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserAnimeBinding
-import com.destructo.sushi.listener.AddEpisodeListener
+import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeData
+import com.destructo.sushi.model.database.UserAnimeEntity
 
 class UserAnimeListAdapter(
-    private val addEpisodeListener: AddEpisodeListener,
+    private val addEpisodeListener: AddEpisodeListenerUA,
     private val malIdListener: MalIdListener,
     private val isWatchingList: Boolean
     ) :
-    ListAdapter<UserAnimeData, UserAnimeListAdapter.ViewHolder>(UserAnimeDiffUtil()) {
+    ListAdapter<UserAnimeEntity, UserAnimeListAdapter.ViewHolder>(UserAnimeDiffUtil()) {
 
     private var listEndListener: ListEndListener? = null
 
     class ViewHolder private constructor(val binding: ListItemUserAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(animeEntity: UserAnimeData,
-                 addEpisodeListener: AddEpisodeListener,
+        fun bind(animeEntity: UserAnimeEntity,
+                 addEpisodeListener: AddEpisodeListenerUA,
                  malIdListener: MalIdListener,
                  isWatchingList: Boolean
                  ) {
-            binding.animeEntity = animeEntity.anime
-            binding.animeListStatus = animeEntity.animeListStatus
+            binding.animeEntity = animeEntity
             binding.episodeListener = addEpisodeListener
             binding.animeIdListener = malIdListener
             if(!isWatchingList){binding.addEpisodeButton.visibility = View.GONE}
@@ -65,13 +64,13 @@ class UserAnimeListAdapter(
 
 }
 
-class UserAnimeDiffUtil : DiffUtil.ItemCallback<UserAnimeData>() {
-    override fun areItemsTheSame(oldItem: UserAnimeData, newItem: UserAnimeData): Boolean {
-        return oldItem.anime.id == newItem.anime.id
+class UserAnimeDiffUtil : DiffUtil.ItemCallback<UserAnimeEntity>() {
+    override fun areItemsTheSame(oldItem: UserAnimeEntity, newItem: UserAnimeEntity): Boolean {
+        return oldItem.malId == newItem.malId
     }
 
-    override fun areContentsTheSame(oldItem: UserAnimeData, newItem: UserAnimeData): Boolean {
-        return oldItem.anime == newItem.anime
+    override fun areContentsTheSame(oldItem: UserAnimeEntity, newItem: UserAnimeEntity): Boolean {
+        return oldItem == newItem
 
     }
 

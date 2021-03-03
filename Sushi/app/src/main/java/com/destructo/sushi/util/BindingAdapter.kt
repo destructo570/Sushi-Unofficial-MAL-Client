@@ -14,6 +14,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.ForumBoardAdapter
 import com.destructo.sushi.adapter.ScheduleAdapter
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.model.jikan.season.AnimeSubEntity
@@ -291,9 +292,9 @@ fun TextView.setAnimeScore(data: String?) {
 }
 
 @BindingAdapter("userAnimeSubtitle")
-fun TextView.setUserAnimeSubtitle(data: Anime?) {
+fun TextView.setUserAnimeSubtitle(data: UserAnimeEntity?) {
     if (data != null) {
-        val finalStr = "${data.mediaType}, ${startSeasonFormatter(data.startSeason)} "
+        val finalStr = "${data.media_type}, ${startSeasonFormatter(data.start_season)} "
         text = finalStr
     }
 }
@@ -318,7 +319,6 @@ fun setMangaProgress(progressBar: ProgressBar,readCh: Int?, totalCh:Int?) {
 
 @BindingAdapter(value = ["watched", "total"])
 fun setAnimeEpisodes(textView: TextView,watched: String?, total:String?) {
-
     if (watched == null || watched == " " || watched.isEmpty()) {
         textView.text = "N/A"
     } else {

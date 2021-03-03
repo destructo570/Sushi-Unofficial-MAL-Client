@@ -7,7 +7,7 @@
 
         <variable
             name="animeEntity"
-            type="com.destructo.sushi.model.mal.anime.Anime" />
+            type="com.destructo.sushi.model.database.UserAnimeEntity" />
 
         <variable
             name="animeListStatus"
@@ -15,7 +15,7 @@
 
         <variable
             name="episodeListener"
-            type="com.destructo.sushi.listener.AddEpisodeListener" />
+            type="com.destructo.sushi.listener.AddEpisodeListenerUA" />
 
         <variable
             name="animeIdListener"
@@ -27,7 +27,7 @@
         style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_card_image_height"
-        android:onClick="@{() -> animeIdListener.onClick(animeEntity.id) }"
+        android:onClick="@{() -> animeIdListener.onClick(animeEntity.malId) }"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,18 +87,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/score_icon"
                 tools:text="@string/fake_anime_score" />
-
-            <TextView
-                android:id="@+id/textView31"
-                formatAnimeRank="@{animeEntity.rank}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/user_card_margin_normal"
-                android:layout_marginBottom="@dimen/user_card_margin_small"
-                android:textColor="?attr/textColorOnPrimary"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/list_anime_cover"
-                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/list_anime_title"

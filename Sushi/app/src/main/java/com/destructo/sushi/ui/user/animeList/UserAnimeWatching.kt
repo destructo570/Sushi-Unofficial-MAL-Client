@@ -15,14 +15,17 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.listener.AddEpisodeListener
+import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.room.UserAnimeDao
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserAnimeWatching : BaseFragment() {
@@ -36,11 +39,14 @@ class UserAnimeWatching : BaseFragment() {
     private lateinit var userAnimePaginationProgressbar: ProgressBar
     private var calledOnce = false
 
+    @Inject
+    lateinit var userAnimeList: UserAnimeDao
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
+            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
         }
 
     }
@@ -65,10 +71,10 @@ class UserAnimeWatching : BaseFragment() {
             userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
             userAnimeAdapter = UserAnimeListAdapter(
-                AddEpisodeListener { anime ->
+                AddEpisodeListenerUA { anime ->
                     val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
                     val totalEpisodes = anime?.numEpisodes
-                    val animeId = anime?.id
+                    val animeId = anime?.malId
 
                     animeId?.let { userAnimeViewModel.clearAnimeDetails(it) }
                     if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
@@ -95,7 +101,7 @@ class UserAnimeWatching : BaseFragment() {
                 RecyclerView.Adapter.StateRestorationPolicy.ALLOW
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
+                    //userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
                 }
 
             })
@@ -107,28 +113,7 @@ class UserAnimeWatching : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userAnimeViewModel.userAnimeListWatching.observe(viewLifecycleOwner) { resource ->
-            when(resource.status){
-                Status.LOADING -> {
-                    userAnimeProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.data?.let {
-                    }
-                }
-                Status.ERROR -> {
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
-
-        userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.WATCHING.value)
-            .observe(viewLifecycleOwner){
-                userAnimeAdapter.submitList(it)
-            }
-
-        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner){ resource->
+        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING -> {
                     userAnimeProgressbar.visibility = View.VISIBLE
@@ -142,19 +127,32 @@ class UserAnimeWatching : BaseFragment() {
             }
         }
 
-        userAnimeViewModel.userAnimeListWatchingNext.observe(viewLifecycleOwner){ resource->
+        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING -> {
-                    userAnimePaginationProgressbar.visibility = View.VISIBLE
+                    userAnimeProgressbar.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    userAnimePaginationProgressbar.visibility = View.GONE
+                    userAnimeProgressbar.visibility = View.GONE
+
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
             }
         }
+
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+
+            val watchList = mutableListOf<UserAnimeEntity>()
+            for (anime in it){
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.WATCHING.value){
+                     watchList.add(anime)
+                }
+            }
+            userAnimeAdapter.submitList(watchList)
+        }
+
 
     }
 

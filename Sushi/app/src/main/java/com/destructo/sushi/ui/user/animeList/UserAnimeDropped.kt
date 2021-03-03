@@ -16,9 +16,10 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.listener.AddEpisodeListener
+import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -41,7 +42,6 @@ class UserAnimeDropped : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.DROPPED.value)
         }
 
     }
@@ -67,9 +67,9 @@ class UserAnimeDropped : BaseFragment() {
 
 
             userAnimeAdapter = UserAnimeListAdapter(
-                AddEpisodeListener { anime ->
+                AddEpisodeListenerUA { anime ->
                     val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-                    val animeId = anime?.id
+                    val animeId = anime?.malId
                     if (episodes != null && animeId != null) {
                         userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
                     }
@@ -82,7 +82,7 @@ class UserAnimeDropped : BaseFragment() {
             )
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    userAnimeViewModel.getNextPage(UserAnimeStatus.DROPPED.value)
+                    //userAnimeViewModel.getNextPage(UserAnimeStatus.DROPPED.value)
                 }
 
             })
@@ -100,28 +100,7 @@ class UserAnimeDropped : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        userAnimeViewModel.userAnimeListDropped.observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.LOADING -> {
-                    userAnimeProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    userAnimeProgressbar.visibility = View.GONE
-                    resource.data?.data?.let {
-                    }
-                }
-                Status.ERROR -> {
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
-
-        userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.DROPPED.value)
-            .observe(viewLifecycleOwner) {
-                userAnimeAdapter.submitList(it)
-            }
-
-        userAnimeViewModel.userAnimeListDroppedNext.observe(viewLifecycleOwner) { resource ->
+        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {
                     userAnimeProgressbar.visibility = View.VISIBLE
@@ -134,21 +113,15 @@ class UserAnimeDropped : BaseFragment() {
                 }
             }
         }
-
-        userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.LOADING -> {
-                    userAnimePaginationProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    userAnimePaginationProgressbar.visibility = View.GONE
-                }
-                Status.ERROR -> {
-                    Timber.e("Error: %s", resource.message)
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+            val droppedList = mutableListOf<UserAnimeEntity>()
+            for (anime in it){
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.DROPPED.value){
+                    droppedList.add(anime)
                 }
             }
-
-    }
+            userAnimeAdapter.submitList(droppedList)
+        }
     }
 
 

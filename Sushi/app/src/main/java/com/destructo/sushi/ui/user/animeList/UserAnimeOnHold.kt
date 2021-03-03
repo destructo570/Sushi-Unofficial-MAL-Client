@@ -15,9 +15,10 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.listener.AddEpisodeListener
+import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -40,7 +41,7 @@ class UserAnimeOnHold : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
+            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
         }
 
     }
@@ -66,9 +67,9 @@ class UserAnimeOnHold : BaseFragment() {
             userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
 
-            userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListener { anime ->
+            userAnimeAdapter = UserAnimeListAdapter(AddEpisodeListenerUA { anime ->
                 val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-                val animeId = anime?.id
+                val animeId = anime?.malId
                 if (episodes != null && animeId != null) {
                     userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
                 }
@@ -79,7 +80,7 @@ class UserAnimeOnHold : BaseFragment() {
             }, false)
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    userAnimeViewModel.getNextPage(UserAnimeStatus.ON_HOLD.value)
+                    //userAnimeViewModel.getNextPage(UserAnimeStatus.ON_HOLD.value)
                 }
 
             })
@@ -97,26 +98,7 @@ class UserAnimeOnHold : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-
-            userAnimeViewModel.userAnimeListOnHold.observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Status.LOADING -> {
-                        userAnimeProgressbar.visibility = View.VISIBLE
-                    }
-                    Status.SUCCESS -> {
-                        userAnimeProgressbar.visibility = View.GONE
-                        resource.data?.data?.let {
-
-                        }
-                    }
-                    Status.ERROR -> {
-                        Timber.e("Error: %s", resource.message)
-                    }
-                }
-            }
-
-            userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
+            userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {
                         userAnimeProgressbar.visibility = View.VISIBLE
@@ -129,24 +111,14 @@ class UserAnimeOnHold : BaseFragment() {
                     }
                 }
             }
-
-            userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.ON_HOLD.value)
-                .observe(viewLifecycleOwner) {
-                    userAnimeAdapter.submitList(it)
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+            val onHoldList = mutableListOf<UserAnimeEntity>()
+            for (anime in it){
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.ON_HOLD.value){
+                    onHoldList.add(anime)
                 }
-
-            userAnimeViewModel.userAnimeListOnHoldNext.observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Status.LOADING -> {
-                        userAnimePaginationProgressbar.visibility = View.VISIBLE
-                    }
-                    Status.SUCCESS -> {
-                        userAnimePaginationProgressbar.visibility = View.GONE
-                    }
-                    Status.ERROR -> {
-                        Timber.e("Error: %s", resource.message)
-                    }
             }
+            userAnimeAdapter.submitList(onHoldList)
         }
     }
 

@@ -16,9 +16,10 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.listener.AddEpisodeListener
+import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
+import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -40,7 +41,7 @@ class UserAnimeCompleted : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            userAnimeViewModel.getUserAnimeList(UserAnimeStatus.COMPLETED.value)
+
         }
     }
     override fun onCreateView(
@@ -65,9 +66,9 @@ class UserAnimeCompleted : BaseFragment() {
             userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
             userAnimeAdapter = UserAnimeListAdapter(
-                AddEpisodeListener { anime ->
+                AddEpisodeListenerUA { anime ->
                     val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-                    val animeId = anime?.id
+                    val animeId = anime?.malId
                     if (episodes != null && animeId != null) {
                         userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
                     }
@@ -80,7 +81,7 @@ class UserAnimeCompleted : BaseFragment() {
             )
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    userAnimeViewModel.getNextPage(UserAnimeStatus.COMPLETED.value)
+                    //userAnimeViewModel.getNextPage(UserAnimeStatus.COMPLETED.value)
                 }
 
             })
@@ -94,28 +95,7 @@ class UserAnimeCompleted : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-            userAnimeViewModel.userAnimeListCompleted.observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Status.LOADING -> {
-                        userAnimeProgressbar.visibility = View.VISIBLE
-                    }
-                    Status.SUCCESS -> {
-                        userAnimeProgressbar.visibility = View.GONE
-                        resource.data?.data?.let {
-                        }
-                    }
-                    Status.ERROR -> {
-                        Timber.e("Error: %s", resource.message)
-                    }
-                }
-            }
-
-            userAnimeViewModel.getUserAnimeByStatus(UserAnimeStatus.COMPLETED.value)
-                .observe(viewLifecycleOwner) {
-                    userAnimeAdapter.submitList(it)
-                }
-
-            userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
+            userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.LOADING -> {
                         userAnimeProgressbar.visibility = View.VISIBLE
@@ -128,20 +108,15 @@ class UserAnimeCompleted : BaseFragment() {
                     }
                 }
             }
-
-            userAnimeViewModel.userAnimeListCompletedNext.observe(viewLifecycleOwner) { resource ->
-                when (resource.status) {
-                    Status.LOADING -> {
-                        userAnimeProgressbar.visibility = View.VISIBLE
-                    }
-                    Status.SUCCESS -> {
-                        userAnimeProgressbar.visibility = View.GONE
-                    }
-                    Status.ERROR -> {
-                        Timber.e("Error: %s", resource.message)
-                    }
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+            val completedList = mutableListOf<UserAnimeEntity>()
+            for (anime in it){
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.COMPLETED.value){
+                    completedList.add(anime)
                 }
             }
+            userAnimeAdapter.submitList(completedList)
+        }
     }
 
 

@@ -3,6 +3,7 @@ package com.destructo.sushi.ui.user.mangaList
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_MANGA_FIELDS
+import com.destructo.sushi.BASIC_MANGA_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
 import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.enum.mal.UserMangaStatus
@@ -142,7 +143,7 @@ constructor(private val malApi: MalApi,
             GlobalScope.launch {
                 val getUserMangaDeferred = malApi.getUserMangaListAsync(
                     "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, ALL_MANGA_FIELDS, true)
+                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, BASIC_MANGA_FIELDS, true)
                 try {
                     val userManga = getUserMangaDeferred.await()
                     val userMangaList = userManga.data

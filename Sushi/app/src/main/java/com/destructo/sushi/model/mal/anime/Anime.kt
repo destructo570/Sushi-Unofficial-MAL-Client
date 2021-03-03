@@ -7,6 +7,7 @@ import com.destructo.sushi.model.mal.common.Genre
 import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.common.Picture
 import com.destructo.sushi.model.mal.manga.RelatedManga
+import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
@@ -77,4 +78,17 @@ data class Anime(
     val title: String?=null,
     @Json(name = "updated_at")
     val updatedAt: String?=null
-): Parcelable
+): Parcelable{
+    fun updateUserStatus(data: UpdateUserAnime){
+        myAnimeListStatus?.comments = data.comments
+        myAnimeListStatus?.isRewatching = data.isRewatching
+        myAnimeListStatus?.numEpisodesWatched = data.numEpisodesWatched
+        myAnimeListStatus?.numTimesRewatched = data.numTimesRewatched
+        myAnimeListStatus?.priority = data.priority
+        myAnimeListStatus?.rewatchValue = data.rewatchValue
+        myAnimeListStatus?.score = data.score
+        myAnimeListStatus?.status = data.status
+        myAnimeListStatus?.tags = data.tags
+        myAnimeListStatus?.updatedAt = data.updatedAt
+    }
+}

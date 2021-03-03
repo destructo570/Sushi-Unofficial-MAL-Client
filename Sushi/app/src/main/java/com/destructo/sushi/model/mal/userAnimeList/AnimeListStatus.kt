@@ -5,13 +5,13 @@ import com.squareup.moshi.Json
 
 data class AnimeListStatus(
     @Json(name = "is_rewatching")
-    val isRewatching: Boolean?=null,
+    var isRewatching: Boolean?=null,
     @Json(name = "num_episodes_watched")
-    val numEpisodesWatched: Int?=null,
+    var numEpisodesWatched: Int?=null,
     @Json(name = "score")
-    val score: Int?=null,
+    var score: Int?=null,
     @Json(name = "status")
-    val status: String?=null,
+    var status: String?=null,
     @Json(name = "updated_at")
-    val updatedAt: String?=null
+    var updatedAt: String?=null
 )

@@ -8,25 +8,25 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class MyAnimeListStatus(
     @Json(name = "is_rewatching")
-    val isRewatching: Boolean? = null,
+    var isRewatching: Boolean? = null,
     @Json(name = "num_episodes_watched")
     var numEpisodesWatched: Int? = null,
     @Json(name = "score")
-    val score: Int? = null,
+    var score: Int? = null,
     @Json(name = "status")
-    val status: String? = null,
+    var status: String? = null,
     @Json(name = "updated_at")
-    val updatedAt: String? = null,
+    var updatedAt: String? = null,
     @Json(name = "comments")
-    val comments: String? = null,
+    var comments: String? = null,
     @Json(name = "num_times_rewatched")
-    val numTimesRewatched: Int? = null,
+    var numTimesRewatched: Int? = null,
     @Json(name = "priority")
-    val priority: Int? = null,
+    var priority: Int? = null,
     @Json(name = "rewatch_value")
-    val rewatchValue: Int? = null,
+    var rewatchValue: Int? = null,
     @Json(name = "tags")
-    val tags: List<String?>? = null,
+    var tags: List<String?>? = null,
     @Json(name = "start_date")
     val startDate: String? = null,
     @Json(name = "finish_date")

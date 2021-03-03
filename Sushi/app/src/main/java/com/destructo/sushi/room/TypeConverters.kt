@@ -8,6 +8,9 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.anime.Anime
+import com.destructo.sushi.model.mal.anime.MyAnimeListStatus
+import com.destructo.sushi.model.mal.anime.StartSeason
+import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.userAnimeList.AnimeListStatus
 import com.destructo.sushi.model.mal.userInfo.UserInfo
@@ -173,6 +176,46 @@ class TypeConverters {
 
     @TypeConverter
     fun listOfMalEntityToString(data: List<MALEntity?>?): String?{
+        return gson.toJson(data)
+    }
+
+
+    @TypeConverter
+    fun stringToMainPicture(data: String?): MainPicture?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<MainPicture?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun mainPictureToString(data: MainPicture?): String?{
+        return gson.toJson(data)
+    }
+
+    @TypeConverter
+    fun stringToMyAnimeListStatus(data: String?): MyAnimeListStatus?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<MyAnimeListStatus?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun myAnimeListStatusToString(data: MyAnimeListStatus?): String?{
+        return gson.toJson(data)
+    }
+
+    @TypeConverter
+    fun stringToStartSeason(data: String?): StartSeason?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<StartSeason?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun startSeasonToString(data:StartSeason?): String?{
         return gson.toJson(data)
     }
 
