@@ -38,12 +38,6 @@ class UserAnimeCompleted : BaseFragment() {
     private lateinit var userAnimePaginationProgressbar: ProgressBar
     private var calledOnce = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,7 +75,6 @@ class UserAnimeCompleted : BaseFragment() {
             )
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    //userAnimeViewModel.getNextPage(UserAnimeStatus.COMPLETED.value)
                 }
 
             })

@@ -37,15 +37,6 @@ class UserAnimeOnHold : BaseFragment() {
     private lateinit var userAnimePaginationProgressbar: ProgressBar
     private var calledOnce = false
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.ON_HOLD.value)
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -80,7 +71,6 @@ class UserAnimeOnHold : BaseFragment() {
             }, false)
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    //userAnimeViewModel.getNextPage(UserAnimeStatus.ON_HOLD.value)
                 }
 
             })

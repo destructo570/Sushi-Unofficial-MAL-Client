@@ -1,7 +1,7 @@
 package com.destructo.sushi.ui.anime
 
 import androidx.lifecycle.MutableLiveData
-import com.destructo.sushi.BASIC_ANIME_FIELDS
+import com.destructo.sushi.BASIC_LIST_ITEM_ANIME_FIELDS
 import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRecom.SuggestedAnime
@@ -36,7 +36,7 @@ constructor(
         GlobalScope.launch {
             val topAnimeDeferred = malApi.getAnimeRankingAsync(
                 ranking_type, limit, offset,
-                BASIC_ANIME_FIELDS,
+                BASIC_LIST_ITEM_ANIME_FIELDS,
                 nsfw
             )
             try {
@@ -67,7 +67,7 @@ constructor(
 
         GlobalScope.launch {
             val seasonalAnimeDeferred = malApi
-                .getSeasonalAnimeAsync(year, season, sort, limit, offset, BASIC_ANIME_FIELDS)
+                .getSeasonalAnimeAsync(year, season, sort, limit, offset, BASIC_LIST_ITEM_ANIME_FIELDS)
             try {
                 val seasonaAnime = seasonalAnimeDeferred.await()
                 withContext(Dispatchers.Main) {
@@ -94,7 +94,7 @@ constructor(
 
         GlobalScope.launch {
             val animeRecomDeferred = malApi
-                .getAnimeRecomAsync(limit, offset, BASIC_ANIME_FIELDS, nsfw)
+                .getAnimeRecomAsync(limit, offset, BASIC_LIST_ITEM_ANIME_FIELDS, nsfw)
             try {
                 val response = animeRecomDeferred.await()
                 withContext(Dispatchers.Main) {

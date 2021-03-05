@@ -38,14 +38,6 @@ class UserAnimeDropped : BaseFragment() {
     private lateinit var userAnimePaginationProgressbar: ProgressBar
     private var calledOnce = false
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,7 +74,6 @@ class UserAnimeDropped : BaseFragment() {
             )
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    //userAnimeViewModel.getNextPage(UserAnimeStatus.DROPPED.value)
                 }
 
             })

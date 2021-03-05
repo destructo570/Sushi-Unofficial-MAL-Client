@@ -42,15 +42,6 @@ class UserAnimeWatching : BaseFragment() {
     @Inject
     lateinit var userAnimeList: UserAnimeDao
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.WATCHING.value)
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -134,7 +125,6 @@ class UserAnimeWatching : BaseFragment() {
                 }
                 Status.SUCCESS -> {
                     userAnimeProgressbar.visibility = View.GONE
-
                 }
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
@@ -150,6 +140,7 @@ class UserAnimeWatching : BaseFragment() {
                      watchList.add(anime)
                 }
             }
+
             userAnimeAdapter.submitList(watchList)
         }
 

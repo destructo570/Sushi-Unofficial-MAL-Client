@@ -92,6 +92,12 @@ class MyAnimeListFragment : Fragment(){
         myAnimeListViewPager.adapter = myAnimeListPagerAdapter
         myAnimeListTabMediator.attach()
 
+        userAnimeViewModel.nextPage.observe(viewLifecycleOwner){
+            if (!it.isNullOrEmpty()){
+                userAnimeViewModel.getNextPage()
+            }
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -106,6 +112,7 @@ class MyAnimeListFragment : Fragment(){
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
+
         //toolbar.inflateMenu(R.menu.user_list_sort)
 //        toolbar.setOnMenuItemClickListener { item ->
 //

@@ -38,14 +38,6 @@ class UserAnimePlanToWatch : BaseFragment() {
     private lateinit var userAnimePaginationProgressbar: ProgressBar
     private var calledOnce = false
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(savedInstanceState == null) {
-            //userAnimeViewModel.getUserAnimeList(UserAnimeStatus.PLAN_TO_WATCH.value)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,7 +73,6 @@ class UserAnimePlanToWatch : BaseFragment() {
                 }, false)
             userAnimeAdapter.setListEndListener(object : ListEndListener {
                 override fun onEndReached(position: Int) {
-                    //userAnimeViewModel.getNextPage(UserAnimeStatus.PLAN_TO_WATCH.value)
                 }
 
             })

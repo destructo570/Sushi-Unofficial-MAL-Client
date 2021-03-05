@@ -29,12 +29,18 @@ constructor(
 
     var userAnimeList = userAnimeListDao.getUserAnimeList()
 
+    val nextPage = myAnimeListRepo.nextPage
+
     fun addEpisodeAnime(animeId:String,numberOfEp:Int?, status:String?){
-        myAnimeListRepo.addEpisode(animeId, numberOfEp, status)
+        viewModelScope.launch { myAnimeListRepo.addEpisode(animeId, numberOfEp, status) }
     }
 
     fun getUserAnimeList(){
-        myAnimeListRepo.getUserAnimeList()
+        viewModelScope.launch { myAnimeListRepo.getUserAnimeList() }
+    }
+
+    fun getNextPage(){
+        viewModelScope.launch {myAnimeListRepo.getNextPage() }
     }
 
     fun setSortType(sort_by:String){
@@ -44,8 +50,6 @@ constructor(
     fun clearList(){
         viewModelScope.launch{userAnimeListDao.clear()}
     }
-
-    fun getUserListByStatus(status: String) = userAnimeListDao.getUserAnimeList()
 
     fun clearAnimeDetails(animeId:Int){
         viewModelScope.launch{animeDetailsDao.deleteAnimeDetailById(animeId)}
