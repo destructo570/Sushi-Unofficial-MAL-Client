@@ -11,7 +11,6 @@ import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeDao
 import com.destructo.sushi.util.Event
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class UserAnimeViewModel
 @ViewModelInject
@@ -33,30 +32,28 @@ constructor(
 
     val nextPage = myAnimeListRepo.nextPage
 
-    fun addEpisodeAnime(animeId:String,numberOfEp:Int?, status:String?){
+    fun addEpisodeAnime(animeId: String, numberOfEp: Int?, status: String?) {
         viewModelScope.launch { myAnimeListRepo.addEpisode(animeId, numberOfEp, status) }
     }
 
-    fun getUserAnimeList(sortType : String){
-        Timber.e("GetUserAnime")
+    fun getUserAnimeList(sortType: String) {
         viewModelScope.launch { myAnimeListRepo.getUserAnimeList(sortType) }
     }
 
-    fun getNextPage(){
-        Timber.e("GetNextAnime")
-        viewModelScope.launch {myAnimeListRepo.getNextPage() }
+    fun getNextPage() {
+        viewModelScope.launch { myAnimeListRepo.getNextPage() }
     }
 
-    fun setSortType(sort_by:String){
+    fun setSortType(sort_by: String) {
         userSortType.value = Event(sort_by)
     }
 
-    fun clearList(){
-        viewModelScope.launch{userAnimeListDao.clear()}
+    fun clearList() {
+        viewModelScope.launch { userAnimeListDao.clear() }
     }
 
-    fun clearAnimeDetails(animeId:Int){
-        viewModelScope.launch{animeDetailsDao.deleteAnimeDetailById(animeId)}
+    fun clearAnimeDetails(animeId: Int) {
+        viewModelScope.launch { animeDetailsDao.deleteAnimeDetailById(animeId) }
     }
 
 }

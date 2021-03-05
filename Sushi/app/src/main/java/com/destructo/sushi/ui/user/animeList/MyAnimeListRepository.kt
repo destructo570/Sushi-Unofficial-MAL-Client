@@ -52,23 +52,23 @@ constructor(
     suspend fun addEpisode(animeId: String, numberOfEp: Int?, status: String?) {
         userAnimeStatus.value = Resource.loading(null)
 
-            val addEpisodeDeferred = malApi.updateUserAnime(
-                animeId,
-                status, null, null, numberOfEp,
-                null, null, null, null, null,
-                null, null
-            )
-            try {
-                val animeStatus = addEpisodeDeferred.await()
-                updateCachedUserAnime(animeId, animeStatus)
-                withContext(Dispatchers.Main) {
-                    userAnimeStatus.value = Resource.success(animeStatus)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    userAnimeStatus.value = Resource.error(e.message ?: "", null)
-                }
+        val addEpisodeDeferred = malApi.updateUserAnime(
+            animeId,
+            status, null, null, numberOfEp,
+            null, null, null, null, null,
+            null, null
+        )
+        try {
+            val animeStatus = addEpisodeDeferred.await()
+            updateCachedUserAnime(animeId, animeStatus)
+            withContext(Dispatchers.Main) {
+                userAnimeStatus.value = Resource.success(animeStatus)
             }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                userAnimeStatus.value = Resource.error(e.message ?: "", null)
+            }
+        }
     }
 
     suspend fun getNextPage() {

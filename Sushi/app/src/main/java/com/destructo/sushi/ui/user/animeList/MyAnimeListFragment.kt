@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MyAnimeListFragment : Fragment(){
+class MyAnimeListFragment : Fragment() {
 
     private lateinit var binding: FragmentMyAnimeListBinding
     private lateinit var myAnimeListPagerAdapter: FragmentBasePgerAdapter
@@ -35,7 +35,7 @@ class MyAnimeListFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             userAnimeViewModel.clearList()
         }
     }
@@ -60,6 +60,7 @@ class MyAnimeListFragment : Fragment(){
                 when (position) {
                     0 -> {
                         tab.text = getString(R.string.watching)
+                        tab.customView
                     }
                     1 -> {
                         tab.text = getString(R.string.plan_to_watch)
@@ -89,7 +90,7 @@ class MyAnimeListFragment : Fragment(){
             UserAnimeOnHold(),
             UserAnimeDropped(),
             UserAnimeCompleted()
-            )
+        )
 
         myAnimeListPagerAdapter =
             FragmentBasePgerAdapter(fragmentList, childFragmentManager, lifecycle)
@@ -97,9 +98,8 @@ class MyAnimeListFragment : Fragment(){
         myAnimeListViewPager.offscreenPageLimit = 5
         myAnimeListTabMediator.attach()
 
-
         userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
-            when(resource.status){
+            when (resource.status) {
                 Status.LOADING -> {
                     progressBar.visibility = View.VISIBLE
                 }
@@ -112,18 +112,25 @@ class MyAnimeListFragment : Fragment(){
             }
         }
 
-        userAnimeViewModel.nextPage.observe(viewLifecycleOwner){
-            if (!it.isNullOrEmpty()){
+        userAnimeViewModel.nextPage.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
                 userAnimeViewModel.getNextPage()
             }
         }
 
-        userAnimeViewModel.userSortType.observe(viewLifecycleOwner){
-            when(it.getContentIfNotHandled()){
-                UserAnimeListSort.BY_TITLE.value -> userAnimeViewModel.getUserAnimeList(UserAnimeListSort.BY_TITLE.value)
-                UserAnimeListSort.BY_SCORE.value -> userAnimeViewModel.getUserAnimeList(UserAnimeListSort.BY_SCORE.value)
-                UserAnimeListSort.BY_LAST_UPDATED.value -> userAnimeViewModel.getUserAnimeList(UserAnimeListSort.BY_LAST_UPDATED.value)
-                else -> { }
+        userAnimeViewModel.userSortType.observe(viewLifecycleOwner) {
+            when (it.getContentIfNotHandled()) {
+                UserAnimeListSort.BY_TITLE.value -> userAnimeViewModel.getUserAnimeList(
+                    UserAnimeListSort.BY_TITLE.value
+                )
+                UserAnimeListSort.BY_SCORE.value -> userAnimeViewModel.getUserAnimeList(
+                    UserAnimeListSort.BY_SCORE.value
+                )
+                UserAnimeListSort.BY_LAST_UPDATED.value -> userAnimeViewModel.getUserAnimeList(
+                    UserAnimeListSort.BY_LAST_UPDATED.value
+                )
+                else -> {
+                }
             }
         }
 
@@ -146,16 +153,19 @@ class MyAnimeListFragment : Fragment(){
         toolbar.inflateMenu(R.menu.user_list_sort)
         toolbar.setOnMenuItemClickListener { item ->
 
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.sort_by_title -> {
                     userAnimeViewModel.clearList()
-                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)}
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
+                }
                 R.id.sort_by_score -> {
                     userAnimeViewModel.clearList()
-                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)}
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)
+                }
                 R.id.sort_by_last_updated -> {
                     userAnimeViewModel.clearList()
-                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)}
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)
+                }
             }
             true
 

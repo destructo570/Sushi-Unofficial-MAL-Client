@@ -26,7 +26,7 @@ const val BASIC_LIST_ITEM_MANGA_FIELDS ="id,title,main_picture,mean,rank,media_t
 const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
 
 const val DEFAULT_PAGE_LIMIT = "60"
-const val DEFAULT_USER_LIST_PAGE_LIMIT = "300"
+const val DEFAULT_USER_LIST_PAGE_LIMIT = "1000"
 const val DETAILS_CACHE_EXPIRE_TIME_LIMIT = 120000
 const val CACHE_EXPIRE_TIME_LIMIT = 60000
 

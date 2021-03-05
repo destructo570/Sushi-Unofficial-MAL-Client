@@ -16,7 +16,6 @@ import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListenerUA
-import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
@@ -33,73 +32,62 @@ class UserAnimeWatching : BaseFragment() {
             by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var userAnimeAdapter: UserAnimeListAdapter
     private lateinit var userAnimeRecycler: RecyclerView
-    private lateinit var userAnimeProgressbar:ProgressBar
+    private lateinit var userAnimeProgressbar: ProgressBar
     private lateinit var userAnimePaginationProgressbar: ProgressBar
-    private var calledOnce = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        if(!calledOnce){
-            calledOnce = true
-            binding = FragmentUserAnimeListBinding
-                .inflate(inflater, container, false).apply {
-                    lifecycleOwner = viewLifecycleOwner
-                }
+        binding = FragmentUserAnimeListBinding
+            .inflate(inflater, container, false).apply {
+                lifecycleOwner = viewLifecycleOwner
+            }
 
-            userAnimeRecycler = binding.userAnimeRecycler
-            userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
-            userAnimeRecycler.setHasFixedSize(true)
-            userAnimeProgressbar = binding.userAnimeListProgressbar
-            userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
-
-            userAnimeAdapter = UserAnimeListAdapter(
-                AddEpisodeListenerUA { anime ->
-                    val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-                    val totalEpisodes = anime?.numEpisodes
-                    val animeId = anime?.malId
-
-                    animeId?.let { userAnimeViewModel.clearAnimeDetails(it) }
-                    if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
-                            1
-                        ) == totalEpisodes
-                    ) {
-                        userAnimeViewModel.addEpisodeAnime(
-                            animeId.toString(),
-                            episodes + 1,
-                            UserAnimeStatus.COMPLETED.value
-                        )
-                    } else if (episodes != null && animeId != null) {
-                        userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
-                    }
-
-                },
-                MalIdListener {
-                    it?.let {
-                        navigateToAnimeDetails(it)
-                    }
-                }, true
-            )
-            userAnimeAdapter.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.ALLOW
-            userAnimeAdapter.setListEndListener(object : ListEndListener {
-                override fun onEndReached(position: Int) {
-                    //userAnimeViewModel.getNextPage(UserAnimeStatus.WATCHING.value)
-                }
-
-            })
-            userAnimeRecycler.adapter = userAnimeAdapter
-        }
+        userAnimeRecycler = binding.userAnimeRecycler
+        userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
+        userAnimeRecycler.setHasFixedSize(true)
+        userAnimeProgressbar = binding.userAnimeListProgressbar
+        userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        userAnimeAdapter = UserAnimeListAdapter(
+            AddEpisodeListenerUA { anime ->
+                val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
+                val totalEpisodes = anime?.numEpisodes
+                val animeId = anime?.malId
+
+                animeId?.let { userAnimeViewModel.clearAnimeDetails(it) }
+                if (episodes != null && animeId != null && totalEpisodes != null && episodes.plus(
+                        1
+                    ) == totalEpisodes
+                ) {
+                    userAnimeViewModel.addEpisodeAnime(
+                        animeId.toString(),
+                        episodes + 1,
+                        UserAnimeStatus.COMPLETED.value
+                    )
+                } else if (episodes != null && animeId != null) {
+                    userAnimeViewModel.addEpisodeAnime(animeId.toString(), episodes + 1, null)
+                }
+
+            },
+            MalIdListener {
+                it?.let {
+                    navigateToAnimeDetails(it)
+                }
+            }, true
+        )
+
+        userAnimeRecycler.adapter = userAnimeAdapter
+
         userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
-            when(resource.status){
+            when (resource.status) {
                 Status.LOADING -> {
                     userAnimeProgressbar.visibility = View.VISIBLE
                 }
@@ -112,11 +100,11 @@ class UserAnimeWatching : BaseFragment() {
             }
         }
 
-        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
+        userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
             val watchList = mutableListOf<UserAnimeEntity>()
-            for (anime in it){
-                if (anime.myAnimeListStatus?.status == UserAnimeStatus.WATCHING.value){
-                     watchList.add(anime)
+            for (anime in it) {
+                if (anime.myAnimeListStatus?.status == UserAnimeStatus.WATCHING.value) {
+                    watchList.add(anime)
                 }
             }
 
@@ -127,7 +115,6 @@ class UserAnimeWatching : BaseFragment() {
 
 
     private fun navigateToAnimeDetails(animeMalId: Int) {
-        calledOnce = true
 
         this.findNavController().navigate(
             R.id.animeDetailFragment,
