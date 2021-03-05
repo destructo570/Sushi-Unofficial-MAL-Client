@@ -34,11 +34,6 @@ import java.util.*
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-//        Glide.with(imgView.context)
-//            .load(imgUrl)
-//            .apply( RequestOptions().dontTransform().placeholder(R.drawable.test_img))
-//            .transition(DrawableTransitionOptions.withCrossFade(200))
-//            .into(imgView)
         imgView.load(imgUrl){
             crossfade(true)
             crossfade(200)
