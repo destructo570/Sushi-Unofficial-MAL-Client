@@ -2,6 +2,7 @@ package com.destructo.sushi.ui.user.animeList
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -11,10 +12,12 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
 import com.destructo.sushi.enum.UserAnimeListSort
+import com.destructo.sushi.network.Status
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MyAnimeListFragment : Fragment(){
@@ -25,6 +28,8 @@ class MyAnimeListFragment : Fragment(){
     private lateinit var myAnimeListTabLayout: TabLayout
     private lateinit var myAnimeListTabMediator: TabLayoutMediator
     private lateinit var toolbar: Toolbar
+    private lateinit var progressBar: ProgressBar
+
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels()
 
@@ -32,8 +37,6 @@ class MyAnimeListFragment : Fragment(){
         super.onCreate(savedInstanceState)
         if(savedInstanceState == null){
             userAnimeViewModel.clearList()
-            userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
-            userAnimeViewModel.getUserAnimeList()
         }
     }
 
@@ -50,6 +53,7 @@ class MyAnimeListFragment : Fragment(){
         myAnimeListViewPager = binding.myAnimeListPager
         myAnimeListTabLayout = binding.myAnimeListTablayout
         toolbar = binding.toolbar
+        progressBar = binding.progressbar
 
         myAnimeListTabMediator =
             TabLayoutMediator(myAnimeListTabLayout, myAnimeListViewPager) { tab, position ->
@@ -90,13 +94,39 @@ class MyAnimeListFragment : Fragment(){
         myAnimeListPagerAdapter =
             FragmentBasePgerAdapter(fragmentList, childFragmentManager, lifecycle)
         myAnimeListViewPager.adapter = myAnimeListPagerAdapter
+        myAnimeListViewPager.offscreenPageLimit = 5
         myAnimeListTabMediator.attach()
+
+
+        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
+            when(resource.status){
+                Status.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    progressBar.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    Timber.e("Error: %s", resource.message)
+                }
+            }
+        }
 
         userAnimeViewModel.nextPage.observe(viewLifecycleOwner){
             if (!it.isNullOrEmpty()){
                 userAnimeViewModel.getNextPage()
             }
         }
+
+        userAnimeViewModel.userSortType.observe(viewLifecycleOwner){
+            when(it.getContentIfNotHandled()){
+                UserAnimeListSort.BY_TITLE.value -> userAnimeViewModel.getUserAnimeList(UserAnimeListSort.BY_TITLE.value)
+                UserAnimeListSort.BY_SCORE.value -> userAnimeViewModel.getUserAnimeList(UserAnimeListSort.BY_SCORE.value)
+                UserAnimeListSort.BY_LAST_UPDATED.value -> userAnimeViewModel.getUserAnimeList(UserAnimeListSort.BY_LAST_UPDATED.value)
+                else -> { }
+            }
+        }
+
 
     }
 
@@ -113,23 +143,22 @@ class MyAnimeListFragment : Fragment(){
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
 
-        //toolbar.inflateMenu(R.menu.user_list_sort)
-//        toolbar.setOnMenuItemClickListener { item ->
-//
-//            when(item.itemId){
-//                R.id.sort_by_title -> {
-//                    userAnimeViewModel.clearList()
-//                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)                }
-//                R.id.sort_by_score -> {
-//                    userAnimeViewModel.clearList()
-//                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)                }
-//                R.id.sort_by_last_updated -> {
-//                    userAnimeViewModel.clearList()
-//                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)                }
-//
-//            }
-//            true
-//
-//        }
+        toolbar.inflateMenu(R.menu.user_list_sort)
+        toolbar.setOnMenuItemClickListener { item ->
+
+            when(item.itemId){
+                R.id.sort_by_title -> {
+                    userAnimeViewModel.clearList()
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)}
+                R.id.sort_by_score -> {
+                    userAnimeViewModel.clearList()
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)}
+                R.id.sort_by_last_updated -> {
+                    userAnimeViewModel.clearList()
+                    userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)}
+            }
+            true
+
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.destructo.sushi.model.database.UserAnimeEntity
 
 @Dao
 interface UserAnimeDao {
-    @Query("SELECT * FROM user_anime_list ORDER BY title ASC")
+    @Query("SELECT * FROM user_anime_list")
     fun getUserAnimeList(): LiveData<List<UserAnimeEntity>>
 
     @Query("SELECT * FROM user_anime_list WHERE malId LIKE :malId")

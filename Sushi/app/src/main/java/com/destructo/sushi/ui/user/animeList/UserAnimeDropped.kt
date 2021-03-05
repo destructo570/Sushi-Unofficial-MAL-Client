@@ -20,11 +20,9 @@ import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserAnimeEntity
-import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class UserAnimeDropped : BaseFragment() {
@@ -53,7 +51,6 @@ class UserAnimeDropped : BaseFragment() {
             userAnimeRecycler = binding.userAnimeRecycler
             userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
             userAnimeRecycler.setHasFixedSize(true)
-            userAnimeRecycler.itemAnimator = null
             userAnimeProgressbar = binding.userAnimeListProgressbar
             userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
@@ -90,20 +87,6 @@ class UserAnimeDropped : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.LOADING -> {
-                    userAnimeProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    userAnimeProgressbar.visibility = View.GONE
-                }
-                Status.ERROR -> {
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
             val droppedList = mutableListOf<UserAnimeEntity>()
             for (anime in it){

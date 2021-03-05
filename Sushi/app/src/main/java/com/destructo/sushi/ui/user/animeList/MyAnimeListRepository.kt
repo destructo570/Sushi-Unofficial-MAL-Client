@@ -3,7 +3,6 @@ package com.destructo.sushi.ui.user.animeList
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.BASIC_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
-import com.destructo.sushi.enum.UserAnimeListSort
 import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
@@ -12,7 +11,6 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.UserAnimeDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,20 +22,18 @@ constructor(
     private val userAnimeListDao: UserAnimeDao
 ) {
 
-    var animeSortType: String = UserAnimeListSort.BY_TITLE.value
-
     var userAnimeList: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
 
     var userAnimeStatus: MutableLiveData<Resource<UpdateUserAnime>> = MutableLiveData()
 
     var nextPage: MutableLiveData<String> = MutableLiveData()
 
-    suspend fun getUserAnimeList() {
+    suspend fun getUserAnimeList(sortType: String) {
         userAnimeList.value = Resource.loading(null)
 
         val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
             "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-            null, animeSortType, "", BASIC_ANIME_FIELDS, true
+            null, sortType, "", BASIC_ANIME_FIELDS, true
         )
         try {
             val userAnime = getUserAnimeDeferred.await()
@@ -48,7 +44,6 @@ constructor(
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                Timber.e("Error : ${e.message}")
                 userAnimeList.value = Resource.error(e.message ?: "", null)
             }
         }
@@ -71,7 +66,6 @@ constructor(
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Timber.e("Error: ${e.message}")
                     userAnimeStatus.value = Resource.error(e.message ?: "", null)
                 }
             }

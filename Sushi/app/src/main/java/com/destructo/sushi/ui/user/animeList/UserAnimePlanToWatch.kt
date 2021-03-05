@@ -9,7 +9,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
@@ -20,11 +19,9 @@ import com.destructo.sushi.listener.AddEpisodeListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserAnimeEntity
-import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class UserAnimePlanToWatch : BaseFragment() {
@@ -42,10 +39,6 @@ class UserAnimePlanToWatch : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        if(!calledOnce) {
-            calledOnce = true
-
             binding = FragmentUserAnimeListBinding
                 .inflate(inflater, container, false).apply {
                     lifecycleOwner = viewLifecycleOwner
@@ -54,47 +47,35 @@ class UserAnimePlanToWatch : BaseFragment() {
             userAnimeRecycler = binding.userAnimeRecycler
             userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
             userAnimeRecycler.setHasFixedSize(true)
-            userAnimeRecycler.itemAnimator = null
             userAnimeProgressbar = binding.userAnimeListProgressbar
             userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
-
-            userAnimeAdapter = UserAnimeListAdapter(
-                AddEpisodeListenerUA { anime ->
-                    val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
-                    val animeId = anime?.malId
-                    if (episodes != null && animeId != null){
-                        userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1, null)
-                    }
-                },
-                MalIdListener {
-                    it?.let{
-                        navigateToAnimeDetails(it)
-                    }
-                }, false)
-            userAnimeAdapter.setListEndListener(object : ListEndListener {
-                override fun onEndReached(position: Int) {
-                }
-
-            })
-        }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userAnimeAdapter.stateRestorationPolicy = ALLOW
-        userAnimeRecycler.adapter = userAnimeAdapter
-
-        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner){resource ->
-            when(resource.status){
-                Status.LOADING ->{userAnimeProgressbar.visibility = View.VISIBLE}
-                Status.SUCCESS ->{
-                    userAnimeProgressbar.visibility = View.GONE
+        userAnimeAdapter = UserAnimeListAdapter(
+            AddEpisodeListenerUA { anime ->
+                val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
+                val animeId = anime?.malId
+                if (episodes != null && animeId != null){
+                    userAnimeViewModel.addEpisodeAnime(animeId.toString(),episodes+1, null)
                 }
-                Status.ERROR ->{Timber.e("Error: %s", resource.message)}
+            },
+            MalIdListener {
+                it?.let{
+                    navigateToAnimeDetails(it)
+                }
+            }, false)
+        userAnimeAdapter.setListEndListener(object : ListEndListener {
+            override fun onEndReached(position: Int) {
             }
-        }
+
+        })
+
+        //userAnimeAdapter.stateRestorationPolicy = ALLOW
+        userAnimeRecycler.adapter = userAnimeAdapter
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
             val ptwList = mutableListOf<UserAnimeEntity>()

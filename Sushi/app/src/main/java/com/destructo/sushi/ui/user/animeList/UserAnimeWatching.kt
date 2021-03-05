@@ -20,12 +20,10 @@ import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
-import com.destructo.sushi.room.UserAnimeDao
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserAnimeWatching : BaseFragment() {
@@ -38,9 +36,6 @@ class UserAnimeWatching : BaseFragment() {
     private lateinit var userAnimeProgressbar:ProgressBar
     private lateinit var userAnimePaginationProgressbar: ProgressBar
     private var calledOnce = false
-
-    @Inject
-    lateinit var userAnimeList: UserAnimeDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +52,6 @@ class UserAnimeWatching : BaseFragment() {
             userAnimeRecycler = binding.userAnimeRecycler
             userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
             userAnimeRecycler.setHasFixedSize(true)
-            userAnimeRecycler.itemAnimator = null
             userAnimeProgressbar = binding.userAnimeListProgressbar
             userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
@@ -104,20 +98,6 @@ class UserAnimeWatching : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userAnimeViewModel.userAnimeListState.observe(viewLifecycleOwner) { resource ->
-            when(resource.status){
-                Status.LOADING -> {
-                    userAnimeProgressbar.visibility = View.VISIBLE
-                }
-                Status.SUCCESS -> {
-                    userAnimeProgressbar.visibility = View.GONE
-                }
-                Status.ERROR -> {
-                    Timber.e("Error: %s", resource.message)
-                }
-            }
-        }
-
         userAnimeViewModel.userAnimeStatus.observe(viewLifecycleOwner) { resource ->
             when(resource.status){
                 Status.LOADING -> {
@@ -133,7 +113,6 @@ class UserAnimeWatching : BaseFragment() {
         }
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner){
-
             val watchList = mutableListOf<UserAnimeEntity>()
             for (anime in it){
                 if (anime.myAnimeListStatus?.status == UserAnimeStatus.WATCHING.value){
@@ -143,7 +122,6 @@ class UserAnimeWatching : BaseFragment() {
 
             userAnimeAdapter.submitList(watchList)
         }
-
 
     }
 

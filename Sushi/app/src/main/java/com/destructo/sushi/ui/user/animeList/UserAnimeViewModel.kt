@@ -2,16 +2,16 @@ package com.destructo.sushi.ui.user.animeList
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.destructo.sushi.enum.UserAnimeListSort
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeDao
+import com.destructo.sushi.util.Event
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class UserAnimeViewModel
 @ViewModelInject
@@ -29,22 +29,26 @@ constructor(
 
     var userAnimeList = userAnimeListDao.getUserAnimeList()
 
+    var userSortType = MutableLiveData(Event(UserAnimeListSort.BY_TITLE.value))
+
     val nextPage = myAnimeListRepo.nextPage
 
     fun addEpisodeAnime(animeId:String,numberOfEp:Int?, status:String?){
         viewModelScope.launch { myAnimeListRepo.addEpisode(animeId, numberOfEp, status) }
     }
 
-    fun getUserAnimeList(){
-        viewModelScope.launch { myAnimeListRepo.getUserAnimeList() }
+    fun getUserAnimeList(sortType : String){
+        Timber.e("GetUserAnime")
+        viewModelScope.launch { myAnimeListRepo.getUserAnimeList(sortType) }
     }
 
     fun getNextPage(){
+        Timber.e("GetNextAnime")
         viewModelScope.launch {myAnimeListRepo.getNextPage() }
     }
 
     fun setSortType(sort_by:String){
-        myAnimeListRepo.animeSortType = sort_by
+        userSortType.value = Event(sort_by)
     }
 
     fun clearList(){
