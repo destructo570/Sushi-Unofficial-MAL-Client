@@ -157,17 +157,21 @@ class MyAnimeListFragment : Fragment() {
                 R.id.sort_by_title -> {
                     userAnimeViewModel.clearList()
                     userAnimeViewModel.setSortType(UserAnimeListSort.BY_TITLE.value)
+                    true
                 }
                 R.id.sort_by_score -> {
                     userAnimeViewModel.clearList()
                     userAnimeViewModel.setSortType(UserAnimeListSort.BY_SCORE.value)
+                    true
                 }
                 R.id.sort_by_last_updated -> {
                     userAnimeViewModel.clearList()
                     userAnimeViewModel.setSortType(UserAnimeListSort.BY_LAST_UPDATED.value)
+                    true
                 }
+                else -> super.onOptionsItemSelected(item)
             }
-            true
+
 
         }
     }

@@ -27,7 +27,7 @@ const val USER_INFO_FIELDS = "anime_statistics,time_zone,is_supporter"
 
 const val DEFAULT_PAGE_LIMIT = "60"
 const val DEFAULT_USER_LIST_PAGE_LIMIT = "1000"
-const val DETAILS_CACHE_EXPIRE_TIME_LIMIT = 120000
+const val DETAILS_CACHE_EXPIRE_TIME_LIMIT = 180000
 const val CACHE_EXPIRE_TIME_LIMIT = 60000
 
 //Notification Channel Id
