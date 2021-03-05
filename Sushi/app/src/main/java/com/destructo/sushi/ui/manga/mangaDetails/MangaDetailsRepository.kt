@@ -1,11 +1,8 @@
 package com.destructo.sushi.ui.manga.mangaDetails
 
-import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.ALL_MANGA_FIELDS
-import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.enum.mal.UserMangaSort
 import com.destructo.sushi.model.database.MangaCharacterListEntity
 import com.destructo.sushi.model.database.MangaDetailsEntity
 import com.destructo.sushi.model.database.MangaReviewsEntity
@@ -13,7 +10,6 @@ import com.destructo.sushi.model.jikan.manga.MangaReview
 import com.destructo.sushi.model.jikan.manga.character.MangaCharacter
 import com.destructo.sushi.model.mal.manga.Manga
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
-import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.model.params.MangaUpdateParams
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
@@ -21,10 +17,8 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.MangaCharacterListDao
 import com.destructo.sushi.room.MangaDetailsDao
 import com.destructo.sushi.room.MangaReviewListDao
-import com.destructo.sushi.room.UserMangaListDao
+import com.destructo.sushi.room.UserMangaDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,7 +31,7 @@ constructor(
     private val mangaDetailsDao: MangaDetailsDao,
     private val mangaCharacterListDao: MangaCharacterListDao,
     private val mangaReviewListDao: MangaReviewListDao,
-    private val userMangaListDao: UserMangaListDao
+    private val userMangaListDao: UserMangaDao
 ) {
 
     var mangaDetail: MutableLiveData<Resource<Manga>> = MutableLiveData()
@@ -117,7 +111,7 @@ constructor(
             val mangaStatus = addEpisodeDeferred.await()
             withContext(Dispatchers.Main) {
                 userMangaStatus.value = Resource.success(mangaStatus)
-                updateUserMangaList(mangaUpdateParams.mangaId.toInt())
+                updateCachedUserManga(mangaUpdateParams.mangaId, mangaStatus)
             }
         } catch (e: java.lang.Exception) {
             withContext(Dispatchers.Main) {
@@ -209,88 +203,16 @@ constructor(
         }
     }
 
-
-    private fun updateUserMangaList(mangaId: Int) {
-        val manga = userMangaListDao.getUserMangaById(mangaId)
-        manga.status?.let {
-            loadPage(it, manga.offset, mangaId)
-        }
-    }
-
-
-    private fun loadPage(
-        mangaStatus: String,
-        offset: String?,
-        mangaId: Int
+    private fun updateCachedUserManga(
+        mangaId: String,
+        mangaStatus: UpdateUserManga
     ) {
-        if (!offset.isNullOrBlank()) {
-            GlobalScope.launch {
-                val getUserMangaDeferred = malApi.getUserMangaListAsync(
-                    "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-                    mangaStatus, UserMangaSort.MANGA_TITLE.value, offset, ALL_MANGA_FIELDS,
-                true)
-                try {
-                    val userManga = getUserMangaDeferred.await()
-                    val userMangaList = userManga.data
-                    setUserMangaData(userManga)
-                    userMangaListDao.deleteUserMangaById(mangaId)
-                    userMangaListDao.insertUseMangaList(userMangaList!!)
-
-                } catch (e: java.lang.Exception) {
-                    withContext(Dispatchers.Main) {
-                    }
-                }
-            }
-        }
+        val anime = userMangaListDao.getUserMangaById(mangaId.toInt())
+        anime.updateUserStatus(mangaStatus)
+        userMangaListDao.deleteUserMangaById(mangaId.toInt())
+        userMangaListDao.insertUserManga(anime)
     }
 
 
-    private fun calcOffset(nextPage: String?, prevPage: String?): String {
-        var currentOffset = "0"
-        if (!nextPage.isNullOrBlank()) {
-            val nextOffset = getOffset(nextPage)
-            if (!nextOffset.isNullOrBlank()) {
-                val temp = nextOffset.toInt().minus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
-                if (temp >= 0) {
-                    currentOffset = temp.toString()
-                }
-            }
-            return currentOffset
-        } else {
-            val prevOffset = getOffset(prevPage)
-            if (!prevOffset.isNullOrBlank()) {
-                val temp = prevOffset.toInt().plus(DEFAULT_USER_LIST_PAGE_LIMIT.toInt())
-                if (temp >= 0) {
-                    currentOffset = temp.toString()
-                }
-            }
-            return currentOffset
-        }
-
-    }
-
-    private fun getOffset(url: String?): String? {
-
-        return if (!url.isNullOrBlank()) {
-            val uri = url.toUri()
-            uri.getQueryParameter("offset").toString()
-        } else {
-            null
-        }
-    }
-
-    private fun setUserMangaData(userAnime: UserMangaList) {
-        val userMangaList = userAnime.data
-        if (userMangaList != null) {
-            for (manga in userMangaList) {
-                manga?.status = manga?.manga?.myMangaListStatus?.status
-                manga?.title = manga?.manga?.title
-                manga?.mangaId = manga?.manga?.id
-                val next = userAnime.paging?.next
-                val prev = userAnime.paging?.previous
-                manga?.offset = calcOffset(next, prev)
-            }
-        }
-    }
 
 }

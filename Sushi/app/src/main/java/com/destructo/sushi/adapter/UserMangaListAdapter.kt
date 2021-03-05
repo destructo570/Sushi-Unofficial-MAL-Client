@@ -7,30 +7,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserMangaBinding
-import com.destructo.sushi.listener.AddChapterListener
+import com.destructo.sushi.listener.AddChapterListenerUA
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.mal.userMangaList.UserMangaData
+import com.destructo.sushi.model.database.UserMangaEntity
 
 class UserMangaListAdapter(
-    private val addChapterListener: AddChapterListener,
+    private val addChapterListener: AddChapterListenerUA,
     private val malIdListener: MalIdListener,
     private val isReadingList: Boolean
 ):
-    ListAdapter<UserMangaData, UserMangaListAdapter.ViewHolder>(UserMangaDiffUtil()) {
+    ListAdapter<UserMangaEntity, UserMangaListAdapter.ViewHolder>(UserMangaDiffUtil()) {
 
     private var listEndListener: ListEndListener? = null
 
     class ViewHolder private constructor(val binding: ListItemUserMangaBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(mangaEntity: UserMangaData,
-                 chapterListener: AddChapterListener,
+        fun bind(mangaEntity: UserMangaEntity,
+                 chapterListener: AddChapterListenerUA,
                  malIdListener: MalIdListener,
                  isReadingList: Boolean
         ) {
-            binding.mangaEntity = mangaEntity.manga
-            binding.mangaListStatus = mangaEntity.mangaListStatus
+            binding.mangaEntity = mangaEntity
             binding.chapterListener = chapterListener
             binding.mangaIdListener = malIdListener
             if(!isReadingList){binding.addEpisodeButton.visibility = View.GONE}
@@ -67,13 +66,13 @@ class UserMangaListAdapter(
 
 }
 
-class UserMangaDiffUtil : DiffUtil.ItemCallback<UserMangaData>() {
-    override fun areItemsTheSame(oldItem: UserMangaData, newItem: UserMangaData): Boolean {
-        return oldItem.manga.id == newItem.manga.id
+class UserMangaDiffUtil : DiffUtil.ItemCallback<UserMangaEntity>() {
+    override fun areItemsTheSame(oldItem: UserMangaEntity, newItem: UserMangaEntity): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: UserMangaData, newItem: UserMangaData): Boolean {
-        return oldItem.manga == newItem.manga
+    override fun areContentsTheSame(oldItem: UserMangaEntity, newItem: UserMangaEntity): Boolean {
+        return oldItem == newItem
     }
 
 }

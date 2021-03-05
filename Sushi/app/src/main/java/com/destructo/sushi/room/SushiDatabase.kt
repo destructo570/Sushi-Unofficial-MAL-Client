@@ -12,7 +12,6 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.model.mal.mangaList.MangaListData
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonAnimeData
-import com.destructo.sushi.model.mal.userMangaList.UserMangaData
 import com.destructo.sushi.room.TypeConverters as TypeConverters1
 
 @TypeConverters(value = [TypeConverters1::class])
@@ -20,7 +19,7 @@ import com.destructo.sushi.room.TypeConverters as TypeConverters1
     AnimeVideosEntity::class, AnimeReviewsEntity::class, MangaDetailsEntity::class,
     MangaCharacterListEntity::class, MangaReviewsEntity::class, AnimeRankingData::class,
     MangaRankingData::class, SeasonAnimeData::class, AnimeListData::class, MangaListData::class,
-    UserAnimeEntity::class, UserMangaData::class, UserInfoEntity::class, Anime::class,
+    UserAnimeEntity::class, UserMangaEntity::class, UserInfoEntity::class, Anime::class,
     Friend::class, Manga::class], version = 9, exportSchema = false)
 abstract class SushiDatabase: RoomDatabase() {
 
@@ -37,7 +36,7 @@ abstract class SushiDatabase: RoomDatabase() {
     abstract fun animeListDao():SearchAnimeDao
     abstract fun mangaListDao():SearchMangaDao
     abstract fun userAnimeDao():UserAnimeDao
-    abstract fun userMangaListDao():UserMangaListDao
+    abstract fun userMangaDao():UserMangaDao
     abstract fun userInfoDao():UserInfoDao
     abstract fun profileAnimeList():ProfileAnimeListDao
     abstract fun profileMangaList():ProfileMangaListDao

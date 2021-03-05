@@ -7,7 +7,7 @@
 
         <variable
             name="mangaEntity"
-            type="com.destructo.sushi.model.mal.manga.Manga" />
+            type="com.destructo.sushi.model.database.UserMangaEntity" />
 
         <variable
             name="mangaListStatus"
@@ -15,7 +15,7 @@
 
         <variable
             name="chapterListener"
-            type="com.destructo.sushi.listener.AddChapterListener" />
+            type="com.destructo.sushi.listener.AddChapterListenerUA" />
 
         <variable
             name="mangaIdListener"
@@ -26,7 +26,7 @@
         style="@style/Widget.Sushi.ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_card_image_height"
-        android:onClick="@{() -> mangaIdListener.onClick(mangaEntity.id)}"
+        android:onClick="@{() -> mangaIdListener.onClick(mangaEntity.malId)}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_card_margin_normal"
                 android:layout_marginTop="@dimen/user_card_margin_small"
-                android:text="@{mangaEntity.mediaType}"
+                android:text="@{mangaEntity.media_type}"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Sushi.B3"
                 android:textColor="?attr/textColorSecondary"
@@ -156,7 +156,6 @@
                 app:layout_constraintStart_toEndOf="@+id/list_manga_score"
                 app:srcCompat="@drawable/ic_chapter_line" />
 
-
             <TextView
                 android:id="@+id/textView40"
                 android:layout_width="wrap_content"
@@ -166,7 +165,7 @@
                 android:visibility="gone"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView37"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:total="@{mangaEntity.numVolumes.toString()}"
+                app:total="@{mangaEntity.numChapters.toString()}"
                 app:volume="@{mangaEntity.myMangaListStatus.numVolumesRead.toString()}"
                 tools:text="Vol: 12/24" />
 

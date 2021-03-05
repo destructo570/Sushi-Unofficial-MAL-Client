@@ -7,29 +7,29 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class MyMangaListStatus(
     @Json(name = "is_rereading")
-    val isRereading: Boolean?=null,
+    var isRereading: Boolean?=null,
     @Json(name = "num_volumes_read")
-    val numVolumesRead: Int?=null,
+    var numVolumesRead: Int?=null,
     @Json(name = "num_chapters_read")
-    val numChaptersRead: Int?=null,
+    var numChaptersRead: Int?=null,
     @Json(name = "score")
-    val score: Int?=null,
+    var score: Int?=null,
     @Json(name = "status")
-    val status: String?=null,
+    var status: String?=null,
     @Json(name = "updated_at")
-    val updatedAt: String?=null,
+    var updatedAt: String?=null,
     @Json(name = "priority")
-    val priority: Int?=null,
+    var priority: Int?=null,
     @Json(name = "num_times_reread")
-    val num_times_reread: Int?=null,
-    @Json(name = "reread_value")
-    val reread_value: Int?=null,
+    var num_times_reread: Int?=null,
+    @Json(name = "reread_varue")
+    var reread_value: Int?=null,
     @Json(name = "tags")
-    val tags: List<String?>?=null,
+    var tags: List<String?>?=null,
     @Json(name = "comments")
-    val comments: String?=null,
+    var comments: String?=null,
     @Json(name = "start_date")
-    val startDate: String? = null,
+    var startDate: String? = null,
     @Json(name = "finish_date")
-    val finishDate: String? = null
+    var finishDate: String? = null
 ): Parcelable

@@ -107,8 +107,8 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideUserMangaListDao(sushiDatabase: SushiDatabase): UserMangaListDao{
-        return sushiDatabase.userMangaListDao()
+    fun provideUserMangaListDao(sushiDatabase: SushiDatabase): UserMangaDao{
+        return sushiDatabase.userMangaDao()
     }
 
     @Singleton

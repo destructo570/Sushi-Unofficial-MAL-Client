@@ -12,6 +12,7 @@ import com.destructo.sushi.model.mal.anime.MyAnimeListStatus
 import com.destructo.sushi.model.mal.anime.StartSeason
 import com.destructo.sushi.model.mal.common.MainPicture
 import com.destructo.sushi.model.mal.manga.Manga
+import com.destructo.sushi.model.mal.manga.MyMangaListStatus
 import com.destructo.sushi.model.mal.userAnimeList.AnimeListStatus
 import com.destructo.sushi.model.mal.userInfo.UserInfo
 import com.destructo.sushi.model.mal.userMangaList.MangaListStatus
@@ -216,6 +217,19 @@ class TypeConverters {
 
     @TypeConverter
     fun startSeasonToString(data:StartSeason?): String?{
+        return gson.toJson(data)
+    }
+
+    @TypeConverter
+    fun stringToMyMangaListStatus(data: String?): MyMangaListStatus?{
+        if(data == null) return null
+
+        val type: Type = object: TypeToken<MyMangaListStatus?>(){}.type
+        return  gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    fun myMangaListStatusToString(data: MyMangaListStatus?): String?{
         return gson.toJson(data)
     }
 
