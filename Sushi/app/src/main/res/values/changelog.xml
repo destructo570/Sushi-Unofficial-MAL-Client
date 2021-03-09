@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="latest_changelog" translatable="false">
+        \n• Version 1.1.0.8
+        \n• Add sort options in user anime/manga list
+        \n• Updated F.A.Q section
+        \n• Fixed some minor bugs
+
         \n Version 1.1.0.7
         \n• Automatically set number of watched or read ep/ch to max when changing the status to completed
         \n• Added F.A.Q section
@@ -16,13 +21,5 @@
         \n• Fixed change log dialog flicker issue
         \n• Fixed some links not opening is sushi
         \n• Fixed some ui and layout issues \n
-
-        \n• Version 1.1.0.6
-        \n• Fixed some performance issues
-        \n• Fixed user stats card color issue in dark themes
-        \n• Fixed published manga section cropped image bug
-        \n• Added credits section in about app section
-        \n• Added link to translate sushi in about app section
-
     </string>
 </resources>
