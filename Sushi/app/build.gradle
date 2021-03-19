@@ -10,7 +10,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.destructo.sushi_mal"
@@ -49,11 +49,9 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    def version_nav = "2.3.0"
-    def lifecycle_version = "2.2.0"
+
+    def version_nav = "2.3.4"
+    def lifecycle_version = "2.3.0"
     def version_navigation = "1.0.0"
     def version_retrofit_coroutines_adapter = "0.9.2"
     def version_kotlin_coroutines = "1.3.9"
@@ -61,19 +59,18 @@ dependencies {
     def preference_version = "1.1.1"
     def version_moshi = "1.9.2"
     def retrofit ="2.9.0"
-    def hilt_version = "2.28-alpha"
-    def hilt_viewmodels = "1.0.0-alpha02"
-    def kotlin_ktx = "1.3.0"
+    def hilt_version = "2.31-alpha"
+    def hilt_viewmodels = "1.0.0-alpha03"
+    def kotlin_ktx = "1.5.0-beta03"
     def fragment_ktx = "1.3.0-alpha08"
     def fragment_version = "1.3.0-alpha08"
-    def room_version = "2.2.5"
-    def billing_version = "3.0.2"
-    def fb_crashlytics = "17.3.0"
+    def room_version = "2.2.6"
+    def billing_version = "3.0.3"
     def jsoup = "1.13.1"
     def okhttp = "4.9.0"
     def moshi_converter = "2.8.1"
     def glide_version = "4.11.0"
-    def recycler_view_version = "1.2.0-alpha02"
+    def recycler_view_version = "1.2.0-beta02"
     def timber_version = "4.7.1"
     def java_poet_version = "1.13.0"
     def viewpager_version = "1.0.0"
@@ -81,29 +78,36 @@ dependencies {
     def donut_version = "2.0.0"
     def oss_version = "17.0.0"
     def browser_version = "1.3.0"
-    def material_design_version = "1.3.0-alpha03"
+    def material_design_version = "1.4.0-alpha01"
     def fb_an_version = "6.2.0"
     def coil_version = "1.1.1"
-    def firebase_analytics_version = "18.0.0"
+    def firebase_analytics_version = "18.0.2"
     def firebase_version = "26.1.1"
+    def firebase_crashlytics = "17.4.0"
+    def constraint_layout_version = "2.0.4"
 
-
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0-alpha05'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     implementation "androidx.core:core-ktx:$kotlin_ktx"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+
+    //Constraint layout
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
     //LeakCanary
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     // Timber
     implementation "com.jakewharton.timber:timber:$timber_version"
+
+    //Material design library
+    implementation "com.google.android.material:material:$material_design_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$version_nav"
     implementation "androidx.navigation:navigation-ui-ktx:$version_nav"
@@ -141,11 +145,11 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Lifecycle only (without ViewModel or LiveData)
-    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     //OkHttp3
     implementation"com.squareup.okhttp3:okhttp:$okhttp"
@@ -167,11 +171,8 @@ dependencies {
     //ViewPager2
     implementation "androidx.viewpager2:viewpager2:$viewpager_version"
 
-    //Material design library
-    implementation "com.google.android.material:material:$material_design_version"
-
     //Palette
-    implementation "androidx.palette:palette:$palette_version"
+    implementation "androidx.palette:palette-ktx:$palette_version"
 
     //Donut chart
     implementation "app.futured.donut:library:$donut_version"
@@ -194,7 +195,7 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation "com.google.firebase:firebase-messaging"
     implementation "com.google.firebase:firebase-analytics-ktx"
-    implementation "com.google.firebase:firebase-crashlytics:$fb_crashlytics"
+    implementation "com.google.firebase:firebase-crashlytics:$firebase_crashlytics"
 
     //Google Analytics SDK
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics_version"
