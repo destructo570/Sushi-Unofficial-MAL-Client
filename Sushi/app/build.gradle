@@ -114,13 +114,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
 
-    // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
-
-    // Core with Ktx
-    implementation "androidx.core:core-ktx:$version_core"
-
     // Kotlin
     implementation "androidx.preference:preference-ktx:$preference_version"
 
