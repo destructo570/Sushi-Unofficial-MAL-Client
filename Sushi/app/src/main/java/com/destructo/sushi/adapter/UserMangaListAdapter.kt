@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserMangaBinding
-import com.destructo.sushi.listener.AddChapterListenerUA
+import com.destructo.sushi.listener.AddChapterListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserMangaEntity
 
 class UserMangaListAdapter(
-    private val addChapterListener: AddChapterListenerUA,
+    private val addChapterListener: AddChapterListener,
     private val malIdListener: MalIdListener,
     private val isReadingList: Boolean
 ):
@@ -25,7 +25,7 @@ class UserMangaListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(mangaEntity: UserMangaEntity,
-                 chapterListener: AddChapterListenerUA,
+                 chapterListener: AddChapterListener,
                  malIdListener: MalIdListener,
                  isReadingList: Boolean
         ) {

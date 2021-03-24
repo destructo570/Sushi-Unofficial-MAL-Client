@@ -15,7 +15,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserMangaListAdapter
 import com.destructo.sushi.databinding.FragmentUserMangaListBinding
 import com.destructo.sushi.enum.mal.UserMangaStatus
-import com.destructo.sushi.listener.AddChapterListenerUA
+import com.destructo.sushi.listener.AddChapterListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserMangaEntity
 import com.destructo.sushi.network.Status
@@ -54,7 +54,7 @@ class UserMangaReading : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userMangaAdapter = UserMangaListAdapter(AddChapterListenerUA { manga ->
+        userMangaAdapter = UserMangaListAdapter(AddChapterListener { manga ->
             val chapters = manga?.myMangaListStatus?.numChaptersRead
             val totalChapters = manga?.numChapters
             val mangaId = manga?.malId

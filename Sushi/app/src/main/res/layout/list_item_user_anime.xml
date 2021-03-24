@@ -15,7 +15,7 @@
 
         <variable
             name="episodeListener"
-            type="com.destructo.sushi.listener.AddEpisodeListenerUA" />
+            type="com.destructo.sushi.listener.AddEpisodeListener" />
 
         <variable
             name="animeIdListener"

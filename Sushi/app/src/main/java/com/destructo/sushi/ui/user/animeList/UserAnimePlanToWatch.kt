@@ -15,7 +15,7 @@ import com.destructo.sushi.R
 import com.destructo.sushi.adapter.UserAnimeListAdapter
 import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
-import com.destructo.sushi.listener.AddEpisodeListenerUA
+import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.ui.base.BaseFragment
@@ -54,7 +54,7 @@ class UserAnimePlanToWatch : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         userAnimeAdapter = UserAnimeListAdapter(
-            AddEpisodeListenerUA { anime ->
+            AddEpisodeListener { anime ->
                 val episodes = anime?.myAnimeListStatus?.numEpisodesWatched
                 val animeId = anime?.malId
                 if (episodes != null && animeId != null) {

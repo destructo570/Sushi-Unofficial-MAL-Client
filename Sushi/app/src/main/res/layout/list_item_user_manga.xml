@@ -15,7 +15,7 @@
 
         <variable
             name="chapterListener"
-            type="com.destructo.sushi.listener.AddChapterListenerUA" />
+            type="com.destructo.sushi.listener.AddChapterListener" />
 
         <variable
             name="mangaIdListener"

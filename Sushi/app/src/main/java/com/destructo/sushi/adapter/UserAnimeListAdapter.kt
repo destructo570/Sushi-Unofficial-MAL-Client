@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.databinding.ListItemUserAnimeBinding
-import com.destructo.sushi.listener.AddEpisodeListenerUA
+import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
 import com.destructo.sushi.model.database.UserAnimeEntity
 
 class UserAnimeListAdapter(
-    private val addEpisodeListener: AddEpisodeListenerUA,
+    private val addEpisodeListener: AddEpisodeListener,
     private val malIdListener: MalIdListener,
     private val isWatchingList: Boolean
     ) :
@@ -25,7 +25,7 @@ class UserAnimeListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(animeEntity: UserAnimeEntity,
-                 addEpisodeListener: AddEpisodeListenerUA,
+                 addEpisodeListener: AddEpisodeListener,
                  malIdListener: MalIdListener,
                  isWatchingList: Boolean
                  ) {

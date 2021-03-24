@@ -1,7 +1,7 @@
 package com.destructo.sushi.listener
 
-import com.destructo.sushi.model.mal.manga.Manga
+import com.destructo.sushi.model.database.UserMangaEntity
 
-class AddChapterListener(val clickListener: (manga : Manga?) -> Unit) {
-    fun onClick(manga: Manga?) = clickListener(manga)
+class AddChapterListener(val clickListener: (manga : UserMangaEntity?) -> Unit) {
+    fun onClick(manga: UserMangaEntity?) = clickListener(manga)
 }
