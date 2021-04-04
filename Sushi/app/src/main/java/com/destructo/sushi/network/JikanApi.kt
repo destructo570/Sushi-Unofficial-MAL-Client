@@ -105,9 +105,9 @@ interface JikanApi {
     ): Deferred<MangaCharacter>
 
     @GET("person/{personId}/")
-    fun getPersonDetailsAsync(
+    suspend fun getPersonDetailsAsync(
         @Path("personId") personId: String,
-    ): Deferred<PersonEntity>
+    ): PersonEntity
 
     @GET("user/{userName}/")
     fun getUserDetailsAsync(
