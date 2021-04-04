@@ -1,9 +1,7 @@
 package com.destructo.sushi.ui.anime.animeDetails
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
@@ -13,13 +11,14 @@ import com.destructo.sushi.model.mal.anime.Anime
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.params.AnimeUpdateParams
 import com.destructo.sushi.network.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class AnimeDetailViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
-    savedStateHandle: SavedStateHandle,
     private val animeDetailsRepo: AnimeDetailRepository
 ) : ViewModel() {
 

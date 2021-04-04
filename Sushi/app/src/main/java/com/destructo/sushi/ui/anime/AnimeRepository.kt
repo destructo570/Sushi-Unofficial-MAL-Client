@@ -7,7 +7,6 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRecom.SuggestedAnime
 import com.destructo.sushi.model.mal.news.NewsItem
 import com.destructo.sushi.model.mal.promotion.PromotionalItem
-import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import kotlinx.coroutines.Dispatchers
@@ -45,34 +44,6 @@ constructor(
                     result.value = Resource.success(topAnimeList)
                 }
 
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    result.value = Resource.error(e.message ?: "", null)
-                }
-            }
-        }
-        return result
-    }
-
-    fun getSeasonalAnime(
-        year: String,
-        season: String,
-        sort: String?,
-        limit: String?,
-        offset: String?
-    ): MutableLiveData<Resource<SeasonalAnime>> {
-
-        val result = MutableLiveData<Resource<SeasonalAnime>>()
-        result.value = Resource.loading(null)
-
-        GlobalScope.launch {
-            val seasonalAnimeDeferred = malApi
-                .getSeasonalAnimeAsync(year, season, sort, limit, offset, BASIC_LIST_ITEM_ANIME_FIELDS)
-            try {
-                val seasonaAnime = seasonalAnimeDeferred.await()
-                withContext(Dispatchers.Main) {
-                    result.value = Resource.success(seasonaAnime)
-                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     result.value = Resource.error(e.message ?: "", null)

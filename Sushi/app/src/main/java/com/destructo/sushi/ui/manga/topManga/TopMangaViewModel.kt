@@ -27,11 +27,11 @@ constructor(
     val listOfAllTopManga = mangaRankingDao.getAllMangaRanking()
 
     fun getTopMangaNextPage(nsfw:Boolean){
-        topMangaRepo.getTopMangaNext(nsfw)
+        viewModelScope.launch { topMangaRepo.getTopMangaNext(nsfw) }
     }
 
     fun getMangaRankingList(offset:String?, limit:String?, nsfw:Boolean){
-        topMangaRepo.getMangaRankingList(offset,limit,nsfw)
+        viewModelScope.launch { topMangaRepo.getMangaRankingList(offset,limit,nsfw) }
     }
 
     fun clearMangaList(){

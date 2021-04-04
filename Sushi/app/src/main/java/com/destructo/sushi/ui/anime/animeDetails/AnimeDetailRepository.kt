@@ -17,9 +17,6 @@ import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class AnimeDetailRepository
@@ -53,9 +50,7 @@ constructor(
         val animeDetailCache = animeDetailsDao.getAnimeDetailsById(malId)
 
         if (animeDetailCache != null && !animeDetailCache.isCacheExpired() && !isEdited) {
-            withContext(Dispatchers.Main) {
-                animeDetail.value = Resource.success(animeDetailCache.anime)
-            }
+            animeDetail.value = Resource.success(animeDetailCache.anime)
         } else animeDetailCall(malId)
 
     }
@@ -65,10 +60,8 @@ constructor(
         val animeCharacterListCache = animeCharacterListDao.getAnimeCharactersById(malId)
 
         if (animeCharacterListCache != null && !animeCharacterListCache.isCacheExpired()) {
-            withContext(Dispatchers.Main) {
-                animeCharacterAndStaff.value =
-                    Resource.success(animeCharacterListCache.characterAndStaffList)
-            }
+            animeCharacterAndStaff.value =
+                Resource.success(animeCharacterListCache.characterAndStaffList)
         } else {
             animeCharacterCall(malId)
         }
@@ -80,10 +73,8 @@ constructor(
         val animeVideosListCache = animeVideosDao.getAnimeVideosById(malId)
 
         if (animeVideosListCache != null && !animeVideosListCache.isCacheExpired()) {
-            withContext(Dispatchers.Main) {
-                animeVideosAndEpisodes.value =
-                    Resource.success(animeVideosListCache.videosAndEpisodes)
-            }
+            animeVideosAndEpisodes.value =
+                Resource.success(animeVideosListCache.videosAndEpisodes)
         } else animeVideoCall(malId)
     }
 
@@ -93,9 +84,7 @@ constructor(
         val animeReviewListCache = animeReviewsDao.getAnimeReviewsById(malId)
 
         if (animeReviewListCache != null && !animeReviewListCache.isCacheExpired()) {
-            withContext(Dispatchers.Main) {
-                animeReview.value = Resource.success(animeReviewListCache.reviewList)
-            }
+            animeReview.value = Resource.success(animeReviewListCache.reviewList)
         } else animeReviewCall(malId, page)
 
     }
@@ -117,115 +106,82 @@ constructor(
     private suspend fun updateUserAnimeCall(updateParam: AnimeUpdateParams) {
         userAnimeStatus.value = Resource.loading(null)
 
-        val addEpisodeDeferred = malApi.updateUserAnime(
-            updateParam.animeId, updateParam.status, updateParam.is_rewatching,
-            updateParam.score, updateParam.num_watched_episodes, updateParam.priority,
-            updateParam.num_times_rewatched, updateParam.rewatch_value,
-            updateParam.tags, updateParam.comments, updateParam.start_date, updateParam.finish_date
-        )
         try {
-            val animeStatus = addEpisodeDeferred.await()
-            withContext(Dispatchers.Main) {
-                userAnimeStatus.value = Resource.success(animeStatus)
-                updateCachedUserAnime(updateParam.animeId,animeStatus)
-            }
+            val animeStatus = malApi.updateUserAnime(
+                updateParam.animeId, updateParam.status, updateParam.is_rewatching,
+                updateParam.score, updateParam.num_watched_episodes, updateParam.priority,
+                updateParam.num_times_rewatched, updateParam.rewatch_value,
+                updateParam.tags, updateParam.comments, updateParam.start_date, updateParam.finish_date
+            )
+            userAnimeStatus.value = Resource.success(animeStatus)
+            updateCachedUserAnime(updateParam.animeId, animeStatus)
         } catch (e: java.lang.Exception) {
-            withContext(Dispatchers.Main) {
-                userAnimeStatus.value = Resource.error(e.message ?: "", null)
-            }
+            userAnimeStatus.value = Resource.error(e.message ?: "", null)
         }
     }
-
 
     suspend fun removeAnimeFromList(animeId: String) {
 
         try {
-            malApi.deleteAnimeFromList(animeId).await()
-            withContext(Dispatchers.Main) {
-                userAnimeRemove.value = Resource.success(Unit)
-            }
+            malApi.deleteAnimeFromList(animeId)
+            userAnimeRemove.value = Resource.success(Unit)
         } catch (e: java.lang.Exception) {
-            withContext(Dispatchers.Main) {
-                userAnimeRemove.value = Resource.error(e.message ?: "", null)
-                Timber.e("Error: %s", e.message)
-            }
+            userAnimeRemove.value = Resource.error(e.message ?: "", null)
         }
     }
 
     private suspend fun animeDetailCall(malId: Int) {
-
-        val animeId: String = malId.toString()
-        val getAnimeByIdDeferred = malApi.getAnimeByIdAsync(animeId, ALL_ANIME_FIELDS)
         try {
-            val animeDetails = getAnimeByIdDeferred.await()
+            val animeDetails = malApi.getAnimeByIdAsync(malId.toString(), ALL_ANIME_FIELDS)
             val animeRequest = AnimeDetailEntity(
                 anime = animeDetails,
                 id = animeDetails.id!!,
                 time = System.currentTimeMillis()
             )
             animeDetailsDao.insertAnimeDetails(animeRequest)
-            withContext(Dispatchers.Main) {
-                animeDetail.value = Resource.success(animeRequest.anime)
-            }
+            animeDetail.value = Resource.success(animeRequest.anime)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                animeDetail.value = Resource.error(e.message ?: "", null)
-            }
+            animeDetail.value = Resource.error(e.message ?: "", null)
         }
     }
 
     private suspend fun animeCharacterCall(malId: Int) {
 
-        val animeId: String = malId.toString()
-        val getAnimeCharactersDeferred = jikanApi.getCharacterAndStaffAsync(animeId)
         try {
-            val animeCharactersAndStaffList = getAnimeCharactersDeferred.await()
+            val animeCharactersAndStaffList = jikanApi.getCharacterAndStaffAsync(malId.toString())
             val animeCharacterListEntity = AnimeCharacterListEntity(
                 characterAndStaffList = animeCharactersAndStaffList,
                 time = System.currentTimeMillis(),
                 id = malId
             )
             animeCharacterListDao.insertAnimeCharacters(animeCharacterListEntity)
-            withContext(Dispatchers.Main) {
-                animeCharacterAndStaff
-                    .value = Resource.success(animeCharacterListEntity.characterAndStaffList)
-            }
+            animeCharacterAndStaff
+                .value = Resource.success(animeCharacterListEntity.characterAndStaffList)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                animeCharacterAndStaff.value = Resource.error(e.message ?: "", null)
-            }
+            animeCharacterAndStaff.value = Resource.error(e.message ?: "", null)
         }
     }
 
     private suspend fun animeVideoCall(malId: Int) {
-        val animeId: String = malId.toString()
-        val getAnimeVideosDeferred = jikanApi.getAnimeVideosAsync(animeId)
         try {
-            val animeVideosList = getAnimeVideosDeferred.await()
+            val animeVideosList = jikanApi.getAnimeVideosAsync(malId.toString())
             val animeVideoListEntity = AnimeVideosEntity(
                 videosAndEpisodes = animeVideosList,
                 time = System.currentTimeMillis(),
                 id = malId,
-
-                )
+            )
             animeVideosDao.insertAnimeVideos(animeVideoListEntity)
-            withContext(Dispatchers.Main) {
-                animeVideosAndEpisodes
-                    .value = Resource.success(animeVideoListEntity.videosAndEpisodes)
-            }
+            animeVideosAndEpisodes
+                .value = Resource.success(animeVideoListEntity.videosAndEpisodes)
 
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                animeVideosAndEpisodes.value = Resource.error(e.message ?: "", null)
-            }
+            animeVideosAndEpisodes.value = Resource.error(e.message ?: "", null)
         }
     }
 
     private suspend fun animeReviewCall(malId: Int, page: String) {
-        val animeId: String = malId.toString()
-        val getAnimeReviewsDeferred = jikanApi.getAnimeReviewsAsync(animeId, page)
         try {
-            val animeReviews = getAnimeReviewsDeferred.await()
+            val animeReviews = jikanApi.getAnimeReviewsAsync(malId.toString(), page)
             val animeReviewListEntity = AnimeReviewsEntity(
                 reviewList = animeReviews,
                 time = System.currentTimeMillis(),
@@ -233,14 +189,9 @@ constructor(
                 currentPage = page
             )
             animeReviewsDao.insertAnimeReviews(animeReviewListEntity)
-            withContext(Dispatchers.Main) {
-                animeReview.value = Resource.success(animeReviewListEntity.reviewList)
-            }
-
+            animeReview.value = Resource.success(animeReviewListEntity.reviewList)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                animeReview.value = Resource.error(e.message ?: "", null)
-            }
+            animeReview.value = Resource.error(e.message ?: "", null)
         }
     }
 
@@ -253,8 +204,6 @@ constructor(
         userAnimeListDao.deleteUserAnimeById(animeId.toInt())
         userAnimeListDao.insertUserAnime(anime)
     }
-
-
 
 
 }

@@ -27,11 +27,11 @@ constructor(
     val upcomingAnimeList = animeRankingDao.getAllAnimeRanking()
 
     fun getNextPage( nsfw: Boolean) {
-        upcomingAnimeRepo.getTopAnimeNext(nsfw)
+        viewModelScope.launch { upcomingAnimeRepo.getTopAnimeNext(nsfw) }
     }
 
     fun getUpcomingList(offset: String?, limit: String?, nsfw: Boolean) {
-        upcomingAnimeRepo.getAnimeRankingList(offset, limit, nsfw)
+        viewModelScope.launch { upcomingAnimeRepo.getAnimeRankingList(offset, limit, nsfw) }
     }
 
     fun clearList() {

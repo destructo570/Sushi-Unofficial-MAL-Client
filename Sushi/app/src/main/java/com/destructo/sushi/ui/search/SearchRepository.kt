@@ -7,10 +7,6 @@ import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SearchAnimeDao
 import com.destructo.sushi.room.SearchMangaDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SearchRepository
@@ -34,9 +30,8 @@ constructor(
     private var mangaNextPage: String? = null
 
 
-    fun getAnimeResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
+    suspend fun getAnimeResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
         animeResult.value = Resource.loading(null)
-        GlobalScope.launch {
             val getAnimeResultDeferred = malApi.searchAnimeAsync(
                 query = query,
                 limit = null,
@@ -54,21 +49,15 @@ constructor(
                 }
                 if ( animeNextPage != response.paging?.next) animeNextPage = response.paging?.next
 
-                withContext(Dispatchers.Main){
                     animeResult.value = Resource.success(response)
-                }
             }catch (e: Exception){
-                withContext(Dispatchers.Main){
                     animeResult.value = Resource.error(e.message ?: "", null)}
-            }
-        }
     }
 
-    fun getMangaResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
+    suspend fun getMangaResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
 
         mangaResult.value = Resource.loading(null)
 
-        GlobalScope.launch {
             val getAnimeResultDeferred = malApi.searchMangaAsync(
                 query = query,
                 limit = limit,
@@ -87,28 +76,23 @@ constructor(
 
                 if ( mangaNextPage != response.paging?.next) mangaNextPage = response.paging?.next
 
-                withContext(Dispatchers.Main){
                     mangaResult.value = Resource.success(response)
-                }
             }catch (e: Exception){
-                withContext(Dispatchers.Main){
-                    mangaResult.value = Resource.error(e.message ?: "", null)}
+                    mangaResult.value = Resource.error(e.message ?: "", null)
             }
-        }
-    }
+            }
 
 
 
-    fun getAnimeNext(nsfw: Boolean) {
+
+    suspend fun getAnimeNext(nsfw: Boolean) {
 
         if (!animeNextPage.isNullOrBlank()) {
             animeResultNext.value = Resource.loading(null)
-            GlobalScope.launch {
                 animeNextPageCall(
                     next = animeNextPage!!,
                     nsfw = nsfw
                 )
-            }
         }
     }
 
@@ -124,26 +108,20 @@ constructor(
                 searchAnimeDao.insertAnimeList(animeList!!)
             }
             animeNextPage = animeRanking.paging?.next
-            withContext(Dispatchers.Main) {
                 animeResultNext.value = Resource.success(animeRanking)
-            }
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
                 animeResultNext.value = Resource.error(e.message ?: "", null)
-            }
         }
     }
 
-    fun getMangaNext(nsfw: Boolean) {
+    suspend fun getMangaNext(nsfw: Boolean) {
 
         if (!mangaNextPage.isNullOrBlank()) {
             animeResultNext.value = Resource.loading(null)
-            GlobalScope.launch {
                 mangaNextPageCall(
                     next = mangaNextPage!!,
                     nsfw = nsfw
                 )
-            }
         }
     }
 
@@ -161,17 +139,12 @@ constructor(
 
             mangaNextPage = response.paging?.next
 
-            withContext(Dispatchers.Main) {
                 mangaResultNext.value = Resource.success(response)
-            }
+            
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
                 mangaResultNext.value = Resource.error(e.message ?: "", null)
-            }
         }
 
     }
-
-
 
 }

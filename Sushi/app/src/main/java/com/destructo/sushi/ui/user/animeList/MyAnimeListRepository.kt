@@ -9,8 +9,6 @@ import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.UserAnimeDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,43 +29,35 @@ constructor(
     suspend fun getUserAnimeList(sortType: String) {
         userAnimeList.value = Resource.loading(null)
 
-        val getUserAnimeDeferred = malApi.getUserAnimeListAsync(
-            "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-            null, sortType, "", BASIC_ANIME_FIELDS, true
-        )
         try {
-            val userAnime = getUserAnimeDeferred.await()
+            val userAnime = malApi.getUserAnimeListAsync(
+                "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
+                null, sortType, "", BASIC_ANIME_FIELDS, true
+            )
             userAnimeListDao.insertUserAnimeList(UserAnimeEntity.fromListOfUpdateUserAnime(userAnime.data!!))
-            withContext(Dispatchers.Main) {
-                setNextPage(userAnime)
-                userAnimeList.value = Resource.success(userAnime)
-            }
+            setNextPage(userAnime)
+            userAnimeList.value = Resource.success(userAnime)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                userAnimeList.value = Resource.error(e.message ?: "", null)
-            }
+            userAnimeList.value = Resource.error(e.message ?: "", null)
+
         }
     }
 
     suspend fun addEpisode(animeId: String, numberOfEp: Int?, status: String?) {
         userAnimeStatus.value = Resource.loading(null)
 
-        val addEpisodeDeferred = malApi.updateUserAnime(
-            animeId,
-            status, null, null, numberOfEp,
-            null, null, null, null, null,
-            null, null
-        )
         try {
-            val animeStatus = addEpisodeDeferred.await()
+            val animeStatus = malApi.updateUserAnime(
+                animeId,
+                status, null, null, numberOfEp,
+                null, null, null, null, null,
+                null, null
+            )
             updateCachedUserAnime(animeId, animeStatus)
-            withContext(Dispatchers.Main) {
-                userAnimeStatus.value = Resource.success(animeStatus)
-            }
+            userAnimeStatus.value = Resource.success(animeStatus)
+
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                userAnimeStatus.value = Resource.error(e.message ?: "", null)
-            }
+            userAnimeStatus.value = Resource.error(e.message ?: "", null)
         }
     }
 
@@ -75,22 +65,19 @@ constructor(
         if (!nextPage.value.isNullOrEmpty()) {
             userAnimeList.value = Resource.loading(null)
 
-            val getUserAnimeDeferred = malApi.getUserAnimeNextAsync(nextPage.value!!)
             try {
-                val userAnime = getUserAnimeDeferred.await()
+                val userAnime = malApi.getUserAnimeNextAsync(nextPage.value!!)
                 userAnimeListDao.insertUserAnimeList(
                     UserAnimeEntity.fromListOfUpdateUserAnime(
                         userAnime.data!!
                     )
                 )
-                withContext(Dispatchers.Main) {
-                    setNextPage(userAnime)
-                    userAnimeList.value = Resource.success(userAnime)
-                }
+                setNextPage(userAnime)
+                userAnimeList.value = Resource.success(userAnime)
+
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    userAnimeList.value = Resource.error(e.message ?: "", null)
-                }
+                userAnimeList.value = Resource.error(e.message ?: "", null)
+
             }
         }
     }

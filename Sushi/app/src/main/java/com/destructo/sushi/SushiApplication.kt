@@ -110,7 +110,6 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
 
     }
 
-
     private fun handlePurchase(purchase: Purchase){
         GlobalScope.launch {
             if (purchase.purchaseState  == Purchase.PurchaseState.PURCHASED){

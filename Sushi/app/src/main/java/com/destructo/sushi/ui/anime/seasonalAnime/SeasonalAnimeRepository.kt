@@ -8,10 +8,6 @@ import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SeasonAnimeDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SeasonalAnimeRepository
@@ -20,55 +16,47 @@ constructor(
     private val malApi: MalApi,
     private val jikanApi: JikanApi,
     private val seasonAnimeDao: SeasonAnimeDao
-){
+) {
 
     var seasonalAnime: MutableLiveData<Resource<SeasonalAnime>> = MutableLiveData()
     var seasonArchive: MutableLiveData<Resource<SeasonArchive>> = MutableLiveData()
     var seasonalNextPage: MutableLiveData<Resource<SeasonalAnime>> = MutableLiveData()
 
-    private var nextPage: String? =""
+    private var nextPage: String? = ""
 
-    fun getSeasonArchive(){
+    suspend fun getSeasonArchive() {
         seasonArchive.value = Resource.loading(null)
-        GlobalScope.launch {
-            val getSeasonArchiveDeferred = jikanApi.getSeasonArchiveAsync()
-            try {
-                val response = getSeasonArchiveDeferred.await()
-                withContext(Dispatchers.Main){
-                    seasonArchive.value = Resource.success(response)
-                }
-
-            }catch (e:Exception){
-                withContext(Dispatchers.Main){
-                    seasonArchive.value = Resource.error(e.message ?: "", null)
-                }}
+        try {
+            val response = jikanApi.getSeasonArchiveAsync()
+            seasonArchive.value = Resource.success(response)
+        } catch (e: Exception) {
+            seasonArchive.value = Resource.error(e.message ?: "", null)
         }
     }
 
-    fun getSeasonalAnime(year:String,season:String,sort:String?,
-                         limit:String?,offset:String?) {
+    suspend fun getSeasonalAnime(
+        year: String, season: String, sort: String?,
+        limit: String?, offset: String?
+    ) {
 
         seasonalAnime.value = Resource.loading(null)
-
-        GlobalScope.launch {
-            seasonalAnimeCall(
-                year = year,
-                season = season,
-                sort = sort,
-                limit = limit,
-                offset = offset)
-        }
+        seasonalAnimeCall(
+            year = year,
+            season = season,
+            sort = sort,
+            limit = limit,
+            offset = offset
+        )
     }
 
-    fun getSeasonAnimeNext() {
+    suspend fun getSeasonAnimeNext() {
 
         if (!nextPage.isNullOrBlank()) {
             seasonalNextPage.value = Resource.loading(null)
-            GlobalScope.launch {
-                nextPageCall(
-                    next = nextPage!!,
-                )
-            }
+            nextPageCall(
+                next = nextPage!!,
+            )
+
         }
     }
 
@@ -78,34 +66,27 @@ constructor(
             val response = getSeasonalAnimeDeferred.await()
             nextPage = response.paging?.next
             seasonAnimeDao.insertSeasonAnimeList(response.data!!)
+            seasonalNextPage.value = Resource.success(response)
 
-            withContext(Dispatchers.Main) {
-                seasonalNextPage.value = Resource.success(response)
-            }
         } catch (e: java.lang.Exception) {
-            withContext(Dispatchers.Main) {
-                seasonalNextPage.value = Resource.error(e.message ?: "", null)
-            }
+            seasonalNextPage.value = Resource.error(e.message ?: "", null)
+
         }
 
     }
 
-    private suspend fun seasonalAnimeCall(year:String,season:String,sort:String?,
-                                          limit:String?,offset:String?){
-        val getSeasonalDeferred = malApi
-            .getSeasonalAnimeAsync(year, season, sort, limit, offset, ALL_ANIME_FIELDS)
+    private suspend fun seasonalAnimeCall(
+        year: String, season: String, sort: String?,
+        limit: String?, offset: String?
+    ) {
         try {
-            val response = getSeasonalDeferred.await()
+            val response = malApi
+                .getSeasonalAnimeAsync(year, season, sort, limit, offset, ALL_ANIME_FIELDS)
             nextPage = response.paging?.next
             seasonAnimeDao.insertSeasonAnimeList(response.data!!)
-
-            withContext(Dispatchers.Main) {
-                seasonalAnime.value = Resource.success(response)
-            }
+            seasonalAnime.value = Resource.success(response)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main){
-                seasonalAnime.value = Resource.error(e.message ?: "", null)
-            }
+            seasonalAnime.value = Resource.error(e.message ?: "", null)
         }
     }
 

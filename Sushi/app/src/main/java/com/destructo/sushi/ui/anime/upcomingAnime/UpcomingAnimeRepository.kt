@@ -8,15 +8,12 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.MalApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeRankingDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class UpcomingAnimeRepository@Inject
-constructor(val malApi: MalApi,
-            private val animeRankingDao: AnimeRankingDao
+class UpcomingAnimeRepository @Inject
+constructor(
+    val malApi: MalApi,
+    private val animeRankingDao: AnimeRankingDao
 ) {
     private var rankingType: String = AnimeRankingType.UPCOMING.value
 
@@ -27,16 +24,14 @@ constructor(val malApi: MalApi,
 
     private var nextPage: String? = null
 
-    fun getTopAnimeNext( nsfw: Boolean) {
+    suspend fun getTopAnimeNext(nsfw: Boolean) {
 
         if (!nextPage.isNullOrBlank()) {
             upcomingAnimeListNextPage.value = Resource.loading(null)
-            GlobalScope.launch {
-                nextPageCall(
-                    next = nextPage!!,
-                    nsfw=nsfw
-                )
-            }
+            nextPageCall(
+                next = nextPage!!,
+                nsfw = nsfw
+            )
         }
     }
 
@@ -47,35 +42,29 @@ constructor(val malApi: MalApi,
             if (nsfw) {
                 val animeList = animeRanking.data
                 animeRankingDao.insertAnimeRankingList(animeList!!)
-            }else{
+            } else {
                 val animeList = animeRanking.data?.filter { it?.anime?.nsfw == "white" }
                 animeRankingDao.insertAnimeRankingList(animeList!!)
             }
             nextPage = animeRanking.paging?.next
-            withContext(Dispatchers.Main) {
-                upcomingAnimeListNextPage.value = Resource.success(animeRanking)
-            }
+            upcomingAnimeListNextPage.value = Resource.success(animeRanking)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                upcomingAnimeListNextPage.value = Resource.error(e.message ?: "", null)
-            }
+            upcomingAnimeListNextPage.value = Resource.error(e.message ?: "", null)
         }
 
     }
 
-    fun getAnimeRankingList(offset: String?, limit: String?, nsfw: Boolean) {
+    suspend fun getAnimeRankingList(offset: String?, limit: String?, nsfw: Boolean) {
 
         upcomingAnimeList.value = Resource.loading(null)
-        GlobalScope.launch {
-            animeRankingCall(
-                offset = offset,
-                limit = limit,
-                nsfw = nsfw
-            )
-        }
+        animeRankingCall(
+            offset = offset,
+            limit = limit,
+            nsfw = nsfw
+        )
     }
 
-    private suspend fun animeRankingCall(offset: String?, limit: String?, nsfw: Boolean){
+    private suspend fun animeRankingCall(offset: String?, limit: String?, nsfw: Boolean) {
         try {
             val getTopAnimeDeferred = malApi.getAnimeRankingAsync(
                 rankingType, limit, offset,
@@ -83,19 +72,15 @@ constructor(val malApi: MalApi,
                 nsfw
             )
             val animeRanking = getTopAnimeDeferred.await()
-            if ( nextPage != animeRanking.paging?.next){
+            if (nextPage != animeRanking.paging?.next) {
                 nextPage = animeRanking.paging?.next
             }
             val animeList = animeRanking.data
 
             animeRankingDao.insertAnimeRankingList(animeList!!)
-            withContext(Dispatchers.Main) {
-                upcomingAnimeList.value = Resource.success(animeList.toMutableList())
-            }
+            upcomingAnimeList.value = Resource.success(animeList.toMutableList())
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                upcomingAnimeList.value = Resource.error(e.message ?: "", null)
-            }
+            upcomingAnimeList.value = Resource.error(e.message ?: "", null)
         }
     }
 }

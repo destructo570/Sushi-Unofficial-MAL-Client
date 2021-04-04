@@ -23,10 +23,8 @@ constructor(
         val charId = characterId.toString()
 
         viewModelScope.launch {
-            val getCharacterDetailsDeferred = jikanApi.getCharacterDetailsAsync(charId)
             try {
-                val characterDetails = getCharacterDetailsDeferred.await()
-                _character.value = characterDetails
+                _character.value = jikanApi.getCharacterDetailsAsync(charId)
             } catch (e: Exception) {
             }
         }

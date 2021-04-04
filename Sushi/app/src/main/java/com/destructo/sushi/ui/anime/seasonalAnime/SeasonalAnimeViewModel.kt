@@ -31,22 +31,18 @@ class SeasonalAnimeViewModel
     val seasonalAnimeList = seasonalDao.getAllSeasonAnime()
 
     fun getSeasonArchive(){
-        seasonalAnimeRepo.getSeasonArchive()
+        viewModelScope.launch { seasonalAnimeRepo.getSeasonArchive() }
     }
 
     fun getAnimeNextPage(){
-        seasonalAnimeRepo.getSeasonAnimeNext()
+        viewModelScope.launch { seasonalAnimeRepo.getSeasonAnimeNext() }
     }
 
     fun getSeasonalAnime(year:String,season:String,sort:String?,
                          limit:String?,offset:String?){
-        seasonalAnimeRepo.getSeasonalAnime(year, season, sort, limit, offset)
+        viewModelScope.launch { seasonalAnimeRepo.getSeasonalAnime(year, season, sort, limit, offset) }
     }
 
-    fun clearList(){
-        viewModelScope.launch {
-            seasonalDao.clear()
-        }
-    }
+    fun clearList(){ seasonalDao.clear() }
 
 }

@@ -13,9 +13,6 @@ import com.destructo.sushi.network.MalAuthApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.util.PKCE
 import com.destructo.sushi.util.SessionManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -40,13 +37,9 @@ constructor(
     val refreshComplete: LiveData<Resource<AuthToken>>
         get() = _refreshComplete
 
-
-    private val job = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + job)
-
     private fun getAuthToken(
         authCode:String){
-        uiScope.launch {
+        viewModelScope.launch {
             val currentSession = sessionManager.getSession()
             val pkce = currentSession[PKCE]
             val getAuthTokenDeferred = malAuthApi.getAuthTokenAsync(

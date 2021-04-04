@@ -9,8 +9,6 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.ProfileAnimeListDao
 import com.destructo.sushi.room.ProfileMangaListDao
 import com.destructo.sushi.room.ProfileUserFriendListDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProfileRepository
@@ -39,34 +37,26 @@ constructor(
         val getUserMangaDeferred = jikanApi.getUserDetailsAsync(userName)
         try {
             val response = getUserMangaDeferred.await()
-            withContext(Dispatchers.Main) {
-                userInfo.value = Resource.success(response)
-            }
+            userInfo.value = Resource.success(response)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                userInfo.value = Resource.error(e.message ?: "", null)
-            }
+            userInfo.value = Resource.error(e.message ?: "", null)
         }
     }
 
 
     suspend fun getUserFriendList(userName: String) {
 
-        val getFriendsListDeferred = jikanApi.getUserFriendListAsync(userName,nextFriendPage)
+        val getFriendsListDeferred = jikanApi.getUserFriendListAsync(userName, nextFriendPage)
         try {
             val response = getFriendsListDeferred.await()
-            withContext(Dispatchers.Main) {
-                userFriendList.value = Resource.success(response)
-                if (!response.friends.isNullOrEmpty()){
-                    response.friends.forEach { it?.setFriendsWithUser(userName) }
-                    profileUserFriendListDao.insertFriendList(response.friends)
-                    nextFriendPage++
-                }
+            userFriendList.value = Resource.success(response)
+            if (!response.friends.isNullOrEmpty()) {
+                response.friends.forEach { it?.setFriendsWithUser(userName) }
+                profileUserFriendListDao.insertFriendList(response.friends)
+                nextFriendPage++
             }
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                userFriendList.value = Resource.error(e.message ?: "", null)
-            }
+            userFriendList.value = Resource.error(e.message ?: "", null)
         }
     }
 
@@ -76,20 +66,10 @@ constructor(
         val getUserMangaDeferred = malApi.getUserInfo(userName)
         try {
             val response = getUserMangaDeferred.await()
-            withContext(Dispatchers.Main) {
-                userInfoMalApi.value = Resource.success(response)
-            }
+            userInfoMalApi.value = Resource.success(response)
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                userInfoMalApi.value = Resource.error(e.message ?: "", null)
-            }
+            userInfoMalApi.value = Resource.error(e.message ?: "", null)
         }
     }
-
-
-
-
-
-
 
 }

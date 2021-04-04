@@ -24,9 +24,9 @@ import retrofit2.http.Path
 interface JikanApi {
 
     @GET("anime/{animeId}")
-    fun getAnimeInfoAsync(
+    suspend fun getAnimeInfoAsync(
         @Path("animeId") animeId: String,
-    ): Deferred<Anime>
+    ): Anime
 
     @GET("top/anime/{page}/{subtype}")
     fun getTopAnimeAsync(
@@ -65,26 +65,24 @@ interface JikanApi {
     ): Deferred<Schedule>
 
     @GET("season/archive")
-    fun getSeasonArchiveAsync(
-    ): Deferred<SeasonArchive>
+    suspend fun getSeasonArchiveAsync(
+    ): SeasonArchive
 
     @GET("anime/{animeId}/characters_staff")
-    fun getCharacterAndStaffAsync(
+    suspend fun getCharacterAndStaffAsync(
         @Path("animeId") animeId: String,
-        ): Deferred<AnimeCharacterAndStaff>
+        ): AnimeCharacterAndStaff
 
     @GET("anime/{animeId}/videos")
-    fun getAnimeVideosAsync(
+    suspend fun getAnimeVideosAsync(
         @Path("animeId") animeId: String,
-    ): Deferred<AnimeVideo>
-
+    ): AnimeVideo
 
     @GET("anime/{animeId}/reviews/{page}")
-    fun getAnimeReviewsAsync(
+    suspend fun getAnimeReviewsAsync(
         @Path("animeId") animeId: String,
         @Path("page") page: String,
-        ): Deferred<AnimeReviews>
-
+        ): AnimeReviews
 
     @GET("manga/{mangaId}/reviews/{page}")
     fun getMangaReviewsAsync(
@@ -94,9 +92,9 @@ interface JikanApi {
 
 
     @GET("character/{characterId}")
-    fun getCharacterDetailsAsync(
+    suspend fun getCharacterDetailsAsync(
         @Path("characterId") characterId: String,
-    ): Deferred<Character>
+    ): Character
 
 
     @GET("manga/{mangaId}/characters")

@@ -35,9 +35,7 @@ class AnimeCharactersViewModel
         animeCharacterAndStaff.value = Resource.loading(null)
         viewModelScope.launch {
             val animeCharacterListCache = animeCharacterListDao.getAnimeCharactersById(malId)
-
             if (animeCharacterListCache != null){
-
                 if((System.currentTimeMillis() - animeCharacterListCache.time) > CACHE_EXPIRE_TIME_LIMIT) {
                     animeCharacterCall(malId)
                 }else{
@@ -54,25 +52,18 @@ class AnimeCharactersViewModel
     }
 
     private suspend fun animeCharacterCall(malId:Int) {
-
-        val animeId: String = malId.toString()
-        val getAnimeCharactersDeferred = jikanApi.getCharacterAndStaffAsync(animeId)
         try {
-            val animeCharactersAndStaffList = getAnimeCharactersDeferred.await()
+            val animeCharactersAndStaffList = jikanApi.getCharacterAndStaffAsync(malId.toString())
             val animeCharacterListEntity = AnimeCharacterListEntity(
                 characterAndStaffList = animeCharactersAndStaffList,
                 time = System.currentTimeMillis(),
                 id = malId
             )
             animeCharacterListDao.insertAnimeCharacters(animeCharacterListEntity)
-            withContext(Dispatchers.Main) {
                 animeCharacterAndStaff
                     .value = Resource.success(animeCharacterListEntity.characterAndStaffList)
-            }
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
                 animeCharacterAndStaff.value = Resource.error(e.message ?: "", null)
-            }
         }
     }
 

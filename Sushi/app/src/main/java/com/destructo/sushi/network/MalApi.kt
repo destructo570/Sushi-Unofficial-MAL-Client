@@ -22,10 +22,10 @@ import retrofit2.http.*
 interface MalApi {
 
     @GET("anime/{Id}")
-    fun getAnimeByIdAsync(
+    suspend fun getAnimeByIdAsync(
         @Path("Id") animeId:String,
         @Query("fields") fields:String
-    ): Deferred<Anime>
+    ): Anime
 
     @GET("anime/ranking")
     fun getAnimeRankingAsync(
@@ -60,13 +60,13 @@ interface MalApi {
                                 @Query("nsfw")nsfw:Boolean): Deferred<MangaList>
 
     @GET
-    fun getUserAnimeNextAsync(@Url url:String): Deferred<UserAnimeList>
+    suspend fun getUserAnimeNextAsync(@Url url:String): UserAnimeList
 
     @GET
     fun getUserMangaNextAsync(@Url url:String): Deferred<UserMangaList>
 
     @GET("anime/season/{year}/{season}")
-    fun getSeasonalAnimeAsync(
+    suspend fun getSeasonalAnimeAsync(
         @Path("year") year:String,
         @Path("season") season:String,
         @Query("sort") sort:String?,
@@ -74,7 +74,7 @@ interface MalApi {
         @Query("offset") offset:String?,
         @Query("fields") fields:String?
 
-    ): Deferred<SeasonalAnime>
+    ): SeasonalAnime
 
 
     @GET("manga/ranking")
@@ -95,7 +95,7 @@ interface MalApi {
     ): Deferred<Manga>
 
     @GET("users/{user_name}/animelist")
-    fun getUserAnimeListAsync(
+    suspend fun getUserAnimeListAsync(
         @Path("user_name") user_name:String,
         @Query("limit") limit:String,
         @Query("status") status:String?,
@@ -104,7 +104,7 @@ interface MalApi {
         @Query("fields") fields:String,
         @Query("nsfw") nsfw:Boolean
 
-        ): Deferred<UserAnimeList>
+        ): UserAnimeList
 
 
     @GET("users/{user_name}/mangalist")
@@ -121,7 +121,7 @@ interface MalApi {
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
-    fun updateUserAnime(
+    suspend fun updateUserAnime(
         @Path("anime_id") anime_id:String,
         @Field("status") status:String?,
         @Field("is_rewatching") is_rewatching:Boolean?,
@@ -134,7 +134,7 @@ interface MalApi {
         @Field("comments") comments:String?,
         @Field("start_date") startDate:String?,
         @Field("finish_date") finishDate:String?
-    ): Deferred<UpdateUserAnime>
+    ): UpdateUserAnime
 
     @FormUrlEncoded
     @PATCH("manga/{manga_id}/my_list_status")
@@ -155,9 +155,9 @@ interface MalApi {
     ): Deferred<UpdateUserManga>
 
     @DELETE("anime/{anime_id}/my_list_status")
-    fun deleteAnimeFromList(
+    suspend fun deleteAnimeFromList(
         @Path("anime_id") anime_id:String
-    ):Deferred<Unit>
+    ):Unit
 
     @DELETE("manga/{manga_id}/my_list_status")
     fun deleteMangaFromList(

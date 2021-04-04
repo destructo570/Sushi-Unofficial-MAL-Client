@@ -11,9 +11,7 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeVideo
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeVideoListDao
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class AnimeEpisodesViewModel
 @ViewModelInject
@@ -22,46 +20,36 @@ constructor(
     val savedStateHandle: SavedStateHandle,
     val jikanApi: JikanApi,
     private val animeVideoListDao: AnimeVideoListDao
-): ViewModel(){
+) : ViewModel() {
 
     var animeEpisodeList: MutableLiveData<Resource<AnimeVideo>> = MutableLiveData()
 
 
-     fun getAnimeVideos(malId: Int) {
+    fun getAnimeVideos(malId: Int) {
         animeEpisodeList.value = Resource.loading(null)
-         viewModelScope.launch {
-             val animeVideosListCache = animeVideoListDao.getAnimeVideosById(malId)
-
-             if (animeVideosListCache != null && !animeVideosListCache.isCacheExpired()) {
-                 withContext(Dispatchers.Main) {
-                     animeEpisodeList.value =
-                         Resource.success(animeVideosListCache.videosAndEpisodes)
-                 }
-             } else animeVideoCall(malId)
-         }
+        viewModelScope.launch {
+            val animeVideosListCache = animeVideoListDao.getAnimeVideosById(malId)
+            if (animeVideosListCache != null && !animeVideosListCache.isCacheExpired()) {
+                animeEpisodeList.value =
+                    Resource.success(animeVideosListCache.videosAndEpisodes)
+            } else animeVideoCall(malId)
+        }
     }
 
-    private suspend fun animeVideoCall(malId:Int) {
-        val animeId: String = malId.toString()
-        val getAnimeVideosDeferred = jikanApi.getAnimeVideosAsync(animeId)
+    private suspend fun animeVideoCall(malId: Int) {
         try {
-            val animeVideosList = getAnimeVideosDeferred.await()
+            val animeVideosList = jikanApi.getAnimeVideosAsync(malId.toString())
             val animeVideoListEntity = AnimeVideosEntity(
                 videosAndEpisodes = animeVideosList,
                 time = System.currentTimeMillis(),
                 id = malId,
-
-                )
+            )
             animeVideoListDao.insertAnimeVideos(animeVideoListEntity)
-            withContext(Dispatchers.Main) {
-                animeEpisodeList
-                    .value = Resource.success(animeVideoListEntity.videosAndEpisodes)
-            }
+            animeEpisodeList
+                .value = Resource.success(animeVideoListEntity.videosAndEpisodes)
 
         } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                animeEpisodeList.value = Resource.error(e.message ?: "", null)
-            }
+            animeEpisodeList.value = Resource.error(e.message ?: "", null)
         }
     }
 

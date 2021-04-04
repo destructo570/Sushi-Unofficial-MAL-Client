@@ -2,15 +2,13 @@ package com.destructo.sushi.ui.search
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.mangaList.MangaList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SearchAnimeDao
 import com.destructo.sushi.room.SearchMangaDao
+import kotlinx.coroutines.launch
 
 class SearchViewModel
 @ViewModelInject
@@ -20,7 +18,7 @@ constructor(
     private val searchRepo: SearchRepository,
     private val searchAnimeDao: SearchAnimeDao,
     private val searchMangaDao: SearchMangaDao
-): ViewModel(){
+) : ViewModel() {
 
     val animeSearchResult: LiveData<Resource<AnimeList>> = searchRepo.animeResult
 
@@ -37,43 +35,51 @@ constructor(
 
     private var _searchQuery: MutableLiveData<String> = MutableLiveData()
     val searchQuery: LiveData<String>
-    get() = _searchQuery
+        get() = _searchQuery
 
-    fun getAnimeResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
-        searchRepo.getAnimeResult(
-            query = query,
-            limit = limit,
-            offset = offset,
-            field = field,
-            nsfw = nsfw)
+    fun getAnimeResult(query: String, field: String, limit: String, offset: String, nsfw: Boolean) {
+        viewModelScope.launch {
+            searchRepo.getAnimeResult(
+                query = query,
+                limit = limit,
+                offset = offset,
+                field = field,
+                nsfw = nsfw
+            )
+        }
+
     }
 
-    fun getNextAnimePage(nsfw: Boolean){
-        searchRepo.getAnimeNext(nsfw)
+    fun getNextAnimePage(nsfw: Boolean) {
+        viewModelScope.launch { searchRepo.getAnimeNext(nsfw) }
     }
 
-    fun getNextMangaPage(nsfw: Boolean){
-        searchRepo.getMangaNext(nsfw)
+    fun getNextMangaPage(nsfw: Boolean) {
+        viewModelScope.launch { searchRepo.getMangaNext(nsfw) }
     }
 
-    fun clearAnimeList(){
+    fun clearAnimeList() {
         searchAnimeDao.clear()
     }
 
-    fun clearMangaList(){
+    fun clearMangaList() {
         searchMangaDao.clear()
     }
 
-    fun getMangaResult(query:String, field:String, limit:String, offset:String, nsfw: Boolean) {
-        searchRepo.getMangaResult(
-            query = query,
-            limit = limit,
-            offset = offset,
-            field = field,
-            nsfw = nsfw)
+    fun getMangaResult(query: String, field: String, limit: String, offset: String, nsfw: Boolean) {
+        viewModelScope.launch {
+            searchRepo.getMangaResult(
+                query = query,
+                limit = limit,
+                offset = offset,
+                field = field,
+                nsfw = nsfw
+            )
+        }
+
     }
 
-    fun setQueryString(query: String){
+    fun setQueryString(query: String) {
         _searchQuery.value = query
     }
 

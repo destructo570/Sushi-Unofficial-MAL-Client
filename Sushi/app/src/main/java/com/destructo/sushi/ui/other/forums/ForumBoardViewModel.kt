@@ -5,8 +5,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.model.mal.forum.ForumBoard
 import com.destructo.sushi.network.Resource
+import kotlinx.coroutines.launch
 
 class ForumBoardViewModel
     @ViewModelInject
@@ -22,6 +24,6 @@ class ForumBoardViewModel
         get() = _forumBoards
 
     fun getForumBoardList() {
-        _forumBoards = forumRepo.getForumBoards()
+       viewModelScope.launch { _forumBoards = forumRepo.getForumBoards() }
     }
 }
