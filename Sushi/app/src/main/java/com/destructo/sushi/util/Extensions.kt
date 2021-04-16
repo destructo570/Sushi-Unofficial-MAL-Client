@@ -13,8 +13,6 @@ import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.R
 import java.util.*
 
@@ -69,6 +67,14 @@ fun Context.getColorFromAttr(
     return typedValue.data
 }
 
+fun View.show(){
+    visibility = View.VISIBLE
+}
+
+fun View.hide(){
+    visibility = View.GONE
+}
+
 fun View.showSoftKeyboard() {
     post {
         if (this.requestFocus()) {
@@ -85,13 +91,5 @@ fun View.hideSoftKeyboard() {
             imm.showSoftInput(this, InputMethodManager.HIDE_IMPLICIT_ONLY)
         }
     }
-}
-
-
-fun <T> Fragment.getNavigationResultLiveData(key: String = "result") =
-    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
-
-fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
-    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
 }
 
