@@ -2,7 +2,6 @@ package com.destructo.sushi.ui.preferences.donation
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -11,7 +10,6 @@ import com.android.billingclient.api.*
 import com.destructo.sushi.*
 import com.destructo.sushi.databinding.ActivityDonationBinding
 import com.destructo.sushi.enum.AppTheme
-import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,22 +19,9 @@ class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
     private lateinit var billingClient: BillingClient
     private lateinit var binding: ActivityDonationBinding
-    private lateinit var cookieButton: MaterialCardView
-    private lateinit var cokeButton: MaterialCardView
-    private lateinit var coffeButton: MaterialCardView
-    private lateinit var beerButton: MaterialCardView
-    private lateinit var lunchButton: MaterialCardView
-    private lateinit var giftButton: MaterialCardView
-    private lateinit var cookiePrice: TextView
-    private lateinit var coffeePrice: TextView
-    private lateinit var cokePrice: TextView
-    private lateinit var beerPrice: TextView
-    private lateinit var lunchPrice: TextView
-    private lateinit var giftPrice: TextView
 
     @Inject
     lateinit var sharedPref: SharedPreferences
-
 
     private lateinit var toolbar: Toolbar
     private val skuList = listOf(DONATE_COOKIE_ID, DONATE_COKE_ID, DONATE_BEER_ID,
@@ -53,20 +38,6 @@ class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
         createBillingClient()
         initiateBillingProcess()
-
-        cookieButton = binding.cookieCard
-        coffeButton = binding.coffeeCard
-        cokeButton = binding.cokeCard
-        beerButton = binding.beerCard
-        lunchButton = binding.lunchCard
-        giftButton = binding.giftCard
-        cookiePrice = binding.cookiePrice
-        coffeePrice = binding.coffeePrice
-        cokePrice = binding.cokePrice
-        beerPrice = binding.beerPrice
-        lunchPrice = binding.lunchPrice
-        giftPrice = binding.giftPrice
-
 
         toolbar = binding.donationToolbar
         setupToolbar()
@@ -112,38 +83,38 @@ class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList.isNotEmpty()){
                     for (skuDetail in skuDetailsList) {
                         if (skuDetail.sku == DONATE_COOKIE_ID){
-                            cookiePrice.text = skuDetail.price
-                            cookieButton.setOnClickListener {
+                            binding.cookiePrice.text = skuDetail.price
+                            binding.cookieCard.setOnClickListener {
                                 launchPurchaseFlow(skuDetail)
                             }
                         }
                         if (skuDetail.sku == DONATE_COKE_ID){
-                            cokePrice.text = skuDetail.price
-                            cokeButton.setOnClickListener {
+                            binding.cokePrice.text = skuDetail.price
+                            binding.cokeCard.setOnClickListener {
                                 launchPurchaseFlow(skuDetail)
                             }
                         }
                         if (skuDetail.sku == DONATE_COFFEE_ID){
-                            coffeePrice.text = skuDetail.price
-                            coffeButton.setOnClickListener {
+                            binding.coffeePrice.text = skuDetail.price
+                            binding.coffeeCard.setOnClickListener {
                                 launchPurchaseFlow(skuDetail)
                             }
                         }
                         if (skuDetail.sku == DONATE_BEER_ID){
-                            beerPrice.text = skuDetail.price
-                            beerButton.setOnClickListener {
+                            binding.beerPrice.text = skuDetail.price
+                            binding.beerCard.setOnClickListener {
                                 launchPurchaseFlow(skuDetail)
                             }
                         }
                         if (skuDetail.sku == DONATE_LUNCH_ID){
-                            lunchPrice.text = skuDetail.price
-                            lunchButton.setOnClickListener {
+                            binding.lunchPrice.text = skuDetail.price
+                            binding.lunchCard.setOnClickListener {
                                 launchPurchaseFlow(skuDetail)
                             }
                         }
                         if (skuDetail.sku == DONATE_GIFT_ID){
-                            giftPrice.text = skuDetail.price
-                            giftButton.setOnClickListener {
+                            binding.giftPrice.text = skuDetail.price
+                            binding.giftCard.setOnClickListener {
                                 launchPurchaseFlow(skuDetail)
                             }
                         }
