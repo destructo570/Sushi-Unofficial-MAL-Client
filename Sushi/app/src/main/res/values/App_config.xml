@@ -12,4 +12,7 @@
 
     <string name="notification_channel_promotion" translatable="false">Promotion Notification</string>
     <string name="notification_channel_promotion_desc" translatable="false">Notifications regarding sales and promotions</string>
+
+    <string name="admob_app_id" translatable="false">ca-app-pub-7960256274116489~2992899194</string>
+    <string name="admob_banner_id" translatable="false">ca-app-pub-7960256274116489/3733034094</string>
 </resources>

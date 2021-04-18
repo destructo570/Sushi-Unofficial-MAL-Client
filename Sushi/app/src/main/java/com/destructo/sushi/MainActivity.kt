@@ -1,8 +1,6 @@
 package com.destructo.sushi
 
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +18,11 @@ import coil.load
 import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
-import com.facebook.ads.*
+import com.destructo.sushi.util.show
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,11 +37,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController:NavController
 
     private lateinit var navView:NavigationView
+    private lateinit var googleAdView :com.google.android.gms.ads.AdView
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
-    private lateinit var adContainer: LinearLayout
-    private lateinit var adView: AdView
     private lateinit var fragmentContainerView: FragmentContainerView
 
     @Inject
@@ -81,10 +82,10 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         fragmentContainerView = findViewById(R.id.nav_host_fragemnt)
         profileHeader = navView.getHeaderView(0) as ConstraintLayout
-        adContainer = findViewById(R.id.adContainer)
 
         setupDrawerLayout()
-        initializeAds()
+        initializeGoogleAdmob()
+
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
         mainViewModel.getUserInfo("anime_statistics")
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -134,44 +135,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        if(::adView.isInitialized && adView != null){
-            adView.destroy()
+        if(::googleAdView.isInitialized && googleAdView != null){
+            googleAdView.destroy()
         }
         super.onDestroy()
     }
 
-    private fun initializeAds() {
-        if (!SushiApplication.getContext().queryPurchases()){
-            AudienceNetworkAds.initialize(this@MainActivity)
-            adView = AdView(this, AdPlacementId.getId(), AdSize.BANNER_HEIGHT_50)
-            adContainer.addView(adView)
-            val adListener = object : AdListener {
-                override fun onError(p0: Ad?, p1: AdError?) {
-                    Timber.e("Error")
+    private fun initializeGoogleAdmob(){
+
+        if (!SushiApplication.getContext().queryPurchases() && !BuildConfig.DEBUG) {
+            Timber.e("Initializing Ads")
+            MobileAds.initialize(this) {}
+
+            googleAdView = findViewById(R.id.adView)
+            val adRequest = AdRequest.Builder().build()
+            googleAdView.loadAd(adRequest)
+            googleAdView.adListener = object : AdListener(){
+
+                override fun onAdFailedToLoad(p0: LoadAdError) {
+                    super.onAdFailedToLoad(p0)
+                    Timber.e("Failed To Load Ad")
                 }
 
-                override fun onAdLoaded(p0: Ad?) {
-                    Timber.e("onAdLoaded")
-                    fragmentContainerView.setPadding(0,0,0,130)
-                    adContainer.visibility = View.VISIBLE
-                }
-
-                override fun onAdClicked(p0: Ad?) {
-                    Timber.e("onAdClicked")
-                }
-
-                override fun onLoggingImpression(p0: Ad?) {
-                    Timber.e("onLoggingImpression")
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    fragmentContainerView.setPadding(0,0,0,140)
+                    googleAdView.show()
+                    Timber.e("Ad Loaded Successfully")
                 }
             }
-
-            adView.loadAd(
-                adView.buildLoadAdConfig()
-                    .withAdListener(adListener)
-                    .build()
-            )
         }
+
     }
+
 
     private fun setProfileHeaderListener(username: String?){
         profileHeader.setOnClickListener {
