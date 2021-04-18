@@ -85,6 +85,8 @@ dependencies {
     def firebase_crashlytics = "17.4.0"
     def constraint_layout_version = "2.0.4"
     def google_ads = "20.0.0"
+    def fb_ads_mediation = "6.3.0.1"
+    def mediation_test_suite = "1.5.0"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
@@ -200,17 +202,16 @@ dependencies {
     //Jsoup
     implementation "org.jsoup:jsoup:$jsoup"
 
-    //Facebook Ads SDK
-    implementation "com.facebook.android:audience-network-sdk:$fb_an_version"
-
-
     //Coil
     implementation "io.coil-kt:coil:$coil_version"
 
+    //Facebook Ads SDK
+    implementation "com.facebook.android:audience-network-sdk:$fb_an_version"
+
     //Google Ads
     implementation "com.google.android.gms:play-services-ads:$google_ads"
-    implementation 'com.google.ads.mediation:facebook:6.3.0.1'
-    implementation 'com.google.android.ads:mediation-test-suite:1.5.0'
+    implementation "com.google.ads.mediation:facebook:$fb_ads_mediation"
+    implementation "com.google.android.ads:mediation-test-suite:$mediation_test_suite"
 
 
 

@@ -19,10 +19,7 @@ import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
 import com.destructo.sushi.util.show
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController:NavController
 
     private lateinit var navView:NavigationView
-    private lateinit var googleAdView :com.google.android.gms.ads.AdView
+    private lateinit var googleAdView : AdView
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
@@ -144,7 +141,6 @@ class MainActivity : AppCompatActivity() {
     private fun initializeGoogleAdmob(){
 
         if (!SushiApplication.getContext().queryPurchases() && !BuildConfig.DEBUG) {
-            Timber.e("Initializing Ads")
             MobileAds.initialize(this) {}
 
             googleAdView = findViewById(R.id.adView)
