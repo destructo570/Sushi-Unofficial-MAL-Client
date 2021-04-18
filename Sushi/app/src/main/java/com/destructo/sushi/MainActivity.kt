@@ -1,5 +1,6 @@
 package com.destructo.sushi
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
 import coil.load
 import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.room.UserInfoDao
@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     @Inject
     lateinit var userInfoDao: UserInfoDao
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
      private val appBarConfig by lazy {
         AppBarConfiguration(
@@ -66,7 +68,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
 
         setApplicationTheme(currentTheme)

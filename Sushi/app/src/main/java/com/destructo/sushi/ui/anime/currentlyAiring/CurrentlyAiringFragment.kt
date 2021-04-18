@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
@@ -28,6 +27,7 @@ import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_all_anime_currently_airing.view.*
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CurrentlyAiringFragment : BaseFragment(), ListEndListener {
@@ -40,19 +40,19 @@ class CurrentlyAiringFragment : BaseFragment(), ListEndListener {
     private lateinit var toolbar: Toolbar
     private lateinit var currentlyAiringProgress:ProgressBar
     private lateinit var currentlyAiringPagingProgress:ProgressBar
-    private lateinit var sharedPreferences: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-
         if(savedInstanceState == null){
             currentlyAiringViewModel.clearAnimeList()
             currentlyAiringViewModel.getAnimeRankingList(null,
                 DEFAULT_PAGE_LIMIT,
-                sharedPreferences.getBoolean(NSFW_TAG, false))
+                sharedPref.getBoolean(NSFW_TAG, false))
         }
     }
 
@@ -141,7 +141,7 @@ class CurrentlyAiringFragment : BaseFragment(), ListEndListener {
     }
 
     override fun onEndReached(position: Int) {
-        currentlyAiringViewModel.getTopAnimeNextPage(sharedPreferences.getBoolean(NSFW_TAG, false))
+        currentlyAiringViewModel.getTopAnimeNextPage(sharedPref.getBoolean(NSFW_TAG, false))
     }
 
 }

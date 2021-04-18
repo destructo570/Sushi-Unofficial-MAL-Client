@@ -14,7 +14,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
@@ -41,6 +40,7 @@ import kotlinx.android.synthetic.main.inc_currently_airing.view.*
 import kotlinx.android.synthetic.main.inc_latest_news_home.view.*
 import kotlinx.android.synthetic.main.inc_promotional_home.view.*
 import kotlinx.android.synthetic.main.inc_upcoming_anime.view.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AnimeFragment : BaseFragment() {
@@ -70,7 +70,9 @@ class AnimeFragment : BaseFragment() {
     private lateinit var animeRecommProgressBar:LinearLayout
     private lateinit var newsProgressBar:LinearLayout
     private lateinit var promotionProgressBar:LinearLayout
-    private lateinit var sharedPreferences: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     private lateinit var topAnimeCard: MaterialCardView
     private lateinit var seasonalAnimeCard: MaterialCardView
@@ -80,12 +82,11 @@ class AnimeFragment : BaseFragment() {
 
         if (savedInstanceState == null) {
             setHasOptionsMenu(true)
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25", sharedPreferences.getBoolean(
+            animeViewModel.getUpcomingAnime(AnimeRankingType.UPCOMING.value, null,"25", sharedPref.getBoolean(
                 NSFW_TAG, false))
-            animeViewModel.getCurrentlyAiringAnime(AnimeRankingType.AIRING.value, null,"25", sharedPreferences.getBoolean(
+            animeViewModel.getCurrentlyAiringAnime(AnimeRankingType.AIRING.value, null,"25", sharedPref.getBoolean(
                 NSFW_TAG, false))
-            animeViewModel.getAnimeRecomm(null,"25", sharedPreferences.getBoolean(
+            animeViewModel.getAnimeRecomm(null,"25", sharedPref.getBoolean(
                 NSFW_TAG, false))
             animeViewModel.getNews()
             animeViewModel.getLatestPromotional()

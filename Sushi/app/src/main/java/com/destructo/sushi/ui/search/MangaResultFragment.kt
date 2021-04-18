@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.MANGA_ID_ARG
@@ -24,6 +23,7 @@ import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MangaResultFragment : BaseFragment() {
@@ -34,7 +34,8 @@ class MangaResultFragment : BaseFragment() {
     private lateinit var resultRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var mangaListAdapter: MangaListAdapter
-    private lateinit var sharedPref: SharedPreferences
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +55,6 @@ class MangaResultFragment : BaseFragment() {
         resultRecyclerView = binding.resultRecycler
         resultRecyclerView.layoutManager = GridLayoutManager(context,3)
         resultRecyclerView.addItemDecoration(GridSpacingItemDeco(3,25,true))
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
         progressBar = binding.resultProgressBar
 

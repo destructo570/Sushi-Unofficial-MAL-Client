@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
@@ -25,6 +24,7 @@ import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AnimeRecomFragment : BaseFragment() {
@@ -36,15 +36,16 @@ class AnimeRecomFragment : BaseFragment() {
     private lateinit var animeRecomPaginationProgressBar: LinearLayout
 
     private lateinit var toolbar: Toolbar
-    private lateinit var sharedPreferences: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     private val animeRecomViewModel:AnimeRecomViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            animeRecomViewModel.getAnimeRecomm(null, DEFAULT_PAGE_LIMIT, sharedPreferences.getBoolean(
+            animeRecomViewModel.getAnimeRecomm(null, DEFAULT_PAGE_LIMIT, sharedPref.getBoolean(
                 NSFW_TAG, false))
         }
     }

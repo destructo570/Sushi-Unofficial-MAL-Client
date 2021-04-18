@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import com.destructo.sushi.BuildConfig
 import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.R
@@ -20,8 +19,11 @@ import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.ui.purchaseActivity.PurchaseActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainSettingsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMainSettingsBinding
@@ -30,16 +32,13 @@ class MainSettingsFragment : BaseFragment() {
     private lateinit var appPreference: ConstraintLayout
     private lateinit var aboutApp: ConstraintLayout
     private lateinit var faqSection: ConstraintLayout
-    private lateinit var sharedPref: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     private lateinit var proPromo: MaterialCardView
     private lateinit var buyNowButton: MaterialButton
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

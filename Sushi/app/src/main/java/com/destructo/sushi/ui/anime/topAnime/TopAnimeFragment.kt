@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy.ALLOW
@@ -29,6 +28,7 @@ import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopAnimeFragment : BaseFragment(), AdapterView.OnItemSelectedListener, ListEndListener {
@@ -41,14 +41,14 @@ class TopAnimeFragment : BaseFragment(), AdapterView.OnItemSelectedListener, Lis
     private lateinit var toolbar: Toolbar
     private lateinit var topAnimeProgress: ProgressBar
     private lateinit var topAnimePaginationProgress: LinearLayout
-    private lateinit var sharedPref: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     private var currentRankingType:String = ALL.value
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
         if(savedInstanceState != null){
             val savedString = savedInstanceState.getString("ranking_type")

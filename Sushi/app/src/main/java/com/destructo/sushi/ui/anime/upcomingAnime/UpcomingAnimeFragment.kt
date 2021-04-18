@@ -28,6 +28,7 @@ import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_upcoming_anime.view.*
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UpcomingAnimeFragment : BaseFragment(), ListEndListener {
@@ -40,17 +41,19 @@ class UpcomingAnimeFragment : BaseFragment(), ListEndListener {
     private lateinit var toolbar: Toolbar
     private lateinit var upcomingAnimeProgress:ProgressBar
     private lateinit var upcomingAnimePaginationProgress:ProgressBar
-    private lateinit var sharedPreferences: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
         if(savedInstanceState == null){
             upcomingAnimeViewModel.clearList()
             upcomingAnimeViewModel.getUpcomingList(null,
                 DEFAULT_PAGE_LIMIT,
-                sharedPreferences.getBoolean(NSFW_TAG, false))
+                sharedPref.getBoolean(NSFW_TAG, false))
         }
     }
 
@@ -141,7 +144,7 @@ class UpcomingAnimeFragment : BaseFragment(), ListEndListener {
     }
 
     override fun onEndReached(position: Int) {
-        upcomingAnimeViewModel.getNextPage(sharedPreferences.getBoolean(NSFW_TAG, false))
+        upcomingAnimeViewModel.getNextPage(sharedPref.getBoolean(NSFW_TAG, false))
     }
 
 }

@@ -11,12 +11,15 @@ import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltAndroidApp
 class SushiApplication: Application(), PurchasesUpdatedListener {
 
     private lateinit var billingClient: BillingClient
-    private lateinit var sharedPref: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreate() {
         super.onCreate()

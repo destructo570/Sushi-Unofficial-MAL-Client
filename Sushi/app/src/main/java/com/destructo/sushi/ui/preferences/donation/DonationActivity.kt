@@ -7,18 +7,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.preference.PreferenceManager
 import com.android.billingclient.api.*
 import com.destructo.sushi.*
 import com.destructo.sushi.databinding.ActivityDonationBinding
 import com.destructo.sushi.enum.AppTheme
 import com.google.android.material.card.MaterialCardView
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
 
     private lateinit var billingClient: BillingClient
-    private lateinit var sharedPref: SharedPreferences
     private lateinit var binding: ActivityDonationBinding
     private lateinit var cookieButton: MaterialCardView
     private lateinit var cokeButton: MaterialCardView
@@ -33,18 +34,21 @@ class DonationActivity : AppCompatActivity(), PurchasesUpdatedListener {
     private lateinit var lunchPrice: TextView
     private lateinit var giftPrice: TextView
 
+    @Inject
+    lateinit var sharedPref: SharedPreferences
+
+
     private lateinit var toolbar: Toolbar
     private val skuList = listOf(DONATE_COOKIE_ID, DONATE_COKE_ID, DONATE_BEER_ID,
         DONATE_COFFEE_ID, DONATE_LUNCH_ID, DONATE_GIFT_ID)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val currentTheme = sharedPref.getString(CURRENT_THEME, AppTheme.LIGHT.value)
         setApplicationTheme(currentTheme)
 
-        super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_donation)
 
         createBillingClient()

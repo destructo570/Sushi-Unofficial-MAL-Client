@@ -13,7 +13,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.preference.PreferenceManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.*
@@ -25,6 +24,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -38,7 +38,9 @@ class SearchFragment : Fragment() {
     private lateinit var resultTabLayout: TabLayout
     private lateinit var resultTabMediator: TabLayoutMediator
     private lateinit var searchEditText: EditText
-    private lateinit var sharedPref: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreateView(
@@ -50,8 +52,6 @@ class SearchFragment : Fragment() {
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
         searchView = binding.searchView
         searchView.setIconifiedByDefault(false)

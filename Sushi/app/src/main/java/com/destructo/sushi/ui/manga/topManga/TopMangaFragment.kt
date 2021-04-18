@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.DEFAULT_PAGE_LIMIT
@@ -29,6 +28,7 @@ import com.destructo.sushi.util.GridSpacingItemDeco
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopMangaFragment : BaseFragment(), AdapterView.OnItemSelectedListener, ListEndListener {
@@ -43,12 +43,12 @@ class TopMangaFragment : BaseFragment(), AdapterView.OnItemSelectedListener, Lis
     private lateinit var mangaProgressBar: ProgressBar
     private lateinit var topMangaPaginationProgress: LinearLayout
     private var currentRankingType:String = ""
-    private lateinit var sharedPref: SharedPreferences
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
 
         if(savedInstanceState != null){
             val savedString = savedInstanceState.getString("ranking_type")
