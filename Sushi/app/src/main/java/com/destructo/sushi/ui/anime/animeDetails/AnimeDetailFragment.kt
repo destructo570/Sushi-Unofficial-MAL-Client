@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.os.bundleOf
@@ -19,7 +18,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.destructo.sushi.*
@@ -37,10 +35,7 @@ import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.*
 import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.inc_anime_alt_title.view.*
 import kotlinx.android.synthetic.main.inc_anime_detail_sub_desc.view.*
@@ -67,34 +62,20 @@ class AnimeDetailFragment : BaseFragment(),
 
     private val animeDetailViewModel: AnimeDetailViewModel by viewModels()
     private val args: AnimeDetailFragmentArgs by navArgs()
-
     private lateinit var binding: FragmentAnimeDetailBinding
+
     private var animeIdArg: Int = 0
-    private lateinit var scoreCardView: MaterialCardView
-    private lateinit var coverView: ImageView
-    private lateinit var scoreTextView: TextView
-    private lateinit var toolbar: Toolbar
-    private lateinit var appBar: AppBarLayout
-    private lateinit var collapToolbar: CollapsingToolbarLayout
-    private lateinit var genreChipGroup: ChipGroup
-    private lateinit var addToListButton: Button
-    private lateinit var animeDetailProgressBar: ProgressBar
     private var isInUserList: Int = USER_ANIME_LIST_DEFAULT
-
-    private lateinit var myListStatus: LinearLayout
-    private lateinit var myListScore: TextView
-    private lateinit var myListEpisode: TextView
-    private lateinit var myListCurrentStatus: TextView
-    private lateinit var myListRewatching: TextView
-    private lateinit var moreAnimeInfoLayout: ConstraintLayout
-    private lateinit var animeSongsLayout: LinearLayout
-
     private var animeStatus: String? = null
     private var animeEpisodes: String? = null
     private var animeScore: Int? = 0
     private var animeStartDate: String? = null
     private var animeFinishDate: String? = null
 
+    private lateinit var toolbar: Toolbar
+    private lateinit var addToListButton: Button
+    private lateinit var animeDetailProgressBar: ProgressBar
+    private lateinit var myListStatus: View
     private lateinit var characterAdapter: AnimeCharacterListAdapter
     private lateinit var staffAdapter: AnimeStaffListAdapter
     private lateinit var recommAdapter: AnimeRecommListAdapter
@@ -103,18 +84,6 @@ class AnimeDetailFragment : BaseFragment(),
     private lateinit var reviewAdapter: AnimeReviewListAdapter
     private lateinit var episodeAdapter: AnimeEpisodePreviewAdapter
 
-    private lateinit var characterRecycler: RecyclerView
-    private lateinit var staffRecycler: RecyclerView
-    private lateinit var recommRecycler: RecyclerView
-    private lateinit var relatedRecycler: RecyclerView
-    private lateinit var videoRecycler: RecyclerView
-    private lateinit var reviewRecycler: RecyclerView
-    private lateinit var episodeRecycler: RecyclerView
-
-    private lateinit var characterMore: TextView
-    private lateinit var reviewMore: TextView
-    private lateinit var staffMore: TextView
-    private lateinit var episodeMore: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,41 +111,11 @@ class AnimeDetailFragment : BaseFragment(),
             lifecycleOwner = viewLifecycleOwner
         }
 
-        scoreCardView = binding.animeScoreFab
-        scoreTextView = binding.animeScoreTxt
-        coverView = binding.root.anime_desc_cover_img
-        genreChipGroup = binding.root.genre_chip_group
         addToListButton = binding.root.add_anime_to_list
-        myListStatus = binding.myAnimeStatus
-        myListCurrentStatus = binding.root.user_anime_status_text
-        myListEpisode = binding.root.user_anime_episode_text
-        myListScore = binding.root.user_anime_score_text
-        myListRewatching = binding.root.user_anime_rewatching_text
+        myListStatus = binding.myAnimeStatus.root
         animeDetailProgressBar = binding.animeDetailProgress
-        moreAnimeInfoLayout = binding.root.anime_more_detail
-        characterRecycler = binding.root.characterRecycler
-        characterRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
-        staffRecycler = binding.root.staffRecycler
-        staffRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
-        recommRecycler = binding.root.recommRecycler
-        recommRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
-        relatedRecycler = binding.root.relatedAnimeRecycler
-        relatedRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
-        videoRecycler = binding.root.animeVideoRecycler
-        videoRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
-        episodeRecycler = binding.root.animeEpisodeRecycler
-        episodeRecycler.addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
-        val snapHelper = PagerSnapHelper()
-        reviewRecycler = binding.root.reviewsRecycler
-        snapHelper.attachToRecyclerView(reviewRecycler)
-        characterMore = binding.root.charactersMore
-        reviewMore = binding.root.reviewsMore
-        staffMore = binding.root.staffMore
-        episodeMore = binding.root.episodesMore
+
         toolbar = binding.animeDescToolbar
-        appBar = binding.animeAppBar
-        collapToolbar = binding.animeCollapsingToolbar
-        animeSongsLayout = binding.animeSongs
 
         setupListeners()
 
@@ -277,7 +216,6 @@ class AnimeDetailFragment : BaseFragment(),
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
-
             }
         }
 
@@ -329,6 +267,7 @@ class AnimeDetailFragment : BaseFragment(),
     }
 
     private fun initialiseAdapters() {
+
         characterAdapter = AnimeCharacterListAdapter(AnimeCharacterListener {
             it?.let { navigateToCharacterDetails(it) }
         })
@@ -356,20 +295,48 @@ class AnimeDetailFragment : BaseFragment(),
             }
         })
 
+        binding.root.characterRecycler.apply {
+            addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = characterAdapter
+        }
+        binding.root.staffRecycler.apply {
+            addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = staffAdapter
 
-        recommRecycler.adapter = recommAdapter
-        relatedRecycler.adapter = relatedAdapter
-        reviewRecycler.adapter = reviewAdapter
-        videoRecycler.adapter = videoAdapter
-        characterRecycler.adapter = characterAdapter
-        staffRecycler.adapter = staffAdapter
-        episodeRecycler.adapter = episodeAdapter
+        }
+        binding.root.recommRecycler.apply {
+            addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = recommAdapter
+        }
+        binding.root.relatedAnimeRecycler.apply {
+            addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = relatedAdapter
+        }
+        binding.root.animeVideoRecycler.apply {
+            addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = videoAdapter
+        }
+        binding.root.animeEpisodeRecycler.apply {
+            addItemDecoration(ListItemHorizontalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = episodeAdapter
+        }
+        binding.root.reviewsRecycler.apply {
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(this)
+            adapter = reviewAdapter
+        }
 
     }
 
     override fun onResume() {
         super.onResume()
-        appBar.addOnOffsetChangedListener(this)
+        binding.animeAppBar.addOnOffsetChangedListener(this)
     }
 
     private fun setupListeners() {
@@ -381,42 +348,43 @@ class AnimeDetailFragment : BaseFragment(),
     }
 
     private fun setCollapseToolbarListener() {
-        collapToolbar.setOnLongClickListener {
+        binding.animeCollapsingToolbar.setOnLongClickListener {
             copyAnimeTitleToClipBoard()
             return@setOnLongClickListener false
         }
     }
 
     private fun setNavigationListeners() {
-        characterMore.setOnClickListener {
+
+        binding.root.charactersMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeCharactersFragment,
                 bundleOf(Pair(MAL_ID_ARG, animeIdArg)),
                 getAnimNavOptions()
             )
         }
-        reviewMore.setOnClickListener {
+        binding.root.reviewsMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeReviewsFragment,
                 bundleOf(Pair(ANIME_ID_ARG, animeIdArg)),
                 getAnimNavOptions()
             )
         }
-        staffMore.setOnClickListener {
+        binding.root.staffMore.setOnClickListener {
             findNavController().navigate(
                 R.id.allAnimeStaffFragment,
                 bundleOf(Pair(MAL_ID_ARG, animeIdArg)),
                 getAnimNavOptions()
             )
         }
-        episodeMore.setOnClickListener {
+        binding.root.episodesMore.setOnClickListener {
             findNavController().navigate(
                 R.id.animeEpisodesFragment,
                 bundleOf(Pair(ANIME_ID_ARG, animeIdArg)),
                 getAnimNavOptions()
             )
         }
-        animeSongsLayout.setOnClickListener {
+        binding.animeSongs.setOnClickListener {
             findNavController().navigate(
                 R.id.animeSongsFragment,
                 bundleOf(Pair(ANIME_ID_ARG, animeIdArg)),
@@ -427,12 +395,12 @@ class AnimeDetailFragment : BaseFragment(),
 
 
     private fun setGenreChips(genreList: List<Genre?>) {
-        genreChipGroup.removeAllViews()
+        binding.root.genre_chip_group.removeAllViews()
         genreList.forEach { genre ->
             genre?.let {
                 val chip = Chip(context, null, R.attr.customChipStyle)
                 chip.text = it.name
-                genreChipGroup.addView(chip)
+                binding.root.genre_chip_group.addView(chip)
             }
         }
     }
@@ -451,15 +419,15 @@ class AnimeDetailFragment : BaseFragment(),
 
                         if (palette?.vibrantSwatch != null) {
                             palette.vibrantSwatch?.rgb?.let { color ->
-                                scoreCardView.setCardBackgroundColor(color)
+                                binding.animeScoreFab.setCardBackgroundColor(color)
                             }
                             palette.vibrantSwatch?.titleTextColor?.let {
-                                scoreTextView.setTextColor(it)
+                                binding.animeScoreTxt.setTextColor(it)
                             }
                         } else {
                             context?.let {
-                                scoreCardView.setCardBackgroundColor(it.getColorFromAttr(R.attr.scoreCardBackground))
-                                scoreTextView.setTextColor(it.getColorFromAttr(R.attr.scoreCardText))
+                                binding.animeScoreFab.setCardBackgroundColor(it.getColorFromAttr(R.attr.scoreCardBackground))
+                                binding.animeScoreTxt.setTextColor(it.getColorFromAttr(R.attr.scoreCardText))
                             }
 
                         }
@@ -617,18 +585,19 @@ class AnimeDetailFragment : BaseFragment(),
         animeDetailViewModel.animeDetail.value?.data?.title?.let {
             val url = BASE_MAL_ANIME_URL + animeIdArg
             val data = String.format(getString(R.string.share_anime_or_manga), it, url)
-            context?.shareText(data)        }
+            context?.shareText(data)
+        }
     }
 
     private fun copyAnimeTitleToClipBoard() {
-        animeDetailViewModel.animeDetail.value?.data?.title?.let{
+        animeDetailViewModel.animeDetail.value?.data?.title?.let {
             context?.copyToClipboard(it)
             context?.makeShortToast("${getString(R.string.copied_to_clipboard)}\n$it")
         }
     }
 
     private fun setMoreAnimeInfoClickListener() {
-        moreAnimeInfoLayout.setOnClickListener {
+        binding.animeMoreInfo.setOnClickListener {
             if (it.anime_more_detail_view.visibility != View.VISIBLE) {
                 it.anime_more_detail_view.visibility = View.VISIBLE
             } else {
