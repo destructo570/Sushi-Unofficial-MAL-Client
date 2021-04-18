@@ -36,8 +36,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/list_anime_cover"
@@ -45,7 +45,7 @@
                     android:layout_height="@dimen/item_card_image_height"
                     android:foreground="@drawable/list_item_gradient"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{voiceActing.anime.imageUrl}"
+                    imageUrl="@{voiceActing.anime.imageUrl}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,7 @@
                 <TextView
                     android:id="@+id/list_anime_title"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/item_card_text_margin_normal"
                     android:layout_marginTop="@dimen/item_card_text_margin_small"
                     android:layout_marginEnd="@dimen/item_card_text_margin_normal"
@@ -102,8 +102,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/character_image"
