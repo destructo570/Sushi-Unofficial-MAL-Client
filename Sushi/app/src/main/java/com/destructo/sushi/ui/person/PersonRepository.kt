@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.model.jikan.person.PersonEntity
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
+import timber.log.Timber
 import javax.inject.Inject
 
 class PersonRepository
@@ -21,6 +22,7 @@ constructor(
             personData.value = Resource.success(personDetails)
         } catch (e: Exception) {
             personData.value = Resource.error(e.message ?: "", null)
+            Timber.e("Error: ${e.message}")
         }
     }
 }
