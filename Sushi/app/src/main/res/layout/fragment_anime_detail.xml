@@ -84,7 +84,7 @@
                         <include
                             android:id="@+id/anime_sub_desc"
                             layout="@layout/inc_anime_detail_sub_desc"
-                            android:layout_width="500dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/margin_normal"
                             android:layout_marginTop="@dimen/margin_normal"
