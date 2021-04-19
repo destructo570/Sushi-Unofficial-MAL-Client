@@ -140,31 +140,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeGoogleAdmob(){
+        if(!BuildConfig.DEBUG){
+            if (!SushiApplication.getContext().queryPurchases()) {
+                MobileAds.initialize(this) {}
 
-        if (!SushiApplication.getContext().queryPurchases() && !BuildConfig.DEBUG) {
-            MobileAds.initialize(this) {}
+                googleAdView = findViewById(R.id.adView)
+                val adRequest = AdRequest.Builder().build()
+                googleAdView.loadAd(adRequest)
+                googleAdView.adListener = object : AdListener(){
 
-            googleAdView = findViewById(R.id.adView)
-            val adRequest = AdRequest.Builder().build()
-            googleAdView.loadAd(adRequest)
-            googleAdView.adListener = object : AdListener(){
+                    override fun onAdFailedToLoad(p0: LoadAdError) {
+                        super.onAdFailedToLoad(p0)
+                        Timber.e("Failed To Load Ad")
+                    }
 
-                override fun onAdFailedToLoad(p0: LoadAdError) {
-                    super.onAdFailedToLoad(p0)
-                    Timber.e("Failed To Load Ad")
-                }
-
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    fragmentContainerView.setPadding(0,0,0,140)
-                    googleAdView.show()
-                    Timber.e("Ad Loaded Successfully")
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        fragmentContainerView.setPadding(0,0,0,140)
+                        googleAdView.show()
+                        Timber.e("Ad Loaded Successfully")
+                    }
                 }
             }
         }
-
     }
-
 
     private fun setProfileHeaderListener(username: String?){
         profileHeader.setOnClickListener {

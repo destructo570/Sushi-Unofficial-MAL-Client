@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="latest_changelog" translatable="false">
-        \n• Version 1.1.0.8
-        \n• Add sort options in user anime/manga list
+        \n• Version 1.1.1.2
+        \n• Fixed voice actor roles not loading images
+        \n• Fixed some network and memory related issues
         \n• Updated F.A.Q section
         \n• Fixed some minor bugs
+        \n\n• Note: If you purchased pro and still see ads try clearing app data and cache.
 
-        \n Version 1.1.0.7
-        \n• Automatically set number of watched or read ep/ch to max when changing the status to completed
-        \n• Added F.A.Q section
-        \n• Added User friend list in profile section
-        \n• Added User anime list in profile section
-        \n• Added User manga list in profile section
-        \n• Added transition animations
-        \n• Added separate channel for promotional push notifications
-        \n• Reworked login flow
-        \n• Changed stats graph colors
-        \n• Fixed anime/manga items getting cropped in character fragment
-        \n• Fixed images loading with wrong aspect ratios
-        \n• Fixed change log dialog flicker issue
-        \n• Fixed some links not opening is sushi
-        \n• Fixed some ui and layout issues \n
     </string>
 </resources>

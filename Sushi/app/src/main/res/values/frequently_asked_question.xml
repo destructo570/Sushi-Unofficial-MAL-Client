@@ -2,6 +2,7 @@
 <resources>
     <string-array name="questions">
         <item>The app is crashing/ I found a bug.</item>
+        <item>I purchased Pro version but I still see ads.</item>
         <item>Where should I submit feature requests and suggestions?</item>
         <item>Why does this app not have features like forums, sending friend requests, commenting and other features?</item>
         <item>Why can\'t I see some people\'s anime/manga list?</item>
@@ -11,7 +12,8 @@
     </string-array>
 
     <string-array name="answers">
-        <item>Try clearing the app data/ cache and reinstalling the app. Maybe even try restarting your device afterwards. If the problem persists, post it in our Discord server or send an email. Some (hopefully ☜(ﾟヮﾟ☜) ) kind individuals will try their best to help you out. 😃</item>
+        <item>Try clearing the app data, cache and reinstalling the app. Maybe even try restarting your device afterwards. If the problem persists, post it in our Discord server or send an email. Some (hopefully ☜(ﾟヮﾟ☜) ) kind individuals will try their best to help you out. 😃</item>
+        <item>Try clearing the app data and cache, If that doesn\'t work reinstall the app.</item>
         <item>You can leave any requests or suggestions on our Discord server.</item>
         <item>Currently the official MAL API (the interface required for exchanging data with the website) is limited in features and doesn\'t offer any of the social features. If/ When MAL adds those to their API, we will add them to the app as well.</item>
         <item>You can\'t see someone\'s anime/ manga list from profile section if it\'s private, even if it\'s your own. This data is not provided by the APIs used.</item>

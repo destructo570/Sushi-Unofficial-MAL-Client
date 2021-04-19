@@ -28,7 +28,6 @@ class PurchaseActivity : AppCompatActivity(), PurchasesUpdatedListener {
     private lateinit var imagePagerAdapter:ImagePagerAdapter
     private lateinit var promoViewPager: ViewPager2
     private lateinit var binding:ActivityPurchaseBinding
-    private val  sushiSkuMap = mutableMapOf<String, SkuDetails>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
