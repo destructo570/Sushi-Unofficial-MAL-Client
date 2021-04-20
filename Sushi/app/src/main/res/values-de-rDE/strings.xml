@@ -12,6 +12,7 @@
     <string name="promotion">Promos</string>
     <string name="settings">Einstellungen</string>
     <string name="about_app">Über die App</string>
+    <string name="faq">Häufig gestellte Fragen (F.A.Q.)</string>
     <string name="title_anime">ANIME</string>
     <string name="title_manga">MANGA</string>
     <string name="title_other">SONSTIGES</string>
@@ -58,6 +59,7 @@
     <string name="type">Typ: </string>
     <string name="status">Status: </string>
     <string name="rating">Bewertung: </string>
+    <string name="status_score">Bewertung: </string>
     <string name="episodes">Episoden: </string>
     <string name="start_season">Start-Season: </string>
     <string name="rewatching">Erneut am Schauen: </string>
@@ -78,8 +80,10 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Beliebtheit</string>
     <string name="favorites">Favoriten</string>
-    <string name="score">Bewertung</string>
-    <string name="status_score">Bewertung: </string>
+    <string name="score">Bewertung: </string>
+    <string name="friend_list">Freunde</string>
+    <string name="anime_list">Anime-Liste</string>
+    <string name="manga_list">Manga-Liste</string>
     <string name="content_description_filter">Die Liste nach Jahr und Season filtern.</string>
     <!-- Seasonal Anime String -->
     <string name="year">Jahr</string>
@@ -145,6 +149,8 @@
     <string name="pref_desc_look_and_feel">Designs und andere Anpassungen</string>
     <string name="pref_title_about_app">Über die App</string>
     <string name="pref_desc_about_app">Entwickler und App-Lizenzen</string>
+    <string name="pref_title_faq">F.A.Q.</string>
+    <string name="pref_desc_faq">Antworten auf eingige der häufig gestellte Fragen</string>
     <string name="pref_title_app_settings">App-Einstellungen</string>
     <string name="pref_desc_app_settings">App-bezogene Einstellungen ändern</string>
     <string name="pref_title_discord">Trete dem Discord-Server bei</string>
@@ -160,7 +166,12 @@
     <string name="pref_title_open_source_license">Open-Source-Lizenz</string>
     <string name="pref_desc_open_source_license">Liste der Open-Source-Lizenzen.</string>
     <string name="pref_title_app_version">App-Version</string>
+    <string name="pref_title_translate">Übersetze Sushi</string>
+    <string name="pref_desc_translate">Hilf uns Sushi in deine Muttersprache zu übersetzen.</string>
+    <string name="pref_title_credits">Credits</string>
+    <string name="pref_desc_credits">Diese App wäre ohne den Beitrag dieser Personen nicht möglich.</string>
     <string name="title_buy_now">Pro zum Freischalten kaufen</string>
+    <!-- Credits -->
     <!-- Anime Review Score Strings-->
     <string name="animation">Animation: </string>
     <string name="art">Kunst: </string>
@@ -255,4 +266,11 @@
     <string name="people">Leute</string>
     <string name="confirm_logout">Ausloggen bestätigen</string>
     <string name="confirm_logout_message">Bist du sicher, dass du dich ausloggen möchtest?</string>
+    <string name="promo_title">Kaufe Sushi Pro um Folgendes freizuschalten</string>
+    <string name="promo_description">• Keine lästige Werbung.
+        \n• Dark Theme, Night Theme und AMOLED Theme.
+        \n• Unterstütze und halte dieses Projekt am Leben.
+        \n• Oh, und keine lästigen Nachrichten wie diese ;)
+    </string>
+    <string name="buy_now">Jetzt kaufen</string>
 </resources>

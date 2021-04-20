@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="my_anime_list">Minha Lista de Anime</string>
+    <string name="my_anime_list">Minha Lista de Animes</string>
     <string name="my_manga_list">Minha Lista de Mangás</string>
     <string name="logout">Sair desta conta</string>
-    <string name="browse_anime">Navegar por anime</string>
+    <string name="browse_anime">Navegar Animes</string>
     <string name="anime_schedule">Programação de Anime</string>
-    <string name="browse_manga">Navegar por Mangá</string>
-    <string name="clubs">Grupos</string>
+    <string name="browse_manga">Navegar Mangás</string>
+    <string name="clubs">Clubes</string>
     <string name="forum">Fórum</string>
-    <string name="news">Novidades/Artigos</string>
+    <string name="news">Notícias/Artigos</string>
     <string name="promotion">Conteúdo Promocional</string>
     <string name="settings">Configurações</string>
-    <string name="about_app">Sobre o aplicativo</string>
+    <string name="about_app">Sobre o app</string>
+    <string name="faq">Perguntas frequentes</string>
     <string name="title_anime">ANIME</string>
     <string name="title_manga">MANGÁ</string>
     <string name="title_other">Outros</string>
-    <string name="title_preferences">CONFIGURAÇÕES DO APLICATIVO</string>
-    <string name="title_search_mal">Pesquisar em MAL</string>
+    <string name="title_preferences">CONFIGURAÇÕES DO APP</string>
+    <string name="title_search_mal">Pesquisar no MAL</string>
     <string name="title_support_development">Apoie o desenvolvimento</string>
     <!-- Anime Section Titles -->
     <string name="top_anime">Top Animes</string>
     <string name="top_manga">Top Mangás</string>
-    <string name="currently_airing">Atualmente sendo exibido</string>
+    <string name="currently_airing">Em exibição</string>
     <string name="latest_news">Últimas Notícias</string>
-    <string name="latest_promotional_content">Últimas promoções</string>
+    <string name="latest_promotional_content">Últimos Promocionais</string>
     <string name="upcoming_anime">Animes futuros</string>
     <string name="user_anime_recom">Recomendações de Anime</string>
     <string name="seasonal_anime">Temporada</string>
-    <string name="see_all">Ver todos</string>
-    <string name="all_characters">Todos os personagens</string>
-    <string name="all_reviews">Todas as Avaliações</string>
-    <string name="all_anime_staff">Toda a Staff do Anime</string>
+    <string name="see_all">Ver Tudo</string>
+    <string name="all_characters">Todos os Personagens</string>
+    <string name="all_reviews">Todas as Resenhas</string>
+    <string name="all_anime_staff">Toda as Staffs de Anime</string>
     <!-- Fake Test Data -->
-    <string name="filter">Filtros</string>
-    <string name="apply_filter">Aplicar Filtros</string>
+    <string name="filter">Filtrar</string>
+    <string name="apply_filter">Aplicar Filtro</string>
     <string name="cancel">Cancelar</string>
     <string name="sort_by">Ordenar por</string>
     <string name="sort_by_title">Título</string>
-    <string name="sort_by_score">Pontuação</string>
+    <string name="sort_by_score">Nota</string>
     <string name="sort_by_updated">Última atualização</string>
     <string name="monday">Segunda-feira</string>
     <string name="tuesday">Terça-feira</string>
@@ -58,10 +59,11 @@
     <string name="type">Tipo: </string>
     <string name="status">Status: </string>
     <string name="rating">Classificação: </string>
+    <string name="status_score">Nota: </string>
     <string name="episodes">Episódios: </string>
-    <string name="start_season">Início da Temporada: </string>
+    <string name="start_season">Temporada Inicial: </string>
     <string name="rewatching">Reassistindo: </string>
-    <string name="episode_duration">Duração do Ep: </string>
+    <string name="episode_duration">Duração de Ep: </string>
     <string name="chapters">Capítulos: </string>
     <string name="volumes">Volumes: </string>
     <string name="start_date">Data de início: </string>
@@ -78,16 +80,18 @@
     <string name="manhua">Manhua</string>
     <string name="popularity">Popularidade</string>
     <string name="favorites">Favoritos</string>
-    <string name="score">Pontuação</string>
-    <string name="status_score">Pontuação: </string>
+    <string name="score">Nota </string>
+    <string name="friend_list">Amigos</string>
+    <string name="anime_list">Lista de Animes</string>
+    <string name="manga_list">Lista de Mangás</string>
     <string name="content_description_filter">Filtre a lista por ano e temporadas.</string>
     <!-- Seasonal Anime String -->
     <string name="year">Ano</string>
     <string name="season">Temporada</string>
     <string name="synopsis">Sinopse</string>
-    <string name="characters">Todos os personagens</string>
-    <string name="staff">Equipe</string>
-    <string name="reviews">Avaliações</string>
+    <string name="characters">Personagens</string>
+    <string name="staff">Staff</string>
+    <string name="reviews">Resenhas</string>
     <string name="related_anime">Animes Relacionados</string>
     <string name="related_manga">Mangás Relacionados</string>
     <string name="recommendations">Recomendações</string>
@@ -101,24 +105,24 @@
     <string name="plan_to_read">Planejo ler</string>
     <!-- Character Section Titles -->
     <string name="about">Sobre</string>
-    <string name="voice_actor">Dubladores</string>
+    <string name="voice_actor">Atores de Voz</string>
     <string name="animeography">Animeografia</string>
-    <string name="mangaography">Mangáografia</string>
+    <string name="mangaography">Mangaografia</string>
     <!-- User Anime/Manga Update -->
-    <string name="volume">Volumes </string>
+    <string name="volume">Volume </string>
     <string name="save">Atualizar</string>
-    <string name="remove">Excluir</string>
+    <string name="remove">Remover</string>
     <!-- User Anime/Manga Score -->
     <string name="nothing">--</string>
-    <string name="score_one">1 (Terrível)</string>
+    <string name="score_one">1 (Abominável)</string>
     <string name="score_two">2 (Horrível)</string>
     <string name="score_three">3 (Muito Ruim)</string>
     <string name="score_four">4 (Ruim)</string>
-    <string name="score_five">5 (Médio)</string>
-    <string name="score_six">6 (Legal)</string>
+    <string name="score_five">5 (Mediano)</string>
+    <string name="score_six">6 (Aceitável)</string>
     <string name="score_seven">7 (Bom)</string>
     <string name="score_eight">8 (Muito Bom)</string>
-    <string name="score_nine">9 (Ótimo)</string>
+    <string name="score_nine">9 (Excelente)</string>
     <string name="score_ten">10 (Obra-prima)</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
@@ -134,33 +138,40 @@
     <string name="social_dribbble">Dribbble</string>
     <!-- Login screen -->
     <string name="welcome_to_sushi_title">Bem-vindo ao Sushi</string>
-    <string name="welcome_text">Seu novo amigo para ajudá-lo a navegar no MyAnimeList e gerenciar sua Biblioteca de Animes/Mangás.\n Vamos começar!</string>
+    <string name="welcome_text">Seu novo amigo para ajudá-lo a navegar no MyAnimeList e gerenciar sua biblioteca de Animes e Mangás com facilidade.\n Vamos começar!</string>
     <string name="login_button_text">Entrar com MyAnimeList</string>
     <!-- Preference -->
     <string name="pref_title_general">Geral</string>
-    <string name="pref_nsfw">Mostrar conteúdo adulto</string>
-    <string name="pref_nsfw_description">Mostrar/ocultar conteúdo adulto</string>
+    <string name="pref_nsfw">Exibir conteúdo NSFW</string>
+    <string name="pref_nsfw_description">Exibir/Ocultar conteúdo NSFW</string>
     <string name="pref_theme">Tema</string>
     <string name="pref_title_look_and_feel">Aparência e Comportamento</string>
     <string name="pref_desc_look_and_feel">Temas e outras personalizações</string>
-    <string name="pref_title_about_app">Sobre o aplicativo</string>
+    <string name="pref_title_about_app">Sobre o app</string>
     <string name="pref_desc_about_app">Desenvolvedores e licenças de app</string>
-    <string name="pref_title_app_settings">Configurações do aplicativo</string>
-    <string name="pref_desc_app_settings">Alterar as configurações relacionadas ao aplicativo</string>
+    <string name="pref_title_faq">F.A.Q</string>
+    <string name="pref_desc_faq">Respostas para algumas perguntas comuns</string>
+    <string name="pref_title_app_settings">Configurações do app</string>
+    <string name="pref_desc_app_settings">Alterar as configurações relacionadas ao app</string>
     <string name="pref_title_discord">Entre no Servidor do Discord</string>
-    <string name="pref_desc_discord">Para relatar erros, solicitar funções/sugestões etc.</string>
+    <string name="pref_desc_discord">Para reportar erros, solicitações/sugestões de função etc.</string>
     <string name="pref_title_rate_app">Avalie o app</string>
-    <string name="pref_changelog_title">Alterações</string>
-    <string name="pref_changelog_desc">Veja o log completo de alterações da versão atual</string>
-    <string name="pref_desc_rate_app">Por favor, deixe uma avaliação se você gosta do aplicativo.</string>
-    <string name="pref_title_send_feedback">Enviar Comentários</string>
-    <string name="pref_desc_send_feedback">Envie seus comentários e sugestões.</string>
+    <string name="pref_changelog_title">Registro de Mudanças</string>
+    <string name="pref_changelog_desc">Veja o histórico de alterações completo da versão atual</string>
+    <string name="pref_desc_rate_app">Por favor, deixe uma avaliação se você gosta do app.</string>
+    <string name="pref_title_send_feedback">Enviar Feedback</string>
+    <string name="pref_desc_send_feedback">Envie seu feedback e sugestões.</string>
     <string name="pref_title_donation">Doar</string>
     <string name="pref_desc_donate_desc">Se você quiser me apoiar e o desenvolvimento, você pode doar aqui</string>
-    <string name="pref_title_open_source_license">Licença de Código Aberto</string>
+    <string name="pref_title_open_source_license">Licenças de Código Aberto</string>
     <string name="pref_desc_open_source_license">Lista de licenças de código aberto.</string>
     <string name="pref_title_app_version">Versão do App</string>
+    <string name="pref_title_translate">Traduzir Sushi</string>
+    <string name="pref_desc_translate">Ajude-nos a traduzir o sushi para o seu idioma.</string>
+    <string name="pref_title_credits">Créditos</string>
+    <string name="pref_desc_credits">Este app não seria possível sem a contribuição dessas pessoas.</string>
     <string name="title_buy_now">Compre o Pro para desbloquear</string>
+    <!-- Credits -->
     <!-- Anime Review Score Strings-->
     <string name="animation">Animação: </string>
     <string name="art">Arte: </string>
@@ -170,17 +181,17 @@
     <string name="sound">Som: </string>
     <string name="story">História: </string>
     <!-- Person Section -->
-    <string name="voice_acting">Dubladores</string>
-    <string name="anime_staff_role">Toda a Staff do Anime</string>
-    <string name="published_manga">Mangá publicado</string>
+    <string name="voice_acting">Atuação de Voz</string>
+    <string name="anime_staff_role">Staff de Anime</string>
+    <string name="published_manga">Mangás Publicados</string>
     <string name="share_item">Compartilhar</string>
     <string name="copy_title">Copiar título</string>
     <string name="open_in_browser">Abrir no navegador</string>
     <string name="share_using">Compartilhar usando</string>
     <string name="donation_succesfull">Obrigado pelo seu apoio!</string>
-    <string name="buy_me_a">Me compre um:</string>
+    <string name="buy_me_a">Me pague um:</string>
     <string name="update_start_date">Data de início:</string>
-    <string name="update_finish_date">Data de conclusão:</string>
+    <string name="update_finish_date">Data de término:</string>
     <string name="pick_a_start_date">Escolha a data inicial</string>
     <string name="pick_a_finish_date">Escolha a data final</string>
     <string name="today">Definir Hoje</string>
@@ -209,28 +220,28 @@
     <string name="more_info_volumes">Volumes</string>
     <string name="more_info_authors">Autores</string>
     <string name="more_info_published">Publicado</string>
-    <string name="search_myanimelist">Pesquisar em MyAnimeList</string>
+    <string name="search_myanimelist">Pesquisar no MyAnimeList</string>
     <string name="anime_statistics">Estatísticas de Anime</string>
     <string name="manga_statistics">Estatísticas de Mangá</string>
     <string name="profile_watching">Assistindo: %d</string>
     <string name="profile_completed">Concluído: %d</string>
     <string name="profile_on_hold">Em espera: %d</string>
     <string name="profile_dropped">Abandonados: %d</string>
-    <string name="profile_ptw">PTW: %d</string>
+    <string name="profile_ptw">Planejo assistir: %d</string>
     <string name="profile_total">Total: %d</string>
     <string name="profile_days">Dias</string>
     <string name="profile_episodes">Episódios</string>
-    <string name="profile_mean_score">Pontuação Média</string>
-    <string name="profile_rewatched">Reassistindo</string>
+    <string name="profile_mean_score">Nota Média</string>
+    <string name="profile_rewatched">Reassistido</string>
     <string name="profile_reading">Lendo: %d</string>
-    <string name="profile_ptr">PTR: %d</string>
+    <string name="profile_ptr">Planejo ler: %d</string>
     <string name="profile_chapters">Capítulos</string>
     <string name="profile_volumes">Volumes</string>
     <string name="profile_reread">Relendo</string>
-    <string name="anime_review_subtitle">Pontuação geral: %d • %d Episódios Visualizados</string>
-    <string name="manga_review_subtitle">Pontuação geral: %d • %d Capítulos lidos</string>
+    <string name="anime_review_subtitle">Nota Geral: %d • %d Episódios Vistos</string>
+    <string name="manga_review_subtitle">Nota Geral: %d • %d Capítulos Lidos</string>
     <string name="people_found_helpful">%d Pessoas acham isto útil</string>
-    <string name="overall_score">Pontuação geral:\u0020</string>
+    <string name="overall_score">Nota geral:\u0020</string>
     <string name="episodes_seen">Episódios vistos:\u0020</string>
     <string name="people_found_this_helpful">\u0020Pessoas acham isto útil</string>
     <string name="review_chapters_read">Capítulos lidos:</string>
@@ -255,4 +266,11 @@
     <string name="people">Pessoas</string>
     <string name="confirm_logout">Confirmar saída</string>
     <string name="confirm_logout_message">Tem certeza de que deseja sair?</string>
+    <string name="promo_title">Compre o Sushi Pro para ganhar</string>
+    <string name="promo_description">• Sem anúncios irritantes.
+        \n• Tema escuro, tema noturno e tema Amoled.
+        \n• Apoie e mantenha esse projeto vivo.
+        \n• E, ah, chega de mensagens irritantes como esta ;)
+    </string>
+    <string name="buy_now">Compre Agora</string>
 </resources>
