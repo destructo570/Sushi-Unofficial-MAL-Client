@@ -17,7 +17,6 @@ import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.listener.AddChapterListener
 import com.destructo.sushi.listener.ListEndListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.database.UserMangaEntity
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,13 +66,10 @@ class UserMangaCompleted : BaseFragment() {
         userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) {
-            val droppedList = mutableListOf<UserMangaEntity>()
-            for (manga in it) {
-                if (manga.myMangaListStatus?.status == UserMangaStatus.COMPLETED.value) {
-                    droppedList.add(manga)
-                }
-            }
-            userMangaAdapter.submitList(droppedList)
+            userMangaAdapter.submitList(
+                userMangaViewModel.getMangaListByStatus(
+                    UserMangaStatus.COMPLETED.value)
+            )
         }
 
     }

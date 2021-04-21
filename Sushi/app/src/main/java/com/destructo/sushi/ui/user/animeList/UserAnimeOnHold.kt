@@ -17,7 +17,6 @@ import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,13 +69,10 @@ class UserAnimeOnHold : BaseFragment() {
         userAnimeRecycler.adapter = userAnimeAdapter
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            val onHoldList = mutableListOf<UserAnimeEntity>()
-            for (anime in it) {
-                if (anime.myAnimeListStatus?.status == UserAnimeStatus.ON_HOLD.value) {
-                    onHoldList.add(anime)
-                }
-            }
-            userAnimeAdapter.submitList(onHoldList)
+            userAnimeAdapter.submitList(
+                userAnimeViewModel.getAnimeListByStatus(
+                    UserAnimeStatus.ON_HOLD.value)
+            )
         }
     }
 

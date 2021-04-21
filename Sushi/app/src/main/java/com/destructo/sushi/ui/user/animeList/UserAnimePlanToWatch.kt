@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.LIST_SPACE_HEIGHT
 import com.destructo.sushi.R
@@ -17,7 +15,6 @@ import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,9 +26,6 @@ class UserAnimePlanToWatch : BaseFragment() {
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels(ownerProducer = { requireParentFragment() })
     private lateinit var userAnimeAdapter: UserAnimeListAdapter
-    private lateinit var userAnimeRecycler: RecyclerView
-    private lateinit var userAnimeProgressbar: ProgressBar
-    private lateinit var userAnimePaginationProgressbar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,12 +35,6 @@ class UserAnimePlanToWatch : BaseFragment() {
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
-
-        userAnimeRecycler = binding.userAnimeRecycler
-        userAnimeRecycler.addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
-        userAnimeRecycler.setHasFixedSize(true)
-        userAnimeProgressbar = binding.userAnimeListProgressbar
-        userAnimePaginationProgressbar = binding.userAnimeListPaginationProgressbar
 
         return binding.root
     }
@@ -68,16 +56,18 @@ class UserAnimePlanToWatch : BaseFragment() {
             }, false
         )
 
-        userAnimeRecycler.adapter = userAnimeAdapter
+        binding.userAnimeRecycler.apply {
+            addItemDecoration(ListItemVerticalDecor(LIST_SPACE_HEIGHT))
+            setHasFixedSize(true)
+            adapter = userAnimeAdapter
+
+        }
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            val ptwList = mutableListOf<UserAnimeEntity>()
-            for (anime in it) {
-                if (anime.myAnimeListStatus?.status == UserAnimeStatus.PLAN_TO_WATCH.value) {
-                    ptwList.add(anime)
-                }
-            }
-            userAnimeAdapter.submitList(ptwList)
+            userAnimeAdapter.submitList(
+                userAnimeViewModel.getAnimeListByStatus(
+                    UserAnimeStatus.PLAN_TO_WATCH.value)
+            )
         }
     }
 
@@ -88,5 +78,6 @@ class UserAnimePlanToWatch : BaseFragment() {
             getAnimNavOptions()
         )
     }
+
 
 }

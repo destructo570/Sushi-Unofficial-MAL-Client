@@ -4,6 +4,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.destructo.sushi.enum.UserMangaListSort
+import com.destructo.sushi.model.database.UserMangaEntity
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.Resource
@@ -42,6 +43,10 @@ constructor(
 
     fun getNextPage(){
         viewModelScope.launch{ myMangaListRepo.getNextPage() }
+    }
+
+    fun getMangaListByStatus(status: String): List<UserMangaEntity>?{
+        return userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
     }
 
     fun setSortType(sort_by: String) {

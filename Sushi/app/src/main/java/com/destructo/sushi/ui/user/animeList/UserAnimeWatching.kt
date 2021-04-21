@@ -17,7 +17,6 @@ import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.network.Status
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
@@ -101,16 +100,11 @@ class UserAnimeWatching : BaseFragment() {
         }
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            val watchList = mutableListOf<UserAnimeEntity>()
-            for (anime in it) {
-                if (anime.myAnimeListStatus?.status == UserAnimeStatus.WATCHING.value) {
-                    watchList.add(anime)
-                }
-            }
-
-            userAnimeAdapter.submitList(watchList)
+            userAnimeAdapter.submitList(
+                userAnimeViewModel.getAnimeListByStatus(
+                    UserAnimeStatus.WATCHING.value)
+            )
         }
-
     }
 
 

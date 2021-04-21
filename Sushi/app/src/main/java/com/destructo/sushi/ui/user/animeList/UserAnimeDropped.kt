@@ -17,7 +17,6 @@ import com.destructo.sushi.databinding.FragmentUserAnimeListBinding
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.listener.AddEpisodeListener
 import com.destructo.sushi.listener.MalIdListener
-import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.ListItemVerticalDecor
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,13 +73,10 @@ class UserAnimeDropped : BaseFragment() {
 
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            val droppedList = mutableListOf<UserAnimeEntity>()
-            for (anime in it) {
-                if (anime.myAnimeListStatus?.status == UserAnimeStatus.DROPPED.value) {
-                    droppedList.add(anime)
-                }
-            }
-            userAnimeAdapter.submitList(droppedList)
+            userAnimeAdapter.submitList(
+                userAnimeViewModel.getAnimeListByStatus(
+                    UserAnimeStatus.DROPPED.value)
+            )
         }
     }
 

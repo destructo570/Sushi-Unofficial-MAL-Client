@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.destructo.sushi.ANIME_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
 import com.destructo.sushi.enum.UserAnimeListSort
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MyAnimeListFragment : Fragment() {
+class MyAnimeListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMyAnimeListBinding
     private lateinit var myAnimeListPagerAdapter: FragmentBasePgerAdapter
@@ -49,7 +53,6 @@ class MyAnimeListFragment : Fragment() {
             .inflate(inflater, container, false).apply {
                 lifecycleOwner = viewLifecycleOwner
             }
-
         myAnimeListViewPager = binding.myAnimeListPager
         myAnimeListTabLayout = binding.myAnimeListTablayout
         toolbar = binding.toolbar
@@ -60,7 +63,6 @@ class MyAnimeListFragment : Fragment() {
                 when (position) {
                     0 -> {
                         tab.text = getString(R.string.watching)
-                        tab.customView
                     }
                     1 -> {
                         tab.text = getString(R.string.plan_to_watch)
@@ -76,6 +78,38 @@ class MyAnimeListFragment : Fragment() {
                     }
                 }
             }
+
+        myAnimeListViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserAnimeStatus.WATCHING.value)
+                        }
+                    }
+                    1 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserAnimeStatus.PLAN_TO_WATCH.value)
+                        }
+                    }
+                    2 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserAnimeStatus.ON_HOLD.value)
+                        }
+                    }
+                    3 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserAnimeStatus.DROPPED.value)
+                        }
+                    }
+                    4 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserAnimeStatus.COMPLETED.value)
+                        }
+                    }
+                }
+            }
+        })
 
         return binding.root
     }
@@ -143,6 +177,7 @@ class MyAnimeListFragment : Fragment() {
 
     }
 
+
     private fun setupToolbar() {
         setHasOptionsMenu(true)
         toolbar.setNavigationIcon(R.drawable.ic_menu_fill)
@@ -172,7 +207,21 @@ class MyAnimeListFragment : Fragment() {
                 else -> super.onOptionsItemSelected(item)
             }
 
-
         }
     }
+
+
+    private fun navigateToAnimeDetails(animeMalId: Int) {
+        this.findNavController().navigate(
+            R.id.animeDetailFragment,
+            bundleOf(Pair(ANIME_ID_ARG, animeMalId)),
+            getAnimNavOptions()
+        )
+    }
+
+    private fun navigateToRandomAnime(status: String){
+       val malId = userAnimeViewModel.getRandomAnime(status)
+        malId?.let{ navigateToAnimeDetails(it) }
+    }
+
 }
