@@ -49,6 +49,15 @@ constructor(
         return userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
     }
 
+    fun getRandomManga(status: String): Int? {
+        val list = getMangaListByStatus(status)
+        if (!list.isNullOrEmpty()){
+            return list.random().malId
+        }
+        return null
+    }
+
+
     fun setSortType(sort_by: String) {
         userSortType.value = Event(sort_by)
     }

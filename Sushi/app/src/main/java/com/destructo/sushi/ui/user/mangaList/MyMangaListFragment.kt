@@ -1,29 +1,36 @@
 package com.destructo.sushi.ui.user.mangaList
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.destructo.sushi.IS_PRO_USER
+import com.destructo.sushi.MANGA_ID_ARG
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentMyMangaListBinding
 import com.destructo.sushi.enum.UserAnimeListSort
 import com.destructo.sushi.enum.UserMangaListSort
+import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.network.Status
+import com.destructo.sushi.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyMangaListFragment : Fragment() {
+class MyMangaListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMyMangaListBinding
     private lateinit var toolbar: Toolbar
@@ -34,6 +41,9 @@ class MyMangaListFragment : Fragment() {
     private lateinit var myMangaListTabMediator: TabLayoutMediator
     private val userMangaViewModel: UserMangaViewModel by viewModels()
     private lateinit var progressBar: ProgressBar
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +66,12 @@ class MyMangaListFragment : Fragment() {
         toolbar = binding.toolbar
         progressBar = binding.progressbar
 
+        if (sharedPref.getBoolean(IS_PRO_USER, false)){
+            binding.randomFab.show()
+        }else{
+            binding.randomFab.hide()
+        }
+
         myMangaListTabMediator =
             TabLayoutMediator(myMangaListTabLayout, myMangaListViewPager) { tab, position ->
                 when (position) {
@@ -76,6 +92,39 @@ class MyMangaListFragment : Fragment() {
                     }
                 }
             }
+
+
+        myMangaListViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserMangaStatus.READING.value)
+                        }
+                    }
+                    1 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserMangaStatus.PLAN_TO_READ.value)
+                        }
+                    }
+                    2 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserMangaStatus.ON_HOLD.value)
+                        }
+                    }
+                    3 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserMangaStatus.DROPPED.value)
+                        }
+                    }
+                    4 -> {
+                        binding.randomFab.setOnClickListener {
+                            navigateToRandomAnime(UserMangaStatus.COMPLETED.value)
+                        }
+                    }
+                }
+            }
+        })
 
         return binding.root
     }
@@ -165,5 +214,18 @@ class MyMangaListFragment : Fragment() {
 
         }
 
+    }
+
+    private fun navigateToRandomAnime(status: String){
+        val malId = userMangaViewModel.getRandomManga(status)
+        malId?.let{ navigateToMangaDetails(it) }
+    }
+
+    private fun navigateToMangaDetails(mangaIdArg: Int){
+        this.findNavController().navigate(
+            R.id.mangaDetailsFragment,
+            bundleOf(Pair(MANGA_ID_ARG, mangaIdArg)),
+            getAnimNavOptions()
+        )
     }
 }

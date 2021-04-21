@@ -50,5 +50,17 @@
             android:layout_gravity="center"
             />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/random_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_question_line"
+            app:backgroundTint="?attr/colorAccent"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
