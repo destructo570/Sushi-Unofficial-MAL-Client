@@ -1,5 +1,6 @@
 package com.destructo.sushi.ui.user.animeList
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.destructo.sushi.ANIME_ID_ARG
+import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.R
 import com.destructo.sushi.adapter.pagerAdapter.FragmentBasePgerAdapter
 import com.destructo.sushi.databinding.FragmentMyAnimeListBinding
@@ -22,6 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyAnimeListFragment : BaseFragment() {
@@ -33,6 +36,9 @@ class MyAnimeListFragment : BaseFragment() {
     private lateinit var myAnimeListTabMediator: TabLayoutMediator
     private lateinit var toolbar: Toolbar
     private lateinit var progressBar: ProgressBar
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
 
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels()
@@ -57,6 +63,12 @@ class MyAnimeListFragment : BaseFragment() {
         myAnimeListTabLayout = binding.myAnimeListTablayout
         toolbar = binding.toolbar
         progressBar = binding.progressbar
+
+        if (sharedPref.getBoolean(IS_PRO_USER, false)){
+            binding.randomFab.show()
+        }else{
+            binding.randomFab.hide()
+        }
 
         myAnimeListTabMediator =
             TabLayoutMediator(myAnimeListTabLayout, myAnimeListViewPager) { tab, position ->
