@@ -16,11 +16,13 @@ data class UserMangaEntity (
     val title: String?=null,
     val score: Double?=null,
     val myMangaListStatus: MyMangaListStatus?=null,
+    val myStatus: String? = null,
     var media_type: String?=null,
     var numChapters: Int?=null,
     val mainPicture: MainPicture?=null,
+    override val time: Long = System.currentTimeMillis(),
 
-    ){
+    ): BaseDatabaseEntity{
 
     companion object {
         private fun fromUpdateUserManga(data: UserMangaData): UserMangaEntity {
@@ -32,7 +34,8 @@ data class UserMangaEntity (
                 mainPicture = data.manga.mainPicture,
                 numChapters = data.manga.numChapters,
                 score = data.manga.mean,
-                myMangaListStatus = data.manga.myMangaListStatus
+                myMangaListStatus = data.manga.myMangaListStatus,
+                myStatus = data.manga.myMangaListStatus?.status
             )
         }
 

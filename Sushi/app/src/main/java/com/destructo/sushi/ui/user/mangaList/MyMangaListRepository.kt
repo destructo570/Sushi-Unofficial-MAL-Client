@@ -21,7 +21,7 @@ constructor(
     private val userMangaDao: UserMangaDao
 ) {
 
-    var userMangaList: MutableLiveData<Resource<UserMangaList>> = MutableLiveData()
+    var userMangaList: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
 
     var userMangaStatus: MutableLiveData<Resource<UpdateUserManga>> = MutableLiveData()
 
@@ -30,46 +30,49 @@ constructor(
     suspend fun getNextPage() {
 
         if (!nextPage.value.isNullOrBlank()) {
-            userMangaList.value = Resource.loading(null)
+            userMangaList.postValue(Resource.loading(null))
 
-            val getUserAnimeDeferred = malApi.getUserMangaNextAsync(nextPage.value!!)
             try {
-                val userManga = getUserAnimeDeferred.await()
-                userMangaDao.insertUserMangaList(
-                    UserMangaEntity.fromListOfUserMangaData(userManga.data!!)
-                )
+                val userManga = malApi.getUserMangaNextAsync(nextPage.value!!)
+                val listOfUserManga = UserMangaEntity.fromListOfUserMangaData(userManga.data!!)
+                userMangaDao.insertUserMangaList(listOfUserManga)
                 setNextPage(userManga)
-                userMangaList.value = Resource.success(userManga)
+                userMangaList.postValue(Resource.success(listOfUserManga))
             } catch (e: Exception) {
                 Timber.e("Error: %s", e.message)
-                userMangaList.value = Resource.error(e.message ?: "", null)
+                userMangaList.postValue(Resource.error(e.message ?: "", null))
             }
         }
     }
 
     suspend fun getUserMangaList(sortType: String) {
+        userMangaList.postValue(Resource.loading(null))
+        val cache = userMangaDao.getAllUserManga().firstOrNull()
+        if (cache != null && !cache.isCacheExpired()) {
+            userMangaList.postValue(Resource.success(userMangaDao.getUserMangaList().value))
+        } else getUserMangaListCall(sortType)
 
-        userMangaList.value = Resource.loading(null)
+    }
 
-        val getUserMangaDeferred = malApi.getUserMangaListAsync(
-            "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
-            null, sortType, "", BASIC_MANGA_FIELDS, true
-        )
+    private suspend fun getUserMangaListCall(sortType: String){
         try {
-            val userManga = getUserMangaDeferred.await()
-            userMangaDao.insertUserMangaList(
-                UserMangaEntity.fromListOfUserMangaData(userManga.data!!)
+            val response =  malApi.getUserMangaListAsync(
+                "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
+                null, sortType, "", BASIC_MANGA_FIELDS, true
             )
-            setNextPage(userManga)
-            userMangaList.value = Resource.success(userManga)
+            val listOfUserManga = UserMangaEntity.fromListOfUserMangaData(response.data!!)
+            userMangaDao.clear()
+            userMangaDao.insertUserMangaList(listOfUserManga)
+            setNextPage(response)
+            userMangaList.postValue(Resource.success(listOfUserManga))
         } catch (e: Exception) {
             Timber.e("Error: %s", e.message)
-            userMangaList.value = Resource.error(e.message ?: "", null)
+            userMangaList.postValue(Resource.error(e.message ?: "", null))
         }
     }
 
     suspend fun addChapter(mangaId: String, numberOfCh: Int?, status: String?) {
-        userMangaStatus.value = Resource.loading(null)
+        userMangaStatus.postValue(Resource.loading(null))
 
         val addChapterDeferred = malApi.updateUserManga(
             mangaId,
@@ -81,13 +84,13 @@ constructor(
         try {
             val mangaStatus = addChapterDeferred.await()
             updateCachedUserManga(mangaId, mangaStatus)
-            userMangaStatus.value = Resource.success(mangaStatus)
+            userMangaStatus.postValue(Resource.success(mangaStatus))
         } catch (e: Exception) {
-            userMangaStatus.value = Resource.error(e.message ?: "", null)
+            userMangaStatus.postValue(Resource.error(e.message ?: "", null))
         }
     }
 
-    private fun updateCachedUserManga(
+    private suspend fun updateCachedUserManga(
         mangaId: String,
         mangaStatus: UpdateUserManga
     ) {
@@ -98,11 +101,11 @@ constructor(
     }
 
     private fun setNextPage(userManga: UserMangaList) {
-        nextPage.value = if (!userManga.paging?.next.isNullOrEmpty()
+        if (!userManga.paging?.next.isNullOrEmpty()
             && userManga.paging?.next != nextPage.value
         ) {
-            userManga.paging?.next
-        } else null
+           nextPage.postValue(userManga.paging?.next)
+        } else nextPage.postValue(null)
     }
 
 }

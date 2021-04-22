@@ -203,7 +203,7 @@ constructor(
         }
     }
 
-    private fun updateCachedUserManga(
+    private suspend fun updateCachedUserManga(
         mangaId: String,
         mangaStatus: UpdateUserManga
     ) {

@@ -6,11 +6,11 @@ import androidx.lifecycle.*
 import com.destructo.sushi.enum.UserMangaListSort
 import com.destructo.sushi.model.database.UserMangaEntity
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
-import com.destructo.sushi.model.mal.userMangaList.UserMangaList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.MangaDetailsDao
 import com.destructo.sushi.room.UserMangaDao
 import com.destructo.sushi.util.Event
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserMangaViewModel
@@ -23,7 +23,7 @@ constructor(
     private val mangaDetailsDao: MangaDetailsDao
 ) : ViewModel() {
 
-    val userMangaListState: LiveData<Resource<UserMangaList>> = myMangaListRepo.userMangaList
+    val userMangaListState: LiveData<Resource<List<UserMangaEntity>>> = myMangaListRepo.userMangaList
 
     val userMangaStatus: LiveData<Resource<UpdateUserManga>> = myMangaListRepo.userMangaStatus
 
@@ -34,20 +34,33 @@ constructor(
     val nextPage = myMangaListRepo.nextPage
 
     fun addChapterManga(mangaId:String,numberOfCh:Int?, status:String?){
-        viewModelScope.launch{ myMangaListRepo.addChapter(mangaId, numberOfCh, status) }
+        viewModelScope.launch(Dispatchers.IO){ myMangaListRepo.addChapter(mangaId, numberOfCh, status) }
     }
 
     fun getUserMangaList(sortType:String){
-        viewModelScope.launch{ myMangaListRepo.getUserMangaList(sortType) }
+        viewModelScope.launch(Dispatchers.IO){ myMangaListRepo.getUserMangaList(sortType) }
     }
 
     fun getNextPage(){
-        viewModelScope.launch{ myMangaListRepo.getNextPage() }
+        viewModelScope.launch(Dispatchers.IO){ myMangaListRepo.getNextPage() }
     }
 
     fun getMangaListByStatus(status: String): List<UserMangaEntity>?{
         return userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
     }
+//
+//    fun getMangaListByStatus(status: String): List<UserMangaEntity>?{
+//        var result: List<UserMangaEntity>? = null
+//
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val list = userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
+//            withContext(Dispatchers.Main){
+//                result = list
+//            }
+//        }
+//        return result
+//    }
+
 
     fun getRandomManga(status: String): Int? {
         val list = getMangaListByStatus(status)

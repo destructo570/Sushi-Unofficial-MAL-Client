@@ -63,7 +63,7 @@ interface MalApi {
     suspend fun getUserAnimeNextAsync(@Url url:String): UserAnimeList
 
     @GET
-    fun getUserMangaNextAsync(@Url url:String): Deferred<UserMangaList>
+    suspend fun getUserMangaNextAsync(@Url url:String): UserMangaList
 
     @GET("anime/season/{year}/{season}")
     suspend fun getSeasonalAnimeAsync(
@@ -108,7 +108,7 @@ interface MalApi {
 
 
     @GET("users/{user_name}/mangalist")
-    fun getUserMangaListAsync(
+    suspend fun getUserMangaListAsync(
         @Path("user_name") user_name:String,
         @Query("limit") limit:String,
         @Query("status") status:String?,
@@ -117,7 +117,7 @@ interface MalApi {
         @Query("fields") fields:String,
         @Query("nsfw") nsfw:Boolean
 
-        ): Deferred<UserMangaList>
+        ): UserMangaList
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")

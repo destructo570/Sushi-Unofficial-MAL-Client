@@ -79,6 +79,7 @@ class UserMangaReading : BaseFragment() {
             )
         }
 
+
         userMangaViewModel.userMangaStatus.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.LOADING -> {

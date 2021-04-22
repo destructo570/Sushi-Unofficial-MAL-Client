@@ -9,14 +9,20 @@ interface UserMangaDao {
     @Query("SELECT * FROM user_manga_list")
     fun getUserMangaList(): LiveData<List<UserMangaEntity>>
 
+    @Query("SELECT * FROM user_manga_list WHERE myStatus = :status")
+    fun getUserMangaListByStatus(status: String): LiveData<List<UserMangaEntity>>
+
+    @Query("SELECT * FROM user_manga_list")
+    fun getAllUserManga(): List<UserMangaEntity>
+
     @Query("SELECT * FROM user_manga_list WHERE malId LIKE :malId")
     fun getUserMangaById(malId: Int): UserMangaEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserMangaList(mangaList: List<UserMangaEntity>?)
+    suspend fun insertUserMangaList(mangaList: List<UserMangaEntity>?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserManga(manga: UserMangaEntity?)
+    suspend fun insertUserManga(manga: UserMangaEntity?)
 
     @Query("DELETE FROM user_manga_list")
     fun clear()

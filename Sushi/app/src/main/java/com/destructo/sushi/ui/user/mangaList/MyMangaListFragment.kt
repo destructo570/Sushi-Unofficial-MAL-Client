@@ -45,14 +45,6 @@ class MyMangaListFragment : BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPreferences
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-            userMangaViewModel.clearList()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
