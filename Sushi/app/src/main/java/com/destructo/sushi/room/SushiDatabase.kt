@@ -20,7 +20,7 @@ import com.destructo.sushi.room.TypeConverters as TypeConverters1
     MangaCharacterListEntity::class, MangaReviewsEntity::class, AnimeRankingData::class,
     MangaRankingData::class, SeasonAnimeData::class, AnimeListData::class, MangaListData::class,
     UserAnimeEntity::class, UserMangaEntity::class, UserInfoEntity::class, Anime::class,
-    Friend::class, Manga::class], version = 9, exportSchema = false)
+    Friend::class, Manga::class], version = 10, exportSchema = false)
 abstract class SushiDatabase: RoomDatabase() {
 
     abstract fun animeDetailsDao():AnimeDetailsDao
