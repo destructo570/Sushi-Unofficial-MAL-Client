@@ -57,7 +57,7 @@
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_question_line"
+            android:src="@drawable/ic_shuffle_line"
             app:backgroundTint="?attr/colorAccent"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
             />
