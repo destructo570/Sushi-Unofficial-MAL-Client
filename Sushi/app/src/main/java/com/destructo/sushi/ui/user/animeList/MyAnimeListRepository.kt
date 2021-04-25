@@ -20,31 +20,40 @@ constructor(
     private val userAnimeListDao: UserAnimeDao
 ) {
 
-    var userAnimeList: MutableLiveData<Resource<UserAnimeList>> = MutableLiveData()
+    var userAnimeList: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
 
     var userAnimeStatus: MutableLiveData<Resource<UpdateUserAnime>> = MutableLiveData()
 
     var nextPage: MutableLiveData<String> = MutableLiveData()
 
     suspend fun getUserAnimeList(sortType: String) {
-        userAnimeList.value = Resource.loading(null)
+        userAnimeList.postValue(Resource.loading(null))
+        val cache = userAnimeListDao.getAllUserAnime().firstOrNull()
+        if (cache != null && !cache.isCacheExpired()) {
+            userAnimeList.postValue(Resource.success(userAnimeListDao.getUserAnimeList().value))
+        } else getUserAnimeListCall(sortType)
 
+    }
+
+    private suspend fun getUserAnimeListCall(sortType: String){
         try {
             val userAnime = malApi.getUserAnimeListAsync(
                 "@me", DEFAULT_USER_LIST_PAGE_LIMIT,
                 null, sortType, "", BASIC_ANIME_FIELDS, true
             )
-            userAnimeListDao.insertUserAnimeList(UserAnimeEntity.fromListOfUpdateUserAnime(userAnime.data!!))
+            val listOfUserAnime = UserAnimeEntity.fromListOfUpdateUserAnime(userAnime.data!!)
+            userAnimeListDao.clear()
+            userAnimeListDao.insertUserAnimeList(listOfUserAnime)
             setNextPage(userAnime)
-            userAnimeList.value = Resource.success(userAnime)
+            userAnimeList.postValue(Resource.success(listOfUserAnime))
         } catch (e: Exception) {
-            userAnimeList.value = Resource.error(e.message ?: "", null)
+            userAnimeList.postValue(Resource.error(e.message ?: "", null))
 
         }
     }
 
     suspend fun addEpisode(animeId: String, numberOfEp: Int?, status: String?) {
-        userAnimeStatus.value = Resource.loading(null)
+        userAnimeStatus.postValue(Resource.loading(null))
 
         try {
             val animeStatus = malApi.updateUserAnime(
@@ -54,35 +63,32 @@ constructor(
                 null, null
             )
             updateCachedUserAnime(animeId, animeStatus)
-            userAnimeStatus.value = Resource.success(animeStatus)
+            userAnimeStatus.postValue(Resource.success(animeStatus))
 
         } catch (e: Exception) {
-            userAnimeStatus.value = Resource.error(e.message ?: "", null)
+            userAnimeStatus.postValue(Resource.error(e.message ?: "", null))
         }
     }
 
     suspend fun getNextPage() {
         if (!nextPage.value.isNullOrEmpty()) {
-            userAnimeList.value = Resource.loading(null)
+            userAnimeList.postValue(Resource.loading(null))
 
             try {
                 val userAnime = malApi.getUserAnimeNextAsync(nextPage.value!!)
-                userAnimeListDao.insertUserAnimeList(
-                    UserAnimeEntity.fromListOfUpdateUserAnime(
-                        userAnime.data!!
-                    )
-                )
+                val listOfUserAnime = UserAnimeEntity.fromListOfUpdateUserAnime(userAnime.data!!)
+                userAnimeListDao.insertUserAnimeList(listOfUserAnime)
                 setNextPage(userAnime)
-                userAnimeList.value = Resource.success(userAnime)
+                userAnimeList.postValue(Resource.success(listOfUserAnime))
 
             } catch (e: Exception) {
-                userAnimeList.value = Resource.error(e.message ?: "", null)
+                userAnimeList.postValue(Resource.error(e.message ?: "", null))
 
             }
         }
     }
 
-    private fun updateCachedUserAnime(
+    private suspend fun updateCachedUserAnime(
         animeId: String,
         animeStatus: UpdateUserAnime
     ) {
@@ -93,11 +99,11 @@ constructor(
     }
 
     private fun setNextPage(userAnime: UserAnimeList) {
-        nextPage.value = if (!userAnime.paging?.next.isNullOrEmpty()
+        if (!userAnime.paging?.next.isNullOrEmpty()
             && userAnime.paging?.next != nextPage.value
         ) {
-            userAnime.paging?.next
-        } else null
+            nextPage.postValue(userAnime.paging?.next)
+        } else  nextPage.postValue(null)
     }
 
 }

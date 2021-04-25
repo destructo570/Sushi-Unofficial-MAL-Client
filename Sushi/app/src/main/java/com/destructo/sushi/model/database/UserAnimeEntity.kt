@@ -17,12 +17,14 @@ data class UserAnimeEntity (
     val title: String?=null,
     val score: Double?=null,
     val myAnimeListStatus: MyAnimeListStatus?=null,
+    val myStatus: String? = null,
     var media_type: String?=null,
     var numEpisodes: Int?=null,
     var start_season: StartSeason?=null,
     val mainPicture: MainPicture?=null,
+    override val time: Long = System.currentTimeMillis(),
 
-    ){
+    ): BaseDatabaseEntity{
 
     companion object {
         private fun fromUpdateUserAnime(data: UserAnimeData): UserAnimeEntity {
@@ -35,7 +37,9 @@ data class UserAnimeEntity (
                 mainPicture = data.anime.mainPicture,
                 numEpisodes = data.anime.numEpisodes,
                 score = data.anime.mean,
-                myAnimeListStatus = data.anime.myAnimeListStatus
+                myAnimeListStatus = data.anime.myAnimeListStatus,
+                myStatus = data.anime.myAnimeListStatus?.status
+
             )
         }
 

@@ -195,7 +195,7 @@ constructor(
         }
     }
 
-    private fun updateCachedUserAnime(
+    private suspend fun updateCachedUserAnime(
         animeId: String,
         animeStatus: UpdateUserAnime
     ) {

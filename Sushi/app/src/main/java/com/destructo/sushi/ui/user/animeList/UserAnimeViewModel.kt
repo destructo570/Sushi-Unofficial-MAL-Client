@@ -8,7 +8,6 @@ import com.destructo.sushi.enum.mal.AiringStatus
 import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
-import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeDao
@@ -25,7 +24,7 @@ constructor(
     private val animeDetailsDao: AnimeDetailsDao
 ) : ViewModel() {
 
-    val userAnimeListState: LiveData<Resource<UserAnimeList>> = myAnimeListRepo.userAnimeList
+    val userAnimeListState: LiveData<Resource<List<UserAnimeEntity>>> = myAnimeListRepo.userAnimeList
 
     val userAnimeStatus: LiveData<Resource<UpdateUserAnime>> = myAnimeListRepo.userAnimeStatus
 

@@ -43,13 +43,6 @@ class MyAnimeListFragment : BaseFragment() {
     private val userAnimeViewModel: UserAnimeViewModel
             by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            userAnimeViewModel.clearList()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

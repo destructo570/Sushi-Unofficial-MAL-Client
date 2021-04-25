@@ -48,11 +48,12 @@ constructor(
     fun getMangaListByStatus(status: String): List<UserMangaEntity>?{
         return userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
     }
+
 //
-//    fun getMangaListByStatus(status: String): List<UserMangaEntity>?{
+//    fun getMangaListByStatuss(status: String): List<UserMangaEntity>?{
 //        var result: List<UserMangaEntity>? = null
 //
-//        viewModelScope.launch(Dispatchers.IO) {
+//        withTimeoutOrNull(2000) {
 //            val list = userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
 //            withContext(Dispatchers.Main){
 //                result = list

@@ -13,10 +13,13 @@ interface UserAnimeDao {
     fun getUserAnimeById(malId: Int): UserAnimeEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserAnimeList(animeList: List<UserAnimeEntity>?)
+    suspend fun  insertUserAnimeList(animeList: List<UserAnimeEntity>?)
+
+    @Query("SELECT * FROM user_anime_list")
+    fun getAllUserAnime(): List<UserAnimeEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserAnime(anime: UserAnimeEntity?)
+    suspend fun insertUserAnime(anime: UserAnimeEntity?)
 
     @Query("DELETE FROM user_anime_list")
     fun clear()
