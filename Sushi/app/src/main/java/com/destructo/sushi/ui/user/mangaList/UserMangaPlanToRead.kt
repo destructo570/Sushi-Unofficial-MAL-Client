@@ -60,6 +60,7 @@ class UserMangaPlanToRead : BaseFragment() {
 
         userMangaRecycler.adapter = userMangaAdapter
 
+
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) {
             userMangaViewModel.getMangaListByStatus(UserMangaStatus.PLAN_TO_READ.value)
         }

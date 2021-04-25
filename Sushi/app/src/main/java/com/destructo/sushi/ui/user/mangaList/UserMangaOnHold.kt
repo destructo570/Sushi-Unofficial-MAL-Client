@@ -79,6 +79,7 @@ class UserMangaOnHold : BaseFragment() {
     }
 
 
+
     private fun navigateToMangaDetails(mangaIdArg: Int){
         this.findNavController().navigate(
             R.id.mangaDetailsFragment,

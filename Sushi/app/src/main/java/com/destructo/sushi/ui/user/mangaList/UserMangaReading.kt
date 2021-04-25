@@ -73,7 +73,7 @@ class UserMangaReading : BaseFragment() {
         userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) {
-                userMangaViewModel.getMangaListByStatus(UserMangaStatus.READING.value)
+            userMangaViewModel.getMangaListByStatus(UserMangaStatus.READING.value)
         }
 
         userMangaViewModel.userMangaReading.observe(viewLifecycleOwner) {
@@ -94,9 +94,9 @@ class UserMangaReading : BaseFragment() {
                 }
             }
         }
-
-
     }
+
+
 
     private fun navigateToMangaDetails(mangaIdArg: Int) {
         this.findNavController().navigate(
