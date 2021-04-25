@@ -114,9 +114,6 @@ class AnimeDetailFragment : BaseFragment(),
         addToListButton = binding.root.add_anime_to_list
         myListStatus = binding.myAnimeStatus.root
 
-         binding.myAnimeStatus.textView16.text = "HAHA"
-
-
         animeDetailProgressBar = binding.animeDetailProgress
 
         toolbar = binding.animeDescToolbar
