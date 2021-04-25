@@ -67,11 +67,11 @@ class UserMangaDropped : BaseFragment() {
         userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) {
-            userMangaAdapter.submitList(
-                userMangaViewModel.getMangaListByStatus(
-                    UserMangaStatus.DROPPED.value
-                )
-            )
+            userMangaViewModel.getMangaListByStatus(UserMangaStatus.DROPPED.value)
+        }
+
+        userMangaViewModel.userMangaDropped.observe(viewLifecycleOwner) {
+            userMangaAdapter.submitList(it.data)
         }
 
     }

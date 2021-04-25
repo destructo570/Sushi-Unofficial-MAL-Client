@@ -73,10 +73,11 @@ class UserMangaReading : BaseFragment() {
         userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) {
-            userMangaAdapter.submitList(
-                userMangaViewModel.getMangaListByStatus(
-                    UserMangaStatus.READING.value)
-            )
+                userMangaViewModel.getMangaListByStatus(UserMangaStatus.READING.value)
+        }
+
+        userMangaViewModel.userMangaReading.observe(viewLifecycleOwner) {
+            userMangaAdapter.submitList(it.data)
         }
 
 

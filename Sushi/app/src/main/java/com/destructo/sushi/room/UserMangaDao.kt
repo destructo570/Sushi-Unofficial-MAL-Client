@@ -10,7 +10,7 @@ interface UserMangaDao {
     fun getUserMangaList(): LiveData<List<UserMangaEntity>>
 
     @Query("SELECT * FROM user_manga_list WHERE myStatus = :status")
-    fun getUserMangaListByStatus(status: String): LiveData<List<UserMangaEntity>>
+    fun getUserMangaListByStatus(status: String): List<UserMangaEntity>
 
     @Query("SELECT * FROM user_manga_list")
     fun getAllUserManga(): List<UserMangaEntity>

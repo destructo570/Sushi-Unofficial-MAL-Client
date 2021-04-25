@@ -3,6 +3,7 @@ package com.destructo.sushi.ui.user.mangaList
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.BASIC_MANGA_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
+import com.destructo.sushi.enum.mal.UserMangaStatus
 import com.destructo.sushi.model.database.UserMangaEntity
 import com.destructo.sushi.model.mal.updateUserMangaList.UpdateUserManga
 import com.destructo.sushi.model.mal.userMangaList.UserMangaList
@@ -24,6 +25,16 @@ constructor(
     var userMangaList: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
 
     var userMangaStatus: MutableLiveData<Resource<UpdateUserManga>> = MutableLiveData()
+
+    val userMangaReading: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
+
+    val userMangaCompleted: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
+
+    val userMangaOnHold: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
+
+    val userMangaDropped: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
+
+    val userMangaPlanToRead: MutableLiveData<Resource<List<UserMangaEntity>>> = MutableLiveData()
 
     var nextPage: MutableLiveData<String> = MutableLiveData()
 
@@ -88,6 +99,35 @@ constructor(
         } catch (e: Exception) {
             userMangaStatus.postValue(Resource.error(e.message ?: "", null))
         }
+    }
+
+
+    suspend fun getMangaListByStatus(status: String){
+        when(status){
+            UserMangaStatus.READING.value -> {
+                getFilteredUserMangaList(status, userMangaReading)
+            }
+            UserMangaStatus.COMPLETED.value -> {
+                getFilteredUserMangaList(status, userMangaCompleted)
+            }
+            UserMangaStatus.PLAN_TO_READ.value -> {
+                getFilteredUserMangaList(status, userMangaPlanToRead)
+            }
+            UserMangaStatus.ON_HOLD.value -> {
+                getFilteredUserMangaList(status, userMangaOnHold)
+            }
+            UserMangaStatus.DROPPED.value -> {
+                getFilteredUserMangaList(status, userMangaDropped)
+            }
+        }
+    }
+
+    private suspend fun getFilteredUserMangaList(status: String, userList: MutableLiveData<Resource<List<UserMangaEntity>>>){
+
+        val listOfAnime = userMangaDao.getUserMangaListByStatus(status)
+
+        userList.postValue(Resource.success(listOfAnime))
+
     }
 
     private suspend fun updateCachedUserManga(

@@ -29,6 +29,16 @@ constructor(
 
     var userMangaList = userMangaDao.getUserMangaList()
 
+    val userMangaReading: LiveData<Resource<List<UserMangaEntity>>> = myMangaListRepo.userMangaReading
+
+    val userMangaCompleted: LiveData<Resource<List<UserMangaEntity>>> = myMangaListRepo.userMangaCompleted
+
+    val userMangaOnHold: LiveData<Resource<List<UserMangaEntity>>> = myMangaListRepo.userMangaOnHold
+
+    val userMangaDropped: LiveData<Resource<List<UserMangaEntity>>> = myMangaListRepo.userMangaDropped
+
+    val userMangaPlanToRead: LiveData<Resource<List<UserMangaEntity>>> = myMangaListRepo.userMangaPlanToRead
+
     var userSortType = MutableLiveData(Event(UserMangaListSort.BY_TITLE.value))
 
     val nextPage = myMangaListRepo.nextPage
@@ -45,8 +55,10 @@ constructor(
         viewModelScope.launch(Dispatchers.IO){ myMangaListRepo.getNextPage() }
     }
 
-    fun getMangaListByStatus(status: String): List<UserMangaEntity>?{
-        return userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
+    fun getMangaListByStatus(status: String){
+        viewModelScope.launch(Dispatchers.IO){
+            myMangaListRepo.getMangaListByStatus(status)
+        }
     }
 
 //
@@ -64,7 +76,7 @@ constructor(
 
 
     fun getRandomManga(status: String): Int? {
-        val list = getMangaListByStatus(status)
+        val list = userMangaList.value?.filter {(it.myMangaListStatus?.status == status)}
         if (!list.isNullOrEmpty()){
             return list.random().malId
         }

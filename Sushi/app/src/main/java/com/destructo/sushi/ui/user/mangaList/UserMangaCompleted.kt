@@ -66,12 +66,12 @@ class UserMangaCompleted : BaseFragment() {
         userMangaRecycler.adapter = userMangaAdapter
 
         userMangaViewModel.userMangaList.observe(viewLifecycleOwner) {
-            userMangaAdapter.submitList(
-                userMangaViewModel.getMangaListByStatus(
-                    UserMangaStatus.COMPLETED.value)
-            )
+            userMangaViewModel.getMangaListByStatus(UserMangaStatus.COMPLETED.value)
         }
 
+        userMangaViewModel.userMangaCompleted.observe(viewLifecycleOwner) {
+            userMangaAdapter.submitList(it.data)
+        }
     }
 
     private fun navigateToMangaDetails(mangaIdArg: Int) {
