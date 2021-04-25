@@ -64,10 +64,11 @@ class UserAnimePlanToWatch : BaseFragment() {
         }
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            userAnimeAdapter.submitList(
-                userAnimeViewModel.getAnimeListByStatus(
-                    UserAnimeStatus.PLAN_TO_WATCH.value)
-            )
+            userAnimeViewModel.getAnimeListByStatus(UserAnimeStatus.PLAN_TO_WATCH.value)
+        }
+
+        userAnimeViewModel.userAnimePlanToWatch.observe(viewLifecycleOwner) {
+            userAnimeAdapter.submitList(it.data)
         }
     }
 

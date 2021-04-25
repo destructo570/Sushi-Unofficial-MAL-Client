@@ -100,10 +100,11 @@ class UserAnimeWatching : BaseFragment() {
         }
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            userAnimeAdapter.submitList(
-                userAnimeViewModel.getAnimeListByStatus(
-                    UserAnimeStatus.WATCHING.value)
-            )
+                userAnimeViewModel.getAnimeListByStatus(UserAnimeStatus.WATCHING.value)
+        }
+
+        userAnimeViewModel.userAnimeWatching.observe(viewLifecycleOwner) {
+            userAnimeAdapter.submitList(it.data)
         }
     }
 

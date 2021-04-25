@@ -3,6 +3,7 @@ package com.destructo.sushi.ui.user.animeList
 import androidx.lifecycle.MutableLiveData
 import com.destructo.sushi.BASIC_ANIME_FIELDS
 import com.destructo.sushi.DEFAULT_USER_LIST_PAGE_LIMIT
+import com.destructo.sushi.enum.mal.UserAnimeStatus
 import com.destructo.sushi.model.database.UserAnimeEntity
 import com.destructo.sushi.model.mal.updateUserAnimeList.UpdateUserAnime
 import com.destructo.sushi.model.mal.userAnimeList.UserAnimeList
@@ -23,6 +24,16 @@ constructor(
     var userAnimeList: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
 
     var userAnimeStatus: MutableLiveData<Resource<UpdateUserAnime>> = MutableLiveData()
+
+    val userAnimeWatching: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
+
+    val userAnimeCompleted: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
+
+    val userAnimeOnHold: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
+
+    val userAnimeDropped: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
+
+    val userAnimePlanToWatch: MutableLiveData<Resource<List<UserAnimeEntity>>> = MutableLiveData()
 
     var nextPage: MutableLiveData<String> = MutableLiveData()
 
@@ -86,6 +97,34 @@ constructor(
 
             }
         }
+    }
+
+    suspend fun getAnimeListByStatus(status: String){
+        when(status){
+            UserAnimeStatus.WATCHING.value -> {
+                getFilteredUserAnimeList(status, userAnimeWatching)
+            }
+            UserAnimeStatus.COMPLETED.value -> {
+                getFilteredUserAnimeList(status, userAnimeCompleted)
+            }
+            UserAnimeStatus.PLAN_TO_WATCH.value -> {
+                getFilteredUserAnimeList(status, userAnimePlanToWatch)
+            }
+            UserAnimeStatus.ON_HOLD.value -> {
+                getFilteredUserAnimeList(status, userAnimeOnHold)
+            }
+            UserAnimeStatus.DROPPED.value -> {
+                getFilteredUserAnimeList(status, userAnimeDropped)
+            }
+        }
+    }
+
+    private suspend fun getFilteredUserAnimeList(status: String, userList: MutableLiveData<Resource<List<UserAnimeEntity>>>){
+
+        val listOfAnime = userAnimeListDao.getUserAnimeListByStatus(status)
+
+        userList.postValue(Resource.success(listOfAnime))
+
     }
 
     private suspend fun updateCachedUserAnime(

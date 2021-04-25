@@ -9,6 +9,9 @@ interface UserAnimeDao {
     @Query("SELECT * FROM user_anime_list")
     fun getUserAnimeList(): LiveData<List<UserAnimeEntity>>
 
+    @Query("SELECT * FROM user_anime_list WHERE myStatus LIKE :status")
+    fun getUserAnimeListByStatus(status:String): List<UserAnimeEntity>?
+
     @Query("SELECT * FROM user_anime_list WHERE malId LIKE :malId")
     fun getUserAnimeById(malId: Int): UserAnimeEntity
 

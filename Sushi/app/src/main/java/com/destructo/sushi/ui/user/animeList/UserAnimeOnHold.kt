@@ -69,10 +69,11 @@ class UserAnimeOnHold : BaseFragment() {
         userAnimeRecycler.adapter = userAnimeAdapter
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            userAnimeAdapter.submitList(
-                userAnimeViewModel.getAnimeListByStatus(
-                    UserAnimeStatus.ON_HOLD.value)
-            )
+            userAnimeViewModel.getAnimeListByStatus(UserAnimeStatus.ON_HOLD.value)
+        }
+
+        userAnimeViewModel.userAnimeOnHold.observe(viewLifecycleOwner) {
+            userAnimeAdapter.submitList(it.data)
         }
     }
 

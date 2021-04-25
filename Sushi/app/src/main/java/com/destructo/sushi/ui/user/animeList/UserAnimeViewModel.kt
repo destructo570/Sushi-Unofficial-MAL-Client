@@ -12,6 +12,7 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeDao
 import com.destructo.sushi.util.Event
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserAnimeViewModel
@@ -29,6 +30,17 @@ constructor(
     val userAnimeStatus: LiveData<Resource<UpdateUserAnime>> = myAnimeListRepo.userAnimeStatus
 
     var userAnimeList = userAnimeListDao.getUserAnimeList()
+
+    val userAnimeWatching: LiveData<Resource<List<UserAnimeEntity>>> = myAnimeListRepo.userAnimeWatching
+
+    val userAnimeCompleted: LiveData<Resource<List<UserAnimeEntity>>> = myAnimeListRepo.userAnimeCompleted
+
+    val userAnimeOnHold: LiveData<Resource<List<UserAnimeEntity>>> = myAnimeListRepo.userAnimeOnHold
+
+    val userAnimeDropped: LiveData<Resource<List<UserAnimeEntity>>> = myAnimeListRepo.userAnimeDropped
+
+    val userAnimePlanToWatch: LiveData<Resource<List<UserAnimeEntity>>> = myAnimeListRepo.userAnimePlanToWatch
+
 
     var userSortType = MutableLiveData(Event(UserAnimeListSort.BY_TITLE.value))
 
@@ -50,12 +62,16 @@ constructor(
         userSortType.value = Event(sort_by)
     }
 
-    fun getAnimeListByStatus(status: String): List<UserAnimeEntity>?{
-        return userAnimeList.value?.filter {(it.myAnimeListStatus?.status == status)}
+    fun getAnimeListByStatus(status: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            myAnimeListRepo.getAnimeListByStatus(status)
+        }
     }
 
     fun getRandomAnime(status: String): Int? {
-        val list = getAnimeListByStatus(status)
+        val list = userAnimeListDao.getUserAnimeListByStatus(status)?.filter {
+            (it.myAnimeListStatus?.status == status)
+        }
         when (status){
             UserAnimeStatus.PLAN_TO_WATCH.value ->{
                 list?.filter {

@@ -73,10 +73,11 @@ class UserAnimeDropped : BaseFragment() {
 
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            userAnimeAdapter.submitList(
-                userAnimeViewModel.getAnimeListByStatus(
-                    UserAnimeStatus.DROPPED.value)
-            )
+            userAnimeViewModel.getAnimeListByStatus(UserAnimeStatus.DROPPED.value)
+        }
+
+        userAnimeViewModel.userAnimeDropped.observe(viewLifecycleOwner) {
+            userAnimeAdapter.submitList(it.data)
         }
     }
 

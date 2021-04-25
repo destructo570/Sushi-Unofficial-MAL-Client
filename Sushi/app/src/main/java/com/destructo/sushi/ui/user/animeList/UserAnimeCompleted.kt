@@ -71,10 +71,11 @@ class UserAnimeCompleted : BaseFragment() {
         userAnimeRecycler.adapter = userAnimeAdapter
 
         userAnimeViewModel.userAnimeList.observe(viewLifecycleOwner) {
-            userAnimeAdapter.submitList(
-                userAnimeViewModel.getAnimeListByStatus(
-                    UserAnimeStatus.COMPLETED.value)
-            )
+            userAnimeViewModel.getAnimeListByStatus(UserAnimeStatus.COMPLETED.value)
+        }
+
+        userAnimeViewModel.userAnimeCompleted.observe(viewLifecycleOwner) {
+            userAnimeAdapter.submitList(it.data)
         }
     }
 
