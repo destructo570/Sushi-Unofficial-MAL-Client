@@ -57,7 +57,7 @@ class MyAnimeListFragment : BaseFragment() {
         toolbar = binding.toolbar
         progressBar = binding.progressbar
 
-        if (!sharedPref.getBoolean(IS_PRO_USER, false)){
+        if (sharedPref.getBoolean(IS_PRO_USER, false)){
             binding.randomFab.show()
         }else{
             binding.randomFab.hide()
