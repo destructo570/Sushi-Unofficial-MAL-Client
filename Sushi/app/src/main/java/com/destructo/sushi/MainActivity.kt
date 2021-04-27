@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeGoogleAdmob(){
         if(!BuildConfig.DEBUG){
-            if (!SushiApplication.getContext().queryPurchases()) {
+            if (!sharedPref.getBoolean(IS_PRO_USER, false)) {
                 MobileAds.initialize(this) {}
 
                 googleAdView = findViewById(R.id.adView)

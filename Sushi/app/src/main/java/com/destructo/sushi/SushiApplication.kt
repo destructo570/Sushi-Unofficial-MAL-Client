@@ -87,11 +87,14 @@ class SushiApplication: Application(), PurchasesUpdatedListener {
             val purchaseList = result.purchasesList
             purchaseList?.let {
                 for (purchase in purchaseList){
-                    if (purchase.sku == PRODUCT_ID
+                    return if (purchase.sku == PRODUCT_ID
                         && purchase.purchaseState == Purchase.PurchaseState.PURCHASED
                     ){
                         sharedPref.edit()?.putBoolean(IS_PRO_USER, true)?.apply()
-                        return true
+                        true
+                    }else{
+                        sharedPref.edit()?.putBoolean(IS_PRO_USER, false)?.apply()
+                        false
                     }
                 }
             }
