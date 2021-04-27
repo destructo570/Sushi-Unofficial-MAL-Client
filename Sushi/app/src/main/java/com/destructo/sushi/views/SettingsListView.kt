@@ -27,6 +27,6 @@ class SettingsListView
         title.text = attributeArray.getText(R.styleable.SettingsListView_setting_title)
         description.text = attributeArray.getText(R.styleable.SettingsListView_setting_description)
         icon.setImageDrawable(attributeArray.getDrawable(R.styleable.SettingsListView_setting_icon))
-
+        attributeArray.recycle()
     }
 }
