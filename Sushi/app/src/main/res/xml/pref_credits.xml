@@ -30,5 +30,10 @@
             app:summary="@string/credit_five_desc"
             app:title="@string/credit_five" />
 
+        <Preference
+            app:summary="@string/credit_seven_desc"
+            app:title="@string/credit_seven" />
+
+
     </PreferenceCategory>
 </PreferenceScreen>

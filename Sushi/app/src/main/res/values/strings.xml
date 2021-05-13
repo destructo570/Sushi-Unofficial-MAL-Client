@@ -234,6 +234,8 @@
     <string name="credit_five_desc" translatable="false">Portuguese translations</string>
     <string name="credit_six" translatable="false">GooseTheDuck6678</string>
     <string name="credit_six_desc" translatable="false">Arabic translations</string>
+    <string name="credit_seven" translatable="false">AsukaLangleySoryu</string>
+    <string name="credit_seven_desc" translatable="false">Russian translations</string>
 
     <!-- Anime Review Score Strings-->
     <string name="animation">Animation: </string>
