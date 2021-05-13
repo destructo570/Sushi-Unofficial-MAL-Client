@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="latest_changelog" translatable="false">
-        \n• Version 1.1.1.2
-        \n• Fixed voice actor roles not loading images
-        \n• Fixed some network and memory related issues
-        \n• Updated F.A.Q section
-        \n• Fixed some minor bugs
-        \n\n• Note: If you purchased pro and still see ads try clearing app data and cache.
+        \n• Version 1.1.1.3
+        \n• [PRO] Random anime/manga picker button in user\'s list
+        \n• Cache user anime/manga list offline to reduce multiple requests
+        \n• Updated translations
+        \n• Added russian translations thanks to @AsukaLangleySoryu
+        \n• Possible fix for ads on pro users devices issue
+        \n\n• Note: Clear app data/cache before installing update
 
     </string>
 </resources>
