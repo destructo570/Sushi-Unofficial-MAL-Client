@@ -63,27 +63,13 @@ class MyAnimeListFragment : BaseFragment() {
             binding.randomFab.hide()
         }
 
+        val tabsText= resources.getStringArray(R.array.animeListTabsText)
+
         myAnimeListTabMediator =
             TabLayoutMediator(myAnimeListTabLayout, myAnimeListViewPager) { tab, position ->
-                when (position) {
-                    0 -> {
-                        tab.text = getString(R.string.watching)
-                    }
-                    1 -> {
-                        tab.text = getString(R.string.plan_to_watch)
-                    }
-                    2 -> {
-                        tab.text = getString(R.string.on_hold)
-                    }
-                    3 -> {
-                        tab.text = getString(R.string.dropped)
-                    }
-                    4 -> {
-                        tab.text = getString(R.string.completed)
-                    }
-                }
+                tab.text= tabsText[position]
             }
-
+        
         myAnimeListViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 when (position) {

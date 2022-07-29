@@ -29,4 +29,12 @@
         <item>@string/completed</item>
     </string-array>
 
+    <string-array name="animeListTabsText">
+        <item>Watching</item>
+        <item>Plan To Watch</item>
+        <item>On Hold</item>
+        <item>Dropped</item>
+        <item>Completed</item>
+    </string-array>
+
 </resources>
