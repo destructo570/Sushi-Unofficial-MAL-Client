@@ -1,7 +1,6 @@
 package com.destructo.sushi.ui.anime.animeReviews
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -12,12 +11,15 @@ import com.destructo.sushi.model.jikan.common.Review
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeReviewListDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class AnimeReviewsViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val animeReviewsDao: AnimeReviewListDao,
     private val jikanApi: JikanApi,

@@ -210,26 +210,13 @@
                     />
 
                 <com.destructo.sushi.views.SettingsListView
-                    android:id="@+id/donations"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bg"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/join_discord"
-                    app:setting_title="@string/pref_title_donation"
-                    app:setting_description="@string/pref_desc_donate_desc"
-                    app:setting_icon="@drawable/ic_gift_outline"
-                    />
-
-                <com.destructo.sushi.views.SettingsListView
                     android:id="@+id/give_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ripple_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/donations"
+                    app:layout_constraintTop_toBottomOf="@+id/join_discord"
                     app:setting_title="@string/pref_title_send_feedback"
                     app:setting_description="@string/pref_desc_send_feedback"
                     app:setting_icon="@drawable/ic_feedback_line"

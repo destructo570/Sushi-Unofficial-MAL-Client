@@ -1,19 +1,21 @@
 package com.destructo.sushi.ui.search
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
 import com.destructo.sushi.model.mal.animeList.AnimeList
 import com.destructo.sushi.model.mal.mangaList.MangaList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SearchAnimeDao
 import com.destructo.sushi.room.SearchMangaDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class SearchViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val searchRepo: SearchRepository,
     private val searchAnimeDao: SearchAnimeDao,

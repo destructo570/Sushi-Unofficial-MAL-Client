@@ -1,18 +1,20 @@
 package com.destructo.sushi.ui.manga.topManga
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
 import com.destructo.sushi.model.mal.mangaRanking.MangaRanking
 import com.destructo.sushi.model.mal.mangaRanking.MangaRankingData
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.MangaRankingDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class TopMangaViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val topMangaRepo: TopMangaRepository,
     private val mangaRankingDao: MangaRankingDao

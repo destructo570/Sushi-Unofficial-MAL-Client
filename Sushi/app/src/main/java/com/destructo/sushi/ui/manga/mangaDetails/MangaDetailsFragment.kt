@@ -40,7 +40,6 @@ import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.ui.manga.MangaUpdateDialog
 import com.destructo.sushi.ui.manga.MangaUpdateListener
 import com.destructo.sushi.util.*
-import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.card.MaterialCardView

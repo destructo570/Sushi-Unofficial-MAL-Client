@@ -1,7 +1,5 @@
 package com.destructo.sushi.ui.user.animeList
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.destructo.sushi.enum.UserAnimeListSort
 import com.destructo.sushi.enum.mal.AiringStatus
@@ -12,13 +10,17 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeDetailsDao
 import com.destructo.sushi.room.UserAnimeDao
 import com.destructo.sushi.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+
+@HiltViewModel
 class UserAnimeViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val myAnimeListRepo: MyAnimeListRepository,
     private val userAnimeListDao: UserAnimeDao,

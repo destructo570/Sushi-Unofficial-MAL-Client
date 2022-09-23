@@ -1,18 +1,20 @@
 package com.destructo.sushi.ui.user.profile.mangalist
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
 import com.destructo.sushi.model.jikan.user.mangaList.ProfileUserMangaList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.ProfileMangaListDao
 import com.destructo.sushi.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class ProfileUserMangaViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val profileRepo: ProfileUserMangaRepository,
 

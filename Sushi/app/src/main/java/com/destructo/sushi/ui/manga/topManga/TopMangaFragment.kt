@@ -117,6 +117,7 @@ class TopMangaFragment : BaseFragment(), AdapterView.OnItemSelectedListener, Lis
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
+                else -> {}
             }
         }
 
@@ -133,6 +134,7 @@ class TopMangaFragment : BaseFragment(), AdapterView.OnItemSelectedListener, Lis
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
+                else -> {}
             }
         }
 

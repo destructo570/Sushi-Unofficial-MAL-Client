@@ -28,9 +28,22 @@ class SettingsFragment : Fragment(){
         }
         navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_settings) as NavHostFragment
         navController = navHostFragment.navController
+//        navView = findViewById(R.id.navigationView)
 
-        navController.addOnDestinationChangedListener { _, _, _ ->
-
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when(destination.id){
+//                R.id.lookAndFeelFragment -> {
+//                }
+//                R.id.appPreferenceFragment -> {
+//                    navView.setCheckedItem(R.id.myAnimeListFragment)
+//                }
+//                R.id.aboutFragment2 -> {
+//                    navView.setCheckedItem(R.id.myMangaListFragment)
+//                }
+//                R.id.faqFragment -> {
+//                    navView.setCheckedItem(R.id.animeFragment)
+//                }
+//            }
         }
 
         return binding.root

@@ -1,7 +1,6 @@
 package com.destructo.sushi.ui.user.mangaList
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
 import com.destructo.sushi.enum.UserMangaListSort
 import com.destructo.sushi.model.database.UserMangaEntity
@@ -10,13 +9,16 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.MangaDetailsDao
 import com.destructo.sushi.room.UserMangaDao
 import com.destructo.sushi.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class UserMangaViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val myMangaListRepo:MyMangaListRepository,
     private val userMangaDao: UserMangaDao,

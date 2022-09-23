@@ -1,16 +1,19 @@
 package com.destructo.sushi.ui.anime.animeSongs
 
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.destructo.sushi.model.jikan.anime.core.Anime
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class AnimeSongsViewModel
-@ViewModelInject
+@Inject
 constructor(
     val jikanApi: JikanApi,
 ) : ViewModel() {

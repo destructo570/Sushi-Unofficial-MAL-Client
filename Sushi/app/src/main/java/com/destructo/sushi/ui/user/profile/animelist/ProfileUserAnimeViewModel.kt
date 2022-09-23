@@ -1,19 +1,20 @@
 package com.destructo.sushi.ui.user.profile.animelist
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.destructo.sushi.model.jikan.user.animeList.ProfileUserAnimeList
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.ProfileAnimeListDao
 import com.destructo.sushi.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
+@HiltViewModel
 class ProfileUserAnimeViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val profileRepo: ProfileUserAnimeRepository,
     private val profileAnimeListDao: ProfileAnimeListDao

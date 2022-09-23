@@ -1,8 +1,6 @@
 package com.destructo.sushi.ui.auth
 
 import android.net.Uri
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.destructo.sushi.AC_GRANT_CODE
 import com.destructo.sushi.AR_GRANT_CODE
@@ -13,13 +11,16 @@ import com.destructo.sushi.network.MalAuthApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.util.PKCE
 import com.destructo.sushi.util.SessionManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val malAuthApi: MalAuthApi,
     private val sessionManager: SessionManager

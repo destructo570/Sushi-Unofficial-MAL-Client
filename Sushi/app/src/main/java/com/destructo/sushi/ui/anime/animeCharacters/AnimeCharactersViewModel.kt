@@ -1,7 +1,6 @@
 package com.destructo.sushi.ui.anime.animeCharacters
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -12,14 +11,16 @@ import com.destructo.sushi.model.jikan.anime.core.AnimeCharacterAndStaff
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeCharacterListDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+@HiltViewModel
 class AnimeCharactersViewModel
-    @ViewModelInject
+    @Inject
     constructor(
-        @Assisted
         savedStateHandle: SavedStateHandle,
         private val animeCharacterListDao: AnimeCharacterListDao,
         private val jikanApi: JikanApi,

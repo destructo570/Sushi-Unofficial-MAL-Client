@@ -1,7 +1,6 @@
 package com.destructo.sushi.ui.anime
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -11,12 +10,15 @@ import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.news.NewsItem
 import com.destructo.sushi.model.mal.promotion.PromotionalItem
 import com.destructo.sushi.network.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class AnimeViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     private val savedStateHandle: SavedStateHandle,
     private val animeRepo: AnimeRepository
 ) : ViewModel() {

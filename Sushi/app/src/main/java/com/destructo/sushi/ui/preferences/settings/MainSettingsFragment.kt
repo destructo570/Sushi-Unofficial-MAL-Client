@@ -10,15 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.findNavController
-import com.destructo.sushi.BuildConfig
-import com.destructo.sushi.IS_PRO_USER
 import com.destructo.sushi.R
-import com.destructo.sushi.SushiApplication
 import com.destructo.sushi.databinding.FragmentMainSettingsBinding
 import com.destructo.sushi.ui.base.BaseFragment
-import com.destructo.sushi.ui.purchaseActivity.PurchaseActivity
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -36,9 +30,6 @@ class MainSettingsFragment : BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPreferences
 
-    private lateinit var proPromo: MaterialCardView
-    private lateinit var buyNowButton: MaterialButton
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,24 +43,11 @@ class MainSettingsFragment : BaseFragment() {
         lookAndFeel = binding.lookAndFeel
         lookAndFeel.setOnClickListener(fun(_: View) {
 
-            if (BuildConfig.DEBUG) {
-                findNavController().navigate(
-                    R.id.action_mainSettingsFragment_to_lookAndFeelFragment,
-                    null,
-                    getAnimNavOptions()
-                )
-            } else {
-                if (sharedPref.getBoolean(IS_PRO_USER, false)) {
-                    findNavController().navigate(
-                        R.id.action_mainSettingsFragment_to_lookAndFeelFragment,
-                        null,
-                        getAnimNavOptions()
-                    )
-                } else {
-                    startPurchaseActivity()
-                }
-            }
-
+            findNavController().navigate(
+                R.id.action_mainSettingsFragment_to_lookAndFeelFragment,
+                null,
+                getAnimNavOptions()
+            )
         })
         appPreference = binding.appSettings
         appPreference.setOnClickListener {
@@ -95,16 +73,6 @@ class MainSettingsFragment : BaseFragment() {
                 getAnimNavOptions()
             )
         }
-        proPromo = binding.proPromo
-        buyNowButton = binding.promoCta
-
-        if (!SushiApplication.getContext().queryPurchases()) {
-            proPromo.visibility = View.VISIBLE
-        }
-
-        buyNowButton.setOnClickListener {
-            startPurchaseActivity()
-        }
 
         return binding.root
     }
@@ -119,12 +87,6 @@ class MainSettingsFragment : BaseFragment() {
         toolbar.setNavigationOnClickListener {
             activity?.drawer_layout?.openDrawer(GravityCompat.START)
         }
-    }
-
-
-    private fun startPurchaseActivity() {
-        val intent = Intent(context, PurchaseActivity::class.java)
-        startActivity(intent)
     }
 
 

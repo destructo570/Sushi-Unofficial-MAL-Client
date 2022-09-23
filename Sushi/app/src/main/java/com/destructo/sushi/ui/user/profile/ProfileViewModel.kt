@@ -1,7 +1,6 @@
 package com.destructo.sushi.ui.user.profile
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -13,12 +12,15 @@ import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.ProfileAnimeListDao
 import com.destructo.sushi.room.ProfileMangaListDao
 import com.destructo.sushi.room.ProfileUserFriendListDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class ProfileViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     private val profileRepo:ProfileRepository,
     private val profileAnimeListDao: ProfileAnimeListDao,

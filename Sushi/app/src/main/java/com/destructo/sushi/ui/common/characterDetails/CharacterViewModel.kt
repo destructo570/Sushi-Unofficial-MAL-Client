@@ -1,16 +1,17 @@
 package com.destructo.sushi.ui.common.characterDetails
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.destructo.sushi.model.jikan.character.Character
 import com.destructo.sushi.network.JikanApi
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class CharacterViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
+
     savedStateHandle: SavedStateHandle,
     val jikanApi: JikanApi
 ) : ViewModel() {

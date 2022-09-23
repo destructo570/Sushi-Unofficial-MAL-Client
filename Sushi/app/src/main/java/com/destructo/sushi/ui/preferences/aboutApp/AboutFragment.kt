@@ -17,7 +17,6 @@ import androidx.navigation.fragment.findNavController
 import com.destructo.sushi.BuildConfig
 import com.destructo.sushi.R
 import com.destructo.sushi.databinding.FragmentAboutBinding
-import com.destructo.sushi.ui.preferences.donation.DonationActivity
 import com.destructo.sushi.util.getColorFromAttr
 import com.destructo.sushi.util.openUrl
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -61,7 +60,6 @@ class AboutFragment : Fragment() {
         discordButton = binding.joinDiscord
         openSourceLicense = binding.openSourceLicense
         changelogButton = binding.changelog
-        donateButton = binding.donations
         translateSushiView = binding.translateSushi
         creditSection = binding.appCredits
         appVersion = binding.appVersion
@@ -82,9 +80,6 @@ class AboutFragment : Fragment() {
         }
         discordButton.setOnClickListener {
             context?.openUrl(getString(R.string.social_discord_link))
-        }
-        donateButton.setOnClickListener {
-            openDonationActivity()
         }
         openSourceLicense.setOnClickListener {
             startActivity(Intent(context, OssLicensesMenuActivity::class.java))
@@ -114,11 +109,6 @@ class AboutFragment : Fragment() {
         }
     }
 
-
-    private fun openDonationActivity() {
-        val intent = Intent(context, DonationActivity::class.java)
-        startActivity(intent)
-    }
 
     private fun sendFeedback() {
         val intent = Intent(Intent.ACTION_SENDTO)

@@ -120,6 +120,7 @@ class TopAnimeFragment : BaseFragment(), AdapterView.OnItemSelectedListener, Lis
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
+                else -> {}
             }
         }
 
@@ -136,6 +137,7 @@ class TopAnimeFragment : BaseFragment(), AdapterView.OnItemSelectedListener, Lis
                 Status.ERROR -> {
                     Timber.e("Error: %s", resource.message)
                 }
+                else -> {}
             }
         }
 

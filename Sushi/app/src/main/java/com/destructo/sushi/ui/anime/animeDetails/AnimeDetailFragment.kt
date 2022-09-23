@@ -33,7 +33,6 @@ import com.destructo.sushi.ui.anime.AnimeUpdateDialog
 import com.destructo.sushi.ui.anime.AnimeUpdateListener
 import com.destructo.sushi.ui.base.BaseFragment
 import com.destructo.sushi.util.*
-import com.facebook.ads.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint

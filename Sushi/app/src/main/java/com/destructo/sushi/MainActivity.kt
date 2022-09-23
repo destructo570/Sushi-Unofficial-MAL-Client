@@ -18,13 +18,10 @@ import coil.load
 import com.destructo.sushi.enum.AppTheme
 import com.destructo.sushi.room.UserInfoDao
 import com.destructo.sushi.util.SessionManager
-import com.destructo.sushi.util.show
-import com.google.android.gms.ads.*
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.profile_header_layout.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController:NavController
 
     private lateinit var navView:NavigationView
-    private lateinit var googleAdView : AdView
 
     private lateinit var profileHeader: ConstraintLayout
     private val mainViewModel: MainViewModel by viewModels()
@@ -82,7 +78,6 @@ class MainActivity : AppCompatActivity() {
         profileHeader = navView.getHeaderView(0) as ConstraintLayout
 
         setupDrawerLayout()
-        initializeGoogleAdmob()
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END)
         mainViewModel.getUserInfo("anime_statistics")
@@ -132,38 +127,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        if(::googleAdView.isInitialized && googleAdView != null){
-            googleAdView.destroy()
-        }
-        super.onDestroy()
-    }
-
-    private fun initializeGoogleAdmob(){
-        if(!BuildConfig.DEBUG){
-            if (!sharedPref.getBoolean(IS_PRO_USER, false)) {
-                MobileAds.initialize(this) {}
-
-                googleAdView = findViewById(R.id.adView)
-                val adRequest = AdRequest.Builder().build()
-                googleAdView.loadAd(adRequest)
-                googleAdView.adListener = object : AdListener(){
-
-                    override fun onAdFailedToLoad(p0: LoadAdError) {
-                        super.onAdFailedToLoad(p0)
-                        Timber.e("Failed To Load Ad")
-                    }
-
-                    override fun onAdLoaded() {
-                        super.onAdLoaded()
-                        fragmentContainerView.setPadding(0,0,0,140)
-                        googleAdView.show()
-                        Timber.e("Ad Loaded Successfully")
-                    }
-                }
-            }
-        }
-    }
 
     private fun setProfileHeaderListener(username: String?){
         profileHeader.setOnClickListener {

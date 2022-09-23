@@ -1,6 +1,5 @@
 package com.destructo.sushi.ui.manga.mangaReviews
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,13 +10,16 @@ import com.destructo.sushi.model.jikan.manga.ReviewEntity
 import com.destructo.sushi.network.JikanApi
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.MangaReviewListDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
+@HiltViewModel
 class MangaReviewsViewModel
-    @ViewModelInject
+    @Inject
     constructor(
         private val jikanApi: JikanApi,
         private val mangaReviewListDao: MangaReviewListDao

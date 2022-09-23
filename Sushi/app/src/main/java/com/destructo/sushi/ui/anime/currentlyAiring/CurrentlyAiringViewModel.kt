@@ -1,18 +1,19 @@
 package com.destructo.sushi.ui.anime.currentlyAiring
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.*
 import com.destructo.sushi.model.mal.animeRanking.AnimeRanking
 import com.destructo.sushi.model.mal.animeRanking.AnimeRankingData
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.AnimeRankingDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class CurrentlyAiringViewModel
-@ViewModelInject
+@Inject
 constructor(
-    @Assisted
     savedStateHandle: SavedStateHandle,
     private val currentlyAiringRepo: CurrentlyAiringRepository,
     private val animeRankingDao: AnimeRankingDao

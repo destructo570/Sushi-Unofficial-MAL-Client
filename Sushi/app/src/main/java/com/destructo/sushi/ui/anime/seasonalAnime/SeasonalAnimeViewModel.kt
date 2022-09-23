@@ -1,7 +1,6 @@
 package com.destructo.sushi.ui.anime.seasonalAnime
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,12 +9,15 @@ import com.destructo.sushi.model.jikan.season.SeasonArchive
 import com.destructo.sushi.model.mal.seasonalAnime.SeasonalAnime
 import com.destructo.sushi.network.Resource
 import com.destructo.sushi.room.SeasonAnimeDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class SeasonalAnimeViewModel
-    @ViewModelInject
+    @Inject
     constructor(
-        @Assisted
+
         savedStateHandle: SavedStateHandle,
         private val seasonalAnimeRepo:SeasonalAnimeRepository,
         private val seasonalDao: SeasonAnimeDao
